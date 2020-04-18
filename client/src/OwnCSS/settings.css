@@ -1,0 +1,28 @@
+.settings__centerContent {
+width:60%;
+margin:auto;
+text-align:center;
+margin-top:50px;
+margin-bottom:77px;
+}
+.settings__cogsIcon {
+  font-size:4.7em;
+  margin-bottom:15px;
+  color:#84af96;
+}
+.settings__constructionTitle {
+  font-size:1.62em;
+  font-weight:bold;
+  letter-spacing:-0.02em;
+  word-spacing:0.025em;
+  margin-bottom:8px;
+  line-height:1.28;
+  color:#84af96;
+
+}
+.settings__constructionMessage {
+  font-size:1.08em;
+  color:#84af96;
+  letter-spacing:0em;
+  word-spacing:0.025em;
+}

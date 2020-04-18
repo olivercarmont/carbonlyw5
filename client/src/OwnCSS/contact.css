@@ -1,0 +1,14 @@
+#contact__mainSection {
+  background-color:#fcfcfc;
+
+  margin-top:98px;
+  margin-bottom:52px;
+}
+.contact__descriptionBelowDonate {
+  width:45%;
+  color:#989898;
+  margin-top:0px;
+  margin-bottom:60px;
+  font-size:1.08em;
+  line-height:1.62;
+}

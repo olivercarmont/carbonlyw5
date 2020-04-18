@@ -1,0 +1,101 @@
+#analytics__ordersImage {
+  border-radius:12px;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:15px;
+  margin-bottom:15px;
+  width:87% !important;
+  /* height:55px; */
+  margin-right:-20px;
+}
+#analytics__recentOrdersTextSize {
+  padding-top:17px;
+  padding-bottom:17px;
+}
+#analytics__recentOrdersImageWidth {
+  width:76px;
+}
+#analytics__ordersSmall2 {
+ font-size:0.6em;
+ margin-left:0px;
+ display:inline-block;
+}
+#analytics__mainTextSideOrders {
+  font-size:0.93em;
+  letter-spacing:0.035em;
+  position:relative;
+  top:5px;
+}
+#analytics__recentOrdersTitle {
+  font-size:1.2em;
+  text-transform:none;
+  margin-top:10px;
+  position:relative;
+  top:6px;
+  margin-left:9px;
+}
+#analytics__recentOrdersTitleOffset {
+  font-size:1.2em;
+  text-transform:none;
+  margin-top:10px;
+  position:relative;
+  top:6px;
+  font-weight:400;
+  padding-bottom:20px;
+  margin-left:9px;
+}
+.analytics__offsetsSpacing {
+  display:block;
+  height:6px;
+}
+.analytics__offsetComingSoonMessage {
+  margin-top:15px;
+  margin-bottom:-30px;
+}
+.analytics__comingSoonTitle {
+  font-size:1.07em;
+}
+#analytics__destinationIconColour {
+  color:#75c79a !important;
+  /* #ffbba7 */
+}
+.analytics__selectedButton {
+border-bottom:2px solid #75c79a !important;
+}
+.analytics__selectedButton:hover {
+  box-shadow:none !important;
+}
+.analytics__notSelectedButton {
+  background-color:transparent !important;
+  background-image:transparent !important;
+}
+.analytics__notSelectedButton:hover {
+  border-bottom:2px solid #75c79a !important;
+  display:inline !important;
+  background-color:transparent !important;
+  background-image:transparent !important;
+  box-shadow:none !important;
+}
+.analytics__notSelectedButton:active {
+  border:1px solid transparent !important;
+}
+.analytics__selectedButton:active {
+  border:1px solid transparent !important;
+}
+.analytics__notSelectedButton:focus {
+  border:1px solid transparent !important;
+}
+.analytics__selectedButton:focus {
+  border:1px solid transparent !important;
+}
+#analytics__firstChart {
+  width:98.5% !important;
+  margin:auto;
+
+  /* background-color:red; */
+}
+#analytics__middleCharts {
+  width:96% !important;
+   margin:auto;
+
+  /* background-color:red; */
+}

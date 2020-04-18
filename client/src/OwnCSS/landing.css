@@ -1,0 +1,481 @@
+#landing__navBackground {
+  background-color:transparent;
+}
+.landing__navbarTopLogo {
+  width:30px;
+  position:relative;
+  top:-8px;
+}
+.landingPage__backgroundLogo {
+  width:390px;
+  position:relative;
+  top:-60px;
+  left:-20px;
+}
+.landingPage__description {
+  font-size:1.34em;
+
+}
+#landingPage__mainLogoText {
+  font-size:6.3em;
+  margin-bottom:4px;
+  letter-spacing:-0.01em;
+}
+#landing__howItWorks {
+  background-color:#fcfcfc;
+
+  display:flex;
+  flex-direction:row;
+
+  margin-top:89px;
+  margin-bottom:190px;
+}
+#landing__howItWorks2 {
+  background-color:#fff;
+
+  display:flex;
+  flex-direction:row;
+
+  margin-top:-10px;
+  padding-bottom:94px;
+  position:relative;
+  z-index:5;
+}
+#landing__awesomeFeaturesSecondContainer {
+  background-color:#fcfcfc;
+
+  display:flex;
+  flex-direction:row;
+
+  margin-top:92px;
+  margin-bottom:95px;
+
+
+}
+#landing__howItWorks3 {
+  background-color:#fff;
+
+  display:flex;
+  flex-direction:row;
+
+  padding-top:90px;
+  padding-bottom:98px;
+  position:relative;
+  z-index:5;
+}
+.landing__howItWorks__leftSide {
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.landing__howItWorksLeftSideContainer {
+  position:relative;
+  left:15%;
+}
+.landing__howItWorksSubtitle {
+  color:#8db8a2;
+  font-size:1.05em;
+  margin-bottom:-4px;
+  letter-spacing:0.01em;
+}
+.landing__howItWorksSubtitle2 {
+  color:#95b0c2;
+  font-size:1.05em;
+  margin-bottom:-4px;
+  letter-spacing:0.01em;
+}
+.landing__howItWorksSubtitle4 {
+  color:#bba3d5;
+  font-size:1.05em;
+  margin-bottom:-4px;
+  letter-spacing:0.01em;
+}
+.landing__howItWorksSubtitle3 {
+  color:#dcab93;
+  font-size:1.05em;
+  margin-bottom:-4px;
+  letter-spacing:0.01em;
+}
+
+.landing__howItWorksMainTitle {
+  font-size:2.2em;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  letter-spacing:-0.02em;
+  color:#333;
+  margin-bottom:25px;
+}
+.landing__howItWorksFirstContainerSelected {
+  margin-bottom:19px;
+  color:#8db8a2;
+
+}
+.landing__howItWorksFirstContainer {
+  margin-bottom:19px;
+  color:#c7c7c7;
+  cursor:pointer;
+}
+.landing__howItWorksFirstPoint {
+  font-size:1.25em;
+  font-weight:bold;
+  letter-spacing:0em;
+}
+.landing__howItWorksDescription {
+  font-size:0.99em;
+  margin-top:5px;
+  width:39%;
+  line-height:1.45;
+}
+.landing__howItWorksVideoContainer {
+  width:100%;
+  /* background-color:blue; */
+}
+.landing__howItWorksVideo {
+
+}
+.landing__topDiv {
+  background-color:#fcfcfc;
+}
+.landing__compatibleMarketplacesSection {
+
+}
+.landing__compatibleMarketplacesBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.landing__ourStasContainingDiv {
+  margin-top:-47px;
+  margin-bottom:19px;
+}
+.landing__ourStatsSubtitle3 {
+  color:#d9d9d9;
+  font-size:1.05em;
+  margin-bottom:-5px;
+
+}
+.landing__ourStatsMainTitle {
+  font-size:2.38em;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  letter-spacing:-0.01em;
+  color:#fafafa;
+  margin-bottom:25px;
+}
+.landing__compatibleMarketplacesPositioningCircle {
+
+}
+#landing__compatibleImage {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-258px;
+  margin-left:60px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+.landing__howItWorksMainTitle {
+
+}
+.landing__awesomeFeaturesText {
+  width:46%;
+  color:#a4a4a4;
+  line-height:1.57;
+  margin-top:0px;
+  font-size:1.04em;
+  letter-spacing:0em;
+  word-spacing:0.01em;
+}
+.landing__statsSection {
+  background-color:#fcfcfc;
+
+
+  /* display:flex;
+  flex-direction:row; */
+}
+.landing__ourStatsBottom {
+  display:flex;
+  flex-direction:column;
+
+  position:relative;
+  align-items:center;
+
+}
+.landing__ourStasContainingDiv {
+  margin-top:-23px;
+  display:inline-block;
+  margin-bottom:20px;
+}
+.landing__ourStatsSubtitleAc {
+  color:#d9d9d9;
+  font-size:1.03em;
+  margin-bottom:-5px;
+}
+.landing__ourStatsMainTitleAc {
+  font-size:2.6em;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  letter-spacing:-0.01em;
+  color:#fafafa;
+  margin-bottom:25px;
+}
+.landing__ourStatsNumber {
+  margin-right:-27px;
+}
+.landing__ourStatsNumber2 {
+  margin-right:-5px;
+}
+.landing__ourStatsNumber3 {
+  margin-right:9px;
+}
+.landing__ourStatsNumber4 {
+  margin-right:-8px;
+}
+.landing__treeIcon {
+  color:#fcfcfc;
+  margin-bottom:12px;
+  font-size:1.8em;
+}
+.landing__statsSmall2 {
+  font-size:0.6em;
+  position:relative;
+  top:2px;
+  left:1px;
+}
+.landing__ourTeamHeader {
+  position:relative;
+  left:50px;
+  margin-top:-98px;
+}
+#team {
+  background-color:#fcfcfc !important;
+  padding-top:180px;
+  position:relative;
+  margin-top:-100px;
+}
+#ourTeam {
+  display:flex;
+  padding-left:10%;
+  padding-right:10%;
+}
+#ourTeam2 {
+  display:flex;
+  padding-left:10%;
+  padding-right:10%;
+
+}
+.landing__ourTeamPerson {
+  width:250px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+
+}
+.landing__ourTeamsMainTitle {
+  font-size:1.82em;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  letter-spacing:-0.02em;
+  color:#333;
+  margin-bottom:25px;
+  margin-top:2px;
+}
+.landing__ourTeamPersonContainer {
+  width:100%;
+  /* background-color:red; */
+  align-items:center;
+  /* display:flex;
+  flex-direction:column;
+  text-align:center; */
+}
+.landing__ourTeamSpacing {
+  display:block;
+  height:60px;
+}
+.landing__ourTeamLeftSideContainer {
+  /* width:100%; */
+  /* display:flex;
+  flex-direction:column;
+  */
+  display:inline-block;
+  margin: 0 auto;
+  width:80%;
+  height:90%;
+  position:relative;
+
+  background-color:red;
+}
+.landing__ourTeam__leftSide {
+  width:100%;
+  display: inline-flex;
+  flex-direction:column;
+  justify-content: center;
+margin-left:auto;
+margin-right:auto;
+
+position:relative;
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center; */
+  background-color:blue;
+  margin: 0 auto;
+
+}
+.landing__ourTeamLeftSideContainer2 {
+  position: absolute;
+ top: 50%;
+ left: 50%;
+ width:auto;
+ display:inline;
+}
+#landing__getAppTitle {
+  font-size:2.38em;
+  font-family: "Poppins", sans-serif;
+  font-weight:bold;
+  letter-spacing:-0.01em;
+  word-spacing:0.04em;
+  color:#fcfcfc;
+  margin-bottom:25px;
+}
+.landing__tryItNowImage {
+  width:430px;
+
+}
+.landing__downloadDescription {
+  color:#ddd;
+  font-size:1.06em;
+  margin-left:2px;
+  margin-top:-9px;
+}
+#landing__positioningBottomInstallBtn {
+  margin-top:-20px;
+  border:none !important;
+  border-color:transparent;
+}
+#landingPage__chromeStoreButtonText {
+  line-height:1.28;
+  font-weight:400;
+  color:#936CE7;
+  letter-spacing:-0.01em !important;
+}
+.landing__bottomButtonAvailable {
+  letter-spacing:0.01em;
+}
+#landingPage__chromeStoreButtonText:hover {
+  color:#936CE7 !important;
+}
+#landing__positionRightDownloadSection {
+  display:flex;
+  flex-direction:column;
+
+margin-top:auto;
+margin-bottom:auto;
+}
+.landing__downloadImageLeft {
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.landing__downloadTextRight {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+}
+.landing__downloadSection {
+  display:flex;
+  margin-top:-106px;
+
+}
+.landing__downloadSectionTopContainer {
+  margin-top:195px;
+}
+.landing__downloadChromeIcon {
+  color:#936CE7;
+  font-size:2.03em;
+  margin-right:16px;
+}
+#landing__footerWhiteText {
+  color:#333;
+  font-size:0.95em;
+}
+#landing__footerCopyrightContainer {
+  float:right;
+  position:relative;
+  right:2.5%;
+}
+.landing__footerPageLinks {
+  float:left;
+  position:relative;
+  left:2.5%;
+}
+.landing__individualPageLinks {
+  float:left;
+  margin-right:15px;
+  letter-spacing:-0.01em;
+  color:#333 !important;
+  opacity:0.9;
+  cursor:pointer;
+  transition:0.6s;
+}
+.landing__individualPageLinksText {
+  color:#333 !important;
+  opacity:0.9;
+}
+.landing__individualPageLinks:hover {
+  opacity:0.7;
+  transition:0.6s;
+}
+.landing__footerLogo {
+  width:35px;
+  position:relative;
+  top:20px;
+  margin-bottom:-5px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+#footer {
+  z-index:10;
+  position:relative;
+  margin-top:-90px;
+  bottom:0px;
+
+  /* background-color:#fcfcfc !important; */
+}
+
+#landing__positioningTopAddButton {
+  position:relative;
+  top:45px;
+}
+.landing__chromeIconTop {
+  font-size:1.1em;
+  margin-left:6px;
+  margin-top:-1px;
+}
+.landing__ourTeamHeader {
+  position:relative;
+  top:-90px;
+  margin:auto;
+  width:70%;
+  margin-bottom:-35px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction:column;
+  align-items:center;
+
+  /* background-color:red; */
+}
+.landing__ourTeamSubtitle {
+  color:#8db8a2;
+  font-size:1.02em;
+  margin-bottom:-4px;
+  letter-spacing:0.01em;
+}
