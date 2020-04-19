@@ -282,6 +282,8 @@ class Analytics extends React.Component {
     })
   .then(response => {
 
+      this.setState({ allUsers: response.data.info[4] });
+
       chartExample1 = {
       data1: canvas => {
         let ctx = canvas.getContext("2d");
@@ -414,29 +416,69 @@ class Analytics extends React.Component {
         gradientStroke.addColorStop(0, "rgba(137, 179, 157,0)"); //blue colors
 
         return {
-          labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          labels: this.rankGraphDataLabels(),
           datasets: [
             {
-              label: "Data",
+              label: "Offsets",
               fill: true,
               backgroundColor: gradientStroke,
+              hoverBackgroundColor: gradientStroke,
               borderColor: "#75c79a",
               borderWidth: 2,
               borderDash: [],
               borderDashOffset: 0.0,
-              pointBackgroundColor: "#75c79a",
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: "#75c79a",
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [80, 100, 70, 80, 120, 80]
+              data: this.rankingGraphData(),
             }
           ]
         };
       },
-      options: chart1_2_options
+      options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "#f5f5f5",
+          titleFontColor: "#333",
+          bodyFontColor: "#666",
+          bodySpacing: 4,
+          xPadding: 12,
+          mode: "nearest",
+          intersect: 0,
+          position: "nearest"
+        },
+        responsive: true,
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                drawBorder: false,
+                color: "rgba(225,78,202,0.1)",
+                zeroLineColor: "transparent"
+              },
+              ticks: {
+                suggestedMin: 60,
+                suggestedMax: 120,
+                padding: 20,
+                fontColor: "#9e9e9e"
+              }
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                drawBorder: false,
+                color: "rgba(225,78,202,0.1)",
+                zeroLineColor: "transparent"
+              },
+              ticks: {
+                padding: 20,
+                fontColor: "#9e9e9e"
+              }
+            }
+          ]
+        }
+      }
     };
 
       chartExample3 = {
@@ -1032,6 +1074,137 @@ class Analytics extends React.Component {
   roundNumber(num) {
     return Math.round(num * 10) / 10;
   }
+  rankingGraphData() {
+
+    let usValues = [];
+
+    if (this.state.userRank === 1) {
+
+    usValues = [this.state.allUsers[0].offsets, this.state.allUsers[1].offsets, this.state.allUsers[2].offsets, this.state.allUsers[3].offsets, this.state.allUsers[4].offsets];
+
+    } else if (this.state.userRank === 2) {
+
+    usValues = [this.state.allUsers[0].offsets, this.state.allUsers[1].offsets, this.state.allUsers[2].offsets, this.state.allUsers[3].offsets, this.state.allUsers[4].offsets]
+
+  } else if (this.state.userRank === this.state.allUsers.length) {
+
+    usValues = [this.state.allUsers[this.state.userRank-5].offsets, this.state.allUsers[this.state.userRank-4].offsets, this.state.allUsers[this.state.userRank-3].offsets, this.state.allUsers[this.state.userRank-2].offsets, this.state.user.offsets]
+
+    } else if (this.state.userRank === (this.state.allUsers.length - 1))
+
+    usValues = [this.state.allUsers[this.state.userRank-5].offsets, this.state.allUsers[this.state.userRank-4].offsets, this.state.allUsers[this.state.userRank-3].offsets, this.state.user.offsets, this.state.allUsers[this.state.userRank].offsets, ]
+
+    else {
+
+    let userM1, userM2, userP1, userP2;
+
+    this.state.allUsers.map((us) => {
+
+      if (us.rank === (this.state.userRank - 2)) {
+        userM2 = us.offsets;
+      } else if (us.rank === (this.state.userRank - 1)) {
+        userM1 = us.offsets;
+      } else if (us.rank === (this.state.userRank + 1)) {
+        userP1 = us.offsets;
+      } else if (us.rank === (this.state.userRank + 2)) {
+        userP2 = us.offsets;
+      }
+
+      });
+
+      usValues = [userM1, userM2, this.state.user.offsets, userP1, userP2];
+
+      }
+
+      return usValues;
+
+  }
+  rankGraphDataLabels() {
+
+  let usNames = [];
+
+  if (this.state.userRank === 1) {
+
+  usNames = ['You', `@` + this.state.allUsers[1].username, `@` + this.state.allUsers[2].username, `@` + this.state.allUsers[3].username, `@` + this.state.allUsers[4].username];
+
+  } else if (this.state.userRank === 2) {
+
+  usNames = [`@` + this.state.allUsers[0].username, 'You', `@` + this.state.allUsers[2].username, `@` + this.state.allUsers[3].username, `@` + this.state.allUsers[4].username]
+
+} else if (this.state.userRank === this.state.allUsers.length) {
+
+  usNames = [`@` + this.state.allUsers[this.state.userRank-5].username, `@` + this.state.allUsers[this.state.userRank-4].username, `@` + this.state.allUsers[this.state.userRank-3].username, `@` + this.state.allUsers[this.state.userRank-2].username, 'You']
+
+  } else if (this.state.userRank === (this.state.allUsers.length - 1))
+
+  usNames = [`@` + this.state.allUsers[this.state.userRank-5].username, `@` + this.state.allUsers[this.state.userRank-4].username, `@` + this.state.allUsers[this.state.userRank-3].username, 'You', `@` + this.state.allUsers[this.state.userRank].username, ]
+
+  else {
+
+  let userM1, userM2, userP1, userP2;
+
+  this.state.allUsers.map((us) => {
+
+    if (us.rank === (this.state.userRank - 2)) {
+      userM2 = `@` + us.username;
+    } else if (us.rank === (this.state.userRank - 1)) {
+      userM1 = `@` + us.username;
+    } else if (us.rank === (this.state.userRank + 1)) {
+      userP1 = `@` + us.username;
+    } else if (us.rank === (this.state.userRank + 2)) {
+      userP2 = `@` + us.username;
+    }
+
+    });
+
+    usNames = [userM1, userM2, 'You', userP1, userP2];
+
+    }
+
+    return usNames;
+  }
+  returnOffsets(amount) {
+
+  let calcData;
+
+    if (amount === 0) {
+
+      return `${amount}kg`;
+
+    } else if (amount > 9999) {
+
+      calcData = amount / 1000;
+
+      calcData = Math.round(calcData);
+
+      return `${calcData}t CO`
+
+    } else if (amount > 10000000) {
+
+      calcData = amount / 1000;
+
+      calcData = Math.round(calcData);
+
+      return `${calcData}Mt`
+
+    } else {
+      let calcData = Math.round(amount);
+      return `${calcData}kg`;
+    }
+  }
+  returnTotalOffsets() {
+
+    let offsetAmount = 0;
+
+    this.state.user.offsets.map((off) => {
+      offsetAmount += parseFloat(off.amount);
+    })
+
+    console.log('offsetAmount', offsetAmount)
+
+    return ` ${this.returnOffsets(offsetAmount)} CO`;
+
+  }
   render() {
     return (
       <>
@@ -1138,11 +1311,11 @@ class Analytics extends React.Component {
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <div className="chart-area" >
-                  {/*  <Line id="analytics__middleCharts"
+                  <div className="chart-area" id="analytics__middleCharts">
+                    <Bar
                       data={chartExample2.data}
                       options={chartExample2.options}
-                    /> */}
+                    />
                   </div>
                 </CardBody>
               </Card>
@@ -1171,7 +1344,7 @@ class Analytics extends React.Component {
                 <CardHeader>
                   <h5 className="card-category">Offsets</h5>
                   <CardTitle tag="h3">
-                    <i className="tim-icons icon-world text-success" id="analytics__destinationIconColour" /> {40}kg CO<span style={{ fontSize: '0.47em', top: '3px', position: 'relative' }}>2</span>
+                    <i className="tim-icons icon-world text-success" id="analytics__destinationIconColour" />{this.returnTotalOffsets()}<span style={{ fontSize: '0.47em', top: '3px', position: 'relative' }}>2</span>
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

@@ -431,3 +431,8 @@ float:left;
   letter-spacing:0em;
   font-size:0.94em;
 }
+#profile__friendsCentering {
+  display:inline-block;
+  display:flex;
+  justify-content:center;
+}

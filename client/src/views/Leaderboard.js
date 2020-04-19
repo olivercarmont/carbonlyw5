@@ -30,6 +30,8 @@ import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-left';
 import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
 
+import personCircle from '@iconify/icons-ion/person-circle';
+
 import axios from 'axios';
 
 // reactstrap components
@@ -52,6 +54,8 @@ class Leaderboard extends React.Component {
     super(props);
     this.state = {
       global: true,
+      friendsMove: 1,
+      searchValue: '',
       lineOptions: {
         scales: {
           yAxes: [{
@@ -91,7 +95,17 @@ class Leaderboard extends React.Component {
 
        this.setState({ user: response.data.info[0] });
        this.setState({ allUsers: response.data.info[4] });
-       this.setState({ userRank: response.data.info[3].usrank });
+
+
+       let shuffleUsers = response.data.info[4].map((el) => {
+         return el;
+       })
+
+       this.setState({ search: this.shuffleArray(shuffleUsers) });
+
+
+      this.setState({ userRank: response.data.info[3].usrank });
+      this.setState({ friends: response.data.info[1] });
 
       // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
        // console.log('user', response.data.info[0]);
@@ -142,17 +156,29 @@ class Leaderboard extends React.Component {
       return `${calcData}kg`;
     }
   }
-  returnOffsetWidth(num) {
+  returnOffsetWidth(offsets) {
 
-    if (this.state.allUsers[num].offsets === 0) {
-      return 0.3;
+    let comparison;
+
+    if (this.returnAllUsersLeaderboard()[0].publicId === this.state.user.publicId) {
+      comparison = this.returnUserOffsetsLeaderboard();
+    } else {
+      comparison = parseFloat(this.returnAllUsersLeaderboard()[0].offsets);
+    }
+
+    console.log('comp', comparison)
+
+    if (offsets === 0) {
+      return 0.2;
     } else {
 
-    let ratio = this.state.allUsers[num].offsets / this.state.allUsers[0].offsets;
+    let ratio = offsets / comparison;
 
-    if (ratio > 0.3) {
+    console.log('ratio', ratio);
 
-      return 0.3;
+    if (ratio < 0.45) {
+
+      return 0.45;
 
     } else {
 
@@ -174,15 +200,348 @@ returnUserOffsets() {
   return `${this.returnOffsets(offsetAmount)} CO2`;
 }
 returnAddFriendsContainerNum() {
-  if (this.state.user.friends.length < 2) {
+  if (this.state.friends.length < 2) {
     return 4;
   }
+}
+shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+updateSearchFunction() {
+
+var search = [];
+
+// let searchStrings = this.state.searchValue.match(/.{1,3}/g);
+//
+// console.log('searchStrings', searchStrings);
+
+this.state.allUsers.map((user) => {
+
+  if (user.name.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
+    search.push(user);
+  } else if (user.username.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
+    search.push(user);
+  }
+
+
+})
+
+this.setState({ search });
+
+}
+updateSearchValue(e) {
+  this.setState({ searchValue: e.target.value });
+  this.updateSearchFunction();
+}
+insertAddFriendsContainer() {
+
+  let shuffledUsers = this.state.search;
+
+  console.log('updated', this.state.searchValue);
+
+  console.log('updated', this.state.search);
+
+
+
+  return (<Col md="4">
+  <Card>
+
+  <CardHeader>
+
+  <div className="leaderboard__addFriendsTitle">Add Friends <div className="leaderboard__sideIcon"><i className="tim-icons icon-chat-33" /></div> </div>
+
+  <div className="leaderboard__searchMargins"><input id="leaderboard__addFriendsSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="Search" /><div className="leaderboard__addFriendsPositionSearch"><i className="tim-icons icon-zoom-split" /></div></div>
+
+  <div className="leaderboard__addFriendsScrollableContainer">
+
+  {console.log('search', this.state.search)}
+
+  {this.state.search.map((userf) => {
+
+    return(<div>
+  <div className="leaderboard__addFriendsMainRow">
+
+  <img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/>
+  <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">{userf.name}</div><div className="leaderboard__addFriendsUsername">@{userf.username}</div></div>
+
+  {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div></div> : undefined}
+
+  </div>
+
+  <div className="leaderboard__addFriendsIndvSpacing"></div>
+
+
+  </div>)
+
+  })}
+
+  </div>
+
+
+  </CardHeader>
+  <CardBody>
+
+
+
+  </CardBody>
+
+  </Card>
+  </Col>);
+}
+returnFriends() {
+  let friend1 = this.state.friendsMove - 1;
+
+    return (<Col md="4">
+    <Card>
+    <CardBody>
+
+    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    {this.state.friendsMove > 1 ? <div className="leaderboard__bottomLeftArrow" onClick={() => this.shiftFriendsLeft()}><Icon icon={outlineKeyboardArrowLeft} /></div> : undefined }
+
+    <div className="leaderboard__bottomCenterImage">
+    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
+    </div>
+
+    <div className="leaderboard__nameAndUsernamContainerBottom">
+    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</h5>
+  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</p>
+  </div>
+
+  <div className="leaderboard__bottomComparisonAndCarbonContainer">
+
+  <div className="leaderboard__graphsLagerContainer">
+  <div className="leaderboard__bottomComparisonGraphsMargins">
+
+  <Line
+    data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+              datasets: [{
+              data: [55,40,35,25,18,5,2],
+              label: "Ranking",
+              borderColor: "#e07073",
+              fill: false
+            }, { data: [10,5,6,6,2,5,3],
+            label: "Ranking",
+            borderColor: "#a9dbc0",
+            fill: false }] } }
+    options={this.state.lineOptions}
+  />
+
+</div></div>
+
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend1].offsetAmount))}</div></div></div>
+
+</div>
+
+    </CardBody>
+
+    </Card>
+    </Col>)
+
+}
+shiftFriendsLeft() {
+  this.setState({ friendsMove: this.state.friendsMove - 2 });
+}
+shiftFriendsRight() {
+  this.setState({ friendsMove: this.state.friendsMove + 2 });
+}
+returnFriendsTwo() {
+
+  let friend2 = this.state.friendsMove;
+  let checkFLength = friend2 + 1;
+
+  if (this.state.friends.length >= checkFLength) {
+
+    return (<Col md="4">
+    <Card>
+    <CardBody>
+
+    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    {this.state.friends.length > checkFLength ? <div className="leaderboard__bottomRightArrow" onClick={() => this.shiftFriendsRight()}><Icon icon={outlineKeyboardArrowRight} /></div> : undefined}
+
+    <div className="leaderboard__bottomCenterImage">
+    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
+    </div>
+
+    <div className="leaderboard__nameAndUsernamContainerBottom">
+    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</h5>
+  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</p>
+  </div>
+
+  <div className="leaderboard__bottomComparisonAndCarbonContainer">
+
+  <div className="leaderboard__graphsLagerContainer">
+  <div className="leaderboard__bottomComparisonGraphsMargins">
+
+  <Line
+    data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+              datasets: [{
+              data: [55,40,35,25,18,5,2],
+              label: "Ranking",
+              borderColor: "#e07073",
+              fill: false
+            }, { data: [10,5,6,6,2,5,3],
+            label: "Ranking",
+            borderColor: "#a9dbc0",
+            fill: false }] } }
+    options={this.state.lineOptions}
+  />
+
+</div></div>
+
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend2].offsetAmount))}</div></div></div>
+
+</div>
+
+    </CardBody>
+
+    </Card>
+    </Col>)
+
+
+  } else {
+
+    return (<Col md="4">
+    <Card>
+    <CardBody>
+
+  {/*  <hr className="leaderboard__noUserHr1" />
+
+    <hr className="leaderboard__noUserHr2" />
+
+    <hr className="leaderboard__noUserHr3" />
+
+    <hr className="leaderboard__noUserHr4" /> */}
+
+    <div className="leaderboard__noUserMargins">
+
+    <Icon icon={personCircle} className="leaderboard__noUserIcon" />
+
+    <div className="leaderboard__noUserFriendName">Best Friend</div>
+
+    <div className="leaderboard__noUserFriendUsername">@bestFriend</div>
+
+    <div className="leaderboard__bottomComparisonAndCarbonContainer">
+
+    <div className="leaderboard__graphsLagerContainerNoUser">
+    <div className="leaderboard__bottomComparisonGraphsMargins">
+
+    <Line
+      data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+                datasets: [{
+                data: [55,40,35,25,18,5,2],
+                label: "Ranking",
+                borderColor: "#e07073",
+                fill: false
+              }, { data: [10,5,6,6,2,5,3],
+              label: "Ranking",
+              borderColor: "#a9dbc0",
+              fill: false }] } }
+      options={this.state.lineOptions}
+    />
+
+  </div></div>
+
+  <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottomNoUser"><div className="leaderboard__mainCO2EmissionsAddFriends">{'5t CO2'}</div></div></div>
+
+  </div>
+
+    <div className="leaderboard__noUserHeight"></div>
+
+    </div>
+
+    </CardBody>
+
+    </Card>
+    </Col>)
+
+  }
+
+}
+returnFriendsRanks() {
+
+  let newFriends = this.state.friends.map((friend) => { return friend });
+
+  let insertUser = this.state.user;
+
+  insertUser['rank'] = this.state.userRank;
+
+  let userOffsets = 0;
+
+  insertUser.offsets.map((off) => {
+    userOffsets += parseFloat(off.amount);
+  });
+
+  insertUser['offsetAmount'] = userOffsets;
+
+  newFriends.push(this.state.user);
+
+  return newFriends.sort((a, b) => (a.rank > b.rank) ? 1 : -1)
+}
+returnAllUsersLeaderboard() {
+
+  let newUsers = this.state.allUsers.map((user) => {
+
+    if (user.publicId === this.state.user.publicId) {
+      user['rank'] = this.state.userRank;
+    }
+
+    return user;
+
+  });
+
+  return newUsers.sort((a, b) => (a.rank > b.rank) ? 1 : -1)
+}
+returnFriendOffsetWidth(offsets) {
+
+  let comparison = this.returnFriendsRanks()[0].offsetAmount;
+
+  if (offsets === 0) {
+    return 0.2;
+  } else {
+
+  let ratio = offsets / comparison;
+
+  if (ratio < 0.3) {
+
+    return 0.3;
+
+  } else {
+
+    return ratio;
+
+  }
+}
+
+}
+returnUserOffsetsLeaderboard() {
+
+  let totOffsets = 0;
+  this.state.user.offsets.map((off) => {
+    totOffsets += parseFloat(off.amount);
+  })
+
+  return totOffsets;
 }
   render() {
     return (
       <>
         <div className="content">
-        {this.state.user && this.state.allUsers && this.state.userRank ? <div>
+        {this.state.user && this.state.allUsers && this.state.userRank && this.state.friends && this.state.search ? <div>
           <Row>
             <Col md="8">
               <Card>
@@ -190,100 +549,72 @@ returnAddFriendsContainerNum() {
                 <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
 
                 <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
-
-
                   <Form>
                     <Row>
-                      <Col className="pr-md-1" md="5">
 
                       <div className="leaderboard__mainContentMargins">
 
-                      <div className="leaderboard__mainRow">
-                      <div className="leaderboard__mainNumber">&nbsp;1</div>
-                      <img src={require(`../assets/img/${this.state.allUsers[0].avatar}`)} className="leaderboard__mainImage"/>
-                      <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{this.state.allUsers[0].name}</div><div className="leaderboard__mainDate">@{this.state.allUsers[0].username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainer" style={{ width: 15 + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(this.state.allUsers[0].offsets)}</div></div></div>
+                      {this.state.global ? <div>
 
-                      <div className="leaderboard__individualLineMargins">
-                          <Line
-                            data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                                      datasets: [{
-                                      data: [106,107,111,50,20,10,4],
-                                      label: "Ranking",
-                                      borderColor: "#a9dbc0",
-                                      fill: false
-                                    }] } }
-                            options={this.state.lineOptions}
-                          />
-                        </div>
+                      {this.returnAllUsersLeaderboard().map((user) => {
 
-                      </div>
+                        return (<div className="leaderboard__mainRow">
+                        <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
+                        <img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/>
+                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsets) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsets)}</div></div></div>
 
-                      <div className="leaderboard__mainRow">
-                      <div className="leaderboard__mainNumber">2</div>
-                      <img src={require(`../assets/img/${this.state.allUsers[1].avatar}`)} className="leaderboard__mainImage"/>
-                      <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{this.state.allUsers[1].name}</div><div className="leaderboard__mainDate">@{this.state.allUsers[1].username}</div></div>
-                      <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainer" style={{ width: (this.returnOffsetWidth(1) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(this.state.allUsers[1].offsets)}</div></div></div>
+                        <div className="leaderboard__individualLineMargins">
+                            <Line
+                              data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+                                        datasets: [{
+                                        data: [106,107,111,50,20,10,4],
+                                        label: "Ranking",
+                                        borderColor: "#a9dbc0",
+                                        fill: false
+                                      }] } }
+                              options={this.state.lineOptions}
+                            />
+                          </div>
 
-                      <div className="leaderboard__individualLineMargins">
-                          <Line
-                            data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                                      datasets: [{
-                                      data: [5,5,4,6,7,5,4],
-                                      label: "Ranking",
-                                      borderColor: "#a9dbc0",
-                                      fill: false
-                                    }] } }
-                            options={this.state.lineOptions}
-                          />
-                        </div>
+                        </div>)
 
-                      </div>
 
-                      <div className="leaderboard__mainRow">
-                      <div className="leaderboard__mainNumber">3</div>
-                      <img src={require(`../assets/img/${this.state.allUsers[2].avatar}`)} className="leaderboard__mainImage"/>
-                      <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{this.state.allUsers[2].name}</div><div className="leaderboard__mainDate">@{this.state.allUsers[2].username}</div></div>
-                      <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainer" style={{ width: (this.returnOffsetWidth(2) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(this.state.allUsers[2].offsets)}</div></div></div>
+                      })}</div> :
 
-                      <div className="leaderboard__individualLineMargins">
-                          <Line
-                            data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                                      datasets: [{
-                                      data: [30,10,16,12,9,9,8],
-                                      label: "Ranking",
-                                      borderColor: "#a9dbc0",
-                                      fill: false
-                                    }] } }
-                            options={this.state.lineOptions}
-                          />
-                        </div>
+                      <div className="leaderboard__friendRightShift">{this.returnFriendsRanks().map((friend) => {
+
+                        return (
+                          <div className="leaderboard__mainRow">
+                          <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
+                          <img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/>
+                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(friend.offsetAmount)}</div></div></div>
+
+                          <div className="leaderboard__individualLineMargins">
+                              <Line
+                                data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+                                          datasets: [{
+                                          data: [106,107,111,50,20,10,4],
+                                          label: "Ranking",
+                                          borderColor: "#a9dbc0",
+                                          fill: false
+                                        }] } }
+                                options={this.state.lineOptions}
+                              />
+                            </div>
+
+                          </div>
+                        )
+
+
+
+                      })}</div>
+
+
+                      }
 
                       </div>
 
-                      <div className="leaderboard__mainRow">
-                      <div className="leaderboard__mainNumber">4</div>
-                      <img src={require(`../assets/img/${this.state.allUsers[3].avatar}`)} className="leaderboard__mainImage"/>
-                      <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{this.state.allUsers[3].name}</div><div className="leaderboard__mainDate">@{this.state.allUsers[3].username}</div></div>
-                      <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainer" style={{ width: (this.returnOffsetWidth(3) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(this.state.allUsers[3].offsets)}</div></div></div>
 
-                      <div className="leaderboard__individualLineMargins">
-                          <Line
-                            data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                                      datasets: [{
-                                      data: [5,4,6,4,7,8,9],
-                                      label: "Ranking",
-                                      borderColor: "#e07073",
-                                      fill: false
-                                    }] } }
-                            options={this.state.lineOptions}
-                          />
-                        </div>
-
-                      </div>
-
-                      </div>
-
-                      </Col>
                     </Row>
                   </Form>
                   <div className="leaderboard__leaderboardBottomCardSpacing"></div>
@@ -348,190 +679,37 @@ returnAddFriendsContainerNum() {
               </Card>
             </Col>
 
-            {this.state.user.friends.length > 2 ? <div>
+          </Row>
 
-            <Col md="4">
+          {this.state.friends.length > 0 ? <Row>{this.returnFriends()}{this.returnFriendsTwo()}{this.insertAddFriendsContainer()}</Row>
+
+
+           :
+
+          <Col md="8">
             <Card>
-            <CardBody>
+              <CardHeader>
+              <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
 
-                <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
-                <div className="leaderboard__bottomLeftArrow"><Icon icon={outlineKeyboardArrowLeft} /></div>
+              <div className="leaderboard__noFriendsRightPointer">
+              <Icon icon={handPointRight} /></div>
 
-                <div className="leaderboard__bottomCenterImage">
-                <img src={require("../assets/img/avatars/mainProfileImage-4.png")} className="leaderboard__friendsImg" />
-                </div>
 
-                <div className="leaderboard__nameAndUsernamContainerBottom">
-                <h5 className="title" id="leaderboard__sideNameBottom">Laurence Holmes</h5>
-              <p className="description" id="leaderabord__sideUsernameBottom">@{'lholmes'}</p>
-              </div>
+              <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
 
-              <div className="leaderboard__bottomComparisonAndCarbonContainer">
+              </CardHeader>
 
-              <div className="leaderboard__graphsLagerContainer">
-              <div className="leaderboard__bottomComparisonGraphsMargins">
-
-              <Line
-                data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                          datasets: [{
-                          data: [5,4,6,4,7,8,9],
-                          label: "Ranking",
-                          borderColor: "#e07073",
-                          fill: false
-                        }, { data: [10,5,6,6,2,5,3],
-                        label: "Ranking",
-                        borderColor: "#a9dbc0",
-                        fill: false }] } }
-                options={this.state.lineOptions}
-              />
-
-            </div></div>
-
-            <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">15kg</div></div></div>
-
-            </div>
-
-            </CardBody>
+              <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
 
             </Card>
-            </Col>
+          </Col>}
 
-            <Col md="4">
-            <Card>
-            <CardBody>
+          {this.state.friends.length === 0 ?
 
-            <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
-            <div className="leaderboard__bottomRightArrow"><Icon icon={outlineKeyboardArrowRight} /></div>
-
-            <div className="leaderboard__bottomCenterImage">
-            <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-            </div>
-
-            <div className="leaderboard__nameAndUsernamContainerBottom">
-            <h5 className="title" id="leaderboard__sideNameBottom">Matilde Woods</h5>
-          <p className="description" id="leaderabord__sideUsernameBottom">@{'mwoods01'}</p>
-          </div>
-
-          <div className="leaderboard__bottomComparisonAndCarbonContainer">
-
-          <div className="leaderboard__graphsLagerContainer">
-          <div className="leaderboard__bottomComparisonGraphsMargins">
-
-          <Line
-            data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
-                      datasets: [{
-                      data: [55,40,35,25,18,5,2],
-                      label: "Ranking",
-                      borderColor: "#e07073",
-                      fill: false
-                    }, { data: [10,5,6,6,2,5,3],
-                    label: "Ranking",
-                    borderColor: "#a9dbc0",
-                    fill: false }] } }
-            options={this.state.lineOptions}
-          />
-
-        </div></div>
-
-        <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">14kg</div></div></div>
-
-        </div>
-
-            </CardBody>
-
-            </Card>
-            </Col>
-            </div> :
-
-            <Col md="8">
-              <Card>
-                <CardHeader>
-                <div className="leaderboard__mainTitle">No Friends to Show <Icon icon={sadTear} /></div> </div>
-
-                <div className="leaderboard__noFriendsRightPointer">
-                <Icon icon={handPointRight} /></div>
+          this.insertAddFriendsContainer() : undefined}
 
 
-                <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
-
-                <div className="leaderboard__leaderboardBottomCardSpacing"></div>
-                </CardHeader>
-
-              </Card>
-            </Col>}
-
-            <Col md={this.returnAddFriendsContainerNum()}>
-            <Card>
-
-            <CardHeader>
-
-            <div className="leaderboard__addFriendsTitle">Add Friends <div className="leaderboard__sideIcon"><i className="tim-icons icon-chat-33" /></div> </div>
-
-            <div className="leaderboard__searchMargins"><input id="leaderboard__addFriendsSearch" placeholder="Search" /><div className="leaderboard__addFriendsPositionSearch"><i className="tim-icons icon-zoom-split" /></div></div>
-
-            <div className="leaderboard__addFriendsScrollableContainer">
-
-            <div className="leaderboard__addFriendsMainRow">
-
-            <img src={require("../assets/img/avatars/mainProfileImage.png")} className="leaderboard__addFriendsImg"/>
-            <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">James Carlson</div><div className="leaderboard__addFriendsUsername">@jamescarlson</div></div>
-
-            <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div>
-
-
-            </div>
-
-            </div>
-
-            <div className="leaderboard__addFriendsIndvSpacing"></div>
-
-            <div className="leaderboard__addFriendsMainRow">
-
-            <img src={require("../assets/img/avatars/mainProfileImage4.png")} className="leaderboard__addFriendsImg"/>
-            <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">Carl Austin</div><div className="leaderboard__addFriendsUsername">@caustin</div></div>
-
-            <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div></div>
-
-            </div>
-
-            <div className="leaderboard__addFriendsIndvSpacing"></div>
-
-            <div className="leaderboard__addFriendsMainRow">
-
-            <img src={require("../assets/img/avatars/mainProfileImage4.png")} className="leaderboard__addFriendsImg"/>
-            <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">Carl Austin</div><div className="leaderboard__addFriendsUsername">@caustin</div></div>
-
-            <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div></div>
-
-            </div>
-
-            <div className="leaderboard__addFriendsIndvSpacing"></div>
-
-            <div className="leaderboard__addFriendsMainRow">
-
-            <img src={require("../assets/img/avatars/mainProfileImage4.png")} className="leaderboard__addFriendsImg"/>
-            <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">Carl Austin</div><div className="leaderboard__addFriendsUsername">@caustin</div></div>
-
-            <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div></div>
-
-            </div>
-
-            <div className="leaderboard__addFriendsIndvSpacing"></div>
-
-            </div>
-
-            </CardHeader>
-            <CardBody>
-
-
-
-            </CardBody>
-
-            </Card>
-            </Col>
-
-
-          </Row></div>: undefined}
+          </div>: undefined}
         </div>
       </>
     );

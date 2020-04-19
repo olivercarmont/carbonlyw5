@@ -23,6 +23,7 @@ import TableList from "./views/TableList.js";
 import Settings from "./views/Settings.js";
 import Typography from "./views/Typography.js";
 import Profile from "./views/Profile.js";
+import UserProfile from "./views/UserProfile.js";
 import Leaderboard from "./views/Leaderboard.js";
 
 var routes = [
@@ -58,6 +59,15 @@ var routes = [
     name: "Profile",
     icon: "tim-icons icon-single-02",
     component: Profile,
+    layout: "/",
+    disabled: false,
+    emoji: '😉',
+  },
+  {
+    path: "/user/:id",
+    name: "User Profile",
+    icon: "tim-icons icon-single-02",
+    component: UserProfile,
     layout: "/",
     disabled: false,
     emoji: '😉',
