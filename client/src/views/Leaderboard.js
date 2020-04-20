@@ -310,16 +310,16 @@ returnFriends() {
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friendsMove > 1 ? <div className="leaderboard__bottomLeftArrow" onClick={() => this.shiftFriendsLeft()}><Icon icon={outlineKeyboardArrowLeft} /></div> : undefined }
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.friends[friend1].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</p>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</a>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -370,16 +370,16 @@ returnFriendsTwo() {
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friends.length > checkFLength ? <div className="leaderboard__bottomRightArrow" onClick={() => this.shiftFriendsRight()}><Icon icon={outlineKeyboardArrowRight} /></div> : undefined}
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.friends[friend2].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</p>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</a>
+  <a href={`/user/@${this.state.friends[friend2].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -653,7 +653,7 @@ returnUserOffsetsLeaderboard() {
                   <div className="leaderboard__pieSize">
                   <Doughnut
                     data={ {  datasets: [{
-        data: [this.state.userRank, this.state.allUsers.length], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
+        data: [this.state.allUsers.length - this.state.userRank, this.state.userRank], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
     }], labels: [
         'Ranking',
         'Blue'

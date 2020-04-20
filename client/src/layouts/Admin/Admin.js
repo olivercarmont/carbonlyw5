@@ -132,6 +132,11 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
+
+    if (this.props.location.pathname.slice(0, 6) === '/user/') {
+      return "User Profile"
+    }
+
     return "Page";
   };
   getBrandEmoji = path => {
@@ -144,6 +149,11 @@ class Admin extends React.Component {
         return routes[i].emoji;
       }
     }
+
+    if (this.props.location.pathname.slice(0, 6) === '/user/') {
+      return "😋"
+    }
+
     return "";
   };
   render() {

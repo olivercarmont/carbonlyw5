@@ -21,7 +21,6 @@ import classNames from "classnames";
 
 import '../../OwnCSS/all.css';
 
-import { logoutUser } from "../../actions/authActions";
 import Logout from './Logout.js';
 
 import axios from 'axios';

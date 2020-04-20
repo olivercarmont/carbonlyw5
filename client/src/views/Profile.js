@@ -17,6 +17,10 @@
 */
 import React from "react";
 
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -74,9 +78,10 @@ constructor(props) {
   super(props);
   this.state = {
       page: 'home',
-      avatars: [`${rootA}mainProfileImage-2.png`, `${rootA}mainProfileImage-1.png`, `${rootA}mainProfileImage.png`, `${rootA}mainProfileImage1.png`, `${rootA}mainProfileImage2.png`],
-      currentAvatar: 2,
+      avatars: [`${rootA}mainProfileImage-5.png`, `${rootA}mainProfileImage-4.png`, `${rootA}mainProfileImage-3.png`, `${rootA}mainProfileImage-2.png`, `${rootA}mainProfileImage-1.png`, `${rootA}mainProfileImage.png`, `${rootA}mainProfileImage1.png`, `${rootA}mainProfileImage2.png`, `${rootA}mainProfileImage3.png`, `${rootA}mainProfileImage4.png`],
+      currentAvatar: 5,
       friendsMove: 1,
+      save: '',
     };
 }
 avatarLeft() {
@@ -84,17 +89,55 @@ avatarLeft() {
   let newNum = this.state.currentAvatar - 1;
   /* Update Server */
   this.setState({ currentAvatar: newNum });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+    prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
+  })
+.then(response => {
+
+  console.log('UPDATED');
+
+})
+.catch((error) => {
+  console.log(error);
+})
+
   }
 }
 avatarRight() {
-  if (this.state.currentAvatar < 4) {
+  if (this.state.currentAvatar < 9) {
   let newNum = this.state.currentAvatar + 1;
   /* Update Server */
   this.setState({ currentAvatar: newNum });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+    prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
+  })
+.then(response => {
+
+  console.log('UPDATED');
+
+})
+.catch((error) => {
+  console.log(error);
+})
+
   }
 }
 setProfilePage(page) {
-  this.setState({ page });
+
+    this.setState({ page });
+
+//   let updateStatus = false;
+//
+// if (this.state.currentAvatar !== this.state.onum || this.state.user.name !== this.state.name || this.state.user.username !== this.state.username) {
+//
+//   let avatarChosen = this.state.avatar[this.state.currentAvatar];
+//
+// } else {
+// }
+
+
 }
 componentWillMount() {
 
@@ -109,6 +152,27 @@ componentWillMount() {
      this.setState({ userRank: response.data.info[3].usrank });
      this.setState({ friends: response.data.info[1] });
      this.setState({ allUsers: response.data.info[4] });
+
+     this.setState({ name: response.data.info[0].name });
+     this.setState({ username: response.data.info[0].username });
+
+     let avatar = response.data.info[0].avatar;
+
+     let av, onum;
+
+     this.state.avatars.map((a) => {
+       if (a === avatar) {
+        av = a;
+       }
+     })
+
+     onum = this.state.avatars.indexOf(av);
+
+     console.log('onum', onum);
+
+     this.setState({ onum });
+
+     this.setState({ currentAvatar: onum });
 
     // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
      // console.log('user', response.data.info[0]);
@@ -169,16 +233,16 @@ returnFriends() {
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friendsMove > 1 ? <div className="leaderboard__bottomLeftArrow" onClick={() => this.shiftFriendsLeft()}><Icon icon={outlineKeyboardArrowLeft} /></div> : undefined }
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.friends[friend1].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</p>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</a>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -218,6 +282,11 @@ shiftFriendsLeft() {
 shiftFriendsRight() {
   this.setState({ friendsMove: this.state.friendsMove + 2 });
 }
+onLogoutClick() {
+  // e.preventDefault();
+  console.log('should be logged out');
+  this.props.logoutUser();
+};
 returnFriendsTwo() {
 
   let friend2 = this.state.friendsMove;
@@ -229,16 +298,16 @@ returnFriendsTwo() {
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friends.length > checkFLength ? <div className="leaderboard__bottomRightArrow" onClick={() => this.shiftFriendsRight()}><Icon icon={outlineKeyboardArrowRight} /></div> : undefined}
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.friends[friend2].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</p>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</a>
+    <a href={`/user/@${this.state.friends[friend2].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -331,10 +400,74 @@ returnFriendsTwo() {
   }
 
 }
+updateName(e) {
+ //  username: this.state.username, avatar: avatarChosen
+  let input = e.target.value;
+  if (String(input).length < 30) {
+    this.setState({ name: e.target.value });
+
+    this.setState({ save: 'Saving..' });
+
+      console.log('got to here');
+
+    axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
+      'prop': 'name', 'value': String(e.target.value), 'jwt': localStorage.jwtToken
+    })
+  .then(response => {
+
+    console.log('saved');
+
+    this.setState({ save: 'Saved' });
+
+  })
+  .catch((error) => {
+    console.log(error);
+    // SHOW ERROR AND DON'T CHANGE PAGE
+  })
+
+console.log('got to the end');
+
+}
+
+}
+updateUsername(e) {
+
+  console.log('e.target', e.target.value);
+
+  const re = /^\S*$/;
+
+  const ret = /[,.+-:;=~#@`'"{}/\[\]!?\-]/;
+
+  let input = e.target.value.slice(1, e.target.value.length);
+
+  console.log('type', input);
+
+  if ((String(input).length < 20) && (re.test(input)) && !(ret.test(input))) {
+    this.setState({ username: e.target.value.slice(1, e.target.value.length) });
+
+    this.setState({ save: 'Saving..' });
+
+    axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
+      prop: 'username', value: e.target.value.slice(1, e.target.value.length), 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    this.setState({ save: 'Saved' });
+
+  })
+  .catch((error) => {
+    console.log(error);
+    // SHOW ERROR AND DON'T CHANGE PAGE
+  })
+
+  }
+
+}
 render() {
     return (
       <>
-      {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ?  <div className="content">
+      <div className="content">
+      {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ? <div>
           <Row>
           <div className="profile__centeringMainCard">
             <Col md="8">
@@ -358,12 +491,12 @@ render() {
                       alt="..."
                       className="avatar"
                       id="profile__mainImage"
-                      src={require("../assets/img/avatars/mainProfileImage.png")}
+                      src={require(`../assets/img/${this.state.avatars[this.state.currentAvatar]}`)}
                     />
 
-                    <h5 className="title" id="profile__mainName">{this.state.user.name}</h5>
+                    <h5 className="title" id="profile__mainName">{this.state.name}</h5>
 
-                  <p className="description" id="profile__mainUsername">@{this.state.user.username}</p>
+                    <p className="description" id="profile__mainUsername">{`@` + this.state.username}</p>
                 </div>
 
                 <div className="profile__statsMargins">
@@ -375,7 +508,7 @@ render() {
                 <div className="leaderboard__pieSize">
                 <Doughnut
                   data={ {  datasets: [{
-      data: [this.state.userRank, this.state.allUsers.length], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
+      data: [this.state.allUsers.length - this.state.userRank, this.state.userRank], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
   }], labels: [
       'Ranking',
       'Blue'
@@ -429,14 +562,16 @@ render() {
 
                     <div className="profile__settingsTopEditContainer">
 
-                    <input defaultValue={this.state.user.name} className="title" id="profile__mainNameInput"/>
+                    <input value={this.state.name} onChange={(e) => this.updateName(e)} className="title" id="profile__mainNameInput"/>
 
-                    <input defaultValue={this.state.user.username} className="title" id="profile__mainUsernameInput"/>
-                    <span className="profile__settingsUnit">@</span>
+                    <input value={`@` + this.state.username} onChange={(e) => this.updateUsername(e)} className="title" id="profile__mainUsernameInput"/>
+                    {/* <span className="profile__settingsUnit">@</span> */}
                     {/* <div className="profile__settingsAtIcon">@</div> */}
                   </div>
 
-                  <div className="profile__positionLogOutButton">
+                  {this.state.save}
+
+                  <div className="profile__positionLogOutButton" onClick={() => this.onLogoutClick()}>
                   <a className="profile__logOutButton">Logout &nbsp;👋️</a>
                   </div>
 
@@ -470,7 +605,7 @@ render() {
           {this.state.friends.length > 0 ? <Row id="profile__friendsCentering">{this.returnFriends()}{this.returnFriendsTwo()}</Row> :
 
 
-          <Row><Col md="8">
+          <Row id="profile__friendsCentering"><Col md="8">
             <Card>
               <CardHeader>
               <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
@@ -507,10 +642,22 @@ render() {
 
             </Row> */}
 
-        </div> : undefined}
+        </div> : undefined}</div>
       </>
     );
   }
 }
 
-export default Profile;
+Profile.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Profile);

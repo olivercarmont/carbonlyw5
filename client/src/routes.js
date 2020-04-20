@@ -69,7 +69,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: UserProfile,
     layout: "/",
-    disabled: false,
+    disabled: true,
     emoji: '😉',
   },
   {

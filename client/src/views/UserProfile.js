@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -43,7 +44,8 @@ import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-l
 import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
 
 import sadTear from '@iconify/icons-fa-regular/sad-tear';
-import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
+import roundGroupAdd from '@iconify/icons-ic/round-group-add';
+import accountSearch from '@iconify/icons-mdi/account-search';
 
 import personCircle from '@iconify/icons-ion/person-circle';
 
@@ -74,55 +76,81 @@ constructor(props) {
   super(props);
   this.state = {
       page: 'home',
-      avatars: [`${rootA}mainProfileImage-2.png`, `${rootA}mainProfileImage-1.png`, `${rootA}mainProfileImage.png`, `${rootA}mainProfileImage1.png`, `${rootA}mainProfileImage2.png`],
-      currentAvatar: 2,
       friendsMove: 1,
+      userFound: true,
     };
-}
-avatarLeft() {
-  if (this.state.currentAvatar > 0) {
-  let newNum = this.state.currentAvatar - 1;
-  /* Update Server */
-  this.setState({ currentAvatar: newNum });
-  }
-}
-avatarRight() {
-  if (this.state.currentAvatar < 4) {
-  let newNum = this.state.currentAvatar + 1;
-  /* Update Server */
-  this.setState({ currentAvatar: newNum });
-  }
 }
 setProfilePage(page) {
   this.setState({ page });
 }
 componentWillMount() {
 
-  let publicId = window.location.href.split('/')[4];
+  let pusername = window.location.href.split('/')[4];
 
-  axios.post('http://localhost:5000/users/return-user-profile', { jwt: localStorage.jwtToken, 'publicId }, {
-    'publicId': publicId,
+  pusername = pusername.slice(1, pusername.length);
+
+  console.log('username', pusername);
+
+  axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    'jwt': localStorage.jwtToken,
   })
 .then(response => {
 
     // console.log('response', response.data);
 
      this.setState({ user: response.data.info[0] });
-     this.setState({ userRank: response.data.info[3].usrank });
      this.setState({ friends: response.data.info[1] });
      this.setState({ allUsers: response.data.info[4] });
 
-    this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
+     let allUsers = response.data.info[4];
+     let puser, pfriends = [];
 
-     console.log('user', response.data.info[0]);
-     console.log('leaderboard', response.data.info[2].slice(0, 3));
+     allUsers.map((us) => {
+       if (us.username === pusername) {
+         puser = us;
+       }
+     });
 
-     console.log('all users', response.data.info[4]);
+     if (!puser) {
+       this.setState({ userFound: false });
+     } else {
+
+     puser.friends.map((fri) => {
+       allUsers.map((us) => {
+         if (us.publicId === fri) {
+           pfriends.push(us);
+         }
+       });
+     });
+
+     console.log('actual friend', pfriends[0]);
+
+     this.setState({ pfriends: pfriends });
+     this.setState({ puser: puser });
+
+     console.log('puser', puser);
+     console.log('pfriends', pfriends);
+
+    }
 
 })
 .catch((error) => {
   console.log(error);
 })
+}
+isFriend() {
+
+  let isFriend = false;
+
+  this.state.user.friends.map((fri) => {
+
+    if (fri === this.state.puser.publicId) {
+      isFriend = true;
+    }
+
+  })
+  return isFriend;
+
 }
 returnOffsets(amount) {
 
@@ -153,35 +181,30 @@ let calcData;
     return `${calcData}kg`;
   }
 }
-returnUserOffsets() {
 
-  let offsetAmount = 0;
 
-  this.state.user.offsets.map((off) => {
-    offsetAmount += parseFloat(off.amount);
-  })
 
-  console.log('offsetAmount', offsetAmount)
 
-  return `${this.returnOffsets(offsetAmount)} CO2`;
-}
 returnFriends() {
+
+  console.log('friends', this.state.pfriends)
+
   let friend1 = this.state.friendsMove - 1;
 
     return (<Col md="4">
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.pfriends[friend1].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friendsMove > 1 ? <div className="leaderboard__bottomLeftArrow" onClick={() => this.shiftFriendsLeft()}><Icon icon={outlineKeyboardArrowLeft} /></div> : undefined }
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.pfriends[friend1].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.pfriends[friend1].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</p>
+    <a href={`/user/@${this.state.pfriends[friend1].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.pfriends[friend1].name}</a>
+  <a href={`/user/@${this.state.pfriends[friend1].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.pfriends[friend1].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -232,16 +255,16 @@ returnFriendsTwo() {
     <Card>
     <CardBody>
 
-    <div className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></div>
+    <a href={`/user/@${this.state.pfriends[friend2].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
     {this.state.friends.length > checkFLength ? <div className="leaderboard__bottomRightArrow" onClick={() => this.shiftFriendsRight()}><Icon icon={outlineKeyboardArrowRight} /></div> : undefined}
 
-    <div className="leaderboard__bottomCenterImage">
-    <img src={require("../assets/img/avatars/mainProfileImage-3.png")} className="leaderboard__friendsImg" />
-    </div>
+    <a href={`/user/@${this.state.pfriends[friend2].username}`} className="leaderboard__bottomCenterImage">
+    <img src={require(`../assets/img/${this.state.pfriends[friend2].avatar}`)} className="leaderboard__friendsImg" />
+    </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <h5 className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</h5>
-  <p className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</p>
+    <a href={`/user/@${this.state.pfriends[friend2].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend2].name}</a>
+    <a href={`/user/@${this.state.pfriends[friend2].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend2].username}</a>
   </div>
 
   <div className="leaderboard__bottomComparisonAndCarbonContainer">
@@ -337,8 +360,132 @@ returnFriendsTwo() {
 render() {
     return (
       <>
-      {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ?  <div className="content">
-          <Row>
+      <div className="content">
+      {console.log('stateChecks', `1 ${!!this.state.user} 2 ${!!this.state.friends} 3 ${!!this.state.allUsers} 4 ${!!this.state.puser} 5 ${!!this.state.pfriernds}`)}
+      {this.state.user && this.state.friends && this.state.allUsers && this.state.puser ? <div>
+      <Row>
+      <div className="profile__centeringMainCard">
+        <Col md="8">
+          <Card className="card-user">
+            <CardHeader>
+
+            </CardHeader>
+            <CardBody>
+
+            <div className="author">
+              <div className="blockProfile block-one" />
+              <div className="blockProfile block-two" />
+              <div className="blockProfile block-three" />
+              <div className="blockProfile block-four" />
+
+                <img
+                  alt="..."
+                  className="avatar"
+                  id="profile__mainImage"
+                  src={require(`../assets/img/${this.state.puser.avatar}`)}
+                />
+
+                <h5 className="title" id="profile__mainName">{this.state.puser.name}</h5>
+
+              <p className="description" id="profile__mainUsername">@{this.state.puser.username}</p>
+            </div>
+
+            {this.state.puser.publicId !== this.state.user.publicId ? this.isFriend() ? <div className="userProfile__addButton">Remove &nbsp; 🙅</div> : <div className="userProfile__addButton">Add &nbsp; 🎉</div> : undefined}
+
+            <div className="profile__statsMargins">
+
+            <div className="leaderboard__profileBelow">
+
+            <div className="leaderboard__doughnutMargins">
+
+            <div className="leaderboard__pieSize">
+            <Doughnut
+              data={ {  datasets: [{
+  data: [Math.abs(1 - 2), this.state.allUsers.length], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
+}], labels: [
+  'Ranking',
+  'Blue'
+] } }
+              options={ { cutoutPercentage: 72, color: [ '#333', 'blue'], legend: false, tooltips: { enabled: false },  padding: { left:50, bottom: 15 } }}
+            /></div>
+
+            <div className="profile__profileRanking"><h5 className="title" id="leaderboard__rankNumber">{this.state.puser.rank}<div className="leaderboard__profileRankingSmallText"></div></h5></div>
+
+
+
+            </div>
+
+              <div className="leaderboard__profileProgressMargins">
+
+              <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.state.puser.offsets}kg CO2</div></div></div>
+              </div>
+
+              </div>
+              </div>
+
+                <div className="profile__profileBottomSpacing"></div>
+
+                </CardBody>
+
+
+          </Card>
+        </Col>
+
+        </div>
+        </Row>
+
+      {this.state.page === 'home' ? <div>
+
+      {this.state.pfriends.length > 0 ? <Row id="profile__friendsCentering">{this.returnFriends()}{this.returnFriendsTwo()}</Row> :
+
+
+      <Row id="profile__friendsCentering"><Col md="8">
+        <Card>
+          <CardHeader>
+          <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
+
+          <div className="userProfile__noFriendsRightPointer">
+          <Icon icon={roundGroupAdd} />
+          </div>
+
+          <div className="leaderboard__noFriendsDescription">Why Not be Their First ?</div>
+
+          <div className="notFound__positionButton2">
+
+          <div className="userProfile__submitButton">Add &nbsp; 🏂</div>
+
+          </div>
+
+
+          </CardHeader>
+
+          <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
+
+        </Card>
+      </Col></Row>}
+
+
+      </div> : undefined}
+
+
+        {/* <Row className="profile__bottomCenteringRow">
+
+        <Col md="8">
+        <Card>
+        <CardBody>
+
+          <div className="profile__friendsTitle">Friends <div className="leaderboard__sideIcon"><i className="tim-icons icon-badge" /></div> </div>
+
+        </CardBody>
+
+        </Card>
+        </Col>
+
+        </Row> */}
+
+    </div> : undefined}
+
+        {!this.state.userFound ? <Row>
           <div className="profile__centeringMainCard">
             <Col md="8">
               <Card className="card-user">
@@ -347,167 +494,30 @@ render() {
                 </CardHeader>
                 <CardBody>
 
-                {this.state.page === 'home' ? <div>
-                <div className="author">
-                  <div className="blockProfile block-one" />
-                  <div className="blockProfile block-two" />
-                  <div className="blockProfile block-three" />
-                  <div className="blockProfile block-four" />
+                <div className="settings__centerContent">
 
-                    <img
-                      alt="..."
-                      className="avatar"
-                      id="profile__mainImage"
-                      src={require("../assets/img/avatars/mainProfileImage.png")}
-                    />
+                <div className="settings__cogsIcon"><Icon icon={accountSearch} /></div>
 
-                    <h5 className="title" id="profile__mainName">{this.state.user.name}</h5>
+                <div className="settings__constructionTitle">Sorry, We Couldn't Find This User</div>
 
-                  <p className="description" id="profile__mainUsername">@{this.state.user.username}</p>
-                </div>
+                <div className="settings__constructionMessage">Want to Search Something Else?</div>
 
-                <div className="profile__statsMargins">
+                <div className="notFound__positionButton">
 
-                <div className="leaderboard__profileBelow">
-
-                <div className="leaderboard__doughnutMargins">
-
-                <div className="leaderboard__pieSize">
-                <Doughnut
-                  data={ {  datasets: [{
-      data: [this.state.userRank, this.state.allUsers.length], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
-  }], labels: [
-      'Ranking',
-      'Blue'
-  ] } }
-                  options={ { cutoutPercentage: 72, color: [ '#333', 'blue'], legend: false, tooltips: { enabled: false },  padding: { left:50, bottom: 15 } }}
-                /></div>
-
-                <div className="profile__profileRanking"><h5 className="title" id="leaderboard__rankNumber">{this.state.userRank}<div className="leaderboard__profileRankingSmallText"></div></h5></div>
-
-
+                <Link to="/leaderboard" className="userProfile__submitButton">Leaderboard &nbsp; 📊</Link>
 
                 </div>
 
-                  <div className="leaderboard__profileProgressMargins">
+                </div>
 
-                  <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.returnUserOffsets()}</div></div></div>
-                  </div>
+                </CardBody>
 
-                  </div>
-                  </div>
-
-                    <div className="profile__profileBottomSpacing"></div>
-
-                    </div> :
-
-                    <div><div className="author">
-                      <div className="blockProfile block-one" />
-                      <div className="blockProfile block-two" />
-                      <div className="blockProfile block-three" />
-                      <div className="blockProfile block-four" />
-
-                        <img
-                          alt="..."
-                          className="avatar"
-                          id="profile__mainImage"
-                          src={require(`../assets/img/${this.state.avatars[this.state.currentAvatar]}`)}
-                        />
-
-                        <div className="settings__positionArrowsContainer">
-                        <div className="settings__positionArrows">
-                        <div id="settings__leftArrow" onClick={() => this.avatarLeft()}>
-                        <FontAwesomeIcon icon={faArrowCircleLeft} id="leftProfileIcon" />
-                        </div>
-
-                        <div id="settings__rightArrow" onClick={() => this.avatarRight()}>
-                        <FontAwesomeIcon icon={faArrowCircleRight} id="rightProfileIcon" />
-                        </div></div>
-
-                        </div>
-                    </div>
-
-                    <div className="profile__settingsTopEditContainer">
-
-                    <input defaultValue={this.state.user.name} className="title" id="profile__mainNameInput"/>
-
-                    <input defaultValue={this.state.user.username} className="title" id="profile__mainUsernameInput"/>
-                    <span className="profile__settingsUnit">@</span>
-                    {/* <div className="profile__settingsAtIcon">@</div> */}
-                  </div>
-
-                  <div className="profile__positionLogOutButton">
-                  <a className="profile__logOutButton">Logout &nbsp;👋️</a>
-                  </div>
-
-
-                    <div className="profile__profileBelow">
-
-                      <div className="leaderboard__profileProgressMargins">
-
-
-
-                      </div>
-
-                      </div>
-                        <div className="leaderboard__profileBottomSpacing"></div>
-
-                        </div>}
-
-
-
-                    </CardBody>
-
-
-              </Card>
-            </Col>
+                </Card>
+                </Col>
+                </div>
+                </Row> : undefined}
 
             </div>
-            </Row>
-
-          {this.state.page === 'home' ? <div>
-
-          {this.state.friends.length > 0 ? <Row id="profile__friendsCentering">{this.returnFriends()}{this.returnFriendsTwo()}</Row> :
-
-
-          <Row><Col md="8">
-            <Card>
-              <CardHeader>
-              <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
-
-              <div className="leaderboard__noFriendsRightPointer">
-              <Icon icon={handPointRight} /></div>
-
-
-              <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
-
-              </CardHeader>
-
-              <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
-
-            </Card>
-          </Col></Row>}
-
-
-          </div> : undefined}
-
-
-            {/* <Row className="profile__bottomCenteringRow">
-
-            <Col md="8">
-            <Card>
-            <CardBody>
-
-              <div className="profile__friendsTitle">Friends <div className="leaderboard__sideIcon"><i className="tim-icons icon-badge" /></div> </div>
-
-            </CardBody>
-
-            </Card>
-            </Col>
-
-            </Row> */}
-
-        </div> : undefined}
       </>
     );
   }

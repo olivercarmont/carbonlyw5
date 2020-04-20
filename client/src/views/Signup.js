@@ -46,6 +46,7 @@ import './loginTheme/css/util.css';
 import './loginTheme/css/main.css';
 
 import '../OwnCSS/login.css';
+import '../OwnCSS/checkbox.css';
 
 // import './Login_v3/index.html';
 
@@ -71,12 +72,14 @@ constructor(props) {
   super(props);
     this.state = {
       hidden: false,
-      name: "",
-      email: "",
+      name2: "",
+      email2: "",
       password: "",
       password2: "",
       username: "",
-      errors: {}
+      errors: {},
+      checked: false,
+      privacy: false,
     };
 }
 componentDidMount() {
@@ -94,22 +97,33 @@ componentWillReceiveProps(nextProps) {
   }
 }
 
-onChange = e => {
+onChange(e) {
+  this.setState({ privacy: false });
   this.setState({ [e.target.id]: e.target.value });
 };
 
-onSubmit = e => {
-  e.preventDefault();
+changeChecked() {
+  this.setState({ privacy: false });
+  this.setState({ checked: !this.state.checked })
+}
+
+submitForm() {
+    // e.preventDefault();
+
+  if (this.state.checked) {
 
   const newUser = {
-    name: this.state.name,
-    email: this.state.email,
+    name: this.state.name2,
+    email: this.state.email2,
     username: this.state.username,
     password: this.state.password,
-    password2: this.state.password2,
+    password2: this.state.password,
   };
 
   this.props.registerUser(newUser, this.props.history);
+  } else {
+    this.setState({ privacy: true });
+  }
 };
 render() {
     return (
@@ -121,7 +135,8 @@ render() {
           <div className="container-login100">
             <div className={!this.state.hidden ? 'wrap-login100' : 'wrap-login100__hidden'}>
             <div id="login__redoOpacity">
-              <form className="login100-form validate-form">
+
+              <div className="login100-form validate-form">
               <div className="login__centerLogo">
                 <img src={require("../assets/img/carbonlyWhiteLogo.png")} className="login__centralLogo"/>
               </div>
@@ -140,25 +155,45 @@ render() {
 
                 <div className="separator"> &nbsp; Or Signup With Password  &nbsp;</div>
 
-                <div className="wrap-input100 validate-input" data-validate="Enter Email">
-                  <input className="input100" name="email" placeholder="Email" />
+                <div className="wrap-input100 validate-input" data-validate="Pick Name">
+                  <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name} onChange={(e) => this.onChange(e)} />
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Username">
-                  <input className="input100" name="username" placeholder="Username" />
+                  <input className="input100" name="username" placeholder="Username" id="username" value={this.state.username} onChange={(e) => this.onChange(e)} />
+                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                </div>
+
+                <div className="wrap-input100 validate-input" data-validate="Enter Email">
+                  <input className="input100" name="email" value={this.state.email2} placeholder="Email" id="email2" onChange={(e) => this.onChange(e)} />
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter password">
-                  <input className="input100" type="password" name="pass" placeholder="Password"/>
+                  <input className="input100" type="password" name="pass" placeholder="Password" id="password" value={this.state.password} onChange={(e) => this.onChange(e)} />
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
+
+
+                {/* Checkbox */}
+
+                <div class="grid">
+
+                <label class="checkbox bounce">
+                <input type="checkbox" onChange={() => this.changeChecked()} checked={this.state.checked} />
+                <svg viewBox="0 0 21 21">
+                <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                </svg>
+                  <div className={this.state.privacy ? 'signup__privacyPolicyTextRed' : 'signup__privacyPolicyText'}>I accept Carbonly's <Link to="/privacy" className="signup__privacyLink">Privacy Policy 🕵</Link></div>
+                </label>
+                </div>
+
 
                 <div className="login__eliminateSpacingBottomTop"></div>
 
                 <div className="container-login100-form-btn">
-                  <button className="login100-form-btn">
+                  <button onClick={() => this.submitForm()} className="login100-form-btn">
                     Sign up &nbsp;🎉
                   </button>
                 </div>
@@ -172,7 +207,7 @@ render() {
                 </div>
                 <div className="login__bottomStopHoverEffect2">Click <div onClick={() => this.setState({ hidden: !this.state.hidden })} className="login__signupLink">Here</div> to {!this.state.hidden ? 'Hide' : 'Show'} This Card!</div>
 
-              </form>
+              </div>
               </div>
             </div>
           </div>

@@ -197,3 +197,54 @@ transition:0.4s;
 #login__formSubmitColor:hover {
   color:#fff !important;
 }
+.signup__privacyPolicyText {
+  color:#fff;
+  float:left;
+  margin-left:0px;
+  position:relative;
+  margin-top:-20px;
+  margin-left:32px;
+  display:block;
+  width:300px;
+  font-size:0.96em;
+
+  user-select: none;
+       -moz-user-select: none;
+       -khtml-user-select: none;
+       -webkit-user-select: none;
+       -o-user-select: none;
+
+  cursor:pointer;
+}
+.signup__privacyPolicyText:hover {
+  color:#fff;
+  opacity:1;
+}
+.signup__privacyPolicyTextRed {
+  color:#cf5355;
+  float:left;
+  margin-left:0px;
+  position:relative;
+  margin-top:-20px;
+  margin-left:32px;
+  display:block;
+  width:300px;
+  font-size:0.96em;
+
+  user-select: none;
+       -moz-user-select: none;
+       -khtml-user-select: none;
+       -webkit-user-select: none;
+       -o-user-select: none;
+
+  cursor:pointer;
+}
+.signup__privacyLink {
+  font-weight:bold;
+  color:#fff;
+  margin-left:2px;
+}
+.signup__privacyLink:hover {
+  font-weight:bold;
+  color:#fff;
+}

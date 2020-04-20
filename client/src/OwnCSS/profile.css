@@ -273,6 +273,12 @@ margin-left:auto;
 margin-right:auto;
 align-items:center;
 
+user-select: none;
+     -moz-user-select: none;
+     -khtml-user-select: none;
+     -webkit-user-select: none;
+     -o-user-select: none;
+
 }
 .profile__settingsUsernameContainer {
 position: relative;
@@ -435,4 +441,103 @@ float:left;
   display:inline-block;
   display:flex;
   justify-content:center;
+}
+.userProfile__noFriendsRightPointer {
+  font-size:6.5em;
+  text-align:center;
+  margin-top:29px;
+  margin-bottom:-17px;
+}
+.userProfile__submitButton {
+/* background-color:#002D70; */
+background-color:transparent;
+border:2px solid #a9dbc0;
+color:#fff;
+background-color: #a9dbc0;
+/* font-family: 'Red Hat Display', sans-serif; */
+/* font-weight:bold; */
+letter-spacing:0.02em;
+font-size:1.04em;
+border-radius:25px;
+/* margin-right:5px;
+margin-top:23px; */
+margin-top:6px;
+cursor:pointer;
+transition:0.4s;
+
+padding-left:25px;
+padding-right:25px;
+
+padding-top:13px;
+padding-bottom:13px;
+
+
+text-align:center;
+display:flex;
+flex-direction: column;
+
+
+letter-spacing:-0.02em;
+font-weight:500;
+}
+.userProfile__submitButton:hover {
+
+background-color: #dddddd;
+border-color:#ddd;
+color:#fff;
+transition:0.4s;
+}
+.notFound__positionButton {
+  display:inline-block;
+  margin-top:30px;
+}
+.notFound__positionButton2 {
+  display:inline-block;
+  position:relative;
+  top:17px;
+  margin:auto;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+
+}
+.userProfile__addButton {
+  position:absolute;
+/* background-color:#002D70; */
+background-color:transparent;
+border:2px solid #a9dbc0;
+color:#fff;
+background-color: #a9dbc0;
+/* font-family: 'Red Hat Display', sans-serif; */
+/* font-weight:bold; */
+letter-spacing:0.02em;
+font-size:1.02em;
+border-radius:25px;
+/* margin-right:5px;
+margin-top:23px; */
+margin-top:6px;
+cursor:pointer;
+transition:0.4s;
+
+padding-left:19px;
+padding-right:19px;
+
+padding-top:11px;
+padding-bottom:11px;
+
+
+text-align:center;
+display:flex;
+flex-direction: column;
+
+
+letter-spacing:-0.02em;
+font-weight:500;
+}
+.userProfile__addButton:hover {
+
+background-color: #dddddd;
+border-color:#ddd;
+color:#fff;
+transition:0.4s;
 }

@@ -17,6 +17,8 @@
 */
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 // reactstrap components
 import {
   Card,
@@ -53,7 +55,13 @@ class Settings extends React.Component {
 
                 <div className="settings__constructionTitle">Sorry, This Page is Still in Construction</div>
 
-                <div className="settings__constructionMessage">Make sure to check in again sooooon!</div>
+                <div className="settings__constructionMessage">Make sure to check in again soon!</div>
+
+                <div className="notFound__positionButton">
+
+                <Link to="/leaderboard" className="userProfile__submitButton">Home &nbsp; 🏠</Link>
+
+                </div>
 
                 </div>
 
