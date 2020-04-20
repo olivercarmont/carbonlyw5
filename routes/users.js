@@ -132,7 +132,7 @@ router.post("/return-extension", (req, res) => {
 
       });
 
-      usOffArray.sort((a, b) => (a.offsets < b.offsets) ? 1 : -1)
+      usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
 
       leaderboardInfo = usOffArray;
 
@@ -486,11 +486,11 @@ router.post("/return-leaderboard", (req, res) => {
           indvOff += parseFloat(of.amount);
         });
 
-        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, offsets: indvOff });
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, offsetAmount: indvOff });
 
       });
 
-      usOffArray.sort((a, b) => (a.offsets < b.offsets) ? 1 : -1)
+      usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
 
       leaderboardInfo = usOffArray;
 
@@ -562,7 +562,7 @@ router.post("/return-leaderboard", (req, res) => {
           rankLoopFinished = true;
         }
 
-        friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+        friendInfo.push({ rank: ranki, publicId: friend.publicId, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
 
         console.log('this pushed', friendInfo.length);
 
@@ -617,7 +617,7 @@ router.post("/return-leaderboard", (req, res) => {
 
   let friendOffset = 0;
 
-  friend.offsets.map((el) => {
+  friend.offset.map((el) => {
     friendOffset += parseFloat(el.amount);
   });
 
@@ -798,12 +798,14 @@ router.post("/update", (req, res) => {
 
     // let upUser;
 
+    let prop, value;
+
     if (req.body.prop) {
-    let prop = req.body.prop;
-    let value = req.body.value;
+      prop = req.body.prop;
+      value = req.body.value;
     } else if (req.header('prop')) {
-    let prop = req.header('prop');
-    let value = req.header('value');
+      prop = req.header('prop');
+      value = req.header('value');
     }
 
     console.log('prop', req.body.prop);
@@ -904,6 +906,19 @@ router.post("/update", (req, res) => {
          })
 
        }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop === 'friends' && typeof value === 'object' && value.length < 75) {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           friends: value
+         }
+       }).then(user => {
+         return res.json({ friends: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
 
    }
 

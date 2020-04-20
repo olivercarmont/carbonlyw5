@@ -66,7 +66,8 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile-scss": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css",
     "minify-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css --source-map true"
+    "map-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.css --source-map true",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "eslintConfig": {
     "extends": "react-app"

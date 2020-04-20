@@ -407,9 +407,16 @@ background-color:red;
 }
 #leaderboard__sideNameBottom {
   font-weight:bold;
-  margin-bottom:1px;
+  margin-bottom:0px;
   display:inline-block;
   text-align:center;
+  color:#333;
+  transition:0.4s;
+  font-size:0.99em;
+}
+#leaderboard__sideNameBottom:hover {
+  transition:0.4s;
+  color:#8cb6a1;
 }
 #leaderabord__sideUsernameBottom {
   font-size:0.8em;
@@ -541,6 +548,40 @@ font-weight:500;
 
 background-color: #dddddd;
 border-color:#ddd;
+transition:0.4s;
+}
+.leaderboard__submitButtonRemove {
+/* background-color:#002D70; */
+background-color:transparent;
+border:2px solid #ddd;
+color:#fff;
+background-color: #ddd;
+/* font-family: 'Red Hat Display', sans-serif; */
+/* font-weight:bold; */
+letter-spacing:0.02em;
+font-size:0.91em;
+border-radius:25px;
+/* margin-right:5px;
+margin-top:23px; */
+margin-top:6px;
+cursor:pointer;
+transition:0.4s;
+height:35px;
+/* width:75px; */
+text-align:center;
+display:flex;
+flex-direction: column;
+padding-top:7px;
+padding-left:13px;
+padding-right:13px;
+
+letter-spacing:-0.02em;
+font-weight:500;
+}
+.leaderboard__submitButtonRemove:hover {
+
+background-color: #a9dbc0;
+border-color:#a9dbc0;
 transition:0.4s;
 }
 #leaderboard__rankNumber {

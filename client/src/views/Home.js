@@ -59,7 +59,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       bigChartData: "data1",
-      saved: [],
+      savedList: [],
       shoppingList: []
     };
   }
@@ -82,10 +82,12 @@ class Home extends React.Component {
       //   }
       // })
 
+      this.setState({ shoppingList: response.data.shoppingList });
+      this.setState({ savedList: response.data.savedList });
+
        this.setState({ user: response.data });
 
-       this.setState({ shoppingList: response.data.shoppingList });
-       this.setState({ savedList: response.data.savedlist });
+
 
   })
   .catch((error) => {
@@ -114,21 +116,53 @@ drop(ev) {
   ev.target.appendChild(document.getElementById(data));
 }
 createNewItemSaved() {
-  let newArray = this.state.saved;
-  newArray.push({ id: this.state.saved.length, title: '', description: ''})
+  let newArray = this.state.savedList
+
+  let newId = this.state.savedList.length + 1;
+
+  newArray.push({ id: newId, title: '', description: ''})
 
   /* update the server here */
   this.setState({ saved: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
 }
 createNewItemShoppingList() {
   let newArray = this.state.shoppingList;
-  newArray.push({ id: this.state.shoppingList.length, title: '', description: ''})
+
+  let newId = this.state.shoppingList.length + 1;
+
+  newArray.push({ id: newId, title: '', description: ''})
 
   /* update the server here */
   this.setState({ shoppingList: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+      prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
 }
 deleteItemSaved(id) {
-  let newArray = this.state.saved;
+  let newArray = this.state.savedList;
   let index;
 
   newArray.map((el) => {
@@ -141,6 +175,19 @@ deleteItemSaved(id) {
 
   /* update the server here */
   this.setState({ saved: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
 }
 deleteItemShoppingList(id) {
   let newArray = this.state.shoppingList;
@@ -156,6 +203,18 @@ deleteItemShoppingList(id) {
 
   /* update the server here */
   this.setState({ shoppingList: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+      prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 }
 setSavedList(newState) {
   /* update the server here */
@@ -169,7 +228,7 @@ updateDescriptionSaved(e, id) {
 
   console.log('event', e.target.value);
 
-  let newArray = this.state.saved;
+  let newArray = this.state.savedList;
   let index;
 
   newArray = newArray.map((el) => {
@@ -186,6 +245,18 @@ updateDescriptionSaved(e, id) {
   console.log('newArray', newArray);
   /* update the server here */
   this.setState({ saved: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+    prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
+  })
+.then(response => {
+
+  console.log('UPDATED');
+
+})
+.catch((error) => {
+  console.log(error);
+})
 
 }
 updateDescriptionShopping(e, id) {
@@ -210,10 +281,22 @@ updateDescriptionShopping(e, id) {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
+axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+    prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
+  })
+.then(response => {
+
+  console.log('UPDATED');
+
+})
+.catch((error) => {
+  console.log(error);
+})
+
 }
 updateTitleSaved(e, id) {
 
-  let newArray = this.state.saved;
+  let newArray = this.state.savedList;
   let index;
 
   newArray = newArray.map((el) => {
@@ -230,6 +313,18 @@ updateTitleSaved(e, id) {
   console.log('newArray', newArray);
   /* update the server here */
   this.setState({ saved: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 
 }
 updateTitleShopping(e, id) {
@@ -251,6 +346,18 @@ updateTitleShopping(e, id) {
   console.log('newArray', newArray);
   /* update the server here */
   this.setState({ shoppingList: newArray });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+      prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 
 }
   render() {
@@ -309,7 +416,7 @@ updateTitleShopping(e, id) {
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">{this.state.saved.length} {this.state.shoppingList.length === 1 ? 'Item' : 'Items'}</h5>
+                  <h5 className="card-category">{this.state.savedList.length} {this.state.savedList.length === 1 ? 'Item' : 'Items'}</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-paper text-primary" />{" "}
                     Saved List
@@ -321,7 +428,7 @@ updateTitleShopping(e, id) {
                 <div id="savedList__mainContainer">
 
                 <ReactSortable
-       list={this.state.saved}
+       list={this.state.savedList}
        setList={newState => this.setSavedList(newState)}
        handle={"#drag1"}
        group={'shared'}
@@ -329,7 +436,7 @@ updateTitleShopping(e, id) {
       delayOnTouchStart={true}
       delay={2}
      >
-       {this.state.saved.map(item => (
+       {this.state.savedList.map(item => (
          <div key={item.id}>
 
          <div className="home__listCheckboxes">

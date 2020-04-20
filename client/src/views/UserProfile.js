@@ -125,6 +125,19 @@ componentWillMount() {
 
      console.log('actual friend', pfriends[0]);
 
+     let isFriend = false;
+     let uFriends = response.data.info[1];
+
+     uFriends.map((fri) => {
+
+       if (fri === puser.publicId) {
+         isFriend = true;
+       }
+
+     })
+
+     this.setState({ isFriend });
+
      this.setState({ pfriends: pfriends });
      this.setState({ puser: puser });
 
@@ -137,20 +150,6 @@ componentWillMount() {
 .catch((error) => {
   console.log(error);
 })
-}
-isFriend() {
-
-  let isFriend = false;
-
-  this.state.user.friends.map((fri) => {
-
-    if (fri === this.state.puser.publicId) {
-      isFriend = true;
-    }
-
-  })
-  return isFriend;
-
 }
 returnOffsets(amount) {
 
@@ -357,6 +356,78 @@ returnFriendsTwo() {
   }
 
 }
+addUser(id) {
+
+  let newFriends = this.state.friends.map((fri) => { return fri });
+
+  let user;
+
+  this.state.allUsers.map((us) => {
+    if (us.publicId === id) {
+      user = us;
+    }
+  })
+
+  newFriends.unshift(user);
+
+  let newFriendsDB = this.state.user.friends.map((fri) => { return fri });
+
+  newFriendsDB.unshift(id);
+
+  this.setState({ friends: newFriends });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+      prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+  this.setState({ isFriend: true });
+
+}
+removeUser(id) {
+
+  let user;
+
+  this.state.allUsers.map((us) => {
+    if (us.publicId === id) {
+      user = us;
+    }
+  })
+
+  let newFriends = this.state.friends.map((fri) => { return fri });
+
+  let nFI = newFriends.indexOf(user);
+  newFriends.splice(nFI, 1);
+
+  let newFriendsDB = this.state.user.friends.map((fri) => { return fri });
+
+  let nFDBI = newFriendsDB.indexOf(id);
+  newFriendsDB.splice(nFDBI, 1);
+
+  this.setState({ friends: newFriends });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+      prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+  this.setState({ isFriend: false });
+
+}
 render() {
     return (
       <>
@@ -390,7 +461,7 @@ render() {
               <p className="description" id="profile__mainUsername">@{this.state.puser.username}</p>
             </div>
 
-            {this.state.puser.publicId !== this.state.user.publicId ? this.isFriend() ? <div className="userProfile__addButton">Remove &nbsp; 🙅</div> : <div className="userProfile__addButton">Add &nbsp; 🎉</div> : undefined}
+            {this.state.puser.publicId !== this.state.user.publicId ? this.state.isFriend ? <div onClick={() => this.removeUser(this.state.puser.publicId)} className="userProfile__addButton">Remove &nbsp; 🙅</div> : <div onClick={() => this.addUser(this.state.puser.publicId)} className="userProfile__addButton">Add &nbsp; 🎉</div> : undefined}
 
             <div className="profile__statsMargins">
 
@@ -417,7 +488,7 @@ render() {
 
               <div className="leaderboard__profileProgressMargins">
 
-              <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.state.puser.offsets}kg CO2</div></div></div>
+              <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.state.puser.offsetAmount}kg CO2</div></div></div>
               </div>
 
               </div>

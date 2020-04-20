@@ -92,6 +92,7 @@ class Leaderboard extends React.Component {
   .then(response => {
 
       // console.log('response', response.data);
+       this.setState({ friends: response.data.info[1] });
 
        this.setState({ user: response.data.info[0] });
        this.setState({ allUsers: response.data.info[4] });
@@ -105,7 +106,7 @@ class Leaderboard extends React.Component {
 
 
       this.setState({ userRank: response.data.info[3].usrank });
-      this.setState({ friends: response.data.info[1] });
+
 
       // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
        // console.log('user', response.data.info[0]);
@@ -163,7 +164,7 @@ class Leaderboard extends React.Component {
     if (this.returnAllUsersLeaderboard()[0].publicId === this.state.user.publicId) {
       comparison = this.returnUserOffsetsLeaderboard();
     } else {
-      comparison = parseFloat(this.returnAllUsersLeaderboard()[0].offsets);
+      comparison = parseFloat(this.returnAllUsersLeaderboard()[0].offsetAmount);
     }
 
     console.log('comp', comparison)
@@ -248,6 +249,84 @@ updateSearchValue(e) {
   this.setState({ searchValue: e.target.value });
   this.updateSearchFunction();
 }
+addUser(id) {
+
+  let newFriends = this.state.friends.map((fri) => { return fri });
+
+  let user;
+
+  this.state.allUsers.map((us) => {
+    if (us.publicId === id) {
+      user = us;
+    }
+  })
+
+  newFriends.unshift(user);
+
+  let newFriendsDB = this.state.user.friends.map((fri) => { return fri });
+
+  newFriendsDB.unshift(id);
+
+  this.setState({ friends: newFriends });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+      prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+}
+removeUser(id) {
+
+  let user;
+
+  this.state.allUsers.map((us) => {
+    if (us.publicId === id) {
+      user = us;
+    }
+  })
+
+  let newFriends = this.state.friends.map((fri) => { return fri });
+
+  let nFI = newFriends.indexOf(user);
+  newFriends.splice(nFI, 1);
+
+  let newFriendsDB = this.state.user.friends.map((fri) => { return fri });
+
+  let nFDBI = newFriendsDB.indexOf(id);
+  newFriendsDB.splice(nFDBI, 1);
+
+  this.setState({ friends: newFriends });
+
+  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+      prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('UPDATED');
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+}
+isUserFriend(id) {
+  let isFriend = false;
+
+  this.state.friends.map((fri) => {
+    if (id === fri.publicId) {
+      isFriend = true;
+    }
+  })
+  return isFriend;
+}
 insertAddFriendsContainer() {
 
   let shuffledUsers = this.state.search;
@@ -279,7 +358,7 @@ insertAddFriendsContainer() {
   <img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/>
   <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">{userf.name}</div><div className="leaderboard__addFriendsUsername">@{userf.username}</div></div>
 
-  {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd"><div className="leaderboard__submitButton">Add &nbsp; 🏂</div></div> : undefined}
+  {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
 
   </div>
 
@@ -318,7 +397,7 @@ returnFriends() {
     </a>
 
     <div className="leaderboard__nameAndUsernamContainerBottom">
-    <a href={`/user/@${this.state.friends[friend1].username}`} className="title" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</a>
+    <a href={`/user/@${this.state.friends[friend1].username}`} className="" id="leaderboard__sideNameBottom">{this.state.friends[friend1].name}</a>
     <a href={`/user/@${this.state.friends[friend1].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</a>
   </div>
 
@@ -541,7 +620,7 @@ returnUserOffsetsLeaderboard() {
     return (
       <>
         <div className="content">
-        {this.state.user && this.state.allUsers && this.state.userRank && this.state.friends && this.state.search ? <div>
+        {this.state.user && this.state.allUsers && this.state.userRank && this.state.search && this.state.friends ? <div>
           <Row>
             <Col md="8">
               <Card>
@@ -561,7 +640,7 @@ returnUserOffsetsLeaderboard() {
                         return (<div className="leaderboard__mainRow">
                         <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
                         <img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/>
-                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsets) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsets)}</div></div></div>
+                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
 
                         <div className="leaderboard__individualLineMargins">
                             <Line
@@ -587,7 +666,7 @@ returnUserOffsetsLeaderboard() {
                           <div className="leaderboard__mainRow">
                           <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
                           <img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/>
-                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(friend.offsetAmount)}</div></div></div>
+                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(friend.offsetAmount)}</div></div></div>
 
                           <div className="leaderboard__individualLineMargins">
                               <Line
@@ -639,7 +718,7 @@ returnUserOffsetsLeaderboard() {
                       <img
                         alt="..."
                         className="avatar"
-                        src={require("../assets/img/avatars/mainProfileImage.png")}
+                        src={require(`../assets/img/${this.state.user.avatar}`)}
                       />
                       <h5 className="title" id="leaderboard__sideUserName">{this.state.user.name}</h5>
                     </a>
@@ -686,7 +765,7 @@ returnUserOffsetsLeaderboard() {
 
            :
 
-          <Col md="8">
+          <Row><Col md="8">
             <Card>
               <CardHeader>
               <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
@@ -702,11 +781,11 @@ returnUserOffsetsLeaderboard() {
               <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
 
             </Card>
-          </Col>}
+          </Col>
 
-          {this.state.friends.length === 0 ?
+          {this.insertAddFriendsContainer()}
 
-          this.insertAddFriendsContainer() : undefined}
+          </Row>}
 
 
           </div>: undefined}
