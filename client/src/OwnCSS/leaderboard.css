@@ -492,7 +492,7 @@ margin:auto;
 }
 .leaderboard__progressbarMainAdd {
   float:right;
-  right:10px;
+  right:0px;
   position:relative;
 }
 .leaderboard__bottomLeftArrow {

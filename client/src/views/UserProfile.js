@@ -126,9 +126,12 @@ componentWillMount() {
      console.log('actual friend', pfriends[0]);
 
      let isFriend = false;
-     let uFriends = response.data.info[1];
+     let uFriends = response.data.info[0].friends;
 
      uFriends.map((fri) => {
+
+       console.log('fri', fri);
+       console.log('puser', puser.publicId);
 
        if (fri === puser.publicId) {
          isFriend = true;
@@ -523,7 +526,7 @@ render() {
 
           <div className="notFound__positionButton2">
 
-          <div className="userProfile__submitButton">Add &nbsp; 🏂</div>
+          {this.state.isFriend ? <div className="userProfile__submitButton" onClick={() => this.removeUser(this.state.puser.publicId)}>Remove &nbsp; 🙅</div> : <div className="userProfile__submitButton" onClick={() => this.addUser(this.state.puser.publicId)}>Add &nbsp; 🏂</div>}
 
           </div>
 

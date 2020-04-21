@@ -128,7 +128,7 @@ router.post("/return-extension", (req, res) => {
           indvOff += parseFloat(of.amount);
         });
 
-        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, offsets: indvOff });
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, offsetAmount: indvOff });
 
       });
 
