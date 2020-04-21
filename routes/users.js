@@ -928,7 +928,7 @@ router.post("/update", (req, res) => {
 });
 
 
-router.post("/addd-order", (req, res) => {
+router.post("/add-order", (req, res) => {
 
   let token;
 
