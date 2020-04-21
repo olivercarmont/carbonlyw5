@@ -928,7 +928,7 @@ router.post("/update", (req, res) => {
 });
 
 
-router.post("/insert-order", (req, res) => {
+router.post("/addd-order", (req, res) => {
 
   let token;
 
@@ -939,17 +939,37 @@ router.post("/insert-order", (req, res) => {
 } else if (req.header('jwt')) {
   token = req.header('jwt');
 }
-
     let decoded = parseJwt(token);
     let id = decoded.id;
     id = id.toString();
+
+    let order;
+
+    if (req.header('order')) {
+      order = req.header('order');
+    } else if (req.body.order) {
+      order = req.body.order;
+    }
+
+
   // let tokenObject = { token: token
   // };
 
   // return res.json(tokenObject);
 
   User.findOne({ _id: id }).then(user => {
-    return res.json(user);
+
+    let orders = user.orders.map((or) => { return or });
+
+    orders.push(order)
+
+    User.findOneAndUpdate({ _id: id }, { $set: {
+        orders: orders
+      }
+    }).then(user => {
+      return res.json({ orders:orders });
+    })
+
   }).catch(err => res.status(400).json(`Error:` + err));
 
 } else {

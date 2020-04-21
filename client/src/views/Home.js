@@ -116,9 +116,19 @@ drop(ev) {
   ev.target.appendChild(document.getElementById(data));
 }
 createNewItemSaved() {
-  let newArray = this.state.savedList
+  let newId;
 
-  let newId = this.state.savedList.length + 1;
+  let newArray = this.state.savedList;
+
+  let newSortList = this.state.savedList.map((el) => { return el });
+
+  newSortList.sort((a, b) => (a.id < b.id) ? 1 : -1)
+
+  if (newSortList.length > 0) {
+    newId = parseFloat(newSortList[0].id) + 1;
+  } else {
+    newId = 1;
+  }
 
   newArray.push({ id: newId, title: '', description: ''})
 
@@ -139,9 +149,20 @@ createNewItemSaved() {
 
 }
 createNewItemShoppingList() {
+
+  let newId;
+
   let newArray = this.state.shoppingList;
 
-  let newId = this.state.shoppingList.length + 1;
+  let newSortList = this.state.shoppingList.map((el) => { return el });
+
+  newSortList.sort((a, b) => (a.id < b.id) ? 1 : -1)
+
+  if (newSortList.length > 0) {
+    newId = parseFloat(newSortList[0].id) + 1;
+  } else {
+    newId = 1;
+  }
 
   newArray.push({ id: newId, title: '', description: ''})
 
