@@ -818,7 +818,7 @@ router.post("/update", (req, res) => {
     if (!user) {
       res.status(400).json({ message: 'User Not Found' });
     }
- // !value.match(/[:!?+=<>~`'"[{]/)
+ /* !value.match(/[:!?+=<>~`'"[{]/) */
     if (prop === 'name' && typeof value === 'string' && value.length < 60) {
 
       if ((/[,.+-:;=~#`'"{}/\[\]!?\-]/.test(value))) {
