@@ -25,6 +25,7 @@ import Typography from "./views/Typography.js";
 import Profile from "./views/Profile.js";
 import UserProfile from "./views/UserProfile.js";
 import Leaderboard from "./views/Leaderboard.js";
+import Offsets from "./views/Offsets.js";
 
 var routes = [
   {
@@ -55,12 +56,21 @@ var routes = [
     emoji: '📊',
   },
   {
+    path: "/offsets",
+    name: "Offsets",
+    icon: "tim-icons icon-world",
+    component: Offsets,
+    layout: "/",
+    disabled: false,
+    emoji: '🌿',
+  },
+  {
     path: "/profile",
     name: "Profile",
     icon: "tim-icons icon-single-02",
     component: Profile,
     layout: "/",
-    disabled: false,
+    disabled: true,
     emoji: '😉',
   },
   {
@@ -87,7 +97,7 @@ var routes = [
 
 
 
-/*
+  /*
 
   {
     path: "/icons",
@@ -97,6 +107,7 @@ var routes = [
     layout: "/",
     disabled: false,
   },
+
   {
     path: "/notifications",
     name: "Notifications",

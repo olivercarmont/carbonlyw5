@@ -146,13 +146,13 @@ class Sidebar extends React.Component {
               className="active-pro"
             >
               <NavLink
-                to="/settings"
+                to="/profile"
                 lassName="nav-link"
                 activeClassName="active"
                 onClick={this.props.toggleSidebar}
               >
-                <i className="tim-icons icon-settings-gear-63" />
-                <p>{'Settings'}</p>
+                <i className="tim-icons icon-single-02" />
+                <p>{'Profile'}</p>
               </NavLink>
             </li>
           </Nav>
