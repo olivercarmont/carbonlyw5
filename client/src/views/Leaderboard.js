@@ -227,7 +227,7 @@ updateSearchFunction() {
 
 var search = [];
 
-// let searchStrings = this.state.searchValue.match(/.{1,3}/g);
+/* let searchStrings = this.state.searchValue.match(/.{1,3}/g); */
 //
 // console.log('searchStrings', searchStrings);
 
