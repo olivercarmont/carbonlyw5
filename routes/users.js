@@ -87,299 +87,299 @@ router.route('/add').post((req, res) => {
 //     .catch(err => res.status(400).json('Error: ' + err));
 // });
 
-// router.post("/return-extension", (req, res) => {
-//
-//   let token;
-//   let pathTaken = '';
-//
-//   if (req.body.jwt || !!req.header('jwt')) {
-//
-//   if (req.body.jwt) {
-//   token = req.body.jwt;
-// } else if (req.header('jwt')) {
-//   token = req.header('jwt');
-// }
-//
-//     let decoded = parseJwt(token);
-//     let id = decoded.id;
-//     id = id.toString();
-//   // let tokenObject = { token: token
-//   // };
-//
-//   // return res.json(tokenObject);
-//
-//   let info, userInfo, userFriends, friendInfo = [], leaderboardInfo, usOffArray = [];
-//
-//   let done = false, triedInsert = false, rankLoopFinished = false;
-//
-//   User.findOne({ _id: id }).then(user => {
-//
-//     userInfo = user;
-//     userFriends = user.friends;
-//     let i = 1;
-//
-//     User.find().then((users) => {
-//
-//       users.map((us) => {
-//
-//         let indvOff = 0;
-//
-//         us.offsets.map((of) => {
-//           indvOff += parseFloat(of.amount);
-//         });
-//
-//         usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, offsetAmount: indvOff });
-//
-//       });
-//
-//       usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
-//
-//       leaderboardInfo = usOffArray;
-//
-//       leaderboardInfo = leaderboardInfo.slice(0, 3);
-//
-//       console.log('usOffArrayAtFriends (before)', usOffArray);
-//
-//     });
-//
-//     console.log('usOffArrayAtFriends', usOffArray);
-//
-//     if (usOffArray.length < 1) {
-//
-//     console.log("usOffArray wasn't defined");
-//
-//     pathTaken += ` usOffArray was not defined `;
-//
-//     var timer2 = 0;
-//     var si2 = setInterval(() => {
-//
-//       timer2++;
-//
-//       if ((timer1 > 10000) || (!!leaderboardInfo)) {
-//
-//         console.log('timer', timer2);
-//
-//         clearInterval(si2);
-//
-//         userFriends.map((fri) => {
-//
-//           User.findOne({ publicId: fri }).then(friend => {
-//
-//         let friendOffset = 0;
-//
-//         friend.offsets.map((el) => {
-//           friendOffset += parseFloat(el.amount);
-//         });
-//
-//         let ranki = 1;
-//
-//         for (let loopN = 0; loopN < usOffArray.length; loopN++) {
-//             pathTaken += ` for loop was started `;
-//           if (usOffArray[loopN].publicId === friend.publicId) {
-//             rankLoopFinished = true;
-//             break;
-//           } else {
-//             ranki++
-//           }
-//         }
-//
-//         if (!rankLoopFinished) {
-//
-//         pathTaken += ` rankLoopFinished was not defined `;
-//
-//         var timer3 = 0;
-//         var si3 = setInterval(() => {
-//
-//           timer3++;
-//
-//         if (rankLoopFinished) {
-//
-//         clearInterval(si3);
-//
-//         pathTaken += ` rankLoopFinished became defined `;
-//
-//         friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
-//
-//         triedInsert = true;
-//
-//         if (userFriends.length > 0) {
-//
-//           if (!!triedInsert && rankLoopFinished) {
-//             done = true;
-//           }
-//
-//         } else {
-//           done = true;
-//         }
-//
-//         }
-//
-//         }, 1);
-//         } else {
-//
-//           friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
-//
-//           triedInsert = true;
-//
-//           if (userFriends.length > 0) {
-//
-//             if (!!triedInsert && rankLoopFinished) {
-//               done = true;
-//             }
-//
-//           } else {
-//             done = true;
-//           }
-//
-//         }
-//
-//       })
-//
-//     });
-//
-//   }
-// }, 1);
-//
-// } else {
-//
-//   pathTaken += ` usOffArray was defined `;
-//
-//   console.log('usOffArray was defined')
-//
-//   userFriends.map((fri) => {
-//
-//     User.findOne({ publicId: fri }).then(friend => {
-//
-//   let friendOffset = 0;
-//
-//   friend.offsets.map((el) => {
-//     friendOffset += parseFloat(el.amount);
-//   });
-//
-//   let ranki = 1;
-//
-//   console.log('usOffArray', usOffArray);
-//
-//   for (let loopN = 0; loopN < usOffArray.length; loopN++) {
-//
-//     if (usOffArray[loopN].publicId === friend.publicId) {
-//       rankLoopFinished = true;
-//
-//       console.log('rankLoopFinished became true');
-//
-//       pathTaken += ` rankLoopFinished: ${rankLoopFinished} `
-//
-//       break;
-//     } else {
-//       ranki++
-//     }
-//   }
-//
-//   console.log('rankLoopFinished', rankLoopFinished);
-//
-//   if (!rankLoopFinished) {
-//
-//   pathTaken += ` rankLoopFinished wasn't defined `
-//
-//   var timer4 = 0;
-//   var si4 = setInterval(() => {
-//
-//     timer4++;
-//
-//   if (rankLoopFinished) {
-//
-//   clearInterval(si4);
-//
-//   pathTaken += ` rankLoopFinished became defined `
-//
-//   friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
-//
-//   console.log('friend length', userFriends.length);
-//
-//   triedInsert = true;
-//
-//   if (userFriends.length > 0) {
-//
-//     pathTaken += `triedInsert && rankLoop: ${triedInsert}, ${rankLoopFinished}`
-//
-//     if (!!triedInsert && !!rankLoopFinished) {
-//       done = true;
-//     }
-//
-//   } else {
-//     done = true;
-//   }
-//
-//   }
-//
-//   }, 1);
-//   } else {
-//
-//     friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
-//
-//     triedInsert = true;
-//
-//     if (userFriends.length > 0) {
-//
-//       if (!!triedInsert && !!rankLoopFinished) {
-//         done = true;
-//       }
-//
-//     } else {
-//       done = true;
-//     }
-//
-//   }
-//
-// });
-// });
-// }
-//
-//     var timer1 = 0;
-//     var si1 = setInterval(() => {
-//
-//       timer1++;
-//
-//       // console.log('pathTaken', pathTaken);
-//       // console.log('leaderboardInfo', leaderboardInfo);
-//
-//       if ((timer1 > 10000) || (!!done && !!leaderboardInfo)) {
-//
-//         clearInterval(si1);
-//
-//         console.log('timer', timer1);
-//
-//         let rankip = 1;
-//         let personalLoopFinished = false;
-//
-//
-//         for (let loopN2 = 0; loopN2 < usOffArray.length; loopN2++) {
-//           if (usOffArray[loopN2].publicId === user.publicId) {
-//             personalLoopFinished = true;
-//             break;
-//           } else {
-//             rankip++
-//           }
-//         }
-//
-//         if (personalLoopFinished) {
-//
-//       info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }];
-//
-//       return res.json({ info });
-//
-//       }
-//
-//     }
-//   }, 1);
-//
-//   }).catch(err => res.status(400).json(`Error:` + err));
-//
-// } else {
-//       return res.status(400).json({ jwt: `${res.toString()} + ${req.header('jwt')} + ${req.headers['jwt']}` });
-//   }
-//
-// });
+router.post("/return-extension", (req, res) => {
+
+  let token;
+  let pathTaken = '';
+
+  if (req.body.jwt || !!req.header('jwt')) {
+
+  if (req.body.jwt) {
+  token = req.body.jwt;
+} else if (req.header('jwt')) {
+  token = req.header('jwt');
+}
+
+    let decoded = parseJwt(token);
+    let id = decoded.id;
+    id = id.toString();
+  // let tokenObject = { token: token
+  // };
+
+  // return res.json(tokenObject);
+
+  let info, userInfo, userFriends, friendInfo = [], leaderboardInfo, usOffArray = [];
+
+  let done = false, triedInsert = false, rankLoopFinished = false;
+
+  User.findOne({ _id: id }).then(user => {
+
+    userInfo = user;
+    userFriends = user.friends;
+    let i = 1;
+
+    User.find().then((users) => {
+
+      users.map((us) => {
+
+        let indvOff = 0;
+
+        us.offsets.map((of) => {
+          indvOff += parseFloat(of.amount);
+        });
+
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, offsetAmount: indvOff });
+
+      });
+
+      usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
+
+      leaderboardInfo = usOffArray;
+
+      leaderboardInfo = leaderboardInfo.slice(0, 3);
+
+      console.log('usOffArrayAtFriends (before)', usOffArray);
+
+    });
+
+    console.log('usOffArrayAtFriends', usOffArray);
+
+    if (usOffArray.length < 1) {
+
+    console.log("usOffArray wasn't defined");
+
+    pathTaken += ` usOffArray was not defined `;
+
+    var timer2 = 0;
+    var si2 = setInterval(() => {
+
+      timer2++;
+
+      if ((timer1 > 10000) || (!!leaderboardInfo)) {
+
+        console.log('timer', timer2);
+
+        clearInterval(si2);
+
+        userFriends.map((fri) => {
+
+          User.findOne({ publicId: fri }).then(friend => {
+
+        let friendOffset = 0;
+
+        friend.offsets.map((el) => {
+          friendOffset += parseFloat(el.amount);
+        });
+
+        let ranki = 1;
+
+        for (let loopN = 0; loopN < usOffArray.length; loopN++) {
+            pathTaken += ` for loop was started `;
+          if (usOffArray[loopN].publicId === friend.publicId) {
+            rankLoopFinished = true;
+            break;
+          } else {
+            ranki++
+          }
+        }
+
+        if (!rankLoopFinished) {
+
+        pathTaken += ` rankLoopFinished was not defined `;
+
+        var timer3 = 0;
+        var si3 = setInterval(() => {
+
+          timer3++;
+
+        if (rankLoopFinished) {
+
+        clearInterval(si3);
+
+        pathTaken += ` rankLoopFinished became defined `;
+
+        friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+
+        triedInsert = true;
+
+        if (userFriends.length > 0) {
+
+          if (!!triedInsert && rankLoopFinished) {
+            done = true;
+          }
+
+        } else {
+          done = true;
+        }
+
+        }
+
+        }, 1);
+        } else {
+
+          friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+
+          triedInsert = true;
+
+          if (userFriends.length > 0) {
+
+            if (!!triedInsert && rankLoopFinished) {
+              done = true;
+            }
+
+          } else {
+            done = true;
+          }
+
+        }
+
+      })
+
+    });
+
+  }
+}, 1);
+
+} else {
+
+  pathTaken += ` usOffArray was defined `;
+
+  console.log('usOffArray was defined')
+
+  userFriends.map((fri) => {
+
+    User.findOne({ publicId: fri }).then(friend => {
+
+  let friendOffset = 0;
+
+  friend.offsets.map((el) => {
+    friendOffset += parseFloat(el.amount);
+  });
+
+  let ranki = 1;
+
+  console.log('usOffArray', usOffArray);
+
+  for (let loopN = 0; loopN < usOffArray.length; loopN++) {
+
+    if (usOffArray[loopN].publicId === friend.publicId) {
+      rankLoopFinished = true;
+
+      console.log('rankLoopFinished became true');
+
+      pathTaken += ` rankLoopFinished: ${rankLoopFinished} `
+
+      break;
+    } else {
+      ranki++
+    }
+  }
+
+  console.log('rankLoopFinished', rankLoopFinished);
+
+  if (!rankLoopFinished) {
+
+  pathTaken += ` rankLoopFinished wasn't defined `
+
+  var timer4 = 0;
+  var si4 = setInterval(() => {
+
+    timer4++;
+
+  if (rankLoopFinished) {
+
+  clearInterval(si4);
+
+  pathTaken += ` rankLoopFinished became defined `
+
+  friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+
+  console.log('friend length', userFriends.length);
+
+  triedInsert = true;
+
+  if (userFriends.length > 0) {
+
+    pathTaken += `triedInsert && rankLoop: ${triedInsert}, ${rankLoopFinished}`
+
+    if (!!triedInsert && !!rankLoopFinished) {
+      done = true;
+    }
+
+  } else {
+    done = true;
+  }
+
+  }
+
+  }, 1);
+  } else {
+
+    friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+
+    triedInsert = true;
+
+    if (userFriends.length > 0) {
+
+      if (!!triedInsert && !!rankLoopFinished) {
+        done = true;
+      }
+
+    } else {
+      done = true;
+    }
+
+  }
+
+});
+});
+}
+
+    var timer1 = 0;
+    var si1 = setInterval(() => {
+
+      timer1++;
+
+      // console.log('pathTaken', pathTaken);
+      // console.log('leaderboardInfo', leaderboardInfo);
+
+      if ((timer1 > 10000) || (!!done && !!leaderboardInfo)) {
+
+        clearInterval(si1);
+
+        console.log('timer', timer1);
+
+        let rankip = 1;
+        let personalLoopFinished = false;
+
+
+        for (let loopN2 = 0; loopN2 < usOffArray.length; loopN2++) {
+          if (usOffArray[loopN2].publicId === user.publicId) {
+            personalLoopFinished = true;
+            break;
+          } else {
+            rankip++
+          }
+        }
+
+        if (personalLoopFinished) {
+
+      info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }];
+
+      return res.json({ info });
+
+      }
+
+    }
+  }, 1);
+
+  }).catch(err => res.status(400).json(`Error:` + err));
+
+} else {
+      return res.status(400).json({ jwt: `${res.toString()} + ${req.header('jwt')} + ${req.headers['jwt']}` });
+  }
+
+});
 
 router.post("/return-home", (req, res) => {
 
