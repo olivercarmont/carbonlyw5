@@ -931,7 +931,7 @@ router.post("/add-order", (req, res) => {
 
   let token;
 
-  if (req.body.jwt || !!req.header('jwt')) {
+  if ((req.body.jwt || !!req.header('jwt')) && (req.body.website || req.header('website'))) {
 
   if (req.body.jwt) {
   token = req.body.jwt;
@@ -944,12 +944,45 @@ router.post("/add-order", (req, res) => {
 
     let order;
 
-    if (req.header('order')) {
-      order = req.header('order');
-    } else if (req.body.order) {
-      order = req.body.order;
+    let website, name, time, carbon;
+
+    if (req.header('website')) {
+      website = req.header('website');
+    } else if (req.body.website) {
+      website = req.body.website;
     }
 
+    if (req.header('name')) {
+      name = req.header('name');
+    } else if (req.body.name) {
+      name = req.body.name;
+    }
+
+    if (req.header('time')) {
+      time = req.header('time');
+    } else if (req.body.time) {
+      time = req.body.time;
+    }
+
+    if (req.header('carbon')) {
+      carbon = req.header('carbon');
+    } else if (req.body.carbon) {
+      carbon = req.body.carbon;
+    }
+
+    if (website && name && time && carbon) {
+
+      order = {
+        website: website,
+        name: name,
+        time: time,
+        carbon: carbon,
+        offset: false
+      }
+
+    } else {
+        return res.status(400).json({ publicId: `Not All Data Provided` });
+    }
 
   // let tokenObject = { token: token
   // };

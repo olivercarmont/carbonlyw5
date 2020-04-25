@@ -281,19 +281,21 @@ margin-bottom:26px;
 #leaderboard__addFriendsSearch {
   border:none;
   border-radius:30px;
-  height:36px;
+  height:38px;
   width:60%;
   text-align:center;
   font-size:0.91em;
   padding-left:40px;
   padding-right:40px;
+  border:1px solid #eee;
 }
 #leaderboard__addFriendsSearch:focus {
-  outline: none;
+  border:1px solid #ddd !important;
+  color:#777 !important;
 }
 .leaderboard__addFriendsPositionSearch {
   position:relative;
-  top:-28px;
+  top:-30px;
   margin:auto;
   left:-70px;
   color:#555;
