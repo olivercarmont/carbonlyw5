@@ -44,6 +44,9 @@ class FixedPlugin extends Component {
         break;
     }
   };
+  componentWillMount() {
+    document.body.classList.add("white-content");
+  }
   render() {
     return (
       <div className="fixed-plugin">

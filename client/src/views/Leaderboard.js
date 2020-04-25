@@ -136,17 +136,17 @@ class Leaderboard extends React.Component {
 
       return `${amount}kg`;
 
-    } else if (amount > 9999) {
+    } else if (amount > 999) {
 
       calcData = amount / 1000;
 
       calcData = Math.round(calcData);
 
-      return `${calcData}t CO`
+      return `${calcData}t`
 
-    } else if (amount > 10000000) {
+    } else if (amount >= 10000000) {
 
-      calcData = amount / 1000;
+      calcData = amount / 10000000;
 
       calcData = Math.round(calcData);
 
@@ -156,6 +156,10 @@ class Leaderboard extends React.Component {
       let calcData = Math.round(amount);
       return `${calcData}kg`;
     }
+  }
+  returnLeaderboardOffsets(amount) {
+
+  return Math.round(amount) + 'kg';
   }
   returnOffsetWidth(offsets) {
 
@@ -356,7 +360,7 @@ insertAddFriendsContainer() {
   <div className="leaderboard__addFriendsMainRow">
 
   <img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/>
-  <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">{userf.name}</div><div className="leaderboard__addFriendsUsername">@{userf.username}</div></div>
+  <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div className="leaderboard__addFriendsUsername">@{userf.username}</div></div>
 
   {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
 
@@ -424,6 +428,8 @@ returnFriends() {
 
 <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend1].offsetAmount))}</div></div></div>
 
+<div className="leaderboard__friendsBottomSpacing"></div>
+
 </div>
 
     </CardBody>
@@ -483,6 +489,8 @@ returnFriendsTwo() {
 </div></div>
 
 <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend2].offsetAmount))}</div></div></div>
+
+<div className="leaderboard__friendsBottomSpacing"></div>
 
 </div>
 
@@ -616,6 +624,16 @@ returnUserOffsetsLeaderboard() {
 
   return totOffsets;
 }
+returnRanColor() {
+  let num = Math.random() * (1000 - 0);
+
+  if (num > 500) {
+    return "#a9dbc0";
+  } else {
+    return "#e07073";
+  }
+
+}
   render() {
     return (
       <>
@@ -640,15 +658,15 @@ returnUserOffsetsLeaderboard() {
                         return (<div className="leaderboard__mainRow">
                         <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
                         <img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/>
-                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
+                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
 
                         <div className="leaderboard__individualLineMargins">
                             <Line
-                              data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+                              data={ { labels: [],
                                         datasets: [{
-                                        data: [106,107,111,50,20,10,4],
+                                        data: [(Math.random() * (1000 - 0)),(Math.random() * (1000 - 0)), (Math.random() * (1000 - 0))],
                                         label: "Ranking",
-                                        borderColor: "#a9dbc0",
+                                        borderColor: this.returnRanColor(),
                                         fill: false
                                       }] } }
                               options={this.state.lineOptions}
@@ -666,15 +684,15 @@ returnUserOffsetsLeaderboard() {
                           <div className="leaderboard__mainRow">
                           <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
                           <img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/>
-                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnOffsets(friend.offsetAmount)}</div></div></div>
+                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.offsetAmount)}</div></div></div>
 
                           <div className="leaderboard__individualLineMargins">
                               <Line
-                                data={ { labels: [1750,1800,1850,1900,1950,1999,2050],
+                                data={ { labels: [],
                                           datasets: [{
-                                          data: [106,107,111,50,20,10,4],
+                                          data: [(Math.random() * (1000 - 0)),(Math.random() * (1000 - 0)), (Math.random() * (1000 - 0))],
                                           label: "Ranking",
-                                          borderColor: "#a9dbc0",
+                                          borderColor: this.returnRanColor(),
                                           fill: false
                                         }] } }
                                 options={this.state.lineOptions}

@@ -766,13 +766,9 @@ router.post("/return-leaderboard", (req, res) => {
 });
 
 /*
-
 *******************************************************************
-
                       RETURN USER PROFILE
-
 *******************************************************************
-
 */
 
 router.post("/update", (req, res) => {
@@ -1010,7 +1006,7 @@ router.post("/add-order", (req, res) => {
 });
 
 
- 
+
 
 // @route POST api/users/login
 // @desc Login user and return JWT token

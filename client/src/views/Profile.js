@@ -82,6 +82,33 @@ constructor(props) {
       currentAvatar: 5,
       friendsMove: 1,
       save: '',
+      lineOptions: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              drawBorder: false,
+            },
+          }], xAxes: [{
+            gridLines: {
+              display: false,
+            },
+          }], yAxes: [{
+            display: false, ticks: { reverse: true }
+          }],
+          xAxes: [{
+            display: false
+          }]
+        }, legend: {
+          display: false
+        }, tooltips: {
+          enabled: false
+        }, elements: {
+          point:{
+            radius: 0
+          }
+        }
+      },
+
     };
 }
 avatarLeft() {
@@ -193,7 +220,7 @@ let calcData;
 
     return `${amount}kg`;
 
-  } else if (amount > 9999) {
+  } else if (amount > 999) {
 
     calcData = amount / 1000;
 
@@ -201,9 +228,9 @@ let calcData;
 
     return `${calcData}t CO`
 
-  } else if (amount > 10000000) {
+  } else if (amount >= 10000000) {
 
-    calcData = amount / 1000;
+    calcData = amount / 10000000;
 
     calcData = Math.round(calcData);
 

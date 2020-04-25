@@ -96,7 +96,7 @@ class Offsets extends React.Component {
 
       return `${amount}kg`;
 
-    } else if (amount > 9999) {
+    } else if (amount > 999) {
 
       calcData = amount / 1000;
 
@@ -104,9 +104,9 @@ class Offsets extends React.Component {
 
       return `${calcData}t CO`
 
-    } else if (amount > 10000000) {
+    } else if (amount >= 10000000) {
 
-      calcData = amount / 1000;
+      calcData = amount / 10000000;
 
       calcData = Math.round(calcData);
 
@@ -154,10 +154,6 @@ returnWeeklyOrders() {
 
   let totalEmissions = 0;
   let date = new Date()
-  date.setHours(12)
-  date.setMinutes(0)
-  date.setSeconds(0)
-  date.setMilliseconds(0)
 
   let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
   start_of_week.setHours(0)
@@ -175,6 +171,8 @@ returnWeeklyOrders() {
    }
 
   });
+
+  weekOrders.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
 
   return weekOrders;
 
@@ -196,6 +194,8 @@ returnMonthlyOrders() {
 
   });
 
+  monthOrders.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
+
   return monthOrders;
 
 }
@@ -204,7 +204,6 @@ returnYearlyOrders() {
   let date = new Date();
   var cur_year = date.getFullYear();
   let yearOrders = [];
-
 
   this.state.user.orders.map((or) => {
 
@@ -215,6 +214,8 @@ returnYearlyOrders() {
   }
 
 });
+
+  yearOrders.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
 
   return yearOrders;
 
@@ -236,10 +237,6 @@ changeCurrency(e) {
 returnTotalWeek() {
   let totalEmissions = 0;
   let date = new Date()
-  date.setHours(12)
-  date.setMinutes(0)
-  date.setSeconds(0)
-  date.setMilliseconds(0)
 
   let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
   start_of_week.setHours(0)
@@ -300,7 +297,7 @@ formatEmissions(em) {
       return `${em}kg CO`;
     } else {
 
-      if (em > 9999) {
+      if (em > 999) {
 
         let calcData;
 
@@ -308,13 +305,13 @@ formatEmissions(em) {
 
         calcData = calcData.toFixed(1);
 
-        em = `${calcData}t`
+        em = `${calcData}t CO`
 
-      } else if (em > 10000000) {
+      } else if (em >= 10000000) {
 
         let calcData;
 
-        calcData = em / 1000;
+        calcData = em / 10000000;
 
         calcData = calcData.toFixed(1);
 
@@ -331,10 +328,6 @@ formatEmissions(em) {
 returnTotalWeekCost() {
   let totalEmissions = 0;
   let date = new Date()
-  date.setHours(12)
-  date.setMinutes(0)
-  date.setSeconds(0)
-  date.setMilliseconds(0)
 
   let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
   start_of_week.setHours(0)
@@ -431,6 +424,13 @@ getTimeSizeOfEmissions(num) {
   }
 
 }
+roundCarbon(amt) {
+  if (amt >= 100) {
+    return Math.round(amt);
+  } else {
+    return parseFloat(amt).toFixed(1);
+  }
+}
   render() {
     return (
       <>
@@ -471,11 +471,13 @@ getTimeSizeOfEmissions(num) {
 
                       <div className="offsets__mainOrdersDiv">
 
+                      <div className="offsets__centerOrders">
+
                       {this.state.period === 'weekly' ? this.returnWeeklyOrders().length > 0 ? this.returnWeeklyOrders().map((order) => {
 
                         return (<tr id="offsets__mainOrderDiv">
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${'tesco.png'}`)} id="offsets__ordersImage" />
+                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
@@ -490,7 +492,7 @@ getTimeSizeOfEmissions(num) {
                               title=""
                               type="button"
                             >
-                              <p id="analytics__mainTextSideOrders">{this.roundNumber(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
                             </Button>
                           </td>
                         </tr>);
@@ -498,11 +500,15 @@ getTimeSizeOfEmissions(num) {
 
                       }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
 
+                      </div>
+
+                      <div className="offsets__centerOrders">
+
                       {this.state.period === 'monthly' ? this.returnMonthlyOrders().length > 0 ? this.returnMonthlyOrders().map((order) => {
 
                         return (<div id="offsets__mainOrderDiv"><tr>
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${'tesco.png'}`)} id="offsets__ordersImage" />
+                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
@@ -517,18 +523,21 @@ getTimeSizeOfEmissions(num) {
                               title=""
                               type="button"
                             >
-                              <p id="analytics__mainTextSideOrders">{this.roundNumber(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
                             </Button>
                           </td>
                         </tr></div>);
 
                       }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
 
+                      </div>
+
+                      <div className="offsets__centerOrders">
                       {this.state.period === 'yearly' ? this.returnYearlyOrders().length > 0 ? this.returnYearlyOrders().map((order) => {
 
                         return (<div id="offsets__mainOrderDiv"><tr>
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${'tesco.png'}`)} id="offsets__ordersImage" />
+                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
@@ -543,12 +552,14 @@ getTimeSizeOfEmissions(num) {
                               title=""
                               type="button"
                             >
-                              <p id="offsets__mainTextSideOrders">{this.roundNumber(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
                             </Button>
                           </td>
                         </tr></div>);
 
                       }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
+
+                      </div>
 
                       </div>
 
@@ -570,7 +581,7 @@ getTimeSizeOfEmissions(num) {
 
                       <div className="offsets__subscriptionDiv">
 
-                      <div className="offsets__subDescription">Want Seamless Monthly-Based Offsets?</div>
+                      <div className="offsets__subDescription">Want Seamless {this.state.period.charAt(0).toUpperCase() + this.state.period.slice(1)}-Based Offsets?</div>
 
                         <div className="offsets__monthlySubscriptionButton">Enable Carbonly Subscription</div>
 
@@ -607,7 +618,7 @@ getTimeSizeOfEmissions(num) {
                     }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Offsets to Found</div><div className="offsets__notOrdersFound">Why Not Start Now? </div></div>}
                     </div>
 
-
+                    <div className="offsets__bottomSpacing"></div>
 
                 </CardBody>
               </Card>

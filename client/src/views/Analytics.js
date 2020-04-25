@@ -107,22 +107,20 @@ class Analytics extends React.Component {
     super(props);
     this.state = {
       bigChartData: "data3",
-        chart1Data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+        ordersSort: 'recent'
     };
   }
   returnWeeklyEmissions() {
 
   let totalEmissions = 0;
   let date = new Date()
-  date.setHours(12)
-  date.setMinutes(0)
-  date.setSeconds(0)
-  date.setMilliseconds(0)
 
   let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
   start_of_week.setHours(0)
   start_of_week.setMinutes(0)
   start_of_week.setSeconds(0)
+
+  console.log('START', start_of_week);
 
   let ordersArray = this.state.user.orders;
 
@@ -140,7 +138,7 @@ class Analytics extends React.Component {
     return `${totalEmissions}kg CO`;
   } else {
 
-    if (totalEmissions > 9999) {
+    if (totalEmissions > 999) {
 
       let calcData;
 
@@ -150,7 +148,7 @@ class Analytics extends React.Component {
 
       totalEmissions = `${calcData}t CO`
 
-    } else if (totalEmissions > 10000000) {
+    } else if (totalEmissions >= 10000000) {
 
       let calcData;
 
@@ -192,7 +190,7 @@ class Analytics extends React.Component {
     return `${totalEmissions}kg CO`;
   } else {
 
-    if (totalEmissions > 9999) {
+    if (totalEmissions > 999) {
 
       let calcData;
 
@@ -202,11 +200,11 @@ class Analytics extends React.Component {
 
       totalEmissions = `${calcData}t CO`
 
-    } else if (totalEmissions > 10000000) {
+    } else if (totalEmissions >= 10000000) {
 
       let calcData;
 
-      calcData = totalEmissions / 1000;
+      calcData = totalEmissions / 10000000;
 
       calcData = calcData.toFixed(1);
 
@@ -244,7 +242,7 @@ class Analytics extends React.Component {
     return `${totalEmissions}kg CO`;
   } else {
 
-    if (totalEmissions > 9999) {
+    if (totalEmissions > 999) {
 
       let calcData;
 
@@ -254,11 +252,11 @@ class Analytics extends React.Component {
 
       totalEmissions = `${calcData}t CO`
 
-    } else if (totalEmissions > 10000000) {
+    } else if (totalEmissions >= 10000000) {
 
       let calcData;
 
-      calcData = totalEmissions / 1000;
+      calcData = totalEmissions / 10000000;
 
       calcData = calcData.toFixed(1);
 
@@ -645,6 +643,12 @@ class Analytics extends React.Component {
 
        this.setState({ user: response.data.info[0] });
 
+       let ordersRe = response.data.info[0].orders;
+
+       ordersRe.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
+
+       this.setState({ ordersRecent: ordersRe });
+
        this.setState({ userRank: response.data.info[3].usrank });
 
        console.log('chart example dataset', chartExample1);
@@ -876,7 +880,7 @@ class Analytics extends React.Component {
    }
   });
 
-  return [dayM6, dayM5, dayM4, dayM3, dayM2, dayM1, dayM0];
+  return [dayM6.toFixed(1), dayM5.toFixed(1), dayM4.toFixed(1), dayM3.toFixed(1), dayM2.toFixed(1), dayM1.toFixed(1), dayM0.toFixed(1)];
   }
   getNumberEnding() {
 
@@ -1171,7 +1175,7 @@ class Analytics extends React.Component {
 
       return `${amount}kg`;
 
-    } else if (amount > 9999) {
+    } else if (amount > 999) {
 
       calcData = amount / 1000;
 
@@ -1179,9 +1183,9 @@ class Analytics extends React.Component {
 
       return `${calcData}t CO`
 
-    } else if (amount > 10000000) {
+    } else if (amount >= 10000000) {
 
-      calcData = amount / 1000;
+      calcData = amount / 10000000;
 
       calcData = Math.round(calcData);
 
@@ -1204,6 +1208,43 @@ class Analytics extends React.Component {
 
     return ` ${this.returnOffsets(offsetAmount)} CO`;
 
+  }
+  returnOrdersEm(amt) {
+
+  let calcData;
+
+  if (amt === 0) {
+
+    return `${amt}kg CO`;
+
+  } else if (amt > 999) {
+
+    calcData = amt / 1000;
+
+    calcData = Math.round(calcData);
+
+    return `${calcData}t CO`
+
+  } else if (amt >= 10000000) {
+
+    calcData = amt / 10000000;
+
+    calcData = Math.round(calcData);
+
+    return `${calcData}Mt CO`
+
+  } else {
+
+    if (amt > 99) {
+
+      calcData = Math.round(amt);
+
+    } else {
+      calcData = parseFloat(amt).toFixed(1);
+    }
+
+    return `${calcData}kg CO`;
+    }
   }
   render() {
     return (
@@ -1393,7 +1434,13 @@ class Analytics extends React.Component {
                         href="#pablo"
                         onClick={e => e.preventDefault()}
                       >
-                        Amount CO2e
+                        Highest CO2e
+                      </DropdownItem>
+                      <DropdownItem
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                      >
+                        Lowest CO2e
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -1402,33 +1449,30 @@ class Analytics extends React.Component {
                   <div className="table-full-width table-responsive">
                     <Table>
                       <tbody>
-                        {this.state.user.orders.map((or) => {
+                        {this.state.ordersSort === 'recent' ? this.state.ordersRecent.map((or) => {
 
-                          return (<tr>
-                            <td id="analytics__recentOrdersImageWidth">
-                              <img src={require("../assets/img/companyLogos/tesco.png")} id="analytics__ordersImage" />
-                            </td>
-                            <td id="analytics__recentOrdersTextSize">
-                              <p className="title">{this.returnUpperCase(or.website)}</p>
-                              <p className="text-muted">
-                                {or.name}
-                              </p>
-                            </td>
-                            <td className="td-actions text-right">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                              >
-                                <p id="analytics__mainTextSideOrders">{this.roundNumber(or.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
-                              </Button>
-                            </td>
-                          </tr>);
-
-                        })}
-
-
+                            return (<tr>
+                              <td id="analytics__recentOrdersImageWidth">
+                                <img src={require(`../assets/img/companyLogos/${or.website === 'Tesco' || or.website === 'tesco' ? 'tesco.png' : or.website === 'Amazon' || or.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="analytics__ordersImage" />
+                              </td>
+                              <td id="analytics__recentOrdersTextSize">
+                                <p className="title">{this.returnUpperCase(or.website)}</p>
+                                <p className="text-muted">
+                                  {or.name}
+                                </p>
+                              </td>
+                              <td className="td-actions text-right">
+                                <Button
+                                  color="link"
+                                  id="tooltip636901683"
+                                  title=""
+                                  type="button"
+                                >
+                                  <p id="analytics__mainTextSideOrders">{this.returnOrdersEm(or.carbon)}<span id="analytics__ordersSmall2">2</span></p>
+                                </Button>
+                              </td>
+                            </tr>)
+                          }) : undefined}
                       </tbody>
                     </Table>
                   </div>

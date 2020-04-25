@@ -253,8 +253,8 @@ margin-bottom:26px;
 .leaderboard__individualLineMargins {
   height:30px;
   width:75px;
-  position:relative;
-  left:18.8vw;
+  position:absolute;
+  right:1.8vw;
   margin-top:5px;
 }
 
@@ -337,9 +337,9 @@ background-color:red;
 }
 .leaderboard__addFriendsName {
   font-weight:bold;
-  margin-bottom:0px;
+  margin-bottom:1px;
   /* display:inline-block; */
-  font-size:0.92em;
+  font-size:0.9em;
 }
 .leaderboard__addFriendsUsername {
   font-size:0.75em;
@@ -399,6 +399,7 @@ background-color:red;
   margin-left:auto;
   margin-right:auto;
   margin-bottom:5px;
+  margin-top:8px;
 
   user-select: none;
        -moz-user-select: none;
@@ -445,6 +446,7 @@ background-color:red;
 display:flex;
 width:80%;
 margin:auto;
+margin-top:-9px;
 
 }
 .leaderboard__graphsLagerContainer {
@@ -685,7 +687,7 @@ transition:0.4s;
 }
 .leaderboard__noUserHeight {
   display:block;
-  margin-bottom:-2px;
+  margin-bottom:0px;
 }
 #leaderBoard__progressBarContainerBottomNoUser {
   margin-top:10px;
@@ -749,4 +751,8 @@ transition:0.4s;
 }
 .leaderboard__friendRightShift {
   margin-left:-14px;
+}
+.leaderboard__friendsBottomSpacing {
+  height:96px;
+  clear:both;
 }
