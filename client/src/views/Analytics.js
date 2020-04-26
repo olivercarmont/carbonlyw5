@@ -455,8 +455,7 @@ class Analytics extends React.Component {
                 zeroLineColor: "transparent"
               },
               ticks: {
-                suggestedMin: 60,
-                suggestedMax: 120,
+                suggestedMin: 0,
                 padding: 20,
                 fontColor: "#9e9e9e"
               }
@@ -615,8 +614,7 @@ class Analytics extends React.Component {
                 zeroLineColor: "transparent"
               },
               ticks: {
-                suggestedMin: 50,
-                suggestedMax: 125,
+                suggestedMin: 0,
                 padding: 20,
                 fontColor: "#9e9e9e"
               }
@@ -909,7 +907,7 @@ class Analytics extends React.Component {
 
     if (time.getFullYear() === cur_year) {
 
-      if (website === 'tesco') {
+      if (website === 'tesco' || website === 'Tesco') {
 
         desEm[0]['amount'] = desEm[0]['amount'] + parseFloat(el.carbon);
 
@@ -1000,19 +998,29 @@ class Analytics extends React.Component {
   return [monthArray[0], monthArray[1], monthArray[2], monthArray[3], monthArray[4], monthArray[5] ];
 
   }
+  getMonthFrom(date) {
+    let newDate = new Date();
+
+   return newDate.getMonth() - date.getMonth() +
+     (12 * (newDate.getFullYear() - date.getFullYear()))
+  }
   returnOffsetGraphData() {
 
     let newValue0 = 0, newValue1 = 0, newValue2 = 0, newValue3 = 0, newValue4 = 0, newValue5 = 0;
 
     let selectArray = this.state.user.offsets;
 
+    let cur_time = new Date();
+
     selectArray.forEach((el) => {
 
     let time = new Date(Date.parse(el.time));
 
+    console.log('TIME', time);
+
     let monthsSince = this.getMonthFrom(time);
 
-    let cur_amt = el.carbon;
+    let cur_amt = el.amount;
 
     if (monthsSince === 0) {
       newValue0 += parseFloat(cur_amt);
@@ -1070,7 +1078,6 @@ class Analytics extends React.Component {
 
         });
 
-        d0 = monthArray[0];
 
     return [newValue5.toFixed(1), newValue4.toFixed(1), newValue3.toFixed(1), newValue2.toFixed(1), newValue1.toFixed(1), newValue0.toFixed(1) ];
 
@@ -1088,23 +1095,31 @@ class Analytics extends React.Component {
   }
   rankingGraphData() {
 
+    let userOffsets = 0;
+
+    this.state.user.offsets.map((off) => {
+      userOffsets += parseFloat(off.amount);
+    })
+
     let usValues = [];
+
+    console.log('AU', this.state.allUsers);
 
     if (this.state.userRank === 1) {
 
-    usValues = [this.state.allUsers[0].offsets, this.state.allUsers[1].offsets, this.state.allUsers[2].offsets, this.state.allUsers[3].offsets, this.state.allUsers[4].offsets];
+    usValues = [this.state.allUsers[0].offsetAmount, this.state.allUsers[1].offsetAmount, this.state.allUsers[2].offsetAmount, this.state.allUsers[3].offsetAmount, this.state.allUsers[4].offsetAmount];
 
     } else if (this.state.userRank === 2) {
 
-    usValues = [this.state.allUsers[0].offsets, this.state.allUsers[1].offsets, this.state.allUsers[2].offsets, this.state.allUsers[3].offsets, this.state.allUsers[4].offsets]
+    usValues = [this.state.allUsers[0].offsetAmount, this.state.allUsers[1].offsetAmount, this.state.allUsers[2].offsetAmount, this.state.allUsers[3].offsetAmount, this.state.allUsers[4].offsetAmount]
 
   } else if (this.state.userRank === this.state.allUsers.length) {
 
-    usValues = [this.state.allUsers[this.state.userRank-5].offsets, this.state.allUsers[this.state.userRank-4].offsets, this.state.allUsers[this.state.userRank-3].offsets, this.state.allUsers[this.state.userRank-2].offsets, this.state.user.offsets]
+    usValues = [this.state.allUsers[this.state.userRank-5].offsetAmount, this.state.allUsers[this.state.userRank-4].offsetAmount, this.state.allUsers[this.state.userRank-3].offsetAmount, this.state.allUsers[this.state.userRank-2].offsetAmount, userOffsets]
 
     } else if (this.state.userRank === (this.state.allUsers.length - 1))
 
-    usValues = [this.state.allUsers[this.state.userRank-5].offsets, this.state.allUsers[this.state.userRank-4].offsets, this.state.allUsers[this.state.userRank-3].offsets, this.state.user.offsets, this.state.allUsers[this.state.userRank].offsets, ]
+    usValues = [this.state.allUsers[this.state.userRank-5].offsetAmount, this.state.allUsers[this.state.userRank-4].offsetAmount, this.state.allUsers[this.state.userRank-3].offsetAmount, userOffsets, this.state.allUsers[this.state.userRank].offsetAmount, ]
 
     else {
 
@@ -1113,18 +1128,18 @@ class Analytics extends React.Component {
     this.state.allUsers.map((us) => {
 
       if (us.rank === (this.state.userRank - 2)) {
-        userM2 = us.offsets;
+        userM2 = us.offsetAmount;
       } else if (us.rank === (this.state.userRank - 1)) {
-        userM1 = us.offsets;
+        userM1 = us.offsetAmount;
       } else if (us.rank === (this.state.userRank + 1)) {
-        userP1 = us.offsets;
+        userP1 = us.offsetAmount;
       } else if (us.rank === (this.state.userRank + 2)) {
-        userP2 = us.offsets;
+        userP2 = us.offsetAmount;
       }
 
       });
 
-      usValues = [userM1, userM2, this.state.user.offsets, userP1, userP2];
+      usValues = [userM2, userM1, userOffsets, userP1, userP2];
 
       }
 
