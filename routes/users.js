@@ -134,9 +134,16 @@ router.post("/return-extension", (req, res) => {
 
       usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
 
-      leaderboardInfo = usOffArray;
+      let incr = 0;
 
-      leaderboardInfo = leaderboardInfo.slice(0, 3);
+      usOffArray = usOffArray.map((us) => {
+
+        incr++
+        return { ...us, "rank": incr }
+
+      });
+
+      leaderboardInfo = usOffArray.slice(0, 3);
 
       console.log('usOffArrayAtFriends (before)', usOffArray);
 
@@ -410,6 +417,38 @@ router.post("/return-home", (req, res) => {
   }
 });
 
+router.post("/return-register", (req, res) => {
+
+  let usersArray = [];
+
+  User.find().then((users) => {
+
+    users.map((us) => {
+
+      usersArray.push({ publicId: us.publicId });
+
+    });
+
+    return res.json({ ...usersArray });
+
+  });
+
+  // var timer1 = 0;
+  // var si1 = setInterval(() => {
+  //
+  //   timer1++;
+  //
+  //   // console.log('pathTaken', pathTaken);
+  //   // console.log('leaderboardInfo', leaderboardInfo);
+  //
+  //   if ((timer1 > 1000) || (usersArray.length > 0)) {
+  //     clearInterval(si1);
+  //
+  //   }
+  // }, 15);
+
+});
+
 router.post("/register", (req, res) => {
   // Form validation
 
@@ -423,11 +462,22 @@ router.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: "Email already exists" });
-    } else {
+    }
+  });
+
+  User.findOne({ username: req.body.username }).then(user => {
+    if (user) {
+      return res.status(400).json({ username: "Username is Taken" });
+    }
+    });
+
+
       const newUser = new User({
         name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        publicId: req.body.publicId
       });
 
       // Hash password before saving in database
@@ -441,8 +491,6 @@ router.post("/register", (req, res) => {
             .catch(err => console.log(err));
         });
       });
-    }
-  });
 });
 
 router.post("/return-leaderboard", (req, res) => {
@@ -492,9 +540,16 @@ router.post("/return-leaderboard", (req, res) => {
 
       usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
 
-      leaderboardInfo = usOffArray;
+      let incr = 0;
 
-      leaderboardInfo = leaderboardInfo.slice(0, 3);
+      usOffArray = usOffArray.map((us) => {
+
+        incr++
+        return { ...us, "rank": incr }
+
+      });
+
+      leaderboardInfo = usOffArray.slice(0, 3);
 
       console.log('usOffArrayAtFriends (before)', usOffArray);
 

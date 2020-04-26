@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { logoutUser } from "../actions/authActions";
 import PropTypes from "prop-types";
@@ -635,17 +636,31 @@ render() {
           <Row id="profile__friendsCentering"><Col md="8">
             <Card>
               <CardHeader>
-              <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
 
-              <div className="leaderboard__noFriendsRightPointer">
-              <Icon icon={handPointRight} /></div>
-
-
-              <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
 
               </CardHeader>
 
+
+
+              <CardBody>
+
+              <div className="profile__centerContent">
+
+              <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
+
+              <div className="leaderboard__noFriendsDescription">Got to Leaderboard to Add Your First Friends!</div>
+
+              <div className="notFound__positionButton">
+
+              <Link to="/leaderboard" className="userProfile__submitButton">Leaderboard &nbsp; 📊</Link>
+
+              </div>
+
               <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
+
+              </div>
+
+              </CardBody>
 
             </Card>
           </Col></Row>}

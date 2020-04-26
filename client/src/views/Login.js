@@ -152,7 +152,7 @@ render() {
                   type="email"
                    />
 
-                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                  <span className="focus-input100" data-placeholder="&#xf3fa;"></span>
                 </div>
 
                 <span className="red-text">

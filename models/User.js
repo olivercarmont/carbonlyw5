@@ -33,7 +33,6 @@ const UserSchema = new Schema({
   },
   dateJoined: {
     type: String,
-    required:true
   },
   shoppingList: {
     type: Array,

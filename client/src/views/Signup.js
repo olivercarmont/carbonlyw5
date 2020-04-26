@@ -16,12 +16,17 @@
 
 */
 
+import axios from 'axios';
+
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
 import classnames from "classnames";
+
+import { Icon, InlineIcon } from '@iconify/react';
+import externalLinkAlt from '@iconify/icons-fa-solid/external-link-alt';
 
 // reactstrap components
 import {
@@ -67,6 +72,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
+let guid = () => {
+let s4 = () => {
+  return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    }
+    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+let publicId;
+
 class Signup extends React.Component {
 constructor(props) {
   super(props);
@@ -81,6 +98,18 @@ constructor(props) {
       checked: false,
       privacy: false,
     };
+}
+componentWillMount() {
+
+      axios.post('http://localhost:5000/users/return-register', { }, {
+
+      })
+    .then(response => {
+
+         this.setState({ allUsers: Array(response.data)[0] });
+
+         console.log('allU', Array(response.data)[0] );
+});
 }
 componentDidMount() {
   // If logged in and user navigates to Register page, should redirect them to dashboard
@@ -106,21 +135,46 @@ changeChecked() {
   this.setState({ privacy: false });
   this.setState({ checked: !this.state.checked })
 }
+idExists(id) {
+  let users = Array(this.state.allUsers);
+  users.map((us) => {
+    if (us.publicId === id) {
+      return true;
+    }
+  })
+}
+generateNewId(id) {
 
+  while (this.idExists(id)) {
+    publicId = guid();
+  }
+
+}
 submitForm() {
     // e.preventDefault();
 
   if (this.state.checked) {
 
+    publicId = guid();
+
+    console.log('id', publicId);
+
+    if (this.idExists(publicId)) {
+      this.generateNewId();
+    }
+
   const newUser = {
     name: this.state.name2,
     email: this.state.email2,
     username: this.state.username,
+    publicId,
     password: this.state.password,
     password2: this.state.password,
   };
 
   this.props.registerUser(newUser, this.props.history);
+
+  console.log('SIGNED UP')
   } else {
     this.setState({ privacy: true });
   }
@@ -128,7 +182,7 @@ submitForm() {
 render() {
     return (
       <>
-
+      {this.state.allUsers ?
         <div className="content disableScroll">
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>
@@ -157,17 +211,17 @@ render() {
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Name">
                   <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name} onChange={(e) => this.onChange(e)} />
-                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                  <span className="focus-input100" data-placeholder="&#xf204;"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Username">
                   <input className="input100" name="username" placeholder="Username" id="username" value={this.state.username} onChange={(e) => this.onChange(e)} />
-                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                  <span className="focus-input100" data-placeholder="&#xf188;"></span> {/* 185 */}
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter Email">
                   <input className="input100" name="email" value={this.state.email2} placeholder="Email" id="email2" onChange={(e) => this.onChange(e)} />
-                  <span className="focus-input100" data-placeholder="&#xf191;"></span>
+                  <span className="focus-input100 fa fa-envelope" data-placeholder="&#xf3fa;"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter password">
@@ -216,6 +270,7 @@ render() {
 
         <div id="dropDownSelect1"></div>
         </div>
+        : undefined}
       </>
     );
   }

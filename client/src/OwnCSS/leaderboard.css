@@ -542,7 +542,7 @@ width:75px;
 text-align:center;
 display:flex;
 flex-direction: column;
-padding-top:7px;
+padding-top:6px;
 padding-left:3px;
 
 letter-spacing:-0.02em;
@@ -551,7 +551,11 @@ font-weight:500;
 .leaderboard__submitButton:hover {
 
 background-color: #dddddd;
-border-color:#ddd;
+ border-color:#ddd;
+
+/* background-color:#fff;
+border-color:#a9dbc0;
+color:#a9dbc0; */
 transition:0.4s;
 }
 .leaderboard__submitButtonRemove {
@@ -602,7 +606,12 @@ transition:0.4s;
 }
 .leaderboard__noFriendsDescription {
   text-align:center;
-  margin-top:19px;
+  margin-top:50px;
+  font-size:1.06em;
+}
+.leaderboard2__noFriendsDescription {
+  text-align:center;
+  margin-top:15px;
   font-size:1.06em;
 }
 .leaderboard__mainTitleNotFound {

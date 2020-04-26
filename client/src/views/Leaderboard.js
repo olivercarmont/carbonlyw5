@@ -91,7 +91,6 @@ class Leaderboard extends React.Component {
     })
   .then(response => {
 
-      // console.log('response', response.data);
        this.setState({ friends: response.data.info[1] });
 
        this.setState({ user: response.data.info[0] });
@@ -655,6 +654,8 @@ returnRanColor() {
 
                       {this.returnAllUsersLeaderboard().map((user) => {
 
+                        console.log('us', user);
+
                         return (<div className="leaderboard__mainRow">
                         <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
                         <img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/>
@@ -792,7 +793,7 @@ returnRanColor() {
               <Icon icon={handPointRight} /></div>
 
 
-              <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
+              <div className="leaderboard2__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
 
               </CardHeader>
 

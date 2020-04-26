@@ -26,7 +26,7 @@ import setAuthToken from "./utils/setAuthToken";
 
 import PrivateRoute from "./private-route/PrivateRoute";
 
-import { Auth0Provider } from "./react-auth0-spa";
+// import { Auth0Provider } from "./react-auth0-spa";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";

@@ -305,7 +305,7 @@ formatEmissions(em) {
 
         calcData = calcData.toFixed(1);
 
-        em = `${calcData}t CO`
+        em = `${calcData}t CO `
 
       } else if (em >= 10000000) {
 
@@ -357,7 +357,7 @@ returnTotalMonthCost() {
     let time = new Date(Date.parse(el.time));
     let orderMonth = time.getMonth() + 1;
 
-    if (orderMonth === cur_month) {
+    if ((orderMonth === cur_month) && !el.offset) {
         totalEmissions += parseFloat(el.carbon);
     }
 
@@ -374,7 +374,7 @@ returnTotalYearCost() {
 
     let time = new Date(Date.parse(el.time));
 
-    if (time.getFullYear() === cur_year) {
+    if ((time.getFullYear() === cur_year) && !el.offset) {
         totalEmissions += parseFloat(el.carbon);
     }
 
@@ -458,6 +458,7 @@ roundCarbon(amt) {
                     <option value="$">$</option>
                     <option value="€">€</option>
                     <option value="£">£</option>
+                    <option value="kg CO2">kg CO2</option>
                     </select></span><input value={this.state.offAmount} onChange={(e) => this.updateOffAmount(e)} className="offsets__customInput"/>
 
                     {this.state.offAmount ? <div className="offsets__customInputOffsetCalc">{this.getTimeSizeOfEmissions(this.state.offAmount)}</div> : undefined}

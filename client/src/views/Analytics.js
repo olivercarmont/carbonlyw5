@@ -896,52 +896,60 @@ class Analytics extends React.Component {
       return 'th';
     }
   }
-  returnDestinationLabels() {
-
-  let date = new Date();
-  let cur_month = date.getMonth() + 1;
-  let tescoAmt = 0;
-
-  this.state.user.orders.map((el) => {
-
-    let time = new Date(Date.parse(el.time));
-    let orderMonth = time.getMonth() + 1;
-
-    if (orderMonth === cur_month) {
-
-    if (el.website === 'tesco') {
-     tescoAmt += parseFloat(el.carbon);
-   }
-
- }
-  });
-
-  // console.log('array', [tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5]);
-
-  return ["Tesco", "Amazon", "Ocado", "Etsy", "Aldi"]; // [tescoAmt, 0, 0, 0, 0, 0]; // Always have ** 4 ** most even if others are 0
-
-  }
-  returnDestinationGraphData() {
-
+  returnDestinationDataArray() {
     let date = new Date();
     let cur_year = date.getFullYear();
-    let tescoCO2 = 0;
+    let desEm = [{ "name": "Tesco", "amount": 0 }, { "name": "Amazon", "amount": 0,  }, { "name": "Skyscanner", "amount": 0  }, { "name": "Uber Eats", "amount": 0  }];
 
     this.state.user.orders.map((el) => {
 
     let time = new Date(Date.parse(el.time));
 
+    let website = el.website.toLowerCase();
+
     if (time.getFullYear() === cur_year) {
-        tescoCO2 += parseFloat(el.carbon);
+
+      if (website === 'tesco') {
+
+        desEm[0]['amount'] = desEm[0]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'amazon') {
+
+        desEm[1]['amount'] = desEm[1]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'skyscanner') {
+
+        desEm[2]['amount'] = desEm[2]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'ubereats') {
+
+        desEm[3]['amount'] = desEm[3]['amount'] + parseFloat(el.carbon);
+
+      }
     }
 
   });
 
-  if (tescoCO2 === 0) {
-    return [{x:'', y: tescoCO2 }, {x:'', y:0}, {x:'', y:0}, {x:'', y:0}];
-  } else {
-    return [{x:'', y: tescoCO2.toFixed(1) }, {x:'', y:0}, {x:'', y:0}, {x:'', y:0}];
+  desEm.sort((a, b) => (a.amount < b.amount) ? 1 : -1)
+
+  console.log('desEm', desEm);
+
+  return desEm;
   }
+  returnDestinationLabels() {
+
+  let array = this.returnDestinationDataArray();
+
+  // console.log('array', [tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5]);
+
+  return [array[0].name, array[1].name, array[2].name, array[3].name, "Aldi"]; // [tescoAmt, 0, 0, 0, 0, 0]; // Always have ** 4 ** most even if others are 0
+
+  }
+  returnDestinationGraphData() {
+
+    let array = this.returnDestinationDataArray();
+
+    return [{x:'', y: array[0].amount.toFixed(1) }, {x:'', y: array[1].amount.toFixed(1) }, {x:'', y: array[2].amount.toFixed(1) }, {x:'', y: array[3].amount.toFixed(1) }];
 
   }
   returnMonthlyLabelsOffsets() {
@@ -1246,6 +1254,35 @@ class Analytics extends React.Component {
     return `${calcData}kg CO`;
     }
   }
+  getUserDestinations() {
+    let des = 0;
+
+    let destinations = { "tesco":false, "amazon": false, "skyscanner": false, "ubereats": false };
+
+    this.state.user.orders.map((or) => {
+
+      console.log('web', or.website);
+
+      let website = or.website.toLowerCase();
+
+    if (website === 'tesco' && !destinations["tesco"]) {
+      des++;
+      destinations["tesco"] = true;
+    } else if (website === 'amazon' && !destinations["amazon"]) {
+      des++;
+      destinations["amazon"] = true;
+    } else if (website === 'skyscanner' && !destinations["skyscanner"]) {
+      des++;
+      destinations["skyscanner"] = true;
+    } else if (website === 'ubereats' && !destinations["ubereats"]) {
+      des++;
+      destinations["ubereats"] = true;
+    }
+
+
+  });
+  return des;
+  }
   render() {
     return (
       <>
@@ -1367,7 +1404,7 @@ class Analytics extends React.Component {
                   <h5 className="card-category">By Destinations</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
-                    6 Destinations
+                    {this.getUserDestinations()} {this.getUserDestinations() === 1 ? 'Destination': 'Destinations'}
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

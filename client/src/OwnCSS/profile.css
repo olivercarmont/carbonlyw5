@@ -541,3 +541,10 @@ border-color:#ddd;
 color:#fff;
 transition:0.4s;
 }
+.profile__centerContent {
+width:60%;
+margin:auto;
+text-align:center;
+margin-top:-8px;
+margin-bottom:-30px;
+}
