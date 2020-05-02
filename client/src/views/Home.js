@@ -61,7 +61,7 @@ import moment from 'moment';
 
 
 // var moment = require('moment');
-let date = moment();
+// let date = moment();
 
 let tescoImg = require("../assets/img/companyLogos/tesco.png");
 let amazonImg = require("../assets/img/companyLogos/amazon.png");
@@ -434,7 +434,7 @@ updateTitleShopping(e, id) {
           <Col lg="4">
             <Card className="card-chart homepage__firstBasicHeight">
               <CardHeader>
-                <h5 className="card-category">{moment(date).format('Do MMM YYYY')}</h5>
+                <h5 className="card-category">{moment().format('Do MMM YYYY')}</h5>
                 <CardTitle tag="h3">
                   {/* <i className="tim-icons icon-minimal-down text-info" />{" "} */}
                 Hey {this.state.user.name.split(' ')[0]} 👋
