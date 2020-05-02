@@ -62,38 +62,41 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      howItWorks: 'account',
+      howItWorks: 'account'
   }
-  this.runIntervals = this.runIntervals.bind(this)
 }
 componentDidMount() {
 
 if (this.state.howItWorks) {
-  this.runIntervals();
+  this.fun1();
 }
 
 }
-// runIntervals() {
-//
-//   setInterval(function() {
-//
-//     if (this.state.howItWorks === 'account') {
-//
-//         this.setState({ howItWorks: 'buy' });
-//
-//     } else if (this.state.howItWorks === 'buy') {
-//
-//         this.setState({ howItWorks: 'track' });
-//
-//     } else if (this.state.howItWorks === 'track') {
-//
-//         this.setState({ howItWorks: 'account' });
-//
-//     }
-//
-//   }, 1000)
-//
-// }
+fun1 = () => {
+  let i = 0;
+  let intervalId = setInterval(() => {
+
+    let sec;
+
+    if (this.state.howItWorks === 'account') {
+      sec = 'buy';
+    } else if (this.state.howItWorks === 'buy') {
+      sec = 'track';
+    } else if (this.state.howItWorks === 'track') {
+      sec = 'account';
+    }
+
+    this.setState({
+      howItWorks: sec
+    });
+
+    if (i > 180) {
+      clearInterval(intervalId);
+    }
+    i++;
+
+  }, 4700);
+};
   render() {
     return (
       <>
