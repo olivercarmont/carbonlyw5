@@ -1544,7 +1544,7 @@ class Analytics extends React.Component {
                               <td id="analytics__recentOrdersTextSize">
                                 <p className="title">{this.returnUpperCase(or.website)}</p>
                                 <p className="text-muted">
-                                  {or.name}
+                                    {or.name.length > 72 ? or.name.slice(0, 72) + ' ...' : or.name}
                                 </p>
                               </td>
                               <td className="td-actions text-right">

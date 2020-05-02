@@ -54,7 +54,13 @@ import {
   UncontrolledAlert,
 } from "reactstrap";
 
-var moment = require('moment');
+
+
+
+import moment from 'moment';
+
+
+// var moment = require('moment');
 let date = moment();
 
 let tescoImg = require("../assets/img/companyLogos/tesco.png");
@@ -64,7 +70,7 @@ let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
 
 class Home extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       searchValue: '',
       bigChartData: "data1",
