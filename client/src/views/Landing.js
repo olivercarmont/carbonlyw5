@@ -64,7 +64,36 @@ class Landing extends React.Component {
     this.state = {
       howItWorks: 'account',
   }
+  this.runIntervals = this.runIntervals.bind(this)
 }
+componentDidMount() {
+
+if (this.state.howItWorks) {
+  this.runIntervals();
+}
+
+}
+// runIntervals() {
+//
+//   setInterval(function() {
+//
+//     if (this.state.howItWorks === 'account') {
+//
+//         this.setState({ howItWorks: 'buy' });
+//
+//     } else if (this.state.howItWorks === 'buy') {
+//
+//         this.setState({ howItWorks: 'track' });
+//
+//     } else if (this.state.howItWorks === 'track') {
+//
+//         this.setState({ howItWorks: 'account' });
+//
+//     }
+//
+//   }, 1000)
+//
+// }
   render() {
     return (
       <>
@@ -176,7 +205,11 @@ class Landing extends React.Component {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/createAccountGif.gif")} className="landing__howItWorksVideo"/>
+        {this.state.howItWorks === 'account' ? <img src={require("../assets/img/createAccountGif.gif")} className="landing__howItWorksVideo"/> : undefined}
+
+
+
+
         </div>
 
         </section>

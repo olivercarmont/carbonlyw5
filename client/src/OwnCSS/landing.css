@@ -130,6 +130,7 @@
 }
 .landing__howItWorksVideoContainer {
   width:90%;
+  height:300px;
   /* background-color:blue; */
 }
 .landing__howItWorksVideo {

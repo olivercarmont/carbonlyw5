@@ -64,7 +64,7 @@ class OurData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      howItWorks: 'account',
+      ourData: 'studies',
   }
 }
   render() {
@@ -153,19 +153,19 @@ class OurData extends React.Component {
 
         <div className="landing__howItWorksMainTitle">How We Collect Data &nbsp;💾️</div>
 
-        <div onClick={() => { this.setState({ howItWorks: 'account' })}} className={this.state.howItWorks === 'account' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'studies' })}} className={this.state.howItWorks === 'account' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">1. Scientific Studies &nbsp;📑</div>
 
         <div className="landing__howItWorksDescription">We try our very best to the most up-to-date studies!</div>
         </div>
 
-        <div onClick={() => { this.setState({ howItWorks: 'buy' })}} className={this.state.howItWorks === 'buy' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'org' })}} className={this.state.howItWorks === 'buy' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">2. Partnering Organisations &nbsp;👨‍💼️</div>
 
         <div className="landing__howItWorksDescription">Our partners that help share their hard-earned data are a massive help!</div>
         </div>
 
-        <div onClick={() => { this.setState({ howItWorks: 'track' })}} className={this.state.howItWorks === 'track' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'company' })}} className={this.state.howItWorks === 'track' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">3. Company Reports &nbsp;🏢</div>
 
         <div className="landing__howItWorksDescription">Companies themselves do in fact report highly accurate data!</div>
@@ -178,7 +178,7 @@ class OurData extends React.Component {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/>
+        {this.state.ourData === 'studies' ? <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/> : undefined}
         </div>
 
         </section>
