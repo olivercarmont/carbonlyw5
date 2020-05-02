@@ -64,7 +64,7 @@ let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
 
 class Home extends React.Component {
   constructor(props) {
-    super(props);
+    super(props); 
     this.state = {
       searchValue: '',
       bigChartData: "data1",
