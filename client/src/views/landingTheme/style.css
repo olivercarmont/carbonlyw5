@@ -378,7 +378,7 @@ li {
     color: #fff;
     font-weight: 500;
     display: inline-block;
-    border: 2px solid #a883e9;
+    border: 2px solid #8ab69f;
     height: 50px;
     min-width: 178px;
     line-height: 46px;
@@ -387,7 +387,7 @@ li {
 }
 
 .sing-up-button > a:hover {
-    background: #a0d0b7;
+    background: #89b39e;
     color: #fff;
     border-color: transparent;
     -webkit-transition-duration: 500ms;
@@ -425,7 +425,8 @@ li {
 
 .wellcome_area {
     background-image: url(img/bg-img/welcome-bg.png);
-    height: 900px;
+    height: 1000px;
+    margin-bottom:-155px;
     position: relative;
     z-index: 1;
     background-position: bottom center;
@@ -764,12 +765,12 @@ li {
 .cool_facts_area {
     position: relative;
     z-index: auto;
-    background: #a865e1;
-    background: -webkit-linear-gradient(to left, #7873ed, #a865e1);
-    background: -webkit-linear-gradient(right, #7873ed, #a865e1);
-    background: -webkit-gradient(linear, right top, left top, from(#7873ed), to(#a865e1));
-    background: -o-linear-gradient(right, #7873ed, #a865e1);
-    background: linear-gradient(to left, #7873ed, #a865e1);
+    background: #64947d;
+    background: -webkit-linear-gradient(to left, #64947d, #b5dec9);
+    background: -webkit-linear-gradient(right, #64947d, #b5dec9);
+    background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+    background: -o-linear-gradient(right, #64947d, #b5dec9);
+    background: linear-gradient(to left, #64947d, #b5dec9);
     padding: 180px 0 80px 0;
     top: -100px;
 }
@@ -1158,7 +1159,7 @@ li {
 .team-social-icon > a {
     font-size: 14px;
     color: #fff;
-    background: #a9dbc0;
+    /* background: #a9dbc0; */
     height: 40px;
     width: 40px;
     line-height: 40px;

@@ -22,10 +22,86 @@
 #home__ordersImage {
   border-radius:12px;
   box-shadow: 0px 0px 5px #cecece;
-  margin-top:18px;
+  position:relative;
+  top:18px;
   margin-bottom:18px;
   width:55px;
-  margin-right:-20px;
+  float:left;
+}
+.home__compatButton {
+  float:right;
+}
+.home__compatText {
+  float:left;
+  margin-top:25px;
+  margin-left:20px;
+
+}
+.home__compatTitle {
+  transition:0.4s;
+  margin-bottom:2px;
+  font-size:0.95em;
+}
+.home__compatTitle:hover {
+  transition:0.4s;
+  color:#84af96;
+  cursor:pointer;
+
+}
+.home__compatAllProd {
+font-size:0.9em;
+}
+.home__indvCompat {
+  margin-left:12px;
+  clear:both;
+  margin-bottom:30px;
+}
+.home__compatSearchBarDiv {
+width:100%;
+margin-bottom:8px;
+display:flex;
+margin-top:3px;
+}
+.home__compatSearchBar {
+  border:none;
+  border-radius:34px;
+  height:46px;
+  width:53%;
+  text-align:center;
+  font-size:0.91em;
+  padding-left:40px;
+  padding-right:40px;
+  border:1px solid #eee;
+  color:#777 !important;
+  margin-left:auto;
+  margin-right:auto;
+}
+.home__compatSearchBar:focus {
+  border:1px solid #ddd !important;
+  color:#777 !important;
+}
+.home__compatSearchBar::placeholder {
+  color:#999 !important;
+}
+.home__compatibleMarketplacesNum {
+  color:#b5b5b5;
+  font-size:0.88em;
+  font-weight:500;
+
+  margin-right:20px;
+  margin:auto;
+  position:relative;
+  top:0px;
+  width:100%;
+  text-align:center;
+}
+#home__compatScroll {
+  overflow-x:hidden;
+  overflow-y:scroll;
+  height:325px;
+}
+#home__compatScroll::-webkit-scrollbar {
+  display: none;
 }
 .home__goToButton {
   /* background-color:#002D70; */

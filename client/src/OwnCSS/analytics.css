@@ -99,3 +99,10 @@ border-bottom:2px solid #75c79a !important;
 
   /* background-color:red; */
 }
+.analytics__weekChangeGrowth {
+  position:absolute;
+  float:left;
+  color:#75c79a !important;
+  top:9px;
+  right:-310px;
+}

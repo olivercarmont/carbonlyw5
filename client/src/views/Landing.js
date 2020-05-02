@@ -176,7 +176,7 @@ class Landing extends React.Component {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/createAccountGif.gif")} className="landing__howItWorksVideo"/>
         </div>
 
         </section>
@@ -196,6 +196,12 @@ class Landing extends React.Component {
 
 
             <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/tesco.png")} id="landing__compatibleImage" /></div>
+
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/amazon.png")} id="landing__compatibleImage2" /></div>
+
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/skyscanner.png")} id="landing__compatibleImage3" /></div>
+
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/ubereats.png")} id="landing__compatibleImage4" /></div>
 
         </section>
 
@@ -280,7 +286,7 @@ class Landing extends React.Component {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">90</span></h3>
+                                <h3><span className="counter">2</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
@@ -292,7 +298,7 @@ class Landing extends React.Component {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">120</span></h3>
+                                <h3><span className="counter">5</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -317,7 +323,7 @@ class Landing extends React.Component {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area landing__ourStatsNumber">
-                                <h3><span className="counter">10</span></h3>
+                                <h3><span className="counter">0</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />
@@ -349,7 +355,7 @@ class Landing extends React.Component {
 
                 <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp; 🥑</div>
 
-                <div className="landing__awesomeFeaturesText">This is something about me --- See the carbon footprints of all the products on the page in real-time and the total of your basket!</div>
+                <div className="landing__awesomeFeaturesText">Co-Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
 
                 </div>
                 </div>
@@ -380,7 +386,7 @@ class Landing extends React.Component {
 
                       <div className="landing__ourTeamsMainTitle">Nicolas Carmont &nbsp; 🤖</div>
 
-                        <div className="landing__awesomeFeaturesText">This is something about me --- See the carbon footprints of all the products on the page in real-time and the total of your basket!</div>
+                        <div className="landing__awesomeFeaturesText">Co-Founder and Backend Developer @Carbonly. Clinton Fellow and Founder @Netzero</div>
 
                         </div>
 

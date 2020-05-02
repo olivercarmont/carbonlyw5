@@ -514,7 +514,7 @@ roundCarbon(amt) {
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
                             <p className="text-muted" id="offsets__orderDescription">
-                              {order.name}
+                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">

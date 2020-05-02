@@ -25,6 +25,9 @@ import '../OwnCSS/analytics.css';
 
 import axios from 'axios';
 
+import { Icon, InlineIcon } from '@iconify/react';
+import arrowGrowth from '@iconify/icons-uil/arrow-growth';
+
 // reactstrap components
 import {
   Button,
@@ -57,14 +60,22 @@ let chart1_2_options = {
     display: false
   },
   tooltips: {
-    backgroundColor: "#f5f5f5",
-    titleFontColor: "#333",
-    bodyFontColor: "#666",
-    bodySpacing: 4,
+    backgroundColor: "rgba(160, 209, 186, 0.88)",
+    borderColor: '#fff',
+    titleFontColor: "#fff",
+    bodyFontColor: "#fff",
+    bodySpacing: 8,
     xPadding: 12,
     mode: "nearest",
     intersect: 0,
-    position: "nearest"
+    position: "nearest",
+    displayColors: false,
+    callbacks: {
+    label: function(tooltipItem, data) {
+          return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+        }
+      },
+
   },
   responsive: true,
   scales: {
@@ -86,9 +97,7 @@ let chart1_2_options = {
       {
         barPercentage: 1.6,
         gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.1)",
-          zeroLineColor: "transparent"
+          display:false
         },
         ticks: {
           padding: 20,
@@ -309,7 +318,7 @@ class Analytics extends React.Component {
           ],
           datasets: [
             {
-              label: "Yearly (kg)",
+              label: "",
               fill: true,
               backgroundColor: gradientStroke,
               borderColor: "#75c79a",
@@ -381,7 +390,7 @@ class Analytics extends React.Component {
           ],
           datasets: [
             {
-              label: "Carbon Emissions",
+              label: "",
               fill: true,
               backgroundColor: gradientStroke,
               borderColor: "#75c79a",
@@ -436,23 +445,28 @@ class Analytics extends React.Component {
           display: false
         },
         tooltips: {
-          backgroundColor: "#f5f5f5",
-          titleFontColor: "#333",
-          bodyFontColor: "#666",
+          backgroundColor: "rgba(160, 209, 186, 0.88)",
+          titleFontColor: "#fff",
+          bodyFontColor: "#fff",
           bodySpacing: 4,
           xPadding: 12,
           mode: "nearest",
           intersect: 0,
-          position: "nearest"
+          position: "nearest",
+          displayColors: false,
+          callbacks: {
+          label: function(tooltipItem, data) {
+                return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+              }
+            },
+
         },
         responsive: true,
         scales: {
           yAxes: [
             {
               gridLines: {
-                drawBorder: false,
-                color: "rgba(225,78,202,0.1)",
-                zeroLineColor: "transparent"
+                display: false
               },
               ticks: {
                 suggestedMin: 0,
@@ -464,9 +478,7 @@ class Analytics extends React.Component {
           xAxes: [
             {
               gridLines: {
-                drawBorder: false,
-                color: "rgba(225,78,202,0.1)",
-                zeroLineColor: "transparent"
+                display:false
               },
               ticks: {
                 padding: 20,
@@ -477,6 +489,11 @@ class Analytics extends React.Component {
         }
       }
     };
+
+    // OLD GRIDLINES
+    // drawBorder: false,
+    // color: "rgba(225,78,202,0.1)",
+    // zeroLineColor: "transparent"
 
       chartExample3 = {
       data: canvas => {
@@ -511,23 +528,28 @@ class Analytics extends React.Component {
           display: false
         },
         tooltips: {
-          backgroundColor: "#f5f5f5",
-          titleFontColor: "#333",
-          bodyFontColor: "#666",
+          backgroundColor: "rgba(160, 209, 186, 0.88)",
+          titleFontColor: "#fff",
+          bodyFontColor: "#fff",
           bodySpacing: 4,
           xPadding: 12,
           mode: "nearest",
           intersect: 0,
-          position: "nearest"
+          position: "nearest",
+          displayColors: false,
+          callbacks: {
+          label: function(tooltipItem, data) {
+            console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
+                return tooltipItem.yLabel + 'kg CO2';
+              }
+            },
         },
         responsive: true,
         scales: {
           yAxes: [
             {
               gridLines: {
-                drawBorder: false,
-                color: "rgba(225,78,202,0.1)",
-                zeroLineColor: "transparent"
+                display: false
               },
               ticks: {
                 suggestedMin: 60,
@@ -540,9 +562,7 @@ class Analytics extends React.Component {
           xAxes: [
             {
               gridLines: {
-                drawBorder: false,
-                color: "rgba(225,78,202,0.1)",
-                zeroLineColor: "transparent"
+                display:false
               },
               ticks: {
                 padding: 20,
@@ -553,6 +573,11 @@ class Analytics extends React.Component {
         }
       }
     };
+
+    // OLD GRIDLINES
+    // drawBorder: false,
+    // color: "rgba(225,78,202,0.1)",
+    // zeroLineColor: "transparent"
 
       chartExample4 = {
       data: canvas => {
@@ -594,14 +619,20 @@ class Analytics extends React.Component {
         },
 
         tooltips: {
-          backgroundColor: "#f5f5f5",
-          titleFontColor: "#333",
-          bodyFontColor: "#888",
+          backgroundColor: "rgba(160, 209, 186, 0.88)",
+          titleFontColor: "#fff",
+          bodyFontColor: "#fff",
           bodySpacing: 4,
           xPadding: 12,
           mode: "nearest",
           intersect: 0,
-          position: "nearest"
+          position: "nearest",
+          displayColors: false,
+          callbacks: {
+          label: function(tooltipItem, data) {
+                return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+              }
+            },
         },
         responsive: true,
         scales: {
@@ -609,9 +640,7 @@ class Analytics extends React.Component {
             {
               barPercentage: 1.6,
               gridLines: {
-                drawBorder: false,
-                color: "rgba(29,140,248,0.0)",
-                zeroLineColor: "transparent"
+                display:false
               },
               ticks: {
                 suggestedMin: 0,
@@ -625,9 +654,7 @@ class Analytics extends React.Component {
             {
               barPercentage: 1.6,
               gridLines: {
-                drawBorder: false,
-                color: "rgba(0,242,195,0.1)",
-                zeroLineColor: "transparent"
+                display:false
               },
               ticks: {
                 padding: 20,
@@ -638,6 +665,11 @@ class Analytics extends React.Component {
         }
       }
     };
+
+    // OLD GRIDLINES
+    // drawBorder: false,
+    // color: "rgba(29,140,248,0.0)",
+    // zeroLineColor: "transparent"
 
        this.setState({ user: response.data.info[0] });
 
@@ -1311,6 +1343,8 @@ class Analytics extends React.Component {
                     <Col className="text-left" sm="6">
                       <h5 className="card-category">Carbon Footprint</h5>
                       <CardTitle tag="h2">{this.state.bigChartData === "data1" ? this.returnYearlyEmissions() : this.state.bigChartData === "data2" ? this.returnMonthlyEmissions() : this.state.bigChartData === "data3" ? this.returnWeeklyEmissions() : ''}<span style={{ fontSize: '0.47em', top: '3px', position: 'relative' }}>2</span> / {this.state.bigChartData === "data1" ? 'Year' : this.state.bigChartData === "data2" ? 'Month' : this.state.bigChartData === "data3" ? 'Week' : ''}</CardTitle>
+                      <div className="analytics__weekChangeGrowth"><Icon icon={arrowGrowth} /> Down 50% this {this.state.bigChartData === 'data1' ? 'year' : this.state.bigChartData === 'data2' ? 'month' : 'week'}</div>
+
                     </Col>
                     <Col sm="6">
                       <ButtonGroup

@@ -28,6 +28,9 @@ import NotificationAlert from "react-notification-alert";
 
 import axios from 'axios';
 
+import { Icon, InlineIcon } from '@iconify/react';
+import storeIcon from '@iconify/icons-fa-solid/store';
+
 // reactstrap components
 import {
   Button,
@@ -54,13 +57,21 @@ import {
 var moment = require('moment');
 let date = moment();
 
+let tescoImg = require("../assets/img/companyLogos/tesco.png");
+let amazonImg = require("../assets/img/companyLogos/amazon.png");
+let skyscannerImg = require("../assets/img/companyLogos/skyscanner.png");
+let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchValue: '',
       bigChartData: "data1",
       savedList: [],
-      shoppingList: []
+      shoppingList: [],
+      search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com"}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk"}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com"}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com"}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com"}],
+      compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com"}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk"}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com"}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com"}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com"}],
     };
   }
   componentWillMount() {
@@ -114,6 +125,31 @@ drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
+}
+updateSearchValue(e) {
+  this.setState({ searchValue: e.target.value });
+  this.updateSearchFunction(e.target.value);
+}
+updateSearchFunction(searchValue) {
+
+var search = [];
+
+console.log('val', searchValue);
+
+this.state.compatibleMarketplaces.map((marketplace) => {
+
+  if (this.state.searchValue.length > 0) {
+    if (marketplace.name.toLowerCase().includes(searchValue.toLowerCase())) {
+      search.push(marketplace);
+    }
+  } else {
+    search = this.state.compatibleMarketplaces;
+  }
+
+})
+
+this.setState({ search });
+
 }
 createNewItemSaved() {
   let newId;
@@ -615,33 +651,45 @@ updateTitleShopping(e, id) {
                     <div className="home__topTitleSpacing"></div>
                 </CardHeader>
                 <CardBody>
-                <div className="table-full-width table-responsive">
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <img src={require("../assets/img/companyLogos/tesco.png")} id="home__ordersImage" />
-                        </td>
-                        <td>
-                          <p className="title">Tesco</p>
-                          <p className="text-muted">
-                            All Products
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip636901683"
-                            title=""
-                            type="button"
-                          >
-                            <p id="analytics__mainTextSideOrders"><a href="https://www.tesco.com" className="home__goToButton">Go to &nbsp; ✈️</a></p>
-                          </Button>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </Table>
+
+                <div className="home__compatSearchBarDiv">
+                <input className="home__compatSearchBar" placeholder="Find Marketplace" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} />
+                </div>
+
+                <div id="home__compatScroll" className="table-full-width table-responsive">
+
+              {this.state.search.map((marketplace) => {
+
+                return (<div className="home__indvCompat">
+
+                    <a href={marketplace.link}><img src={marketplace.image} id="home__ordersImage" /></a>
+
+                        <div className="home__compatText">
+                            <a href={marketplace.link} className="title home__compatTitle">{marketplace.name}</a>
+
+                            <p className="text-muted home__compatAllProd">
+                              All Products
+                            </p>
+                        </div>
+
+                        <div className="home__compatButton">
+
+                            <Button
+                              color="link"
+                              id="tooltip636901683"
+                              title=""
+                              type="button"
+                            >
+                              <p id="analytics__mainTextSideOrders"><a href={marketplace.link} className="home__goToButton">Go to &nbsp; ✈️</a></p>
+                            </Button>
+
+                            </div>
+                            </div>)
+              })}
+
+
                   </div>
+                  <div className="home__compatibleMarketplacesNum">{this.state.search.length} {this.state.search.length === 1 ? 'Marketplace' : 'Marketplaces'} &nbsp;<Icon icon={storeIcon} /></div>
                 </CardBody>
               </Card>
             </Col>

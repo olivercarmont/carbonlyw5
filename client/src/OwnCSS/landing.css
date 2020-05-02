@@ -129,7 +129,7 @@
   line-height:1.45;
 }
 .landing__howItWorksVideoContainer {
-  width:100%;
+  width:90%;
   /* background-color:blue; */
 }
 .landing__howItWorksVideo {
@@ -171,8 +171,38 @@
   position:absolute;
   border-radius:50%;
   box-shadow: 0px 0px 5px #cecece;
-  margin-top:-258px;
+  margin-top:-218px;
   margin-left:60px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage2 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-38px;
+  margin-left:170px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage3 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-78px;
+  right:220px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage4 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-208px;
+  right:60px;
   margin-bottom:15px;
   width:67px;
   /* height:55px; */
@@ -181,7 +211,7 @@
 
 }
 .landing__awesomeFeaturesText {
-  width:46%;
+  width:49%;
   color:#a4a4a4;
   line-height:1.57;
   margin-top:0px;
@@ -360,14 +390,14 @@ position:relative;
 #landingPage__chromeStoreButtonText {
   line-height:1.28;
   font-weight:400;
-  color:#936CE7;
+  color:#92c2a7;
   letter-spacing:-0.01em !important;
 }
 .landing__bottomButtonAvailable {
   letter-spacing:0.01em;
 }
 #landingPage__chromeStoreButtonText:hover {
-  color:#936CE7 !important;
+  color:#92c2a7 !important; /* #936CE7 */
 }
 #landing__positionRightDownloadSection {
   display:flex;
@@ -397,7 +427,7 @@ margin-bottom:auto;
   margin-top:195px;
 }
 .landing__downloadChromeIcon {
-  color:#936CE7;
+  color:#92c2a7; /* #936CE7; */
   font-size:2.03em;
   margin-right:16px;
 }

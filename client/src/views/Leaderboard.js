@@ -226,7 +226,7 @@ shuffleArray(array) {
 
   return array;
 }
-updateSearchFunction() {
+updateSearchFunction(searchValue) {
 
 var search = [];
 
@@ -236,7 +236,7 @@ var search = [];
 
 this.state.allUsers.map((user) => {
 
-  if (user.name.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
+  if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
     search.push(user);
   } else if (user.username.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
     search.push(user);
@@ -250,7 +250,7 @@ this.setState({ search });
 }
 updateSearchValue(e) {
   this.setState({ searchValue: e.target.value });
-  this.updateSearchFunction();
+  this.updateSearchFunction(e.target.value);
 }
 addUser(id) {
 
