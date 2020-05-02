@@ -541,6 +541,10 @@ border-color:#ddd;
 color:#fff;
 transition:0.4s;
 }
+.profile__noUserHeight {
+  display:block;
+  margin-bottom:-17px;
+}
 .profile__centerContent {
 width:60%;
 margin:auto;

@@ -793,7 +793,7 @@ returnRanColor() {
               <Icon icon={handPointRight} /></div>
 
 
-              <div className="leaderboard2__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
+              <div className="leaderboard__noFriendsDescription">Use The Card to The Right to Add Your First Friends!</div>
 
               </CardHeader>
 

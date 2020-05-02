@@ -606,7 +606,7 @@ transition:0.4s;
 }
 .leaderboard__noFriendsDescription {
   text-align:center;
-  margin-top:50px;
+  margin-top:19px;
   font-size:1.06em;
 }
 .leaderboard2__noFriendsDescription {
@@ -762,6 +762,6 @@ transition:0.4s;
   margin-left:-14px;
 }
 .leaderboard__friendsBottomSpacing {
-  height:96px;
+  height:91px;
   clear:both;
 }

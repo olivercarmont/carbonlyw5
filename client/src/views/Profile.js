@@ -416,7 +416,7 @@ returnFriendsTwo() {
 
   </div>
 
-    <div className="leaderboard__noUserHeight"></div>
+    <div className="profile__noUserHeight"></div>
 
     </div>
 
@@ -648,7 +648,7 @@ render() {
 
               <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
 
-              <div className="leaderboard__noFriendsDescription">Got to Leaderboard to Add Your First Friends!</div>
+              <div className="leaderboard__noFriendsDescription">Go to Leaderboard to Add Your First Friends!</div>
 
               <div className="notFound__positionButton">
 
