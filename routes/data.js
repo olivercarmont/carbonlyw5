@@ -92,8 +92,6 @@ router.post("/req-data", (req, res) => {
     preparedFoodDataKeys = Object.keys(preparedFoodData)
     drinksDataKeys = Object.keys(drinksData)
 
-    console.log('pfood data', pFoodData)
-
     pFoodDataKeys = Object.keys(pFoodData)
     pDrinksDataKeys = Object.keys(pDrinksData)
     pTravelDataKeys = Object.keys(pTravelData)
