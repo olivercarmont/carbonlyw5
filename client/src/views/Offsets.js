@@ -458,7 +458,7 @@ roundCarbon(amt) {
                     <option value="$">$</option>
                     <option value="€">€</option>
                     <option value="£">£</option>
-                    <option value="kg CO2">kg CO2</option>
+                    <option value="kg CO2">kg CO&#x2082;</option>
                     </select></span><input value={this.state.offAmount} onChange={(e) => this.updateOffAmount(e)} className="offsets__customInput"/>
 
                     {this.state.offAmount ? <div className="offsets__customInputOffsetCalc">{this.getTimeSizeOfEmissions(this.state.offAmount)}</div> : undefined}
@@ -483,7 +483,7 @@ roundCarbon(amt) {
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
                             <p id="offsets__orderDescription" className="text-muted">
-                              {order.name}
+                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -543,7 +543,7 @@ roundCarbon(amt) {
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
                             <p id="offsets__orderDescription" className="text-muted">
-                              {order.name}
+                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">

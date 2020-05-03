@@ -67,6 +67,9 @@ margin-right:18px;
   overflow-x:hidden;
 
 }
+.leaderboard__mainContentMargins::-webkit-scrollbar {
+  display: none !important;
+}
 .leaderboard__mainRow {
   display:flex;
   margin-bottom:12px;
@@ -307,6 +310,9 @@ margin-bottom:26px;
   height:122px;
   overflow-y:auto;
 }
+.leaderboard__addFriendsScrollableContainer::-webkit-scrollbar {
+  display: none !important;
+}
 
 .leaderboard__addFriendsMainRow {
 /* display:flex; */
@@ -425,6 +431,7 @@ background-color:red;
   font-size:0.8em;
   width:100%;
   text-align: center;
+  color:#737373 !important;
 }
 .leaderboard__nameAndUsernamContainerBottom {
   display:block;
@@ -764,4 +771,15 @@ transition:0.4s;
 .leaderboard__friendsBottomSpacing {
   height:91px;
   clear:both;
+}
+#leaderboard__mainLeaderboardTextColour {
+  color:#333;
+  transition:0.4s;
+}
+#leaderboard__mainLeaderboardTextColour:hover {
+  transition:0.4s;
+  color:#8cb6a1;
+}
+#leaderabord__mainLeaderboardUsernameColour{
+  color:#737373;
 }

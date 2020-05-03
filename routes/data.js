@@ -25,7 +25,7 @@ router.post("/req-data", (req, res) => {
 
   let dataArray = [], mainLists, objectLists;
 
-  let description, weight, category;
+  let description, weight, category, unit = 'kg';
 
   let foodData, preparedFoodData, drinksData;
 
@@ -36,6 +36,8 @@ router.post("/req-data", (req, res) => {
   let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys;
 
   let predictedCategory, predictedEm, emissions;
+
+  let objectSpecificCat;
 
   if (req.body.description && req.body.weight) {
     description = req.body.description;
@@ -114,24 +116,63 @@ router.post("/req-data", (req, res) => {
     let tList;
 
     list.sort(function(a, b){
-    return b.length - a.length;
+    return a.length - b.length;
     });
+
+    let matchingNum = 0;
 
     // console.log('LI', list);
 
     // see if category is a lc substring of product name
     for (const categ of list){
 
-      if(description) {
+    let localMatch = 0;
 
+      if(description && categ) {
+
+        let descriptors = categ.split(" ");
+
+        if (descriptors.length < 3) {
           if((description.toLowerCase()).includes(categ.toLowerCase())) {
               predictedCategory = categ
               tList = mi;
-
-              break
+              // break
           }
-      }
+        } else {
+
+          descriptors.map((des) => {
+
+            // console.log('des', des);
+
+          if ((description.toLowerCase()).includes(des.toLowerCase())) {
+            localMatch++;
+          }
+
+          // console.log('categ', `${categ}, ${localMatch}`);
+
+
+          })
+
+          // console.log('lMatch', localMatch);
+
+          if (localMatch >= 2) {
+
+          // console.log('lMatchAGAIN', localMatch);
+
+          if (localMatch > matchingNum) {
+
+            predictedCategory = categ;
+            matchingNum = localMatch;
+            tList = mi;
+          }
+        }
+
+        }
+
+
     }
+    // console.log('pred', predictedCategory);
+  }
 
     if (predictedCategory) {
 
@@ -146,6 +187,7 @@ router.post("/req-data", (req, res) => {
       } else if (tList === 2) {
 
         predictedEm = parseFloat(preparedFoodData[predictedCategory]);
+        unit = 'portion';
 
       } else if (tList === 3) {
 
@@ -163,39 +205,130 @@ router.post("/req-data", (req, res) => {
 
     objectLists.map((list) => {
 
+    let matchingNum = 0;
+
     list.sort(function(a, b){
-    return b.length - a.length;
+    return a.length - b.length;
     });
 
     // see if category is a lc substring of product name
     for (const categ of list){
-    // console.log('prodName', productName);
+
+      let localMatch = 0;
+
+      let descriptors = categ.split(" ");
+
       if(description) {
-          if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+
+          // if (descriptors.length < 2) {
+          // if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+          //     objectPredictedCategory = categ
+          //     // break
+          // }
+          //
+          // } else {
+
+            descriptors.map((des) => {
+
+            if ((description.toLowerCase()).includes(des.toLowerCase())) {
+              localMatch++;
+            }
+
+            })
+
+            if (localMatch >= 1) {
+
+            if (localMatch > matchingNum) {
+
               objectPredictedCategory = categ
-              break
+              matchingNum = localMatch;
+            }
           }
+
+          // }
       }
+
     }
 
-    if (objectPredictedCategory) {
+    let fullArray, fullArrayKeys;
+
+    if (list === pFoodDataKeys) {
+      fullArray = pFoodData;
+      // fullArrayKeys =pFoodData);
+    } else if (list === pDrinksDataKeys) {
+      fullArray = pDrinksData;
+    } else if (list === pApparelDataKeys) {
+      fullArray = pApparelData;
+    } else if (list === pMiscellaneousDataKeys) {
+      fullArray = pMiscellaneousData;
+    } else if (list === pElectronicsDataKeys) {
+      fullArray = pElectronicsData;
+    }
+
+    if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
 
     let newPredictedCategory;
 
-      // see if category is a lc substring of product name
-      for (const categ of list[predictedCategory]){
-      // console.log('prodName', productName);
+    matchingNum = 0;
+
+    //   console.log('predic', objectPredictedCategory)
+    //
+    // console.log('fArray', fullArray);
+
+    //
+    // pDrinksDataKeys = Object.keys(pDrinksData)
+    // pTravelDataKeys = Object.keys(pTravelData)
+    // pApparelDataKeys = Object.keys(pApparelData)
+    // pMiscellaneousDataKeys = Object.keys(pMiscellaneousData)
+    // pElectronicsDataKeys = Object.keys(pElectronicsData)
+
+      let newKeys = Object.keys(fullArray[objectPredictedCategory]);
+
+      newKeys.sort(function(a, b){
+      return a.length - b.length;
+        });
+
+      // console.log('KEY', newKeys);
+
+      for (const categ of newKeys) {
+
+        let localMatch = 0;
+
         if(description) {
+
+            let descriptors = categ.split(" ");
+
+            if (descriptors.length < 3) {
             if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
                 newPredictedCategory = categ
-                break
+                // break
             }
+
+          } else {
+
+            descriptors.map((des) => {
+
+            if ((description.toLowerCase()).includes(des.toLowerCase())) {
+              localMatch++;
+            }
+
+            })
+
+            if (localMatch >= 2) {
+
+            if (localMatch > matchingNum) {
+              newPredictedCategory = categ
+              matchingNum = localMatch;
+            }
+          }
+
+          }
         }
       }
 
       if (newPredictedCategory) {
-        objectPredictedCategory = newPredictedCategory;
-         predictedEm = parseFloat(list[objectPredictedCategory][newPredictedCategory]);
+         objectSpecificCat = newPredictedCategory;
+         predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory]);
       } else {
         predictedEm = parseFloat(foodData['Apple']);
       }
@@ -204,8 +337,8 @@ router.post("/req-data", (req, res) => {
 
     })
 
-    if (objectPredictedCategory) {
-      predictedCategory = objectPredictedCategory;
+    if (objectSpecificCat) {
+      predictedCategory = objectSpecificCat;
     }
 
     if (!predictedCategory) {
@@ -217,11 +350,11 @@ router.post("/req-data", (req, res) => {
 
     }
 
-    return res.json({ emissions });
+    return res.json({ emissions, unit, predictedCategory });
 
   }
 
-  }, 5)
+}, 2)
 
 
 });

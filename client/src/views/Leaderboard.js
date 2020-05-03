@@ -351,15 +351,13 @@ insertAddFriendsContainer() {
 
   <div className="leaderboard__addFriendsScrollableContainer">
 
-  {console.log('search', this.state.search)}
-
   {this.state.search.map((userf) => {
 
     return(<div>
   <div className="leaderboard__addFriendsMainRow">
 
-  <img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/>
-  <div className="leaderboard__nameAndUsernamContainer"><div className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div className="leaderboard__addFriendsUsername">@{userf.username}</div></div>
+  <a href={`/user/@${userf.username}`}><img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/></a>
+  <a href={`/user/@${userf.username}`} className="leaderboard__nameAndUsernamContainer"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__addFriendsUsername">@{userf.username}</div></a>
 
   {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
 
@@ -654,12 +652,10 @@ returnRanColor() {
 
                       {this.returnAllUsersLeaderboard().map((user) => {
 
-                        console.log('us', user);
-
                         return (<div className="leaderboard__mainRow">
                         <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
-                        <img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/>
-                        <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{user.name}</div><div className="leaderboard__mainDate">@{user.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
+                        <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
+                        <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
 
                         <div className="leaderboard__individualLineMargins">
                             <Line
@@ -684,8 +680,8 @@ returnRanColor() {
                         return (
                           <div className="leaderboard__mainRow">
                           <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
-                          <img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/>
-                          <div className="leaderboard__rowFirstSection"><div className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div className="leaderboard__mainDate">@{friend.username}</div></div>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.offsetAmount)}</div></div></div>
+                          <a href={`/user/@${friend.username}`}><img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/></a>
+                          <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.offsetAmount)}</div></div></div>
 
                           <div className="leaderboard__individualLineMargins">
                               <Line
@@ -751,7 +747,7 @@ returnRanColor() {
                   <div className="leaderboard__pieSize">
                   <Doughnut
                     data={ {  datasets: [{
-        data: [this.state.allUsers.length - this.state.userRank, this.state.userRank], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
+        data: [this.state.userRank - 1, this.state.allUsers.length - this.state.userRank], backgroundColor: [ 'rgba(203, 203, 203, 0.39)', 'rgba(156, 204, 179, 0.39)'], borderColor: [ '#cbcbcb', "rgba(156, 204, 179, 0.98)" ], hoverBorderColor: ['#d9d9d9', 'rgba(156, 204, 179, 0.8)'], hoverBackgroundColor: ['transparent', 'transparent'], borderWidth: '2'
     }], labels: [
         'Ranking',
         'Blue'
