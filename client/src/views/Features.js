@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import axios from 'axios';
 import React from "react";
 
 // reactstrap components
@@ -60,7 +61,34 @@ class Features extends React.Component {
     super(props);
     this.state = {
       howItWorks: 'account',
+      email: '',
+      message: '',
   }
+}
+addSubmission() {
+
+  let totMessage = {
+    email: this.state.email,
+    message: this.state.message
+  }
+
+      axios.post('http://localhost:5000/form/add-submission', { "type": "feature", "data": totMessage }, {
+        "type": "feature", "data": totMessage
+      })
+    .then(response => {
+
+         console.log('res', response);
+});
+}
+updateEmail(e) {
+  this.setState({ email: e.target.value });
+  this.setState({ hasSent: false });
+  this.setState({ hasntSent: false });
+}
+updateMessage(e) {
+  this.setState({ message: e.target.value });
+  this.setState({ hasSent: false });
+  this.setState({ hasntSent: false });
 }
   render() {
     return (
@@ -85,7 +113,7 @@ class Features extends React.Component {
                                 {/* <!-- Menu Area --> */}
                                 <div className="collapse navbar-collapse" id="ca-navbar">
                                     <ul className="navbar-nav ml-auto" id="nav">
-                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">About</Link></li>
+                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">Home</Link></li>
                                         <li className="nav-item"><Link to="/data" className="nav-link" id="landing__navLinkHover">Our Data</Link></li>
                                         <li className="nav-item"><Link to="/contact" className="nav-link" id="landing__navLinkHover">Contact</Link></li>
                                         <li className="nav-item"><Link to="/features" className="nav-link" id="landing__navLinkHover">Features</Link></li>
@@ -156,19 +184,27 @@ class Features extends React.Component {
 
         <div className="ourData__indFormContainer">
         <div className="ourData__donateSubtitle">Email</div>
-        <input className="ourData__donateInput" placeholder="Psst. We'll only use this to contact you! You are Anonymous! 🕵" />
+        <input className="ourData__donateInput" value={this.state.email} onChange={(e) => this.updateEmail(e)} maxlength="400" placeholder="Psst. We'll only use this to contact you! But It's Optional! 🕵" />
         {/* <div className="ourData__donateDisclaimer"></div> */}
         </div>
 
         <div className="ourData__indFormContainer">
         <div className="ourData__donateSubtitle">Feature Information</div>
-        <textarea className="ourData__donateTextarea" placeholder="So I had this &nbsp;🔥 idea the other day..." />
+        <textarea className="ourData__donateTextarea" value={this.state.message} onChange={(e) => this.updateMessage(e)} maxlength="1500" placeholder="So I had this &nbsp;🔥 idea the other day..." />
         {/* <div className="ourData__donateDisclaimer"></div> */}
         </div>
 
         <div className="ourData__submitButtonPositioning">
 
-        <div href="https://www.tesco.com" className="ourData__goToButton">Send &nbsp; 🚀</div>
+        <div className="ourData__goToButton" onClick={() => this.addSubmission()}>Send &nbsp; 🚀</div>
+
+        </div>
+
+        <div className="landing__formBottomMessages">
+
+        {this.state.hasSent ? <div id="landingForm__sentConfirm">It Sent! &nbsp;🎉</div> : undefined}
+
+        {this.state.hasntSent ? <div id="landingForm__notSent">It doesn't appear to have sent. Try reloading! &nbsp;👨‍💻️</div> : undefined}
 
         </div>
 
@@ -189,7 +225,7 @@ class Features extends React.Component {
           {/*  <!-- social icon--> */}
 
           <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/about" className="landing__individualPageLinksText">About</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
           <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
           <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>

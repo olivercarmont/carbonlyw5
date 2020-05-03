@@ -67,36 +67,36 @@ class Landing extends React.Component {
 }
 componentDidMount() {
 
-// if (this.state.howItWorks) {
-//   this.fun1();
-// }
+if (this.state.howItWorks) {
+  this.fun1();
+}
 
 }
-// fun1 = () => {
-//   let i = 0;
-//   let intervalId = setInterval(() => {
-//
-//     let sec;
-//
-//     if (this.state.howItWorks === 'account') {
-//       sec = 'buy';
-//     } else if (this.state.howItWorks === 'buy') {
-//       sec = 'track';
-//     } else if (this.state.howItWorks === 'track') {
-//       sec = 'account';
-//     }
-//
-//     this.setState({
-//       howItWorks: sec
-//     });
-//
-//     if (i > 180) {
-//       clearInterval(intervalId);
-//     }
-//     i++;
-//
-//   }, 4700);
-// };
+fun1 = () => {
+  let i = 0;
+  let intervalId = setInterval(() => {
+
+    let sec;
+
+    if (this.state.howItWorks === 'account') {
+      sec = 'buy';
+    } else if (this.state.howItWorks === 'buy') {
+      sec = 'track';
+    } else if (this.state.howItWorks === 'track') {
+      sec = 'account';
+    }
+
+    this.setState({
+      howItWorks: sec
+    });
+
+    if (i > 180) {
+      clearInterval(intervalId);
+    }
+    i++;
+
+  }, 8700);
+};
   render() {
     return (
       <>
@@ -120,7 +120,7 @@ componentDidMount() {
                                 {/* <!-- Menu Area --> */}
                                 <div className="collapse navbar-collapse" id="ca-navbar">
                                     <ul className="navbar-nav ml-auto" id="nav">
-                                    <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">About</Link></li>
+                                    <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">Home</Link></li>
                                     <li className="nav-item"><Link to="/data" className="nav-link" id="landing__navLinkHover">Our Data</Link></li>
                                     <li className="nav-item"><Link to="/contact" className="nav-link" id="landing__navLinkHover">Contact</Link></li>
                                     <li className="nav-item"><Link to="/features" className="nav-link" id="landing__navLinkHover">Features</Link></li>
@@ -208,10 +208,11 @@ componentDidMount() {
 
         <div className="landing__howItWorksVideoContainer">
 
-        {this.state.howItWorks === 'account' ? <img src={require("../assets/img/createAccountGif.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.howItWorks === 'account' ? <img src={require("../assets/img/createAnAccountAn.gif")} className="landing__howItWorksVideo"/> : undefined}
 
+        {this.state.howItWorks === 'buy' ? <img src={require("../assets/img/checkoutFinal.gif")} className="landing__howItWorksVideo"/> : undefined}
 
-
+        {this.state.howItWorks === 'track' ? <img src={require("../assets/img/AnalyticSec.gif")} className="landing__howItWorksVideo"/> : undefined}
 
         </div>
 
@@ -258,21 +259,21 @@ componentDidMount() {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/dataScroll.gif")} className="landing__howItWorksVideo"/>
         </div>
 
         </section>
 
         <section id="landing__awesomeFeaturesSecondContainer">
 
-        <div className="landing__howItWorksVideoContainer">
+        <div className="landing__howItWorksVideoContainer2">
 
-        <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/insightfulAnalytics2.gif")} className="landing__howItWorksVideo2"/>
         </div>
 
         <div className="landing__howItWorks__leftSide">
 
-        <div className="landing__howItWorksLeftSideContainer">
+        <div className="landing__howItWorksLeftSideContainer2">
 
         <div className="landing__howItWorksSubtitle3">Analytics</div>
 
@@ -302,7 +303,8 @@ componentDidMount() {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/socialExp.gif")} className="landing__howItWorksVideo"/>
+
         </div>
 
         </section>
@@ -440,7 +442,7 @@ componentDidMount() {
         <div className="landing__downloadSection">
 
         <div className="landing__downloadImageLeft">
-                  <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__tryItNowImage"/>
+                  <img src={require("../assets/img/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
 
         </div>
 
@@ -471,7 +473,7 @@ componentDidMount() {
           {/*  <!-- social icon--> */}
 
           <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">About</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
           <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
           <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>

@@ -5,12 +5,10 @@ const Schema = mongoose.Schema;
 const DataSchema = new Schema({
   name: {
     type: String,
-    required: true
   },
   data: {
     type: Object,
-    required: true
   }
 });
 
-module.exports = Data = mongoose.model("data", UserSchema);
+module.exports = Data = mongoose.model("data", DataSchema);

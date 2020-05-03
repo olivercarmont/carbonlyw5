@@ -12,3 +12,21 @@
   font-size:1.08em;
   line-height:1.62;
 }
+#landingForm__sentConfirm {
+  width:100%;
+  text-align:center;
+  margin-top:18px;
+  margin-bottom:-18px;
+  color:#8db8a2 !important;
+}
+#landingForm__notSent {
+  /* width:100%; */
+  /* text-align:center; */
+  margin-top:25px;
+  margin-bottom:-5px;
+  color:#dc7269 !important;
+}
+.landing__formBottomMessages {
+
+
+}

@@ -44,8 +44,14 @@
 #landing__awesomeFeaturesSecondContainer {
   background-color:#fcfcfc;
 
+  /* background-color:red; */
+
   display:flex;
   flex-direction:row;
+  align-items:center;
+
+  width:92%;
+  margin:auto;
 
   margin-top:92px;
   margin-bottom:95px;
@@ -73,6 +79,11 @@
 .landing__howItWorksLeftSideContainer {
   position:relative;
   left:15%;
+}
+.landing__howItWorksLeftSideContainer2 {
+  position:relative;
+  /* left:15%; */
+  left:38%;
 }
 .landing__howItWorksSubtitle {
   color:#8db8a2;
@@ -132,6 +143,13 @@
   width:90%;
   height:300px;
   /* background-color:blue; */
+}
+.landing__howItWorksVideoContainer2 {
+  width:90%;
+  height:300px;
+  /* background-color:blue; */
+  text-align:center;
+
 }
 .landing__howItWorksVideo {
 

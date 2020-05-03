@@ -85,7 +85,7 @@ class NotFound extends React.Component {
                                 {/* <!-- Menu Area --> */}
                                 <div className="collapse navbar-collapse" id="ca-navbar">
                                     <ul className="navbar-nav ml-auto" id="nav">
-                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">About</Link></li>
+                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">Home</Link></li>
                                         <li className="nav-item"><Link to="/data" className="nav-link" id="landing__navLinkHover">Our Data</Link></li>
                                         <li className="nav-item"><Link to="/contact" className="nav-link" id="landing__navLinkHover">Contact</Link></li>
                                         <li className="nav-item"><Link to="/features" className="nav-link" id="landing__navLinkHover">Features</Link></li>
@@ -146,7 +146,7 @@ class NotFound extends React.Component {
           {/*  <!-- social icon--> */}
 
           <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/about" className="landing__individualPageLinksText">About</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
           <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
           <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>

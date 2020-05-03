@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import axios from 'axios';
 import React from "react";
 
 // reactstrap components
@@ -65,7 +66,66 @@ class OurData extends React.Component {
     super(props);
     this.state = {
       ourData: 'studies',
+      email: '',
+      message: ''
   }
+}
+componentDidMount() {
+
+if (this.state.howItWorks) {
+  this.fun1();
+}
+
+}
+fun1 = () => {
+  let i = 0;
+  let intervalId = setInterval(() => {
+
+    let sec;
+
+    if (this.state.ourData === 'studies') {
+      sec = 'org';
+    } else if (this.state.ourData === 'org') {
+      sec = 'company';
+    } else if (this.state.ourData === 'company') {
+      sec = 'studies';
+    }
+
+    this.setState({
+      ourData: sec
+    });
+
+    if (i > 180) {
+      clearInterval(intervalId);
+    }
+    i++;
+
+  }, 8700);
+};
+addSubmission() {
+
+  let totMessage = {
+    header: this.state.header,
+    message: this.state.message
+  }
+
+      axios.post('http://localhost:5000/form/add-submission', { "type": "data", "data": totMessage }, {
+        "type": "data", "data": totMessage
+      })
+    .then(response => {
+
+         console.log('res', response);
+});
+}
+updateEmail(e) {
+  this.setState({ email: e.target.value });
+  this.setState({ hasSent: false });
+  this.setState({ hasntSent: false });
+}
+updateMessage(e) {
+  this.setState({ message: e.target.value });
+  this.setState({ hasSent: false });
+  this.setState({ hasntSent: false });
 }
   render() {
     return (
@@ -90,7 +150,7 @@ class OurData extends React.Component {
                                 {/* <!-- Menu Area --> */}
                                 <div className="collapse navbar-collapse" id="ca-navbar">
                                     <ul className="navbar-nav ml-auto" id="nav">
-                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">About</Link></li>
+                                        <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">Home</Link></li>
                                         <li className="nav-item"><Link to="/data" className="nav-link" id="landing__navLinkHover">Our Data</Link></li>
                                         <li className="nav-item"><Link to="/contact" className="nav-link" id="landing__navLinkHover">Contact</Link></li>
                                         <li className="nav-item"><Link to="/features" className="nav-link" id="landing__navLinkHover">Features</Link></li>
@@ -178,7 +238,12 @@ class OurData extends React.Component {
 
         <div className="landing__howItWorksVideoContainer">
 
-        {this.state.ourData === 'studies' ? <img src="https://res.cloudinary.com/netzero/image/upload/v1586440976/scrolling123_k27u53.gif" className="landing__howItWorksVideo"/> : undefined}
+        {this.state.ourData === 'studies' ? <img src={require("../assets/img/studiesScroll.gif")} className="landing__howItWorksVideo"/> : undefined}
+
+        {this.state.ourData === 'org' ? <img className="landing__howItWorksVideo"/> : undefined}
+
+        {this.state.ourData === 'company' ? <img src={require("../assets/img/prodDatabases.gif")} className="landing__howItWorksVideo"/> : undefined}
+
         </div>
 
         </section>
@@ -265,19 +330,27 @@ class OurData extends React.Component {
 
         <div className="ourData__indFormContainer">
         <div className="ourData__donateSubtitle">Email</div>
-        <input className="ourData__donateInput" placeholder="Psst. We'll only use this to contact you! You are Anonymous! 🕵" />
+        <input className="ourData__donateInput" value={this.state.email} maxlength="400" onChange={(e) => this.updateEmail(e)} placeholder="Psst. We'll only use this to contact you! You are Anonymous! 🕵" />
         {/* <div className="ourData__donateDisclaimer"></div> */}
         </div>
 
         <div className="ourData__indFormContainer">
         <div className="ourData__donateSubtitle">Message</div>
-        <textarea className="ourData__donateTextarea" placeholder="Don't worry about fitting all the data here, we'll follow up! 👋" />
+        <textarea className="ourData__donateTextarea" value={this.state.message} maxlength="1500" onChange={(e) => this.updateMessage(e)} placeholder="Don't worry about fitting all the data here, we'll follow up! 👋" />
         {/* <div className="ourData__donateDisclaimer"></div> */}
         </div>
 
         <div className="ourData__submitButtonPositioning">
 
-        <div href="https://www.tesco.com" className="ourData__goToButton">Send &nbsp; 🚀</div>
+        <div onClick={() => this.addSubmission()} className="ourData__goToButton">Send &nbsp; 🚀</div>
+
+        </div>
+
+        <div className="landing__formBottomMessages">
+
+        {this.state.hasSent ? <div id="landingForm__sentConfirm">It Sent! &nbsp;🎉</div> : undefined}
+
+        {this.state.hasntSent ? <div id="landingForm__notSent">It doesn't appear to have sent. Try reloading! &nbsp;👨‍💻️</div> : undefined}
 
         </div>
 
@@ -298,7 +371,7 @@ class OurData extends React.Component {
           {/*  <!-- social icon--> */}
 
           <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/about" className="landing__individualPageLinksText">About</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
           <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
           <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>
