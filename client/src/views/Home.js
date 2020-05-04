@@ -424,6 +424,9 @@ updateTitleShopping(e, id) {
 
 }
   render() {
+
+    let newDateHome = new Date();
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return (
       <>
         <div className="content">
@@ -434,7 +437,7 @@ updateTitleShopping(e, id) {
           <Col lg="4">
             <Card className="card-chart homepage__firstBasicHeight">
               <CardHeader>
-                <h5 className="card-category">{/* moment('').format('Do MMM YYYY')*/}</h5>
+                <h5 className="card-category">{`${newDateHome.getDate()}${newDateHome.getDate() === 1 ? 'st' : newDateHome.getDate() === 2 ? 'nd' : newDateHome.getDate() === 3 ? 'rd' : 'th'} ${months[newDateHome.getMonth()]} ${newDateHome.getFullYear()}`}</h5>
                 <CardTitle tag="h3">
                   {/* <i className="tim-icons icon-minimal-down text-info" />{" "} */}
                 Hey {this.state.user.name.split(' ')[0]} 👋
@@ -446,19 +449,19 @@ updateTitleShopping(e, id) {
                 Here's What's New:
                 </div>
 
-                <UncontrolledAlert color="info">
+                <UncontrolledAlert id="home__notification">
                   <span>
                     <b>Friends</b><br/>
                     James Carlson Offset 40kg!
                   </span>
                 </UncontrolledAlert>
-                <UncontrolledAlert color="warning">
+                {/* <div id="home__notification">
                   <span>
                     <b>Ranking</b><br/>
                     Rank Decreased From 500 to 515!
                   </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert color="danger">
+                </div> */}
+                <UncontrolledAlert id="home__notification">
                   <span>
                     <b>Footprint</b><br/>
                     Increased by 8kg Today!

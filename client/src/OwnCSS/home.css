@@ -392,3 +392,15 @@ color:#444 !important;
 #home__textAreaPlaceholderStyling::placeholder {
   color:#afafaf !important;
 }
+#home__notification {
+  background-color:rgba(160, 209, 186, 0.92);
+  /* height:40px;
+  width:80%;
+  display:block; */
+}
+#home__notification:hover {
+  color:#fff !important;
+  /* height:40px;
+  width:80%;
+  display:block; */
+}

@@ -3829,9 +3829,10 @@ input[type="button"].btn-block {
     color: #ff643f; }
 
 .alert-danger {
-  color: #fd5d93;
+  /* color: #fd5d93;
   background-color: #fd77a4;
-  border-color: #fd77a4; }
+  border-color: #fd77a4;  */
+}
   .alert-danger hr {
     border-top-color: #fd5e93; }
   .alert-danger .alert-link {

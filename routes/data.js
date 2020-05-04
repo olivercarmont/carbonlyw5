@@ -39,6 +39,8 @@ router.post("/req-data", (req, res) => {
 
   let objectSpecificCat;
 
+  if (!req.body.category && !req.header('category')) {
+
   if (req.body.description && req.body.weight) {
     description = req.body.description;
     weight = parseFloat(req.body.weight);
@@ -53,6 +55,8 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.weight && !req.header('weight')) {
     return res.status(400).json(`Weight: Not Found`);
+  }
+
   }
 
   if (req.body.category) {
@@ -106,6 +110,97 @@ router.post("/req-data", (req, res) => {
     objectLists = [pFoodDataKeys, pDrinksDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys];
 
     if (category) {
+
+      if (category === 'flight') {
+
+        let company1, company2, distance1, distance2;
+        let company1Em, company2Em;
+
+        let predictedCom1, predictedCom2;
+
+        if ((req.body.company1 || req.header('company1')) && (req.body.distance1 || req.header('distance1'))) {
+
+          company1 = req.body.company1 ? req.body.company1 : req.header("company1");
+          distance1 = req.body.distance1 ? req.body.distance1 : req.header("distance1");
+
+          if ((req.body.company2 || req.header("company2")) && (req.body.distance2 || req.header('distance2'))) {
+
+            company2 = req.body.company2 ? req.body.company2 : req.header("company2");
+            distance2 = req.body.distance2 ? req.body.distance2 : req.header("distance2");
+
+            for (const com of pTravelDataKeys) {
+
+              if((company1.toLowerCase()).includes(com.toLowerCase())) {
+                  predictedCom1 = com;
+                  company1Em = parseFloat(pTravelData[com]) * parseFloat(distance1);
+              }
+            }
+
+            for (const com of pTravelDataKeys) {
+
+              if((company2.toLowerCase()).includes(com.toLowerCase())) {
+                  predictedCom2 = com;
+                  console.log('ENTERED HERE FOUND');
+                  company2Em = parseFloat(pTravelData[com]) * parseFloat(distance2);
+              }
+            }
+
+            if (!company1Em) {
+              if (category === 'flight') {
+                predictedCom1 = 'Average Flight';
+                company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
+              }
+            }
+
+            if (!company2Em) {
+              if (category === 'flight') {
+                predictedCom2 = 'Average Flight';
+                company2Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance2);
+              }
+            }
+
+            } else {
+
+              for (const com of pTravelDataKeys) {
+
+                if((company1.toLowerCase()).includes(com.toLowerCase())) {
+                    predictedCom1 = com;
+                    company1Em = parseFloat(pTravelData[com]) * parseFloat(distance1);
+                }
+              }
+
+              if (!company1Em) {
+                if (description === 'flight') {
+                  predictedCom1 = 'Average Flight';
+                  company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
+                }
+              }
+            }
+          }
+
+          console.log('c1', company2Em);
+
+
+
+          if (company1Em && company2Em) {
+
+            company1Em = company1Em.toFixed(2);
+            company2Em = company2Em.toFixed(2);
+
+            let totalEm = (parseFloat(company1Em) + parseFloat(company2Em));
+            totalEm = parseFloat(totalEm).toFixed(2);
+
+            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2 });
+
+          } else if (company1Em) {
+
+            company1Em = company1Em.toFixed(2);
+
+            return res.json({ company1Em, "totalEm": company1Em, predictedCom1 });
+
+          }
+
+      }
 
     } else {
 
@@ -346,11 +441,16 @@ router.post("/req-data", (req, res) => {
       predictedEm = parseFloat(foodData['Apple']);
     }
 
-    emissions = (weight*predictedEm).toFixed(4)
+    if (unit == 'portion') {
+      emissions = predictedEm.toFixed(4);
+    } else {
+      emissions = (weight*predictedEm).toFixed(4);
+    }
 
     }
 
     return res.json({ emissions, unit, predictedCategory });
+
 
   }
 
