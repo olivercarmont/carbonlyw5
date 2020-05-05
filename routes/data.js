@@ -170,7 +170,9 @@ router.post("/req-data", (req, res) => {
               }
 
               if (!company1Em) {
-                if (description === 'flight') {
+
+                if (category === 'flight') {
+                  console.log('entered into defining terr')
                   predictedCom1 = 'Average Flight';
                   company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
                 }
@@ -178,9 +180,9 @@ router.post("/req-data", (req, res) => {
             }
           }
 
-          console.log('c1', company2Em);
+          // console.log('c1', company2Em);
 
-
+          console.log('C1', company1Em);
 
           if (company1Em && company2Em) {
 
@@ -194,7 +196,7 @@ router.post("/req-data", (req, res) => {
 
           } else if (company1Em) {
 
-            company1Em = company1Em.toFixed(2);
+            company1Em = parseFloat(company1Em).toFixed(2);
 
             return res.json({ company1Em, "totalEm": company1Em, predictedCom1 });
 
