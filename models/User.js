@@ -49,6 +49,10 @@ const UserSchema = new Schema({
   publicId: {
     type: String,
     required:true
+  },
+  hasloggedIn: {
+    type: Boolean,
+    default: false
   }
 
 });

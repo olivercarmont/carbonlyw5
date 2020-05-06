@@ -27,6 +27,11 @@ import axios from 'axios';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import arrowGrowth from '@iconify/icons-uil/arrow-growth';
+import planeDeparture from '@iconify/icons-fa-solid/plane-departure';
+import shippingFast from '@iconify/icons-fa-solid/shipping-fast';
+import foodIcon from '@iconify/icons-dashicons/food';
+import movieOpen from '@iconify/icons-mdi/movie-open';
+import boxesIcon from '@iconify/icons-fa-solid/boxes';
 
 // reactstrap components
 import {
@@ -552,8 +557,7 @@ class Analytics extends React.Component {
                 display: false
               },
               ticks: {
-                suggestedMin: 60,
-                suggestedMax: 120,
+
                 padding: 20,
                 fontColor: "#9e9e9e"
               }
@@ -1330,6 +1334,90 @@ class Analytics extends React.Component {
   });
   return des;
   }
+  returnOrderCategories() {
+
+    let travel = ['skyscanner', 'momondo', 'booking.com', 'expedia', 'tripadvisor', 'klm', 'kayak', 'googleflights']
+
+    let categories = [{name: 'Travel',  websites: '', percentage: 0, amount: 0}, {name: 'Ecommerce',  websites: '', percentage: 0, amount: 0}, {name: 'Food',  websites: '', percentage: 0, amount: 0}, {name: 'Entertainment',  websites: '', percentage: 0, amount: 0}, {name: 'Miscellaneous',  websites: '', percentage: 0, amount: 0}];
+
+    let totalFootprint = 0;
+
+    this.state.user.orders.map((or) => {
+
+      if (or.website.toLowerCase() === 'tesco' || or.website.toLowerCase() === 'ubereats') {
+
+        categories[2].amount += parseFloat(or.carbon);
+
+        if (!categories[2].websites.includes(or.website.toLowerCase) && categories[2].websites.length < 30) {
+            categories[2].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+        }
+
+      } else if (or.website.toLowerCase() === 'amazon') {
+
+        categories[1].amount += parseFloat(or.carbon);
+
+        if (!categories[1].websites.includes(or.website.toLowerCase) && categories[1].websites.length < 30) {
+            categories[1].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+        }
+
+      } else {
+        for (const web of travel) {
+
+          if (web === or.website.toLowerCase()) {
+
+            categories[0].amount += parseFloat(or.carbon);
+
+            if (!categories[0].websites.includes(or.website.toLowerCase) && categories[0].websites.length < 30) {
+                categories[0].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+            }
+
+          }
+
+      }
+      }
+
+    totalFootprint += parseFloat(or.carbon);
+    })
+
+    categories[0].percentage = categories[0].amount / totalFootprint;
+    categories[1].percentage = categories[1].amount / totalFootprint;
+    categories[2].percentage = categories[2].amount / totalFootprint;
+    categories[3].percentage = categories[3].amount / totalFootprint;
+    categories[4].percentage = categories[4].amount / totalFootprint;
+
+    let misCat = categories[4];
+
+    categories.sort((a, b) => (a.amount < b.amount) ? 1 : -1)
+
+    categories = categories.filter((cat) => {
+      if (cat.name !== 'Miscellaneous') {
+        return cat;
+
+      }
+    })
+
+    categories.push(misCat);
+
+    console.log('cat', categories);
+
+    return categories;
+  }
+  returnCatIcon(cat) {
+    if (cat === 'Travel') {
+      return planeDeparture;
+    } else if (cat === 'Ecommerce') {
+      return shippingFast;
+    } else if (cat === 'Food') {
+      return foodIcon;
+    } else if (cat === 'Entertainment') {
+      return movieOpen;
+    } else if (cat === 'Miscellaneous') {
+      return boxesIcon;
+    } else {
+      return boxesIcon;
+    }
+
+  }
   render() {
     return (
       <>
@@ -1570,17 +1658,58 @@ class Analytics extends React.Component {
             <Col lg="6" md="12">
               <Card>
                 <CardHeader>
-                  <h6 id="analytics__recentOrdersTitleOffset" className="title d-inline">🌱 Offsets</h6>
+                  <h6 id="analytics__recentOrdersTitleOffset" className="title d-inline">🛫 Emissions by Category</h6>
                 </CardHeader>
                 <div className="analytics__offsetsSpacing"></div>
                 <CardBody>
-                  <div className="table-full-width table-responsive">
-                    <Table>
+                  <div className="table-full-width table-responsive" id="analytics__orByCatTopContainer">
+
+
+                  {this.returnOrderCategories().map((cat) => {
+
+                  return (
+                  <div>
+                  <div className="analytics__orByCatIndv">
+
+                  <div className="analytics__orByCatIconContainer"><Icon icon={this.returnCatIcon(cat.name)} /></div>
+
+                  <div className="analytics__orByCatTextLeft">
+
+                  <div className="analytics__orByCatCatName">{cat.name}</div>
+                  <div className="analytics__orByCatWebsites">{cat.websites.length > 0 ? cat.websites : 'No Sites'}</div>
+
+                  </div>
+
+                  <div className="analytics__orByCatBarText" style={{ "right": `${cat.percentage < 1 ? '-180px' : (7 * cat.percentage)+7.5}%` }}>
+                  <div className="analytics__orByCatBarEm">{cat.amount}kg</div>
+                  <div className="analytics__orByCatBarPer">{cat.percentage*100}%</div>
+                  </div>
+
+                  <div className="analytics__orByCatBar" style={{ "width": `${12*cat.percentage}%` }}>
+
+                  </div>
+
+                  </div>
+
+                  <div className="analytics__orByCatSeperator"></div></div>)
+
+                  })}
+
+
+
+
+
+
+
+
+
+
+                    {/*   <Table>
                     <tbody>
                     <tr>
                     <td>
 
-                    <div className="analytics__offsetComingSoonMessage">
+                 <div className="analytics__offsetComingSoonMessage">
                     <p className="title analytics__comingSoonTitle">Coming Soon! 😃</p>
                     <p className="text-muted">
                       Soon you will be able to subscribe to our wonderful new service where you'll be able to offset all your online purchases for as little as $2 per month!
@@ -1591,7 +1720,7 @@ class Analytics extends React.Component {
                     </tr>
 
                     </tbody>
-                    </Table>
+                    </Table>*/}
                           </div>
                         </CardBody>
 

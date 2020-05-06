@@ -41,6 +41,7 @@
   transition:0.4s;
   margin-bottom:2px;
   font-size:0.95em;
+  color:#333 !important;
 }
 .home__compatTitle:hover {
   transition:0.4s;
@@ -50,6 +51,7 @@
 }
 .home__compatAllProd {
 font-size:0.9em;
+margin-top:3px;
 }
 .home__indvCompat {
   margin-left:12px;

@@ -21,8 +21,9 @@ margin-bottom:77px;
 
 }
 .settings__constructionMessage {
-  font-size:1.08em;
+  font-size:1.07em;
   color:#84af96;
   letter-spacing:0em;
   word-spacing:0.025em;
+  margin-top:10px;
 }

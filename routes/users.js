@@ -477,7 +477,8 @@ router.post("/register", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        publicId: req.body.publicId
+        publicId: req.body.publicId,
+        hasloggedIn: false,
       });
 
       // Hash password before saving in database

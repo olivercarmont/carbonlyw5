@@ -63,9 +63,17 @@ import {
 // import moment from 'moment';
 // let date = moment();
 
-let tescoImg = require("../assets/img/companyLogos/tesco.png");
+
 let amazonImg = require("../assets/img/companyLogos/amazon.png");
+let bookingImg = require("../assets/img/companyLogos/booking.png");
+let expediaImg = require("../assets/img/companyLogos/expedia.png");
+let kayakImg = require("../assets/img/companyLogos/kayak.png");
+let googleFlightsImg = require("../assets/img/companyLogos/googleFlights.png");
+let klmImg = require("../assets/img/companyLogos/klm.png");
+let momondoImg = require("../assets/img/companyLogos/momondo.png");
 let skyscannerImg = require("../assets/img/companyLogos/skyscanner.png");
+let tescoImg = require("../assets/img/companyLogos/tesco.png");
+let tripAdvisorImg = require("../assets/img/companyLogos/tripAdvisor.png");
 let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
 
 class Home extends React.Component {
@@ -76,10 +84,10 @@ class Home extends React.Component {
       bigChartData: "data1",
       savedList: [],
       shoppingList: [],
-      search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com"}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk"}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com"}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com"}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com"}],
-      compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com"}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk"}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com"}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com"}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com"}],
-    };
-  }
+      search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'},  { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Flights'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
+      compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'},  { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Flights'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
+  };
+}
   componentWillMount() {
 
     axios.post('http://localhost:5000/users/return-home', { jwt: localStorage.jwtToken }, {
@@ -677,7 +685,7 @@ updateTitleShopping(e, id) {
                             <a href={marketplace.link} className="title home__compatTitle">{marketplace.name}</a>
 
                             <p className="text-muted home__compatAllProd">
-                              All Products
+                              {marketplace.description}
                             </p>
                         </div>
 

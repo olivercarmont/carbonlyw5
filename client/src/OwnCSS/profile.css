@@ -501,6 +501,10 @@ transition:0.4s;
   justify-content:center;
 
 }
+.notFound__positionButtonClick {
+  display:inline-block;
+  margin-top:30px;
+}
 .userProfile__addButton {
   position:absolute;
 /* background-color:#002D70; */

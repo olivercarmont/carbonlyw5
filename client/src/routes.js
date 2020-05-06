@@ -26,6 +26,7 @@ import Profile from "./views/Profile.js";
 import UserProfile from "./views/UserProfile.js";
 import Leaderboard from "./views/Leaderboard.js";
 import Offsets from "./views/Offsets.js";
+import ClickExtension from "./views/ClickExtension.js";
 
 var routes = [
   {
@@ -91,11 +92,15 @@ var routes = [
     disabled: true,
     emoji: '⚙',
   },
-
-
-
-
-
+  {
+    path: "/click",
+    name: "Setings",
+    icon: "tim-icons icon-puzzle-10",
+    component: ClickExtension,
+    layout: "/",
+    disabled: true,
+    emoji: '⚙',
+  },
 
   /*
 
