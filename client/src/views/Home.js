@@ -112,7 +112,7 @@ class Home extends React.Component {
 
        this.setState({ user: response.data });
 
-       if (!response.data.hasloggedIn) {
+       if (!response.data.hasLoggedIn) {
          window.location.href = "/click";
        }
 

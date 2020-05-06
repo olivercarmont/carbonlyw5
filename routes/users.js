@@ -979,7 +979,7 @@ router.post("/update", (req, res) => {
            hasloggedIn: true
          }
        }).then(user => {
-         return res.json({ hasloggedIn: true });
+         return res.json({ hasLoggedIn: true });
        })
 
      }).catch(err => res.status(400).json(`Error:` + err));
