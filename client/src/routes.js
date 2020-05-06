@@ -94,12 +94,12 @@ var routes = [
   },
   {
     path: "/click",
-    name: "Setings",
+    name: "Click",
     icon: "tim-icons icon-puzzle-10",
     component: ClickExtension,
     layout: "/",
     disabled: true,
-    emoji: '⚙',
+    emoji: '🖱️',
   },
 
   /*
