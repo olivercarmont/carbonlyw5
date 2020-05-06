@@ -51,7 +51,6 @@ const UserSchema = new Schema({
     required:true
   },
   hasLoggedIn: {
-    type: Boolean,
     default: false
   }
 
