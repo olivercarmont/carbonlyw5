@@ -971,6 +971,19 @@ router.post("/update", (req, res) => {
 
      }).catch(err => res.status(400).json(`Error:` + err));
 
+   } else if (prop === 'loggedIn' && typeof value === 'boolean') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           hasloggedIn: true
+         }
+       }).then(user => {
+         return res.json({ hasloggedIn: true });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
    }
 
 });
