@@ -976,7 +976,7 @@ router.post("/update", (req, res) => {
      User.findOne({ _id: id }).then(user => {
 
        User.findOneAndUpdate({ _id: id }, { $set: {
-           hasloggedIn: true
+           hasLoggedIn: true
          }
        }).then(user => {
          return res.json({ hasLoggedIn: true });
