@@ -153,7 +153,7 @@ router.post("/req-data", (req, res) => {
               if (category === 'flight') {
                 predictedCom1 = 'Average Flight';
                 company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
-                accuracyRating = 'D';
+                accuracyRating = 'C';
               }
             }
 
@@ -161,7 +161,7 @@ router.post("/req-data", (req, res) => {
               if (category === 'flight') {
                 predictedCom2 = 'Average Flight';
                 company2Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance2);
-                accuracyRating = 'D';
+                accuracyRating = 'C';
               }
             }
 
@@ -281,18 +281,26 @@ router.post("/req-data", (req, res) => {
 
       if (tList === 0) {
 
+        accuracyRating = 'C';
+
         predictedEm = parseFloat(drinksData[predictedCategory]);
 
       } else if (tList === 1) {
+
+        accuracyRating = 'C';
 
         predictedEm = parseFloat(foodData[predictedCategory]);
 
       } else if (tList === 2) {
 
+        accuracyRating = 'B';
+
         predictedEm = parseFloat(preparedFoodData[predictedCategory]);
         unit = 'portion';
 
       } else if (tList === 3) {
+
+        accuracyRating = 'B';
 
         predictedEm = parseFloat(pTravelData[predictedCategory]);
 

@@ -330,7 +330,7 @@ updateMessage(e) {
 
         <div className="ourData__indFormContainer">
         <div className="ourData__donateSubtitle">Email</div>
-        <input className="ourData__donateInput" value={this.state.email} maxlength="400" onChange={(e) => this.updateEmail(e)} placeholder="Psst. We'll only use this to contact you! You are Anonymous! 🕵" />
+        <input className="ourData__donateInput" value={this.state.email} maxlength="400" onChange={(e) => this.updateEmail(e)} placeholder="Psst. We'll only use this to contact you! But It's Optional! 🕵" />
         {/* <div className="ourData__donateDisclaimer"></div> */}
         </div>
 
