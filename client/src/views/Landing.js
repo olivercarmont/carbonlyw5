@@ -45,6 +45,8 @@ import chromeIcon from '@iconify/icons-icomoon-free/chrome';
 import { Link } from "react-router-dom";
 
 import homeIcon from '@iconify/icons-fa-solid/home';
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
+
 
 //
 // import './landingTheme/js/jquery-2.2.4.min.js';
@@ -136,7 +138,7 @@ fun1 = () => {
                     {/* <!-- Signup btn --> */}
                     <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
-                            <a href="#">Home <Icon icon={homeIcon} className="landing__chromeIconTop" /> (OR SIGNIN)</a>
+                            {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
                         </div>
                     </div>
                 </div>
@@ -192,13 +194,13 @@ fun1 = () => {
         <div onClick={() => { this.setState({ howItWorks: 'buy' })}} className={this.state.howItWorks === 'buy' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">2. Buy Some Waffles &nbsp;🥞</div>
 
-        <div className="landing__howItWorksDescription">Sign up <span className="howItWorks__link">here!</span></div>
+        <div className="landing__howItWorksDescription">Mmmmm...</div>
         </div>
 
         <div onClick={() => { this.setState({ howItWorks: 'track' })}} className={this.state.howItWorks === 'track' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">3. Track & Offset &nbsp;🌳</div>
 
-        <div className="landing__howItWorksDescription">Sign up <span className="howItWorks__link">here!</span></div>
+        <div className="landing__howItWorksDescription">Realtime analytics and feedback!</div>
         </div>
 
         </div>
@@ -252,7 +254,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksMainTitle">Realtime Data &nbsp; 💾️</div>
 
-        <div className="landing__awesomeFeaturesText">See the carbon footprints of all the products on the page in real-time and the total of your basket!</div>
+        <div className="landing__awesomeFeaturesText">See the carbon footprints of your everyday products directly on the page!</div>
 
         </div>
         </div>
@@ -279,7 +281,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksMainTitle">Insightful Analytics &nbsp; 📈</div>
 
-        <div className="landing__awesomeFeaturesText">See the carbon footprints of all the products on the page in real-time and the total of your basket!</div>
+        <div className="landing__awesomeFeaturesText">Picrture insightful analytics into your carbon footprint both in realtime and over time!</div>
 
         </div>
         </div>
@@ -296,7 +298,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksMainTitle">A Social Experience &nbsp; 🥂</div>
 
-        <div className="landing__awesomeFeaturesText">See the carbon footprints of all the products on the page in real-time and the total of your basket!</div>
+        <div className="landing__awesomeFeaturesText">Reach the global leaderboard by offsetting your footprint and competing with friends!</div>
 
         </div>
         </div>
@@ -324,7 +326,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">2</span></h3>
+                                <h3><span className="counter">0</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
@@ -336,7 +338,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">5</span></h3>
+                                <h3><span className="counter">12</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -349,7 +351,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area landing__ourStatsNumber2">
-                                <h3><span className="counter">40</span></h3>
+                                <h3><span className="counter">0</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={statsChart} className="landing__treeIcon" />

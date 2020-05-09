@@ -26,6 +26,7 @@ import Profile from "./views/Profile.js";
 import UserProfile from "./views/UserProfile.js";
 import Leaderboard from "./views/Leaderboard.js";
 import Offsets from "./views/Offsets.js";
+import Lookup from "./views/Lookup.js";
 import ClickExtension from "./views/ClickExtension.js";
 
 var routes = [
@@ -66,6 +67,15 @@ var routes = [
     emoji: '🌿',
   },
   {
+    path: "/lookup",
+    name: "Lookup",
+    icon: "tim-icons icon-zoom-split",
+    component: Lookup,
+    layout: "/",
+    disabled: false,
+    emoji: '🕵',
+  },
+  {
     path: "/profile",
     name: "Profile",
     icon: "tim-icons icon-single-02",
@@ -102,7 +112,7 @@ var routes = [
     emoji: '🖱️',
   },
 
-  /*
+/*
 
   {
     path: "/icons",

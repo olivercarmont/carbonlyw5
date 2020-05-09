@@ -60,7 +60,7 @@ import {
   Col
 } from "reactstrap";
 
-class Offsets extends React.Component {
+class Lookup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -440,7 +440,7 @@ roundCarbon(amt) {
             <Col md="6">
               <Card>
                 <CardHeader>
-                <div className="offsets__mainTitle">New Offset <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
+                <div className="offsets__mainTitle">Footprint of a Good <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
 
                 <div className="offsets__topSelections"><div onClick={() => this.setPeriod('weekly')} className={this.state.period === 'weekly' ? 'offsets__topSelectFirst leaderboard__topSelected' : 'offsets__topSelectFirst leaderboard__topSelect'}>Weekly</div><div onClick={() => this.setPeriod('monthly')} className={this.state.period === 'monthly' ? 'offsets__topSelectFirst leaderboard__topSelected' : 'offsets__topSelectFirst leaderboard__topSelect'}>Monthly</div><div onClick={() => this.setPeriod('yearly')} className={this.state.period === 'yearly' ? 'offsets__topSelectFirst leaderboard__topSelected' : 'offsets__topSelectFirst leaderboard__topSelect'}>Yearly</div><div onClick={() => this.setPeriod('custom')} className={this.state.period === 'custom' ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Custom</div></div>
                   <Form>
@@ -448,143 +448,31 @@ roundCarbon(amt) {
 
                     <div className="offsets__leftTopDiv">
 
-                    {this.state.period === 'custom' ? <div className="offsets__orderTitle">Custom <span className="offsets__orderTitleIcon"><Icon icon={gumtreeIcon} /></span></div> : <div className="offsets__orderTitle">Orders <span className="offsets__orderTitleIcon"><Icon icon={boxOpen} /></span></div>}
+                    <div className="offsets__orderTitle">Custom <span className="offsets__orderTitleIcon"><Icon icon={gumtreeIcon} /></span></div>
 
-                    {this.state.period === 'custom' ? <div className="offsets__customSection">
+                    <div className="offsets__customSection">
 
                     <div className="offsets__customInputTopDecription">Enter an Amount:</div>
 
-                    <span className="offsets__currency"><select className="offsets__currencySelect" value={this.state.cur} onChange={(e) => this.changeCurrency(e)}>
-                    <option value="$">$</option>
-                    <option value="€">€</option>
-                    <option value="£">£</option>
-                    <option value="kg CO2">kg CO&#x2082;</option>
-                    </select></span><input value={this.state.offAmount} onChange={(e) => this.updateOffAmount(e)} className="offsets__customInput"/>
-
-                    {this.state.offAmount ? <div className="offsets__customInputOffsetCalc">{this.getTimeSizeOfEmissions(this.state.offAmount)}</div> : undefined}
+                    <input value={this.state.offAmount} onChange={(e) => this.updateOffAmount(e)} className="offsets__customInput"/>
 
                     <div className="offsets__customSpacing"></div>
 
                     </div>
 
+                    <div>Weight/Measurement (select a number of different ones)</div>
 
-                    : <div className="offsets__makeNewMainDiv">
-
-                      <div className="offsets__mainOrdersDiv">
-
-                      <div className="offsets__centerOrders">
-
-                      {this.state.period === 'weekly' ? this.returnWeeklyOrders().length > 0 ? this.returnWeeklyOrders().map((order) => {
-
-                        return (<tr id="offsets__mainOrderDiv">
-                          <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
-                          </td>
-                          <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
-                            <p id="offsets__orderDescription" className="text-muted">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
-                            </Button>
-                          </td>
-                        </tr>);
+                    <div>Or by ingredients: (here let them add up to 50 ingredients and make a new method on the server for analysing all of them at once) Find a way to tell them if you could find an accurate figure or not</div>
 
 
-                      }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
+                    <div>Origin....Consumption Country...Energy used... time cooked ... (COMING SOON)</div>
 
-                      </div>
 
-                      <div className="offsets__centerOrders">
 
-                      {this.state.period === 'monthly' ? this.returnMonthlyOrders().length > 0 ? this.returnMonthlyOrders().map((order) => {
+                      <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Save &nbsp;</a></div>
 
-                        return (<div id="offsets__mainOrderDiv"><tr>
-                          <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
-                          </td>
-                          <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
-                            <p className="text-muted" id="offsets__orderDescription">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
-                            </Button>
-                          </td>
-                        </tr></div>);
+                      <div>DISCLAIMER: THIS ALGORITHM IS BASED ON AVERAGE GOOD FOOTPRINTS AND DOES NOT YET TAKE INTO ACCOUNT COMPLEX FACTORS. THIS IS NOT MEANT TO BE AN EXACT MEASUREMENT.</div>
 
-                      }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
-
-                      </div>
-
-                      <div className="offsets__centerOrders">
-                      {this.state.period === 'yearly' ? this.returnYearlyOrders().length > 0 ? this.returnYearlyOrders().map((order) => {
-
-                        return (<div id="offsets__mainOrderDiv"><tr>
-                          <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
-                          </td>
-                          <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
-                            <p id="offsets__orderDescription" className="text-muted">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
-                            </Button>
-                          </td>
-                        </tr></div>);
-
-                      }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
-
-                      </div>
-
-                      </div>
-
-                      <div className="offsets__totalSection">
-
-                      <div className="offsets__totalText"><Icon icon={cloudIcon} /> &nbsp;Total Emissions</div><div className="offsets__totalNum">{this.state.period === 'weekly' ? this.returnTotalWeek() : this.state.period === 'monthly' ? this.returnTotalMonth() : this.returnTotalYear()}<span id="offsets__subScript2">2</span></div>
-
-                      <div className="offsets__clearBoth"></div>
-
-                      <div className="offsets__totalText"><Icon icon={moneyBillWave} />&nbsp; Total Offset</div><div className="offsets__totalNum">{this.state.cur}{this.state.period === 'weekly' ? this.returnTotalWeekCost() : this.state.period === 'monthly' ? this.returnTotalMonthCost() : this.returnTotalYearCost()}</div>
-
-                      </div>
-
-                      </div>}
-
-                      <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Offset &nbsp;🎉</a></div>
-
-                      <div className="offsets__subscriptionDiv">
-
-                      <div className="offsets__subDescription">Want Seamless {this.state.period.charAt(0).toUpperCase() + this.state.period.slice(1)}-Based Offsets?</div>
-
-                        <div className="offsets__monthlySubscriptionButton">Enable Carbonly Subscription</div>
-
-                      </div>
 
                       </div>
 
@@ -601,7 +489,7 @@ roundCarbon(amt) {
                 <CardBody>
                   <CardText />
 
-                    <div className="leaderboard__mainTitle">Offset History <div className="leaderboard__sideIcon"><Icon icon={treesIcon} /></div></div>
+                    <div className="leaderboard__mainTitle">Saved Goods <div className="leaderboard__sideIcon"><Icon icon={treesIcon} /></div></div>
 
                     <div className="offsetsHistory__offsetsContainer">
                     {this.state.user.offsets.length > 0 ? this.state.user.offsets.map((off) => {
@@ -632,4 +520,4 @@ roundCarbon(amt) {
   }
 }
 
-export default Offsets;
+export default Lookup;

@@ -52,6 +52,14 @@ const UserSchema = new Schema({
   },
   hasLoggedIn: {
     default: false
+  },
+  language: {
+    type: String,
+    default: 'english'
+  },
+  bookmarks: {
+    type: Array,
+    default: []
   }
 
 });

@@ -25,6 +25,8 @@ router.post("/req-data", (req, res) => {
 
   let dataArray = [], mainLists, objectLists;
 
+  let accuracyRating = 'D';
+
   let description, weight, category, unit = 'kg';
 
   let foodData, preparedFoodData, drinksData;
@@ -133,6 +135,7 @@ router.post("/req-data", (req, res) => {
               if((company1.toLowerCase()).includes(com.toLowerCase())) {
                   predictedCom1 = com;
                   company1Em = parseFloat(pTravelData[com]) * parseFloat(distance1);
+                  accuracyRating = 'B';
               }
             }
 
@@ -142,6 +145,7 @@ router.post("/req-data", (req, res) => {
                   predictedCom2 = com;
                   console.log('ENTERED HERE FOUND');
                   company2Em = parseFloat(pTravelData[com]) * parseFloat(distance2);
+                  accuracyRating = 'B';
               }
             }
 
@@ -149,6 +153,7 @@ router.post("/req-data", (req, res) => {
               if (category === 'flight') {
                 predictedCom1 = 'Average Flight';
                 company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
+                accuracyRating = 'D';
               }
             }
 
@@ -156,6 +161,7 @@ router.post("/req-data", (req, res) => {
               if (category === 'flight') {
                 predictedCom2 = 'Average Flight';
                 company2Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance2);
+                accuracyRating = 'D';
               }
             }
 
@@ -192,13 +198,13 @@ router.post("/req-data", (req, res) => {
             let totalEm = (parseFloat(company1Em) + parseFloat(company2Em));
             totalEm = parseFloat(totalEm).toFixed(2);
 
-            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2 });
+            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating });
 
           } else if (company1Em) {
 
             company1Em = parseFloat(company1Em).toFixed(2);
 
-            return res.json({ company1Em, "totalEm": company1Em, predictedCom1 });
+            return res.json({ company1Em, "totalEm": company1Em, predictedCom1, accuracyRating });
 
           }
 
@@ -351,15 +357,20 @@ router.post("/req-data", (req, res) => {
 
     if (list === pFoodDataKeys) {
       fullArray = pFoodData;
+      accuracyRating = 'B';
       // fullArrayKeys =pFoodData);
     } else if (list === pDrinksDataKeys) {
       fullArray = pDrinksData;
+      accuracyRating = 'B';
     } else if (list === pApparelDataKeys) {
       fullArray = pApparelData;
+      accuracyRating = 'B';
     } else if (list === pMiscellaneousDataKeys) {
       fullArray = pMiscellaneousData;
+      accuracyRating = 'B';
     } else if (list === pElectronicsDataKeys) {
       fullArray = pElectronicsData;
+      accuracyRating = 'B';
     }
 
     if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
@@ -451,7 +462,7 @@ router.post("/req-data", (req, res) => {
 
     }
 
-    return res.json({ emissions, unit, predictedCategory });
+    return res.json({ emissions, unit, predictedCategory, accuracyRating });
 
 
   }

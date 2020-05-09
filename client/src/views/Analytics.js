@@ -29,7 +29,7 @@ import { Icon, InlineIcon } from '@iconify/react';
 import arrowGrowth from '@iconify/icons-uil/arrow-growth';
 import planeDeparture from '@iconify/icons-fa-solid/plane-departure';
 import shippingFast from '@iconify/icons-fa-solid/shipping-fast';
-import foodIcon from '@iconify/icons-dashicons/food';
+import utensilsIcon from '@iconify/icons-fa-solid/utensils';
 import movieOpen from '@iconify/icons-mdi/movie-open';
 import boxesIcon from '@iconify/icons-fa-solid/boxes';
 
@@ -1408,7 +1408,7 @@ class Analytics extends React.Component {
     } else if (cat === 'Ecommerce') {
       return shippingFast;
     } else if (cat === 'Food') {
-      return foodIcon;
+      return utensilsIcon;
     } else if (cat === 'Entertainment') {
       return movieOpen;
     } else if (cat === 'Miscellaneous') {

@@ -503,10 +503,20 @@ margin-bottom:auto;
   position:relative;
   top:45px;
 }
+.landing__homeIconTop {
+  font-size:1.02em;
+  margin-left:6px;
+  margin-top:-4px;
+}
+.landing__homeIconTop2 {
+  font-size:1.15em;
+  margin-left:8px;
+  margin-top:-3px;
+}
 .landing__chromeIconTop {
   font-size:1.1em;
   margin-left:6px;
-  margin-top:-1px;
+  margin-top:0px;
 }
 .landing__ourTeamHeader {
   position:relative;

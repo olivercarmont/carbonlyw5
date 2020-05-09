@@ -153,6 +153,7 @@ class AdminNavbar extends React.Component {
             </button>
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
+
                 <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
@@ -165,6 +166,25 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" id="nav__notificationsContainer" right tag="ul">
                   <p id="navbar__notificationsTitle">Notifications ⏰ &nbsp;</p>
+                    <NavLink tag="li">
+                      <DropdownItem className="nav-item">
+                        <div id="nav__notificationsIndividualItem"> We'll Still Busy Adding This Feature. Check Again 🔜!</div>
+                      </DropdownItem>
+                    </NavLink>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <UncontrolledDropdown nav>
+                  <DropdownToggle
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
+                    nav
+                  >
+                    <div className="notification d-none" />
+                    <i className="tim-icons icon-globe-2" />
+                  </DropdownToggle>
+                  <DropdownMenu className="dropdown-navbar" id="nav__notificationsContainer" right tag="ul">
+                  <p id="navbar__notificationsTitle">Language &nbsp;㊙️</p>
                     <NavLink tag="li">
                       <DropdownItem className="nav-item">
                         <div id="nav__notificationsIndividualItem"> We'll Still Busy Adding This Feature. Check Again 🔜!</div>

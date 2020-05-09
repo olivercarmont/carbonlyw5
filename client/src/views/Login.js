@@ -84,7 +84,7 @@ constructor(props) {
 componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      window.location.href = "/log-in";
+      window.location.href = "/home";
     }
   }
 
