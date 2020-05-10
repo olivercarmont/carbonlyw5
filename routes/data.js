@@ -119,6 +119,7 @@ router.post("/req-data", (req, res) => {
         let company1Em, company2Em;
 
         let predictedCom1, predictedCom2;
+        let comparison1, comparison2;
 
         if ((req.body.company1 || req.header('company1')) && (req.body.distance1 || req.header('distance1'))) {
 
@@ -190,6 +191,8 @@ router.post("/req-data", (req, res) => {
 
           console.log('C1', company1Em);
 
+          let averageAll = parseFloat(pTravelData["Average Flight"]);
+
           if (company1Em && company2Em) {
 
             company1Em = company1Em.toFixed(2);
@@ -198,13 +201,35 @@ router.post("/req-data", (req, res) => {
             let totalEm = (parseFloat(company1Em) + parseFloat(company2Em));
             totalEm = parseFloat(totalEm).toFixed(2);
 
-            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating });
+            let avCom = parseFloat(pTravelData[predictedCom1]) + parseFloat(pTravelData[predictedCom2]);
+
+            avCom /= 2;
+
+            if (avCom > averageAll) {
+              comparison = 'Above Average';
+            } else if (avCom === averageAll) {
+              comparison = 'Average';
+            } else if (avCom < averageAll) {
+              comparison = 'Below Average';
+            }
+
+            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating, comparison });
 
           } else if (company1Em) {
 
             company1Em = parseFloat(company1Em).toFixed(2);
 
-            return res.json({ company1Em, "totalEm": company1Em, predictedCom1, accuracyRating });
+            let c1Av = parseFloat(pTravelData[predictedCom1]);
+
+            if (c1Av > averageAll) {
+              comparison = 'Above Average';
+            } else if (c1Av === averageAll) {
+              comparison = 'Average';
+            } else if (c1Av < averageAll) {
+              comparison = 'Below Average';
+            }
+
+            return res.json({ company1Em, "totalEm": company1Em, predictedCom1, accuracyRating, comparison });
 
           }
 
