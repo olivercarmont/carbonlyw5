@@ -36,7 +36,7 @@ import Landing from "./views/Landing.js";
 import ForgotPassword from "./views/ForgotPassword";
 import Login from "./views/Login.js";
 import Signup from "./views/Signup.js";
-import ClickExtension from "./views/ClickExtension.js";
+import ExtensionIframe from "./views/ExtensionIframe.js";
 
 // import Signup from "./auth/Signup";
 // import Login from "./auth/Login";
@@ -101,7 +101,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/landing" render={props => <Landing />} />
       <Route exact path="/forgot-password" render={props => <ForgotPassword />} />
-      {/*<Route exact path="/click" render={props => <ClickExtension />} />*/}
+      <Route exact path="/extension-iframe" render={props => <ExtensionIframe />} />
       {/* <Route exact path="/signup" component={Signup} />
       <Route exact path="/login" component={Login} /> */}
        <Route exact path="/log-in" render={props => <Login />} />

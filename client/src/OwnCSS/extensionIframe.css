@@ -1,0 +1,195 @@
+.tooltip {
+position: relative;
+display: inline-block;
+background-color:transparent;
+z-index: 10000 !important;
+transition:0.5s;
+transition-delay:1s;
+transform: rotate(360deg);
+opacity:0.99 !important;
+   overflow: visible !important;
+}
+.tooltiptext {
+position: absolute;
+z-index: 10000 !important;
+ transform: rotate(360deg);
+  opacity:0.99 !important;
+     overflow: visible !important;
+}
+
+.tooltip .tooltiptext {
+visibility: hidden;
+width: 215px;
+background-color: #fff !important;
+box-shadow: -3px 2px 8px #f1f1f1;
+border: 1px solid #98c7b0;
+border-radius: 6px;
+padding: 5px 0;
+position: absolute;
+z-index: 10000 !important;
+top: -250px;
+left: -135px;
+transition:0.5s;
+transform: rotate(360deg);
+opacity:0.99 !important;
+   overflow: visible !important;
+}
+
+.tooltip .tooltiptext::after {
+content: "";
+visibility:hidden;
+position: absolute;
+top: 50%;
+right: 100%;
+margin-top: -5px;
+border-width: 5px;
+border-style: solid;
+border-color: transparent #fff transparent transparent;
+z-index: 100000 !important;
+transform: rotate(360deg);
+opacity:0.99 !important;
+}
+
+.tooltip:hover .tooltiptext {
+visibility: visible;
+transition:2s;
+transition-delay:0.3s;
+transform: rotate(180deg);
+ opacity:0.99 !important;
+ overflow: visible !important;
+}
+.greyHover {
+color:#98c7b0;
+display:block;
+position:relative;
+z-index:10000;
+}
+.greyHover:hover {
+
+color:#bbb !important;
+}
+#carbonly__wrongMessage {
+position:relative;
+z-index:150000;
+}
+#aboveEverything {
+position:absolute;
+z-index: 100000 !important;
+}
+
+.checkbox {
+--background: #a9dbc0;
+--border: #eee;
+--border-hover: #fff;
+--border-active: #a9dbc0;
+--tick: #fff;
+position: relative;
+float:left;
+}
+.checkbox input,
+.checkbox svg {
+width: 19px;
+height: 19px;
+display: block;
+float:left;
+}
+.checkbox input {
+-webkit-appearance: none;
+-moz-appearance: none;
+position: relative;
+outline: none;
+background: var(--background);
+border: none;
+margin: 0;
+padding: 0;
+cursor: pointer;
+border-radius: 4px;
+-webkit-transition: box-shadow .3s;
+transition: box-shadow .3s;
+box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
+}
+.checkbox input:hover {
+--s: 2px;
+--b: var(--border-hover);
+}
+.checkbox input:checked {
+--b: var(--border-active);
+}
+.checkbox svg {
+pointer-events: none;
+fill: none;
+stroke-width: 2px;
+stroke-linecap: round;
+stroke-linejoin: round;
+stroke: var(--stroke, var(--border-active));
+position: absolute;
+top: 0;
+left: 0;
+width: 21px;
+height: 21px;
+-webkit-transform: scale(var(--scale, 1)) translateZ(0);
+        transform: scale(var(--scale, 1)) translateZ(0);
+}
+.checkbox.path input:checked {
+--s: 2px;
+-webkit-transition-delay: .4s;
+        transition-delay: .4s;
+}
+.checkbox.path input:checked + svg {
+--a: 16.1 86.12;
+--o: 102.22;
+}
+.checkbox.path svg {
+stroke-dasharray: var(--a, 86.12);
+stroke-dashoffset: var(--o, 86.12);
+-webkit-transition: stroke-dasharray .6s, stroke-dashoffset .6s;
+transition: stroke-dasharray .6s, stroke-dashoffset .6s;
+}
+.checkbox.bounce {
+--stroke: var(--tick);
+}
+.checkbox.bounce input:checked {
+--s: 11px;
+}
+.checkbox.bounce input:checked + svg {
+-webkit-animation: bounce .4s linear forwards .2s;
+        animation: bounce .4s linear forwards .2s;
+}
+.checkbox.bounce svg {
+--scale: 0;
+}
+
+@-webkit-keyframes bounce {
+50% {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+75% {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+}
+
+@keyframes bounce {
+50% {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+75% {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+100% {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+}
+body .grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+grid-gap: 24px;
+}
