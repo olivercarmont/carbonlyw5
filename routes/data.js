@@ -214,7 +214,7 @@ router.post("/req-data", (req, res) => {
               comparison = 'Below Average';
             }
 
-            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating, avCom, "average": averageAll, isDefault });
+            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating, avCom, "predictedAverage": averageAll, isDefault });
 
           } else if (company1Em) {
 
@@ -309,7 +309,7 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'C';
 
         predictedEm = parseFloat(foodData[predictedCategory].emissions);
-        predictedEm = parseFloat(foodData[predictedCategory].average);
+        predictedAverage = parseFloat(foodData[predictedCategory].average);
 
         console.log('SET FOOD TO', accuracyRating)
 
@@ -318,7 +318,7 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'B';
 
         predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
-        predictedEm = parseFloat(preparedFoodData[predictedCategory].average);
+        predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
         unit = 'portion';
 
       } else if (tList === 3) {
@@ -326,7 +326,7 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'B';
 
         predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
-        predictedEm = parseFloat(pTravelData[predictedCategory].average);
+        predictedAverage = parseFloat(pTravelData[predictedCategory].average);
 
       }
 
@@ -478,7 +478,7 @@ router.post("/req-data", (req, res) => {
 
         if (!predictedEm) {
         predictedEm = parseFloat(foodData['Apple'].emissions);
-        console.log('RAN ELSE--')
+        predictedAverage = parseFloat(foodData['Apple'].average);
         isDefault = 't';
         accuracyRating = 'C';
         }
@@ -496,6 +496,7 @@ router.post("/req-data", (req, res) => {
       predictedCategory = 'Apple';
       predictedEm = parseFloat(foodData['Apple'].emissions);
       isDefault = 't';
+      predictedAverage = parseFloat(foodData['Apple'].average);
     }
 
     if (unit == 'portion') {
@@ -505,6 +506,8 @@ router.post("/req-data", (req, res) => {
     }
 
     }
+
+    console.log('predictedAverage', predictedAverage);
 
     return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, isDefault});
 
