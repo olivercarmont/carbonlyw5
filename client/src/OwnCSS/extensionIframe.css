@@ -54,7 +54,7 @@ opacity:0.99 !important;
 visibility: visible;
 transition:2s;
 transition-delay:0.3s;
-transform: rotate(180deg);
+transform: rotate(360deg);
  opacity:0.99 !important;
  overflow: visible !important;
 }

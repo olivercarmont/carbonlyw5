@@ -37,7 +37,7 @@ router.post("/req-data", (req, res) => {
 
   let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys;
 
-  let predictedCategory, predictedEm, emissions;
+  let predictedCategory, predictedEm, emissions, predictedAverage, isDefault = '';
 
   let objectSpecificCat;
 
@@ -135,7 +135,7 @@ router.post("/req-data", (req, res) => {
 
               if((company1.toLowerCase()).includes(com.toLowerCase())) {
                   predictedCom1 = com;
-                  company1Em = parseFloat(pTravelData[com]) * parseFloat(distance1);
+                  company1Em = parseFloat(pTravelData[com].emissions) * parseFloat(distance1);
                   accuracyRating = 'B';
               }
             }
@@ -144,8 +144,7 @@ router.post("/req-data", (req, res) => {
 
               if((company2.toLowerCase()).includes(com.toLowerCase())) {
                   predictedCom2 = com;
-                  console.log('ENTERED HERE FOUND');
-                  company2Em = parseFloat(pTravelData[com]) * parseFloat(distance2);
+                  company2Em = parseFloat(pTravelData[com].emissions) * parseFloat(distance2);
                   accuracyRating = 'B';
               }
             }
@@ -153,16 +152,18 @@ router.post("/req-data", (req, res) => {
             if (!company1Em) {
               if (category === 'flight') {
                 predictedCom1 = 'Average Flight';
-                company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
+                company1Em = parseFloat(pTravelData['Average Flight'].emissions) * parseFloat(distance1);
                 accuracyRating = 'C';
+                isDefault = 't';
               }
             }
 
             if (!company2Em) {
               if (category === 'flight') {
                 predictedCom2 = 'Average Flight';
-                company2Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance2);
+                company2Em = parseFloat(pTravelData['Average Flight'].emissions) * parseFloat(distance2);
                 accuracyRating = 'C';
+                isDefault = 't';
               }
             }
 
@@ -172,16 +173,16 @@ router.post("/req-data", (req, res) => {
 
                 if((company1.toLowerCase()).includes(com.toLowerCase())) {
                     predictedCom1 = com;
-                    company1Em = parseFloat(pTravelData[com]) * parseFloat(distance1);
+                    company1Em = parseFloat(pTravelData[com].emissions) * parseFloat(distance1);
                 }
               }
 
               if (!company1Em) {
 
                 if (category === 'flight') {
-                  console.log('entered into defining terr')
                   predictedCom1 = 'Average Flight';
-                  company1Em = parseFloat(pTravelData['Average Flight']) * parseFloat(distance1);
+                  company1Em = parseFloat(pTravelData['Average Flight'].emissions) * parseFloat(distance1);
+                  isDefault = 't';
                 }
               }
             }
@@ -191,7 +192,7 @@ router.post("/req-data", (req, res) => {
 
           console.log('C1', company1Em);
 
-          let averageAll = parseFloat(pTravelData["Average Flight"]);
+          let averageAll = parseFloat(pTravelData["Average Flight"].emissions);
 
           if (company1Em && company2Em) {
 
@@ -201,7 +202,7 @@ router.post("/req-data", (req, res) => {
             let totalEm = (parseFloat(company1Em) + parseFloat(company2Em));
             totalEm = parseFloat(totalEm).toFixed(2);
 
-            let avCom = parseFloat(pTravelData[predictedCom1]) + parseFloat(pTravelData[predictedCom2]);
+            let avCom = parseFloat(pTravelData[predictedCom1].emissions) + parseFloat(pTravelData[predictedCom2].emissions);
 
             avCom /= 2;
 
@@ -213,23 +214,23 @@ router.post("/req-data", (req, res) => {
               comparison = 'Below Average';
             }
 
-            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating, comparison });
+            return res.json({ company1Em, company2Em, totalEm, predictedCom1, predictedCom2, accuracyRating, avCom, "average": averageAll, isDefault });
 
           } else if (company1Em) {
 
             company1Em = parseFloat(company1Em).toFixed(2);
 
-            let c1Av = parseFloat(pTravelData[predictedCom1]);
+            let c1Com = parseFloat(pTravelData[predictedCom1].emissions);
 
-            if (c1Av > averageAll) {
+            if (c1Com > averageAll) {
               comparison = 'Above Average';
-            } else if (c1Av === averageAll) {
+            } else if (c1Com === averageAll) {
               comparison = 'Average';
-            } else if (c1Av < averageAll) {
+            } else if (c1Com < averageAll) {
               comparison = 'Below Average';
             }
 
-            return res.json({ company1Em, "totalEm": company1Em, predictedCom1, accuracyRating, comparison });
+            return res.json({ company1Em, "totalEm": company1Em, predictedCom1, accuracyRating, comparison, avCom, "average": averageAll, isDefault });
 
           }
 
@@ -276,16 +277,9 @@ router.post("/req-data", (req, res) => {
             localMatch++;
           }
 
-          // console.log('categ', `${categ}, ${localMatch}`);
-
-
           })
 
-          // console.log('lMatch', localMatch);
-
           if (localMatch >= 2) {
-
-          // console.log('lMatchAGAIN', localMatch);
 
           if (localMatch > matchingNum) {
 
@@ -299,7 +293,6 @@ router.post("/req-data", (req, res) => {
 
 
     }
-    // console.log('pred', predictedCategory);
   }
 
     if (predictedCategory) {
@@ -308,26 +301,32 @@ router.post("/req-data", (req, res) => {
 
         accuracyRating = 'C';
 
-        predictedEm = parseFloat(drinksData[predictedCategory]);
+        predictedEm = parseFloat(drinksData[predictedCategory].emissions);
+        predictedAverage = parseFloat(drinksData[predictedCategory].average);
 
       } else if (tList === 1) {
 
         accuracyRating = 'C';
 
-        predictedEm = parseFloat(foodData[predictedCategory]);
+        predictedEm = parseFloat(foodData[predictedCategory].emissions);
+        predictedEm = parseFloat(foodData[predictedCategory].average);
+
+        console.log('SET FOOD TO', accuracyRating)
 
       } else if (tList === 2) {
 
         accuracyRating = 'B';
 
-        predictedEm = parseFloat(preparedFoodData[predictedCategory]);
+        predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
+        predictedEm = parseFloat(preparedFoodData[predictedCategory].average);
         unit = 'portion';
 
       } else if (tList === 3) {
 
         accuracyRating = 'B';
 
-        predictedEm = parseFloat(pTravelData[predictedCategory]);
+        predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
+        predictedEm = parseFloat(pTravelData[predictedCategory].average);
 
       }
 
@@ -390,21 +389,16 @@ router.post("/req-data", (req, res) => {
 
     if (list === pFoodDataKeys) {
       fullArray = pFoodData;
-      accuracyRating = 'B';
-      // fullArrayKeys =pFoodData);
     } else if (list === pDrinksDataKeys) {
       fullArray = pDrinksData;
-      accuracyRating = 'B';
     } else if (list === pApparelDataKeys) {
       fullArray = pApparelData;
-      accuracyRating = 'B';
     } else if (list === pMiscellaneousDataKeys) {
       fullArray = pMiscellaneousData;
-      accuracyRating = 'B';
     } else if (list === pElectronicsDataKeys) {
       fullArray = pElectronicsData;
-      accuracyRating = 'B';
     }
+
 
     if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
 
@@ -461,17 +455,33 @@ router.post("/req-data", (req, res) => {
               newPredictedCategory = categ
               matchingNum = localMatch;
             }
+          } else if (fullArray === pDrinksData) {
+            console.log(`matchingNum ${newPredictedCategory}`, matchingNum)
+            if (localMatch > matchingNum) {
+              newPredictedCategory = categ
+              matchingNum = localMatch;
+            }
           }
 
           }
         }
       }
 
+
       if (newPredictedCategory) {
+        console.log('newpred', newPredictedCategory)
          objectSpecificCat = newPredictedCategory;
-         predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory]);
+         predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
+         predictedAverage = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].average);
+         accuracyRating = 'B';
       } else {
-        predictedEm = parseFloat(foodData['Apple']);
+
+        if (!predictedEm) {
+        predictedEm = parseFloat(foodData['Apple'].emissions);
+        console.log('RAN ELSE--')
+        isDefault = 't';
+        accuracyRating = 'C';
+        }
       }
 
     }
@@ -484,7 +494,8 @@ router.post("/req-data", (req, res) => {
 
     if (!predictedCategory) {
       predictedCategory = 'Apple';
-      predictedEm = parseFloat(foodData['Apple']);
+      predictedEm = parseFloat(foodData['Apple'].emissions);
+      isDefault = 't';
     }
 
     if (unit == 'portion') {
@@ -495,7 +506,7 @@ router.post("/req-data", (req, res) => {
 
     }
 
-    return res.json({ emissions, unit, predictedCategory, accuracyRating });
+    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, isDefault});
 
 
   }
