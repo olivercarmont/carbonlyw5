@@ -1338,26 +1338,48 @@ class Analytics extends React.Component {
 
     let travel = ['skyscanner', 'momondo', 'booking.com', 'expedia', 'tripadvisor', 'klm', 'kayak', 'googleflights']
 
+    let hasInsWeb = [];
+
     let categories = [{name: 'Travel',  websites: '', percentage: 0, amount: 0}, {name: 'Ecommerce',  websites: '', percentage: 0, amount: 0}, {name: 'Food',  websites: '', percentage: 0, amount: 0}, {name: 'Entertainment',  websites: '', percentage: 0, amount: 0}, {name: 'Miscellaneous',  websites: '', percentage: 0, amount: 0}];
 
     let totalFootprint = 0;
 
     this.state.user.orders.map((or) => {
 
-      if (or.website.toLowerCase() === 'tesco' || or.website.toLowerCase() === 'ubereats') {
+      if (or.website.toLowerCase() === 'tesco' || or.website.toLowerCase() === 'ubereats' || or.website.toLowerCase() === 'kauppahalli24' || or.website.toLowerCase() === 'foodie' || or.website.toLowerCase() === 'k ruoka') {
 
         categories[2].amount += parseFloat(or.carbon);
 
-        if (!categories[2].websites.includes(or.website.toLowerCase) && categories[2].websites.length < 30) {
+        if (categories[2].websites.length < 30) {
+          let hasIns = false;
+
+          hasInsWeb.map((web) => {
+            if (web === or.website) {
+              hasIns = true;
+            }
+          })
+          if (!hasIns) {
             categories[2].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+            hasInsWeb.push(or.website)
+          }
         }
 
       } else if (or.website.toLowerCase() === 'amazon') {
 
         categories[1].amount += parseFloat(or.carbon);
 
-        if (!categories[1].websites.includes(or.website.toLowerCase) && categories[1].websites.length < 30) {
+        if (categories[1].websites.length < 30) {
+          let hasIns = false;
+
+          hasInsWeb.map((web) => {
+            if (web === or.website) {
+              hasIns = true;
+            }
+          })
+          if (!hasIns) {
             categories[1].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+            hasInsWeb.push(or.website)
+          }
         }
 
       } else {
@@ -1367,8 +1389,18 @@ class Analytics extends React.Component {
 
             categories[0].amount += parseFloat(or.carbon);
 
-            if (!categories[0].websites.includes(or.website.toLowerCase) && categories[0].websites.length < 30) {
+            if (categories[0].websites.length < 30) {
+              let hasIns = false;
+
+              hasInsWeb.map((web) => {
+                if (web === or.website) {
+                  hasIns = true;
+                }
+              })
+              if (!hasIns) {
                 categories[0].websites += `${or.website.charAt(0).toUpperCase() + or.website.slice(1)}, `
+                hasInsWeb.push(or.website)
+              }
             }
 
           }
@@ -1379,15 +1411,21 @@ class Analytics extends React.Component {
     totalFootprint += parseFloat(or.carbon);
     })
 
-    categories[0].percentage = categories[0].amount / totalFootprint;
-    categories[1].percentage = categories[1].amount / totalFootprint;
-    categories[2].percentage = categories[2].amount / totalFootprint;
-    categories[3].percentage = categories[3].amount / totalFootprint;
-    categories[4].percentage = categories[4].amount / totalFootprint;
+    categories[0].percentage = Math.round(categories[0].amount / totalFootprint);
+    categories[1].percentage = Math.round(categories[1].amount / totalFootprint);
+    categories[2].percentage = Math.round(categories[2].amount / totalFootprint);
+    categories[3].percentage = Math.round(categories[3].amount / totalFootprint);
+    categories[4].percentage = Math.round(categories[4].amount / totalFootprint);
+
+    categories[0].amount = parseFloat(categories[0].amount).toFixed(1);
+    categories[1].amount = parseFloat(categories[1].amount).toFixed(1);
+    categories[2].amount = parseFloat(categories[2].amount).toFixed(1);
+    categories[3].amount = parseFloat(categories[3].amount).toFixed(1);
+    categories[4].amount = parseFloat(categories[4].amount).toFixed(1);
 
     let misCat = categories[4];
 
-    categories.sort((a, b) => (a.amount < b.amount) ? 1 : -1)
+    categories.sort((a, b) => (parseFloat(a.amount) < parseFloat(b.amount)) ? 1 : -1)
 
     categories = categories.filter((cat) => {
       if (cat.name !== 'Miscellaneous') {
@@ -1417,6 +1455,42 @@ class Analytics extends React.Component {
       return boxesIcon;
     }
 
+  }
+  returnOrderImage(web) {
+
+  let webImage;
+
+  if (web === 'tesco' || web === 'Tesco') {
+    webImage = 'tesco.png';
+  } else if (web === 'Amazon') {
+    webImage = 'amazon.png';
+  } else if (web === 'Skyscanner') {
+    webImage = 'skyscanner.png';
+  } else if (web === 'Uber Eats') {
+    webImage = `ubereats.png`;
+  } else if (web === 'Momondo') {
+    webImage = `momondo.png`;
+  } else if (web === 'Booking.com') {
+    webImage = `momondo.png`;
+  } else if (web === 'Kayak') {
+    webImage = `kayak.png`;
+  } else if (web === 'Trip Advisor') {
+    webImage = `tripAdvisor.png`;
+  } else if (web === 'KLM') {
+    webImage = `klm.png`;
+  } else if (web === 'Expedia') {
+    webImage = `expedia.png`;
+  } else if (web === 'Google Flights') {
+    webImage = `googleFlights.png`;
+  } else if (web === 'Foodie') {
+    webImage = `foodie.png`;
+  } else if (web === 'K Ruoka') {
+    webImage = `kruoka.png`;
+  } else if (web === 'Kauppahalli24') {
+    webImage = `kauppahalli24.png`;
+  }
+
+  return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
   }
   render() {
     return (
@@ -1627,7 +1701,7 @@ class Analytics extends React.Component {
 
                             return (<tr>
                               <td id="analytics__recentOrdersImageWidth">
-                                <img src={require(`../assets/img/companyLogos/${or.website === 'Tesco' || or.website === 'tesco' ? 'tesco.png' : or.website === 'Amazon' || or.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="analytics__ordersImage" />
+                              {this.returnOrderImage(or.website)}
                               </td>
                               <td id="analytics__recentOrdersTextSize">
                                 <p className="title">{this.returnUpperCase(or.website)}</p>
