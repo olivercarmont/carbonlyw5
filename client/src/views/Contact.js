@@ -240,7 +240,7 @@ updateMessage(e) {
             {/* <!-- Foooter Text--> */}
             <div id="landing__footerCopyrightContainer">
                 {/* <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** --> */}
-                <p  id="landing__footerWhiteText">Copyright ©2020 Carbonly. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                <p  id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
             </div>
         </footer>
         {/* <!-- ***** Footer Area Start ***** --> */}

@@ -32,7 +32,7 @@ class Footer extends React.Component {
         <Container fluid>
           <Nav>
             <NavItem>
-              <NavLink>©Carbonly</NavLink>
+              <NavLink>©Carbonly Ltd</NavLink>
             </NavItem>
             <NavItem>
               <NavLink><Link to="/privacy" id="footer__bottomLinks">Privacy</Link></NavLink>
