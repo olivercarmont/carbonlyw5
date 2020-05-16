@@ -51,7 +51,8 @@ const UserSchema = new Schema({
     required:true
   },
   hasLoggedIn: {
-    default: false
+    type: String,
+    default: 'f',
   },
   language: {
     type: String,

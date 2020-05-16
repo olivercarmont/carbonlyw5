@@ -478,7 +478,7 @@ router.post("/register", (req, res) => {
         email: req.body.email,
         password: req.body.password,
         publicId: req.body.publicId,
-        hasloggedIn: false,
+        hasloggedIn: 'f',
       });
 
       // Hash password before saving in database
@@ -976,7 +976,7 @@ router.post("/update", (req, res) => {
      User.findOne({ _id: id }).then(user => {
 
        User.findOneAndUpdate({ _id: id }, { $set: {
-           hasLoggedIn: true
+           hasLoggedIn: 't'
          }
        }).then(user => {
          return res.json({ hasLoggedIn: true });
