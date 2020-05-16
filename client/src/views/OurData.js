@@ -37,10 +37,10 @@ import './landingTheme/appy/style.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import caretDown from '@iconify/icons-fa-solid/caret-down';
-import arrowBackOutline from '@iconify/icons-ion/arrow-back-outline';
+import arrowBackOutline from '@iconify/icons-ion/arrow-back-outline'
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import homeIcon from '@iconify/icons-fa-solid/home';
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
-
 
 import phonePortrait from '@iconify/icons-ion/phone-portrait-outline';
 import fruitCherries from '@iconify/icons-mdi/fruit-cherries';
@@ -49,7 +49,6 @@ import globeShowingEuropeAfrica from '@iconify/icons-emojione-monotone/globe-sho
 
 import { Link } from "react-router-dom";
 
-//
 // import './landingTheme/js/jquery-2.2.4.min.js';
 // import './landingTheme/js/popper.min.js';
 // import './landingTheme/js/bootstrap.min.js';
@@ -166,7 +165,7 @@ updateMessage(e) {
                     {/* <!-- Signup btn --> */}
                     <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
-                            <a href="#">Home <Icon icon={homeIcon} className="landing__chromeIconTop" /> (OR SIGNIN)</a>
+                            {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
                         </div>
                     </div>
                 </div>
@@ -238,11 +237,11 @@ updateMessage(e) {
 
         <div className="landing__howItWorksVideoContainer">
 
-        {this.state.ourData === 'studies' ? <img src={require("../assets/img/studiesScroll.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.ourData === 'studies' ? <img src={require("../assets/img/landing/studiesScroll.gif")} className="landing__howItWorksVideo"/> : undefined}
 
         {this.state.ourData === 'org' ? <img className="landing__howItWorksVideo"/> : undefined}
 
-        {this.state.ourData === 'company' ? <img src={require("../assets/img/prodDatabases.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.ourData === 'company' ? <img src={require("../assets/img/landing/prodDatabases.gif")} className="landing__howItWorksVideo"/> : undefined}
 
         </div>
 

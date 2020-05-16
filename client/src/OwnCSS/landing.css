@@ -226,6 +226,56 @@
   width:67px;
   /* height:55px; */
 }
+#landing__compatibleImage5 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-208px;
+  right:60px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage6 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-208px;
+  right:60px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage7 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-238px;
+  left:600px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage9 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-208px;
+  left:330px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
+#landing__compatibleImage10 {
+  position:absolute;
+  border-radius:50%;
+  box-shadow: 0px 0px 5px #cecece;
+  margin-top:-208px;
+  right:370px;
+  margin-bottom:15px;
+  width:67px;
+  /* height:55px; */
+}
 .landing__howItWorksMainTitle {
 
 }
@@ -304,6 +354,12 @@
   padding-top:180px;
   position:relative;
   margin-top:-100px;
+}
+#awards {
+  background-color:#fcfcfc !important;
+  padding-top:180px;
+  position:relative;
+  margin-top:0px;
 }
 #ourTeam {
   display:flex;
@@ -537,4 +593,55 @@ margin-bottom:auto;
   font-size:1.02em;
   margin-bottom:-4px;
   letter-spacing:0.01em;
+}
+#landing__videoMargins {
+  position:relative;
+  top:-340px;
+  left:10px;
+  width:98%;
+
+}
+.landing__centerAwards {
+display:flex;
+margin:auto;
+width:80%;
+justify-content: center;
+/* background-color:red; */
+position:relative;
+left:60px;
+top:-20px;
+}
+.landing__indAward {
+  width:26%;
+}
+.landing__awardsImageHeight {
+  height:60px;
+  display:flex;
+  flex-direction:column;
+}
+.landing__awardProvider {
+  width:42%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+.landing__awardProviderDescription {
+  color:#aaa;
+  width:80%;
+  text-align:center;
+  margin:auto;
+  margin-top:-4px;
+  margin-bottom:20px;
+  font-size:0.94em;
+}
+
+.landing__awardDescription {
+  color:#99c9b0;
+  text-align:center;
+  margin:auto;
+  font-weight: bold;
+  width:80%;
+  line-height:1.48;
+  font-size:1.04em;
 }

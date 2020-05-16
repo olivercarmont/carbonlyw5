@@ -450,6 +450,8 @@ router.post("/return-register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
+
+  console.log('GOT TO HERE')
   // Form validation
 
   const { errors, isValid } = validateRegisterInput(req.body);

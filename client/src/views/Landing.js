@@ -47,8 +47,6 @@ import { Link } from "react-router-dom";
 import homeIcon from '@iconify/icons-fa-solid/home';
 import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 
-
-//
 // import './landingTheme/js/jquery-2.2.4.min.js';
 // import './landingTheme/js/popper.min.js';
 // import './landingTheme/js/bootstrap.min.js';
@@ -170,7 +168,24 @@ fun1 = () => {
             </div>
             {/* }<!-- Welcome thumb --> */}
             <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
-                <img src="img/bg-img/welcome-img.png" alt=""/>
+
+
+   <div className="video-section" id="landing__videoMargins">
+       <div className="container">
+           <div className="row">
+               <div className="col-12">
+
+                   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
+                       <div className="video-play-btn">
+                           <a href="https://youtu.be/ltnRg8qXnBQ" className="video_btn"><i className="fa fa-play" aria-hidden="true"></i></a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+                {/*<img src={require("../assets/img/landing/computerFrame.png")} id="landing__topMainVisual" alt=""/> */} {/* img/bg-img/welcome-img.png */}
             </div>
         </section>
         {/* <!-- ***** Wellcome Area End ***** --> */}
@@ -210,11 +225,11 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        {this.state.howItWorks === 'account' ? <img src={require("../assets/img/createAnAccountAn.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.howItWorks === 'account' ? <img src={require("../assets/img/landing/createAnAccountAn.gif")} className="landing__howItWorksVideo"/> : undefined}
 
-        {this.state.howItWorks === 'buy' ? <img src={require("../assets/img/checkoutFinal.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.howItWorks === 'buy' ? <img src={require("../assets/img/landing/checkoutFinal.gif")} className="landing__howItWorksVideo"/> : undefined}
 
-        {this.state.howItWorks === 'track' ? <img src={require("../assets/img/AnalyticSec.gif")} className="landing__howItWorksVideo"/> : undefined}
+        {this.state.howItWorks === 'track' ? <img src={require("../assets/img/landing/AnalyticSec.gif")} className="landing__howItWorksVideo"/> : undefined}
 
         </div>
 
@@ -242,6 +257,10 @@ fun1 = () => {
 
             <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/ubereats.png")} id="landing__compatibleImage4" /></div>
 
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/foodie.png")} id="landing__compatibleImage9" /></div>
+
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/kruoka.png")} id="landing__compatibleImage10" /></div>
+
         </section>
 
         <section id="landing__howItWorks2">
@@ -261,7 +280,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/dataScroll.gif")} className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/landing/dataScroll.gif")} className="landing__howItWorksVideo"/>
         </div>
 
         </section>
@@ -270,7 +289,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer2">
 
-        <img src={require("../assets/img/insightfulAnalytics2.gif")} className="landing__howItWorksVideo2"/>
+        <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__howItWorksVideo2"/>
         </div>
 
         <div className="landing__howItWorks__leftSide">
@@ -305,7 +324,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/socialExp.gif")} className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/landing/socialExp.gif")} className="landing__howItWorksVideo"/>
 
         </div>
 
@@ -338,7 +357,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">12</span></h3>
+                                <h3><span className="counter">15</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -439,12 +458,52 @@ fun1 = () => {
 
         </section>
 
+        <section className="" id="awards">
+
+        <div className="landing__ourTeamHeader">
+
+        <div className="ourData__subtitleAndTitle">
+        <div className="landing__howItWorksSubtitle">Awards</div>
+        <div className="landing__howItWorksMainTitle">Sponsors & Awards &nbsp; 🏆</div>
+        </div>
+        </div>
+
+        <div className="landing__centerAwards">
+
+        <div className="landing__indAward">
+
+        <div className="landing__awardsImageHeight">
+        <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/fortumLogo.png')} className="landing__awardProvider"/></a>
+        </div>
+        <div className="landing__awardProviderDescription">Largest Renewable Energy Supplier Finland</div>
+
+        <div className="landing__awardDescription">Fortum Forward Accelerator <br/> €10,000 Grant</div>
+
+        </div>
+
+        <div className="landing__indAward">
+
+        <div className="landing__awardsImageHeight">
+        <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider"/></a>
+        </div>
+
+        <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland</div>
+
+        <div className="landing__awardDescription">£1,000 Grant</div>
+
+        </div>
+
+        </div>
+
+        </section>
+
+
         <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
 
         <div className="landing__downloadSection">
 
         <div className="landing__downloadImageLeft">
-                  <img src={require("../assets/img/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
+                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
 
         </div>
 

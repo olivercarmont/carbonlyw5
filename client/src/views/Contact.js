@@ -38,13 +38,12 @@ import './landingTheme/style.css';
 import './landingTheme/appy/style.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import homeIcon from '@iconify/icons-fa-solid/home';
-
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
 
 import { Link } from "react-router-dom";
 
-//
 // import './landingTheme/js/jquery-2.2.4.min.js';
 // import './landingTheme/js/popper.min.js';
 // import './landingTheme/js/bootstrap.min.js';
@@ -133,7 +132,7 @@ updateMessage(e) {
                     {/* <!-- Signup btn --> */}
                     <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
-                            <a href="#">Home <Icon icon={homeIcon} className="landing__chromeIconTop" /> (OR SIGNIN)</a>
+                            {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
                         </div>
                     </div>
                 </div>
@@ -214,9 +213,6 @@ updateMessage(e) {
 
 
         </div>
-
-
-
 
                     </div>
 

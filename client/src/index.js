@@ -113,7 +113,7 @@ ReactDOM.render(
       <Route exact path="/contact" render={props => <Contact />} />
       <Route exact path="/privacy" render={props => <Privacy />} />
 
-      <Redirect exact from="/" to="/home" />
+      <Redirect exact from="/" to="/landing" />
 
       <PrivateRoute path="/" />
 

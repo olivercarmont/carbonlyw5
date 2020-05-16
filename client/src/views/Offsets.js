@@ -42,7 +42,6 @@ import moneyBillWave from '@iconify/icons-fa-solid/money-bill-wave';
 
 import gumtreeIcon from '@iconify/icons-simple-icons/gumtree';
 
-
 import axios from 'axios';
 
 // reactstrap components
@@ -59,6 +58,21 @@ import {
   Row,
   Col
 } from "reactstrap";
+
+let amazonImg = require("../assets/img/companyLogos/amazon.png");
+let bookingImg = require("../assets/img/companyLogos/booking.png");
+let expediaImg = require("../assets/img/companyLogos/expedia.png");
+let foodieImg = require("../assets/img/companyLogos/foodie.png");
+let googleFlightsImg = require("../assets/img/companyLogos/googleFlights.png");
+let kauppahalliImg = require("../assets/img/companyLogos/kauppahalli24.png");
+let kayakImg = require("../assets/img/companyLogos/kayak.png");
+let klmImg = require("../assets/img/companyLogos/klm.png");
+let kRuokaImg = require("../assets/img/companyLogos/kruoka.png");
+let momondoImg = require("../assets/img/companyLogos/momondo.png");
+let skyscannerImg = require("../assets/img/companyLogos/skyscanner.png");
+let tescoImg = require("../assets/img/companyLogos/tesco.png");
+let tripAdvisorImg = require("../assets/img/companyLogos/tripAdvisor.png");
+let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
 
 class Offsets extends React.Component {
   constructor(props) {
@@ -431,6 +445,42 @@ roundCarbon(amt) {
     return parseFloat(amt).toFixed(1);
   }
 }
+returnOrderImage(web) {
+
+let webImage;
+
+if (web === 'tesco' || web === 'Tesco') {
+  webImage = 'tesco.png';
+} else if (web === 'Amazon') {
+  webImage = 'amazon.png';
+} else if (web === 'Skyscanner') {
+  webImage = 'skyscanner.png';
+} else if (web === 'Uber Eats') {
+  webImage = `ubereats.png`;
+} else if (web === 'Momondo') {
+  webImage = `momondo.png`;
+} else if (web === 'Booking.com') {
+  webImage = `momondo.png`;
+} else if (web === 'Kayak') {
+  webImage = `kayak.png`;
+} else if (web === 'Trip Advisor') {
+  webImage = `tripAdvisor.png`;
+} else if (web === 'KLM') {
+  webImage = `klm.png`;
+} else if (web === 'Expedia') {
+  webImage = `expedia.png`;
+} else if (web === 'Google Flights') {
+  webImage = `googleFlights.png`;
+} else if (web === 'Foodie') {
+  webImage = `foodie.png`;
+} else if (web === 'K Ruoka') {
+  webImage = `kruoka.png`;
+} else if (web === 'Kauppahalli24') {
+  webImage = `kauppahalli24.png`;
+}
+
+return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
+}
   render() {
     return (
       <>
@@ -478,7 +528,7 @@ roundCarbon(amt) {
 
                         return (<tr id="offsets__mainOrderDiv">
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
+                          {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
@@ -509,7 +559,7 @@ roundCarbon(amt) {
 
                         return (<div id="offsets__mainOrderDiv"><tr>
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
+                          {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>
@@ -538,7 +588,7 @@ roundCarbon(amt) {
 
                         return (<div id="offsets__mainOrderDiv"><tr>
                           <td id="analytics__recentOrdersImageWidth">
-                            <img src={require(`../assets/img/companyLogos/${order.website === 'Tesco' || order.website === 'tesco' ? 'tesco.png' : order.website === 'Amazon' || order.website === 'amazon' ? 'amazon.png' : 'skyscanner.png'}`)} id="offsets__ordersImage" />
+                          {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
                             <p className="title">{this.returnUpperCase(order.website)}</p>

@@ -38,6 +38,7 @@ import './landingTheme/appy/style.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import homeIcon from '@iconify/icons-fa-solid/home';
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import arrowBackOutline from '@iconify/icons-ion/arrow-back-outline';
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
 
@@ -66,10 +67,6 @@ class NotFound extends React.Component {
     return (
       <>
         <div className="notFound__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">
@@ -101,7 +98,7 @@ class NotFound extends React.Component {
                     {/* <!-- Signup btn --> */}
                     <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
-                            <a href="#">Home <Icon icon={homeIcon} className="landing__chromeIconTop" /> (OR SIGNIN)</a>
+                          {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
                         </div>
                     </div>
                 </div>
@@ -133,7 +130,7 @@ class NotFound extends React.Component {
             </div>
             {/* }<!-- Welcome thumb --> */}
             <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
-                <img src="img/bg-img/welcome-img.png" alt=""/>
+
             </div>
         </section>
 

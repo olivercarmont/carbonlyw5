@@ -1158,11 +1158,6 @@ class Analytics extends React.Component {
     return [newValue5.toFixed(1), newValue4.toFixed(1), newValue3.toFixed(1), newValue2.toFixed(1), newValue1.toFixed(1), newValue0.toFixed(1) ];
 
   }
-  returnOrderImage(website) {
-    if (website === 'tesco') {
-      return "../assets/img/companyLogos/tesco.png";
-    }
-  }
   returnUpperCase(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
   }
