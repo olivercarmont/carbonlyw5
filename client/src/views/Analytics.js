@@ -933,7 +933,7 @@ class Analytics extends React.Component {
   returnDestinationDataArray() {
     let date = new Date();
     let cur_year = date.getFullYear();
-    let desEm = [{ "name": "Tesco", "amount": 0 }, { "name": "Amazon", "amount": 0,  }, { "name": "Skyscanner", "amount": 0  }, { "name": "Uber Eats", "amount": 0  }];
+    let desEm = [{ "name": "Tesco", "amount": 0 }, { "name": "Amazon", "amount": 0,  }, { "name": "Skyscanner", "amount": 0  }, { "name": "Uber Eats", "amount": 0  }, { "name": "Momondo", "amount": 0  }, { "name": "Booking.com", "amount": 0  }, { "name": "Expedia", "amount": 0  }, { "name": "Kayak", "amount": 0  }, { "name": "Google Flights", "amount": 0  }, { "name": "KLM", "amount": 0  }, { "name": "Trip Advisor", "amount": 0  }, { "name": "Foodie", "amount": 0  }, { "name": "K Ruoka", "amount": 0  }, { "name": "Kauppahalli24", "amount": 0  }];
 
     this.state.user.orders.map((el) => {
 
@@ -955,9 +955,49 @@ class Analytics extends React.Component {
 
         desEm[2]['amount'] = desEm[2]['amount'] + parseFloat(el.carbon);
 
-      } else if (website === 'ubereats') {
+      } else if (website === 'uber eats') {
 
         desEm[3]['amount'] = desEm[3]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'momondo') {
+
+        desEm[4]['amount'] = desEm[4]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'booking.com') {
+
+        desEm[5]['amount'] = desEm[5]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'expedia') {
+
+        desEm[6]['amount'] = desEm[6]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'kayak') {
+
+        desEm[7]['amount'] = desEm[7]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'google flights') {
+
+        desEm[8]['amount'] = desEm[8]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'klm') {
+
+        desEm[9]['amount'] = desEm[9]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'trip advisor') {
+
+        desEm[10]['amount'] = desEm[10]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'foodie') {
+
+        desEm[11]['amount'] = desEm[11]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'k ruoka') {
+
+        desEm[12]['amount'] = desEm[12]['amount'] + parseFloat(el.carbon);
+
+      } else if (website === 'kauppahalli24') {
+
+        desEm[13]['amount'] = desEm[13]['amount'] + parseFloat(el.carbon);
 
       }
     }
@@ -1308,13 +1348,15 @@ class Analytics extends React.Component {
   getUserDestinations() {
     let des = 0;
 
-    let destinations = { "tesco":false, "amazon": false, "skyscanner": false, "ubereats": false };
+    let destinations = { "tesco":false, "amazon": false, "skyscanner": false, "ubereats": false, "momondo": false, "booking.com": false, "expedia": false, "tripadvisor": false, "klm": false, "kayak": false, "googleflights": false, "kauppahalli24": false, "kruoka": false, "foodie": false };
 
     this.state.user.orders.map((or) => {
 
       console.log('web', or.website);
 
       let website = or.website.toLowerCase();
+
+
 
     if (website === 'tesco' && !destinations["tesco"]) {
       des++;
@@ -1325,13 +1367,42 @@ class Analytics extends React.Component {
     } else if (website === 'skyscanner' && !destinations["skyscanner"]) {
       des++;
       destinations["skyscanner"] = true;
-    } else if (website === 'ubereats' && !destinations["ubereats"]) {
+    } else if (website === 'uber eats' && !destinations["ubereats"]) {
       des++;
       destinations["ubereats"] = true;
+    } else if (website === 'momondo' && !destinations["momondo"]) {
+      des++;
+      destinations["momondo"] = true;
+    } else if (website === 'booking.com' && !destinations["booking.com"]) {
+      des++;
+      destinations["booking.com"] = true;
+    } else if (website === 'expedia' && !destinations["expedia"]) {
+      des++;
+      destinations["expedia"] = true;
+    } else if (website === 'trip advisor' && !destinations["tripadvisor"]) {
+      des++;
+      destinations["tripadvisor"] = true;
+    } else if (website === 'klm' && !destinations["klm"]) {
+      des++;
+      destinations["klm"] = true;
+    } else if (website === 'kayak' && !destinations["kayak"]) {
+      des++;
+      destinations["kayak"] = true;
+    } else if (website === 'google flights' && !destinations["googleflights"]) {
+      des++;
+      destinations["googleflights"] = true;
+    } else if (website === 'kauppahalli24' && !destinations["kauppahalli24"]) {
+      des++;
+      destinations["kauppahalli24"] = true;
+    } else if (website === 'k ruoka' && !destinations["kruoka"]) {
+      des++;
+      destinations["kruoka"] = true;
+    } else if (website === 'foodie' && !destinations["foodie"]) {
+      des++;
+      destinations["foodie"] = true;
     }
-
-
   });
+  console.log('DES', des)
   return des;
   }
   returnOrderCategories() {
@@ -1346,7 +1417,7 @@ class Analytics extends React.Component {
 
     this.state.user.orders.map((or) => {
 
-      if (or.website.toLowerCase() === 'tesco' || or.website.toLowerCase() === 'ubereats' || or.website.toLowerCase() === 'kauppahalli24' || or.website.toLowerCase() === 'foodie' || or.website.toLowerCase() === 'k ruoka') {
+      if (or.website.toLowerCase() === 'tesco' || or.website.toLowerCase() === 'uber eats' || or.website.toLowerCase() === 'kauppahalli24' || or.website.toLowerCase() === 'foodie' || or.website.toLowerCase() === 'k ruoka') {
 
         categories[2].amount += parseFloat(or.carbon);
 
@@ -1612,7 +1683,7 @@ class Analytics extends React.Component {
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">By Destinations</h5>
+                  <h5 className="card-category">Destinations</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
                     {this.getUserDestinations()} {this.getUserDestinations() === 1 ? 'Destination': 'Destinations'}
