@@ -174,7 +174,7 @@ submitForm() {
 
   this.props.registerUser(newUser, this.props.history);
 
-  console.log('SIGNED UP')
+  console.log('SIGNED UP', newUser)
   } else {
     this.setState({ privacy: true });
   }
