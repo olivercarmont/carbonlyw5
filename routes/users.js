@@ -1038,7 +1038,7 @@ router.post("/add-order", (req, res) => {
     }
 
     if (req.header('points')) {
-      carbon = req.header('points');
+      points = req.header('points');
     } else if (req.body.points) {
       points = req.body.points;
     }
@@ -1055,7 +1055,7 @@ router.post("/add-order", (req, res) => {
       }
 
     } else {
-        return res.status(400).json({ publicId: `Not All Data Provided` });
+        return res.status(400).json({ `${website} ${name} ${time} ${carbon} ${points}`: `Not All Data Provided` });
     }
 
   // let tokenObject = { token: token
