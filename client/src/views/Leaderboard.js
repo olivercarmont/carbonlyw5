@@ -767,6 +767,8 @@ returnRanColor() {
                     </div>
 
                     </div>
+
+                    <div>1 Offset Point = 0.1kg CO2 Avoided</div>
                       <div className="leaderboard__profileBottomSpacing"></div>
 
                 </CardBody>

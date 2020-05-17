@@ -410,9 +410,9 @@ fun1 = () => {
 
                 <div className="landing__howItWorksLeftSideContainer">
 
-                <div className="landing__ourTeamSubtitle">Co-Founder</div>
+                <div className="landing__ourTeamSubtitle">Founder</div>
 
-                <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp; 🥑</div>
+                <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp;🌿</div>
 
                 <div className="landing__awesomeFeaturesText">Co-Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
 
@@ -426,8 +426,10 @@ fun1 = () => {
 
 
                 </div>
-
+    {/*
                 <div className="landing__ourTeamSpacing"></div>
+
+
 
                 <div id="ourTeam2">
 
@@ -435,7 +437,6 @@ fun1 = () => {
 
                 <img src={require('../assets/img/ourTeam/nickcarmont.png')} className="landing__ourTeamPerson"/>
                 </div>
-
 
                 <div className="landing__howItWorks__leftSide">
 
@@ -454,7 +455,7 @@ fun1 = () => {
 
 
 
-                    </div>
+                    </div> */}
 
         </section>
 
@@ -489,7 +490,7 @@ fun1 = () => {
 
         <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland</div>
 
-        <div className="landing__awardDescription">£1,000 Grant</div>
+        <div className="landing__awardDescription">£1,000 Award</div>
 
         </div>
 

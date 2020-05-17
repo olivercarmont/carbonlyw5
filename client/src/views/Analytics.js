@@ -1477,11 +1477,15 @@ class Analytics extends React.Component {
     totalFootprint += parseFloat(or.carbon);
     })
 
-    categories[0].percentage = Math.round(categories[0].amount / totalFootprint);
-    categories[1].percentage = Math.round(categories[1].amount / totalFootprint);
-    categories[2].percentage = Math.round(categories[2].amount / totalFootprint);
-    categories[3].percentage = Math.round(categories[3].amount / totalFootprint);
-    categories[4].percentage = Math.round(categories[4].amount / totalFootprint);
+    console.log('TOT', totalFootprint)
+
+    console.log('categoriesCHECK', categories[1].amount / totalFootprint)
+
+    categories[0].percentage = Math.round((categories[0].amount / totalFootprint) * 100);
+    categories[1].percentage = Math.round((categories[1].amount / totalFootprint) * 100);
+    categories[2].percentage = Math.round((categories[2].amount / totalFootprint) * 100);
+    categories[3].percentage = Math.round((categories[3].amount / totalFootprint) * 100);
+    categories[4].percentage = Math.round((categories[4].amount / totalFootprint) * 100);
 
     categories[0].amount = parseFloat(categories[0].amount).toFixed(1);
     categories[1].amount = parseFloat(categories[1].amount).toFixed(1);
@@ -1820,12 +1824,12 @@ class Analytics extends React.Component {
 
                   </div>
 
-                  <div className="analytics__orByCatBarText" style={{ "right": `${cat.percentage < 1 ? '-180px' : (7 * cat.percentage)+7.5}%` }}>
+                  <div className="analytics__orByCatBarText" style={{ "right": `${cat.percentage < 1 ? '15px' : `${0.84*(cat.percentage)}` + `px`} `}}>
                   <div className="analytics__orByCatBarEm">{cat.amount}kg</div>
-                  <div className="analytics__orByCatBarPer">{cat.percentage*100}%</div>
+                  <div className="analytics__orByCatBarPer">{cat.percentage}%</div>
                   </div>
 
-                  <div className="analytics__orByCatBar" style={{ "width": `${12*cat.percentage}%` }}>
+                  <div className="analytics__orByCatBar" style={{ "width": `${12*(cat.percentage/100)}%` }}>
 
                   </div>
 
