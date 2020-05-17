@@ -322,7 +322,6 @@ router.post("/req-data", (req, res) => {
         predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
         baseEmissions = predictedEm;
         predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
-        unit = 'portion';
 
       } else if (tList === 3) {
 
@@ -509,7 +508,7 @@ router.post("/req-data", (req, res) => {
     if (unit == 'portion') {
       emissions = predictedEm.toFixed(4);
     } else {
-      emissions = (weight*predictedEm).toFixed(4);
+      emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
     }
 
     }

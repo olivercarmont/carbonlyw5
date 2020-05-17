@@ -1011,7 +1011,7 @@ router.post("/add-order", (req, res) => {
 
     let order;
 
-    let website, name, time, carbon;
+    let website, name, time, carbon, points;
 
     if (req.header('website')) {
       website = req.header('website');
@@ -1037,13 +1037,20 @@ router.post("/add-order", (req, res) => {
       carbon = req.body.carbon;
     }
 
-    if (website && name && time && carbon) {
+    if (req.header('points')) {
+      carbon = req.header('points');
+    } else if (req.body.points) {
+      points = req.body.points;
+    }
+
+    if (website && name && time && carbon && points) {
 
       order = {
         website: website,
         name: name,
         time: time,
         carbon: carbon,
+        points: points,
         offset: false
       }
 
