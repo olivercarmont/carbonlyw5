@@ -122,17 +122,21 @@ router.post("/return-extension", (req, res) => {
 
       users.map((us) => {
 
-        let indvOff = 0;
+        let points = 0;
 
         us.offsets.map((of) => {
-          indvOff += parseFloat(of.amount);
+          points += parseFloat(of.points);
         });
 
-        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, offsetAmount: indvOff });
+        us.orders.map((or) => {
+          points += parseFloat(or.points);
+        });
+
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, points });
 
       });
 
-      usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
+      usOffArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
 
       let incr = 0;
 
@@ -172,10 +176,14 @@ router.post("/return-extension", (req, res) => {
 
           User.findOne({ publicId: fri }).then(friend => {
 
-        let friendOffset = 0;
+        let friendPoints = 0;
 
         friend.offsets.map((el) => {
-          friendOffset += parseFloat(el.amount);
+          friendPoints += parseFloat(el.points);
+        });
+
+        friend.orders.map((or) => {
+          friendPoints += parseFloat(or.points);
         });
 
         let ranki = 1;
@@ -205,7 +213,7 @@ router.post("/return-extension", (req, res) => {
 
         pathTaken += ` rankLoopFinished became defined `;
 
-        friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+        friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
         triedInsert = true;
 
@@ -224,7 +232,7 @@ router.post("/return-extension", (req, res) => {
         }, 1);
         } else {
 
-          friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+          friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
           triedInsert = true;
 
@@ -257,10 +265,14 @@ router.post("/return-extension", (req, res) => {
 
     User.findOne({ publicId: fri }).then(friend => {
 
-  let friendOffset = 0;
+  let friendPoints = 0;
 
   friend.offsets.map((el) => {
-    friendOffset += parseFloat(el.amount);
+    friendPoints += parseFloat(el.points);
+  });
+
+  friend.orders.map((or) => {
+    friendPoints += parseFloat(or.points);
   });
 
   let ranki = 1;
@@ -299,7 +311,7 @@ router.post("/return-extension", (req, res) => {
 
   pathTaken += ` rankLoopFinished became defined `
 
-  friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+  friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
   console.log('friend length', userFriends.length);
 
@@ -322,7 +334,7 @@ router.post("/return-extension", (req, res) => {
   }, 1);
   } else {
 
-    friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+    friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
     triedInsert = true;
 
@@ -531,17 +543,21 @@ router.post("/return-leaderboard", (req, res) => {
 
       users.map((us) => {
 
-        let indvOff = 0;
+        let points = 0;
 
         us.offsets.map((of) => {
-          indvOff += parseFloat(of.amount);
+          points += parseFloat(of.points);
         });
 
-        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, offsetAmount: indvOff });
+        us.orders.map((or) => {
+          points += parseFloat(or.points);
+        });
+
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, points: points });
 
       });
 
-      usOffArray.sort((a, b) => (a.offsetAmount < b.offsetAmount) ? 1 : -1)
+      usOffArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
 
       let incr = 0;
 
@@ -583,10 +599,14 @@ router.post("/return-leaderboard", (req, res) => {
 
         User.findOne({ publicId: fri }).then(friend => {
 
-        let friendOffset = 0;
+        let friendPoints = 0;
 
         friend.offsets.map((el) => {
-          friendOffset += parseFloat(el.amount);
+          friendPoints += parseFloat(el.points);
+        });
+
+        friend.orders.map((orf) => {
+          friendPoints += parseFloat(orf.points);
         });
 
         let ranki = 1;
@@ -620,7 +640,7 @@ router.post("/return-leaderboard", (req, res) => {
           rankLoopFinished = true;
         }
 
-        friendInfo.push({ rank: ranki, publicId: friend.publicId, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+        friendInfo.push({ rank: ranki, publicId: friend.publicId, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
         console.log('this pushed', friendInfo.length);
 
@@ -673,10 +693,14 @@ router.post("/return-leaderboard", (req, res) => {
 
     User.findOne({ publicId: fri }).then(friend => {
 
-  let friendOffset = 0;
+  let friendPoints = 0;
 
   friend.offset.map((el) => {
-    friendOffset += parseFloat(el.amount);
+    friendPoints += parseFloat(el.points);
+  });
+
+  friend.orders.map((or) => {
+    friendPoints += parseFloat(or.points);
   });
 
   let ranki = 1;
@@ -732,7 +756,7 @@ router.post("/return-leaderboard", (req, res) => {
 
   pathTaken += ` rankLoopFinished became defined `
 
-  friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+  friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
   console.log('friend length', userFriends.length);
 
@@ -755,7 +779,7 @@ router.post("/return-leaderboard", (req, res) => {
   }, 1);
   } else {
 
-    friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, offsetAmount: friendOffset });
+    friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
     triedInsert = true;
 
@@ -1055,7 +1079,7 @@ router.post("/add-order", (req, res) => {
       }
 
     } else {
-        return res.status(400).json({ `${website} ${name} ${time} ${carbon} ${points}`: `Not All Data Provided` });
+        return res.status(400).json({ "Data": `Not All Data Provided ${website}-${name}-${time}-${carbon}-${points}` });
     }
 
   // let tokenObject = { token: token
