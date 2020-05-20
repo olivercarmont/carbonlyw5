@@ -196,14 +196,12 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.category && !req.header('category')) {
 
-  if (req.body.description && req.body.weight && req.body.language) {
+  if (req.body.description && req.body.weight) {
     description = req.body.description;
     weight = parseFloat(req.body.weight);
-    language = req.body.language;
   } else if (req.header('description') && req.header('weight')) {
     description = req.header('description');
     weight = parseFloat(req.header('weight'));
-    language = req.header('language');
   }
 
   if (!req.body.description && !req.header('description')) {
@@ -212,10 +210,6 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.weight && !req.header('weight')) {
     return res.status(400).json(`Weight: Not Found`);
-  }
-
-  if (!req.body.language && !req.header('language')) {
-    return res.status(400).json(`No Language Provided`);
   }
 
   }
