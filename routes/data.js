@@ -408,8 +408,10 @@ router.post("/req-data", (req, res) => {
     console.log('LANG SHORTHAND', allLanguages[language])
 
   } catch(e) {
-    res.json({ e: "Error Translating" });
+    res.json({ "e": "Error Translating" });
   }
+
+    try {
 
     translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
         description = text;  // Hola mundo
@@ -690,6 +692,10 @@ router.post("/req-data", (req, res) => {
     return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault});
 
       });
+
+    } catch(e) {
+      console.log('----- E ----', e);
+    }
 
     }
 
