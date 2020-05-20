@@ -405,13 +405,13 @@ router.post("/req-data", (req, res) => {
 
     console.log('LANG SHORTHAND', allLanguages[language])
 
+  } catch(e) {
+    res.json({ e: "Error Translating" });
+  }
+
     translate(description, { from: allLanguages[language] , to: 'en' }).then(text => {
         description = text;  // Hola mundo
         console.log('TEXT', text)
-
-    } catch(e) {
-      res.json({ e: "Error Translating" });
-    }
 
     let mi = 0;
 
