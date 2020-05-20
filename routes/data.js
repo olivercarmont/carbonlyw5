@@ -11,6 +11,14 @@ const Data = require("../models/Data");
 
 global.atob = require("atob");
 
+const translate = require('translate'); // Old school     // New wave
+
+translate.engine = 'google';
+translate.key = 'AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg';
+
+const LanguageDetect = require('languagedetect');
+const lngDetector = new LanguageDetect();
+
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -21,13 +29,158 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 };
 
+let allLanguages = {
+  "afrikaans":"af",
+"albanian":	"sq",
+"amharic":"am",
+"arabic":"ar",
+"armenian":	"hy",
+"azerbaijani":"az",
+"basque": "eu",
+"belarusian":	"be",
+"bengali":"bn",
+"bosnian":	"bs",
+"bulgarian":	"bg",
+"catalan":	"ca",
+"cebuano":	"ceb",
+"chinese (simplified)": "zh",
+"chinese": "zh",
+"chinese (traditional)":"zh-TW",
+"corsican":	"co",
+"croatian":	"hr",
+"czech":	"cs",
+"danish":	"da",
+"dutch":	"nl",
+"english":	"en",
+"eperanto":	"eo",
+"estonian":	"et",
+"finnish":	"fi",
+"french": "fr",
+"frisian":	"fy",
+"galician": "gl",
+"georgian":	"ka",
+"german":	"de",
+"greek":	"el",
+"gujarati":	"gu",
+"haitian creole":	"ht",
+"hausa":	"ha",
+"hackawaiian":	"haw",
+"hebrew":	"he",
+"hebrew":	"iw",
+"hindi":	"hi",
+"hmong":	"hmn",
+"hungarian":	"hu",
+"icelandic":	"is",
+"igbo": "ig",
+"indonesian":	"id",
+"irish":	"ga",
+"italian":	"it",
+"japanese":	"ja",
+"javanese":	"jv",
+"kannada":	"kn",
+"kazakh": "kk",
+"khmer":	"km",
+"korean": "ko",
+"kurdish":	"ku",
+"kyrgyz":	"ky",
+"lao":"lo",
+"latin":	"la",
+"latvian":	"lv",
+"lithuanian": "lt",
+"luxembourgish":	"lb",
+"macedonian":	"mk",
+"malagasy":	"mg",
+"malay":"ms",
+"malayalam":	"ml",
+"maltese":	"mt",
+"maori":	"mi",
+"marathi":	"mr",
+"mongolian":	"mn",
+"myanmar": "my",
+"burmese": "my",
+"nepali": "ne",
+"norwegian":	"no",
+"nyanja": "ny",
+"hichewa": "ny",
+"pashto":	"ps",
+"persian":	"fa",
+"polish":	"pl",
+"portuguese": "pt",
+"punjabi":"pa",
+"romanian": "ro",
+"russian":	"ru",
+"samoan": "sm",
+"scots gaelic":	"gd",
+"gaelic":	"gd",
+"serbian":	"sr",
+"sesotho":	"st",
+"shona":	"sn",
+"sindhi":	"sd",
+"sinhala": "si",
+"sinhalese":	"si",
+"slovak":	"sk",
+"slovenian":	"sl",
+"somali": "so",
+"spanish":	"es",
+"sundanese":	"su",
+"swahili":	"sw",
+"swedish":	"sv",
+"tagalog":	"tl",
+"filipino": "tl",
+"tajik":	"tg",
+"tamil":	"ta",
+"telugu":	"te",
+"thai": "th",
+"turkish":	"tr",
+"ukrainian":	"uk",
+"urdu":	"ur",
+"uzbek": "uz",
+"vietnamese":	"vi",
+"welsh":	"cy",
+"xhosa":	"xh",
+"yiddish":	"yi",
+"yoruba":	"yo",
+"zulu":	"zu",
+}
+
 router.post("/req-data", (req, res) => {
+
+// async function quickStart() {
+//   // Translate from English (default) to Spanish (specified)
+//
+//
+//
+//
+// // Same as this:
+// const bar = await translate('Salaattikastike', { to: 'en' });
+// console.log('FOO', foo);
+// console.log('BAR', bar);
+// }
+// quickStart();
+
+  //
+  // async function quickStart() {
+  //   // The text to translate
+  //   const text = 'Hello, world!';
+  //
+  //   // The target language
+  //   const target = 'ru';
+  //
+  //   // Translates some text into Russian
+  //   const [translation] = await translate.translate(text, target);
+  //   console.log(`Text: ${text}`);
+  //   console.log(`Translation: ${translation}`);
+  //
+  //     return res.json({ Translation: `${translation}`});
+  // }
+  //
+  // quickStart();
 
   let dataArray = [], mainLists, objectLists;
 
   let accuracyRating = 'D';
 
-  let description, weight, category, unit = 'kg';
+  let description, weight, category, unit = 'kg', language;
 
   let foodData, preparedFoodData, drinksData;
 
@@ -43,12 +196,14 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.category && !req.header('category')) {
 
-  if (req.body.description && req.body.weight) {
+  if (req.body.description && req.body.weight && req.body.language) {
     description = req.body.description;
     weight = parseFloat(req.body.weight);
+    language = req.body.language;
   } else if (req.header('description') && req.header('weight')) {
     description = req.header('description');
     weight = parseFloat(req.header('weight'));
+    language = req.header('language');
   }
 
   if (!req.body.description && !req.header('description')) {
@@ -57,6 +212,10 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.weight && !req.header('weight')) {
     return res.status(400).json(`Weight: Not Found`);
+  }
+
+  if (!req.body.language && !req.header('language')) {
+    return res.status(400).json(`No Language Provided`);
   }
 
   }
@@ -238,6 +397,22 @@ router.post("/req-data", (req, res) => {
 
     } else {
 
+    let translatedDescription;
+
+    console.log('DES', description)
+
+    let language = lngDetector.detect(description, 1);
+
+    console.log('LANG', language[0][0])
+
+    language = language[0][0];
+
+    console.log('LANG SHORTHAND', allLanguages[language])
+
+    translate(description, { from: allLanguages[language] , to: 'en' }).then(text => {
+        description = text;  // Hola mundo
+        console.log('TEXT', text)
+
     let mi = 0;
 
     mainLists.map((list) => {
@@ -290,7 +465,6 @@ router.post("/req-data", (req, res) => {
         }
 
         }
-
 
     }
   }
@@ -511,9 +685,15 @@ router.post("/req-data", (req, res) => {
       emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
     }
 
+    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault});
+
+      });
+
     }
 
-    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault});
+
+
+
 
 
   }
