@@ -391,11 +391,9 @@ router.post("/req-data", (req, res) => {
 
     } else {
 
-    let translatedDescription;
-
     console.log('DES', description)
 
-    let language;
+    let language, oldDescription = description;
 
     try {
 
@@ -414,8 +412,20 @@ router.post("/req-data", (req, res) => {
     try {
 
     translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
-        description = text;  // Hola mundo
+        description = text;
         console.log('TEXT', text)
+
+    if (description === oldDescription) {
+      translate(description, { from:'fi', to: 'en' }).then(text => {
+          description = text;
+          console.log('TEXT2', text)
+          runMainMethod();
+    });
+  } else {
+    runMainMethod();
+  }
+
+    function runMainMethod() {
 
     let mi = 0;
 
@@ -691,6 +701,8 @@ router.post("/req-data", (req, res) => {
 
     return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault});
 
+
+  }
       });
 
     } catch(e) {
