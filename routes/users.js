@@ -1010,6 +1010,19 @@ router.post("/update", (req, res) => {
 
      }).catch(err => res.status(400).json(`Error:` + err));
 
+   } else if (prop === 'budget') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           budget: value
+         }
+       }).then(user => {
+         return res.json({ budget: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
    }
 
 });

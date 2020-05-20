@@ -46,7 +46,7 @@ import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-
 import sadTear from '@iconify/icons-fa-regular/sad-tear';
 import roundGroupAdd from '@iconify/icons-ic/round-group-add';
 import accountSearch from '@iconify/icons-mdi/account-search';
-
+import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
 
 import axios from 'axios';
@@ -91,7 +91,7 @@ componentWillMount() {
 
   console.log('username', pusername);
 
-  axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -160,7 +160,7 @@ let calcData;
 
   if (amount === 0) {
 
-    return `${amount}kg`;
+    return `${amount}`;
 
   } else if (amount > 999) {
 
@@ -168,7 +168,7 @@ let calcData;
 
     calcData = Math.round(calcData);
 
-    return `${calcData}t CO`
+    return `${calcData}`
 
   } else if (amount >= 10000000) {
 
@@ -176,11 +176,11 @@ let calcData;
 
     calcData = Math.round(calcData);
 
-    return `${calcData}Mt`
+    return `${calcData}m`
 
   } else {
     let calcData = Math.round(amount);
-    return `${calcData}kg`;
+    return `${calcData}`;
   }
 }
 
@@ -230,7 +230,7 @@ returnFriends() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend1].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend1].points))}</div></div></div>
 
 </div>
 
@@ -290,7 +290,7 @@ returnFriendsTwo() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend2].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend2].points))}</div></div></div>
 
 </div>
 
@@ -379,7 +379,7 @@ addUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -416,7 +416,7 @@ removeUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -491,7 +491,7 @@ render() {
 
               <div className="leaderboard__profileProgressMargins">
 
-              <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.state.puser.offsetAmount}kg CO2</div></div></div>
+              <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.state.puser.points}</div></div></div>
               </div>
 
               </div>

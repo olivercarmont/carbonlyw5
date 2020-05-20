@@ -49,8 +49,9 @@ import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-
 
 import sadTear from '@iconify/icons-fa-regular/sad-tear';
 import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
-
+import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
+import bxCut from '@iconify/icons-bx/bx-cut';
 
 import axios from 'axios';
 
@@ -81,6 +82,9 @@ constructor(props) {
       page: 'home',
       avatars: [`${rootA}mainProfileImage-5.png`, `${rootA}mainProfileImage-4.png`, `${rootA}mainProfileImage-3.png`, `${rootA}mainProfileImage-2.png`, `${rootA}mainProfileImage-1.png`, `${rootA}mainProfileImage.png`, `${rootA}mainProfileImage1.png`, `${rootA}mainProfileImage2.png`, `${rootA}mainProfileImage3.png`, `${rootA}mainProfileImage4.png`],
       currentAvatar: 5,
+      carbonBudget: 0,
+      averageSelected: 'custom',
+      budgetSelected: false,
       friendsMove: 1,
       save: '',
       lineOptions: {
@@ -118,7 +122,7 @@ avatarLeft() {
   /* Update Server */
   this.setState({ currentAvatar: newNum });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
     prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -138,7 +142,7 @@ avatarRight() {
   /* Update Server */
   this.setState({ currentAvatar: newNum });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
     prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -169,7 +173,7 @@ setProfilePage(page) {
 }
 componentWillMount() {
 
-  axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -213,21 +217,26 @@ componentWillMount() {
   console.log(error);
 })
 }
+returnNumberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 returnOffsets(amount) {
 
 let calcData;
 
   if (amount === 0) {
 
-    return `${amount}kg`;
+    return `${amount}`;
 
   } else if (amount > 999) {
 
-    calcData = amount / 1000;
+    calcData = amount;
 
     calcData = Math.round(calcData);
 
-    return `${calcData}t CO`
+    calcData = this.returnNumberWithCommas(calcData);
+
+    return `${calcData}`
 
   } else if (amount >= 10000000) {
 
@@ -235,24 +244,28 @@ let calcData;
 
     calcData = Math.round(calcData);
 
-    return `${calcData}Mt`
+    calcData = this.returnNumberWithCommas(calcData);
+
+    return `${calcData}m`
 
   } else {
     let calcData = Math.round(amount);
-    return `${calcData}kg`;
+    return `${calcData}`;
   }
 }
 returnUserOffsets() {
 
-  let offsetAmount = 0;
+  let totPoints = 0;
 
   this.state.user.offsets.map((off) => {
-    offsetAmount += parseFloat(off.amount);
+    totPoints += parseFloat(off.points);
   })
 
-  console.log('offsetAmount', offsetAmount)
+  this.state.user.orders.map((or) => {
+    totPoints += parseFloat(or.points);
+  })
 
-  return `${this.returnOffsets(offsetAmount)} CO2`;
+  return `${this.returnOffsets(totPoints)}`;
 }
 returnFriends() {
   let friend1 = this.state.friendsMove - 1;
@@ -294,7 +307,7 @@ returnFriends() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend1].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend1].points))}</div></div></div>
 
 </div>
 
@@ -359,7 +372,7 @@ returnFriendsTwo() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend2].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend2].points))}</div></div></div>
 
 </div>
 
@@ -412,7 +425,7 @@ returnFriendsTwo() {
 
   </div></div>
 
-  <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottomNoUser"><div className="leaderboard__mainCO2EmissionsAddFriends">{'5t CO2'}</div></div></div>
+  <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottomNoUser"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{'5,000'}</div></div></div>
 
   </div>
 
@@ -438,7 +451,7 @@ updateName(e) {
 
       console.log('got to here');
 
-    axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
+    axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
       'prop': 'name', 'value': String(e.target.value), 'jwt': localStorage.jwtToken
     })
   .then(response => {
@@ -475,7 +488,7 @@ updateUsername(e) {
 
     this.setState({ save: 'Saving..' });
 
-    axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
+    axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
       prop: 'username', value: e.target.value.slice(1, e.target.value.length), 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -489,6 +502,46 @@ updateUsername(e) {
   })
 
   }
+
+}
+changeBudgetAverage(e) {
+  this.setState({ budgetSelected: false });
+  this.setState({ averageSelected: e.target.value });
+
+  if (e.target.value === 'european') {
+    this.setState({ carbonBudget: 800 });
+  } else if (e.target.value === 'finnish') {
+    this.setState({ carbonBudget: 600 });
+  } else if (e.target.value === 'scandinavian') {
+    this.setState({ carbonBudget: 700 });
+  } else if (e.target.value === 'unitedStates') {
+    this.setState({ carbonBudget: 1200 });
+  } else if (e.target.value === 'carbonlyAvg') {
+    this.setState({ carbonBudget: 900 });
+  } else if (e.target.value === 'custom') {
+    this.setState({ carbonBudget: 0 });
+  }
+}
+changeBudget(e) {
+  this.setState({ budgetSelected: false });
+  this.setState({ carbonBudget: e.target.value });
+  this.setState({ averageSelected: 'custom' });
+}
+selectBudget() {
+  
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'budget', value: this.state.carbonBudget }, {
+    'prop': 'name', 'value': this.state.carbonBudget, 'jwt': localStorage.jwtToken
+  })
+.then(response => {
+
+  console.log('saved');
+
+  this.setState({ budgetSelected: true });
+
+})
+.catch((error) => {
+  console.log(error);
+})
 
 }
 render() {
@@ -552,11 +605,26 @@ render() {
 
                   <div className="leaderboard__profileProgressMargins">
 
-                  <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.returnUserOffsets()}</div></div></div>
+                  <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnUserOffsets()}</div></div></div>
                   </div>
 
                   </div>
                   </div>
+
+                  <div className="profile__carbonBudgetHeader">Carbon Budget <Icon icon={bxCut} className="profile__getPointsLeaf" /></div>
+
+                  <div className="profile__carbonBudegetCentering">
+
+                  <span className="profile__budgetInput"><select className="offsets__currencySelect" value={this.state.averageSelected} onChange={(e) => this.changeBudgetAverage(e)}>
+                  <option value="custom">Custom</option>
+                  <option value="european">European Avg</option>
+                  <option value="finnish">Finnish Avg</option>
+                  <option value="scandinavian">Scandinavian Avg</option>
+                  <option value="unitedStates">United States Avg</option>
+                  <option value="carbonlyAvg">Carbonly Avg</option>
+                  </select></span><input value={this.state.carbonBudget} maxlength="8" onChange={(e) => this.changeBudget(e)} className="profile__carbonBudgetInput"/>   </div><div onClick={() => { this.selectBudget()}} className={this.state.budgetSelected ? "profile__addBudgetSelected" : "profile__addBudget"}>{this.state.budgetSelected ? 'Selected' : 'Select'}</div>
+
+
 
                     <div className="profile__profileBottomSpacing"></div>
 
@@ -683,6 +751,65 @@ render() {
             </Col>
 
             </Row> */}
+
+
+            <Row>
+            <div className="profile__centeringMainCard">
+              <Col md="8">
+                <Card>
+                  <CardHeader>
+
+                  </CardHeader>
+                  <CardBody>
+
+                      <div className="profile__getPointsHeader">Get Offset Points! <Icon icon={seedlingIcon} className="profile__getPointsLeaf" /></div>
+
+                      <div className="getPoints__centerIndividualOnes">
+
+                      <div className="profile__getPointsInd">
+                      <div className="profile__getPointsIndLeft">
+                      <div className="profile__getPointsSubtitle">1. Buy Sustainable Goods</div>
+                      <div className="profile__getPointsDescription"> > The More Carbon Avoided, The More Points!</div>
+                      </div>
+                      <div className="profile__getPointsNumber">Up to 1,500 Points <br/> <div className="profile__getPointsNumSmaller">Per Product</div></div>
+                      </div>
+
+                      <div className="profile__getPointsMiddleDiv"></div>
+
+                      <div className="profile__getPointsInd">
+                      <div className="profile__getPointsIndLeft">
+                      <div className="profile__getPointsSubtitle">2. Refer New Users</div>
+                      <div className="profile__getPointsDescription"> > Referal Code: &nbsp; FH49GE</div>
+                      </div>
+                      <div className="profile__getPointsNumber">2,500 points <br/><div className="profile__getPointsNumSmaller">Per User</div></div>
+                      </div>
+
+                      <div className="profile__getPointsMiddleDiv"></div>
+
+                      <div className="profile__getPointsInd">
+                      <div className="profile__getPointsIndLeft">
+                      <div className="profile__getPointsSubtitle">3. Offset Your Orders</div>
+                      <div className="profile__getPointsDescription"> > Receive 10,000 Per Tonne of CO2 Offset!</div>
+                      </div>
+                      <div className="profile__getPointsNumber">Up to 10,000 points <br/><div className="profile__getPointsNumSmaller">Per Offset</div></div>
+                      </div>
+
+                      </div>
+
+                      <div className="profile__profileBottomSpacing"></div>
+
+
+
+
+
+                      </CardBody>
+
+
+                </Card>
+              </Col>
+
+              </div>
+              </Row>
 
         </div> : undefined}</div>
       </>

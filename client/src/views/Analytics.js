@@ -286,10 +286,9 @@ class Analytics extends React.Component {
   }
 
   }
-
   componentWillMount() {
 
-    axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -461,7 +460,7 @@ class Analytics extends React.Component {
           displayColors: false,
           callbacks: {
           label: function(tooltipItem, data) {
-                return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+                return `${data['datasets'][0]['data'][tooltipItem['index']]} points`;
               }
             },
 
@@ -506,24 +505,53 @@ class Analytics extends React.Component {
 
         let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
+        let gradientStrokeRed = ctx.createLinearGradient(0, 230, 0, 50);
+
         gradientStroke.addColorStop(1, "rgba(137, 179, 157,0.2)");
         gradientStroke.addColorStop(0.4, "rgba(137, 179, 157,0.0)");
         gradientStroke.addColorStop(0, "rgba(137, 179, 157,0)"); //blue colors
 
+        gradientStrokeRed.addColorStop(1, "rgba(196, 143, 143,0.2)");
+        gradientStrokeRed.addColorStop(0.4, "rgba(196, 143, 143,0)");
+        gradientStrokeRed.addColorStop(0, "rgba(196, 143, 143,0)"); //blue colors
+
         return {
-          labels: this.returnDestinationLabels(),
+          labels:  this.returnMonthLabels(),
           datasets: [
             {
               label: "Emissions",
               fill: true,
               backgroundColor: gradientStroke,
-              hoverBackgroundColor: gradientStroke,
               borderColor: "#75c79a",
               borderWidth: 2,
               borderDash: [],
               borderDashOffset: 0.0,
-              data: this.returnDestinationGraphData(),
-            }
+              pointBackgroundColor: "#75c79a",
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: "#75c79a",
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: this.returnBudgetGraphData(),
+            },
+            {
+              label: "Budget",
+              fill: true,
+              backgroundColor: gradientStrokeRed,
+              borderColor: "#e07073",
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: "#e07073",
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: "#e07073",
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: this.returnBudgetGraph(),
+            },
           ]
         };
       },
@@ -799,38 +827,38 @@ class Analytics extends React.Component {
       let lastDay;
 
       if (currentMonth === 0) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 1) {
-        lastDay = `28th`;
+        lastDay = `28`;
       } else if (currentMonth === 2) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 3) {
-        lastDay = `30th`;
+        lastDay = `30`;
       } else if (currentMonth === 4) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 5) {
-        lastDay = `30th`;
+        lastDay = `30`;
       } else if (currentMonth === 6) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 7) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 8) {
-        lastDay = `30th`;
+        lastDay = `30`;
       } else if (currentMonth === 9) {
-        lastDay = `31st`;
+        lastDay = `31`;
       } else if (currentMonth === 10) {
-        lastDay = `30th`;
+        lastDay = `30`;
       } else if (currentMonth === 11) {
-        lastDay = `31st`;
+        lastDay = `31`;
       }
 
       if (lastDay === `28th`) {
 
-      return ['1 - 4th', '5 - 9th', '10 - 13th', '14 - 17th', '18 - 21st', '22 - 24th', '25 - 28th'];
+      return ['1 - 4', '5 - 9', '10 - 13', '14 - 17', '18 - 21', '22 - 24', '25 - 28'];
 
       } else {
 
-      return ['1 - 4th', '5 - 9th', '10 - 13th', '14 - 17th', '18 - 21st', '22 - 24th', '25 - 28th', `29 - ${lastDay}`];
+      return ['1 - 4', '5 - 9', '10 - 13', '14 - 17', '18 - 21', '22 - 24', '25 - 28', `29 - ${lastDay}`];
 
       }
   }
@@ -1019,11 +1047,89 @@ class Analytics extends React.Component {
   return [array[0].name, array[1].name, array[2].name, array[3].name, "Aldi"]; // [tescoAmt, 0, 0, 0, 0, 0]; // Always have ** 4 ** most even if others are 0
 
   }
+  returnBudgetGraphData() {
+
+    let date = new Date();
+    let cur_month = date.getMonth() + 1;
+
+    let tFrame0 = 0, tFrame1 = 0, tFrame2 = 0, tFrame3 = 0, tFrame4 = 0, tFrame5 = 0, tFrame6 = 0, tFrame7 = 0;
+
+    let selectArray = this.state.user.orders;
+
+    selectArray.map((el) => {
+
+      let time = new Date(Date.parse(el.time));
+      let orderMonth = time.getMonth() + 1;
+
+      if (orderMonth === cur_month) {
+
+      let day = time.getDate();
+      let cur_amt = el.carbon;
+
+      if (day <= 4) {
+       tFrame0 += parseFloat(cur_amt);
+     } else if (day > 4 && day <= 9) {
+       tFrame1 += parseFloat(cur_amt);
+     } else if (day > 9 && day <= 13) {
+       tFrame2 += parseFloat(cur_amt);
+     } else if (day > 13 && day <= 17) {
+       tFrame3 += parseFloat(cur_amt);
+     } else if (day > 17 && day <= 21) {
+       tFrame4 += parseFloat(cur_amt);
+     } else if (day > 21 && day <= 24) {
+       tFrame5 += parseFloat(cur_amt);
+     } else if (day > 24 && day <= 28) {
+       tFrame6 += parseFloat(cur_amt);
+     } else if (day > 28) {
+       tFrame7 += parseFloat(cur_amt);
+     }
+
+    }
+    });
+
+    tFrame1 += tFrame0;
+
+    tFrame2 += tFrame1 + tFrame0;
+
+    tFrame3 += tFrame2 + tFrame1 + tFrame0;
+
+    tFrame4 += tFrame3 + tFrame2 + tFrame1 + tFrame0;
+
+    tFrame5 += tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+
+    tFrame5 += tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+
+    if (cur_month === 2) {
+
+    return [tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5, tFrame6];
+
+    } else {
+
+    return [ tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5, tFrame6, tFrame7 ];
+
+    }
+
+  }
+  returnBudgetGraph() {
+
+    let date = new Date();
+    let cur_month = date.getMonth() + 1;
+    if (cur_month === 2) {
+
+    return [ 100, 100, 100, 100, 100, 100, 100];
+
+    } else {
+
+    return [ 100, 100, 100, 100, 100, 100, 100, 100 ];
+
+    }
+
+  }
   returnDestinationGraphData() {
 
     let array = this.returnDestinationDataArray();
 
-    return [{x:'', y: array[0].amount.toFixed(1) }, {x:'', y: array[1].amount.toFixed(1) }, {x:'', y: array[2].amount.toFixed(1) }, {x:'', y: array[3].amount.toFixed(1) }];
+    return [{x:'', y: array[1].amount.toFixed(1) }, {x:'', y: array[1].amount.toFixed(1) }, {x:'', y: array[2].amount.toFixed(1) }, {x:'', y: array[3].amount.toFixed(1) }];
 
   }
   returnMonthlyLabelsOffsets() {
@@ -1166,10 +1272,14 @@ class Analytics extends React.Component {
   }
   rankingGraphData() {
 
-    let userOffsets = 0;
+    let userPoints = 0;
 
     this.state.user.offsets.map((off) => {
-      userOffsets += parseFloat(off.amount);
+      userPoints += parseFloat(off.points);
+    })
+
+    this.state.user.orders.map((or) => {
+      userPoints += parseFloat(or.points);
     })
 
     let usValues = [];
@@ -1178,19 +1288,19 @@ class Analytics extends React.Component {
 
     if (this.state.userRank === 1) {
 
-    usValues = [this.state.allUsers[0].offsetAmount, this.state.allUsers[1].offsetAmount, this.state.allUsers[2].offsetAmount, this.state.allUsers[3].offsetAmount, this.state.allUsers[4].offsetAmount];
+    usValues = [this.state.allUsers[0].points, this.state.allUsers[1].points, this.state.allUsers[2].points, this.state.allUsers[3].points, this.state.allUsers[4].points];
 
     } else if (this.state.userRank === 2) {
 
-    usValues = [this.state.allUsers[0].offsetAmount, this.state.allUsers[1].offsetAmount, this.state.allUsers[2].offsetAmount, this.state.allUsers[3].offsetAmount, this.state.allUsers[4].offsetAmount]
+    usValues = [this.state.allUsers[0].points, this.state.allUsers[1].points, this.state.allUsers[2].points, this.state.allUsers[3].points, this.state.allUsers[4].points]
 
   } else if (this.state.userRank === this.state.allUsers.length) {
 
-    usValues = [this.state.allUsers[this.state.userRank-5].offsetAmount, this.state.allUsers[this.state.userRank-4].offsetAmount, this.state.allUsers[this.state.userRank-3].offsetAmount, this.state.allUsers[this.state.userRank-2].offsetAmount, userOffsets]
+    usValues = [this.state.allUsers[this.state.userRank-5].points, this.state.allUsers[this.state.userRank-4].points, this.state.allUsers[this.state.userRank-3].points, this.state.allUsers[this.state.userRank-2].points, userPoints]
 
     } else if (this.state.userRank === (this.state.allUsers.length - 1))
 
-    usValues = [this.state.allUsers[this.state.userRank-5].offsetAmount, this.state.allUsers[this.state.userRank-4].offsetAmount, this.state.allUsers[this.state.userRank-3].offsetAmount, userOffsets, this.state.allUsers[this.state.userRank].offsetAmount, ]
+    usValues = [this.state.allUsers[this.state.userRank-5].points, this.state.allUsers[this.state.userRank-4].points, this.state.allUsers[this.state.userRank-3].points, userPoints, this.state.allUsers[this.state.userRank].points, ]
 
     else {
 
@@ -1199,18 +1309,18 @@ class Analytics extends React.Component {
     this.state.allUsers.map((us) => {
 
       if (us.rank === (this.state.userRank - 2)) {
-        userM2 = us.offsetAmount;
+        userM2 = us.points;
       } else if (us.rank === (this.state.userRank - 1)) {
-        userM1 = us.offsetAmount;
+        userM1 = us.points;
       } else if (us.rank === (this.state.userRank + 1)) {
-        userP1 = us.offsetAmount;
+        userP1 = us.points;
       } else if (us.rank === (this.state.userRank + 2)) {
-        userP2 = us.offsetAmount;
+        userP2 = us.points;
       }
 
       });
 
-      usValues = [userM2, userM1, userOffsets, userP1, userP2];
+      usValues = [userM2, userM1, userPoints, userP1, userP2];
 
       }
 
@@ -1261,6 +1371,9 @@ class Analytics extends React.Component {
 
     return usNames;
   }
+  returnNumberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   returnOffsets(amount) {
 
   let calcData;
@@ -1292,15 +1405,15 @@ class Analytics extends React.Component {
   }
   returnTotalOffsets() {
 
-    let offsetAmount = 0;
+    let points = 0;
 
     this.state.user.offsets.map((off) => {
-      offsetAmount += parseFloat(off.amount);
+      points += parseFloat(off.amount);
     })
 
-    console.log('offsetAmount', offsetAmount)
+    console.log('points', points)
 
-    return ` ${this.returnOffsets(offsetAmount)} CO`;
+    return ` ${this.returnOffsets(points)} CO`;
 
   }
   returnOrdersEm(amt) {
@@ -1682,15 +1795,15 @@ class Analytics extends React.Component {
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Destinations</h5>
+                  <h5 className="card-category">Carbon Budget</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
-                    {this.getUserDestinations()} {this.getUserDestinations() === 1 ? 'Destination': 'Destinations'}
+                    {this.getUserDestinations()}%
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area" id="analytics__middleCharts">
-                    <Bar
+                    <Line
                       data={chartExample3.data}
                       options={chartExample3.options}
                     />
@@ -1826,7 +1939,7 @@ class Analytics extends React.Component {
 
                   <div className="analytics__orByCatBarText" style={{ "right": `${cat.percentage < 1 ? '15px' : `${0.84*(cat.percentage)}` + `px`} `}}>
                   <div className="analytics__orByCatBarEm">{cat.amount}kg</div>
-                  <div className="analytics__orByCatBarPer">{cat.percentage}%</div>
+                  <div className="analytics__orByCatBarPer">{cat.percentage ? cat.percentage : 0}%</div>
                   </div>
 
                   <div className="analytics__orByCatBar" style={{ "width": `${12*(cat.percentage/100)}%` }}>

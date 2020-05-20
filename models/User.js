@@ -61,6 +61,11 @@ const UserSchema = new Schema({
   bookmarks: {
     type: Array,
     default: []
+  },
+  budget: {
+    type: Number,
+    default:900
+
   }
 
 });

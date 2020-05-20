@@ -152,20 +152,24 @@ fun1 = () => {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Transparentise Your World</p>
+                            <p className="landingPage__description">Take Back Control of Your Online Carbon-Footprint</p>
                         </div>
                         <div className="get-start-area">
                             {/* <!-- Form Start --> */}
                             <div className="col-12 col-lg-2">
                                 <div className="sing-up-button d-none d-lg-block" id="landing__positioningTopAddButton">
-                                    <a href="#">Add to Chrome <Icon icon={chromeIcon} className="landing__chromeIconTop" /></a>
+                                    {/* <a href="#">Add to Chrome <Icon icon={chromeIcon} className="landing__chromeIconTop" /></a> */}
+                                    <div className="landing__chromeStoreDiv"><img src={require("../assets/img/landing/chromeStoreImage.png")} /></div>
                                 </div>
                             </div>
+
                             {/* <!-- Form End --> */}
                         </div>
                     </div>
                 </div>
             </div>
+            <img src={require("../assets/img/landing/backgroundRanImage.png")} className="landing__backgroundImage" />
+            <img src={require("../assets/img/landing/backgroundRanImage2.png")} className="landing__backgroundImage2" />
             {/* }<!-- Welcome thumb --> */}
             <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
 
@@ -175,11 +179,14 @@ fun1 = () => {
            <div className="row">
                <div className="col-12">
 
-                   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
+                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/topSupermarketHeader.png")} alt="hero"/></div>
+
+
+                {/*   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
                        <div className="video-play-btn">
                            <a href="https://youtu.be/ltnRg8qXnBQ" className="video_btn"><i className="fa fa-play" aria-hidden="true"></i></a>
                        </div>
-                   </div>
+                   </div>*/}
                </div>
            </div>
        </div>
@@ -196,11 +203,12 @@ fun1 = () => {
 
         <div className="landing__howItWorksLeftSideContainer">
 
+        <div className="landing__centerMiddleTitle">
         <div className="landing__howItWorksSubtitle">Learn</div>
-
         <div className="landing__howItWorksMainTitle">How It Works 🛠️</div>
+        </div>
 
-        <div onClick={() => { this.setState({ howItWorks: 'account' })}} className={this.state.howItWorks === 'account' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+      {/*  <div onClick={() => { this.setState({ howItWorks: 'account' })}} className={this.state.howItWorks === 'account' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">1. Create an Account &nbsp;🏂</div>
 
         <div className="landing__howItWorksDescription">Sign up <span className="howItWorks__link">here!</span></div>
@@ -218,12 +226,20 @@ fun1 = () => {
         <div className="landing__howItWorksDescription">Realtime analytics and feedback!</div>
         </div>
 
+        */}
+
+        <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
+              <div className="video-play-btn">
+                  <a href="https://youtu.be/ltnRg8qXnBQ" className="video_btn"><i className="fa fa-play" aria-hidden="true"></i></a>
+              </div>
+          </div>
+
         </div>
 
 
         </div>
 
-        <div className="landing__howItWorksVideoContainer">
+      {/*  <div className="landing__howItWorksVideoContainer">
 
         {this.state.howItWorks === 'account' ? <img src={require("../assets/img/landing/createAnAccountAn.gif")} className="landing__howItWorksVideo"/> : undefined}
 
@@ -231,7 +247,7 @@ fun1 = () => {
 
         {this.state.howItWorks === 'track' ? <img src={require("../assets/img/landing/AnalyticSec.gif")} className="landing__howItWorksVideo"/> : undefined}
 
-        </div>
+        </div> */}
 
         </section>
 
@@ -280,7 +296,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/landing/dataScroll.gif")} className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/landing/realTimeImage.png")} className="landing__howItWorksVideo"/>
         </div>
 
         </section>
@@ -324,11 +340,42 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/landing/socialExp.gif")} className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/landing/socialExperienceImage.png")} className="landing__howItWorksVideo"/>
 
         </div>
 
-        </section>
+      </section>
+
+      <section id="landing__allFeatures">
+
+      <div className="landing__centerMiddleTitle">
+      <div className="landing__howItWorksSubtitle4">Inspire</div>
+      <div className="landing__howItWorksMainTitle">All Features &nbsp; 🎮️</div>
+      </div>
+
+      <div className="landing__centerAllFeatureSection">
+
+      <div className="landing__howItWorks__leftSide">
+
+      <div className="landing__howItWorksLeftSideContainer">
+
+      <div className="landing__howItWorksSubtitle5">Feature</div>
+
+      <div className="landing__howItWorksMainTitle">Carbon Budget &nbsp; ✂️</div>
+
+      <div className="landing__awesomeFeaturesText">Reach the global leaderboard by offsetting your footprint and competing with friends!</div>
+
+      </div>
+      </div>
+
+      <div className="landing__howItWorksVideoContainer">
+
+      <img src={require("../assets/img/landing/socialExperienceImage.png")} className="landing__howItWorksVideo"/>
+
+      </div>
+      </div>
+
+    </section>
 
         <section className="cool_facts_area clearfix landing__statsSection">
 
@@ -414,7 +461,7 @@ fun1 = () => {
 
                 <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp;🌿</div>
 
-                <div className="landing__awesomeFeaturesText">Co-Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
+                <div className="landing__awesomeFeaturesText">Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
 
                 </div>
                 </div>

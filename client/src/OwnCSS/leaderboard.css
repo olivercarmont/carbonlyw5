@@ -783,3 +783,17 @@ transition:0.4s;
 #leaderabord__mainLeaderboardUsernameColour{
   color:#737373;
 }
+.leaderboard__offsetPointDescription {
+  font-size:0.88em;
+  color:#aaa;
+  margin:auto;
+  text-align:center;
+  margin-top:9px;
+  margin-bottom:-28px;
+}
+.leaderboard__pointsIcon {
+  margin-right:9px;
+  font-size:0.98em;
+  position:relative;
+  top:0px;
+}

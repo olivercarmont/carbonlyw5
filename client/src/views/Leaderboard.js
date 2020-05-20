@@ -29,7 +29,7 @@ import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 
 import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-left';
 import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
-
+import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
 
 import axios from 'axios';
@@ -86,7 +86,7 @@ class Leaderboard extends React.Component {
   }
   componentWillMount() {
 
-    axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -127,21 +127,26 @@ class Leaderboard extends React.Component {
     this.setState({ global: bool });
     console.log('changed');
   }
+  returnNumberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   returnOffsets(amount) {
 
   let calcData;
 
     if (amount === 0) {
 
-      return `${amount}kg`;
+      return `${amount}`;
 
     } else if (amount > 999) {
 
-      calcData = amount / 1000;
+      calcData = amount;
 
       calcData = Math.round(calcData);
 
-      return `${calcData}t`
+      calcData = this.returnNumberWithCommas(calcData);
+
+      return `${calcData}`
 
     } else if (amount >= 10000000) {
 
@@ -149,34 +154,62 @@ class Leaderboard extends React.Component {
 
       calcData = Math.round(calcData);
 
-      return `${calcData}Mt`
+      calcData = this.returnNumberWithCommas(calcData);
+
+      return `${calcData}m`
 
     } else {
       let calcData = Math.round(amount);
-      return `${calcData}kg`;
+      return `${calcData}`;
     }
   }
   returnLeaderboardOffsets(amount) {
 
-  return Math.round(amount) + 'kg';
+    let calcData = 0;
+
+    if (amount === 0) {
+
+      return `${amount}`;
+
+    } else if (amount > 999) {
+
+      calcData = amount;
+
+      calcData = Math.round(calcData);
+
+      return `${calcData}`
+
+    } else if (amount >= 10000000) {
+
+      calcData = amount / 10000000;
+
+      calcData = Math.round(calcData);
+
+      return `${calcData}m`
+
+    } else {
+      let calcData = Math.round(amount);
+      return `${calcData}`;
+    }
+
   }
-  returnOffsetWidth(offsets) {
+  returnOffsetWidth(points) {
 
     let comparison;
 
     if (this.returnAllUsersLeaderboard()[0].publicId === this.state.user.publicId) {
       comparison = this.returnUserOffsetsLeaderboard();
     } else {
-      comparison = parseFloat(this.returnAllUsersLeaderboard()[0].offsetAmount);
+      comparison = parseFloat(this.returnAllUsersLeaderboard()[0].points);
     }
 
     console.log('comp', comparison)
 
-    if (offsets === 0) {
-      return 0.2;
+    if (points === 0) {
+      return 0.25;
     } else {
 
-    let ratio = offsets / comparison;
+    let ratio = points / comparison;
 
     console.log('ratio', ratio);
 
@@ -193,15 +226,19 @@ class Leaderboard extends React.Component {
 }
 returnUserOffsets() {
 
-  let offsetAmount = 0;
+  let totalPoints = 0;
 
   this.state.user.offsets.map((off) => {
-    offsetAmount += parseFloat(off.amount);
+    totalPoints += parseFloat(off.points);
   })
 
-  console.log('offsetAmount', offsetAmount)
+  this.state.user.orders.map((or) => {
+    totalPoints += parseFloat(or.points);
+  })
 
-  return `${this.returnOffsets(offsetAmount)} CO2`;
+  console.log('offsetAmount', totalPoints)
+
+  return `${this.returnOffsets(totalPoints)}`;
 }
 returnAddFriendsContainerNum() {
   if (this.state.friends.length < 2) {
@@ -272,7 +309,7 @@ addUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -307,7 +344,7 @@ removeUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -423,7 +460,7 @@ returnFriends() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend1].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend1].points))}</div></div></div>
 
 <div className="leaderboard__friendsBottomSpacing"></div>
 
@@ -485,7 +522,7 @@ returnFriendsTwo() {
 
 </div></div>
 
-<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends">{this.returnOffsets(parseFloat(this.state.friends[friend2].offsetAmount))}</div></div></div>
+<div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottom"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnOffsets(parseFloat(this.state.friends[friend2].points))}</div></div></div>
 
 <div className="leaderboard__friendsBottomSpacing"></div>
 
@@ -540,7 +577,7 @@ returnFriendsTwo() {
 
   </div></div>
 
-  <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottomNoUser"><div className="leaderboard__mainCO2EmissionsAddFriends">{'5t CO2'}</div></div></div>
+  <div className="leaderboard__progressbarBottomPositioning"><div id="leaderBoard__progressBarContainerBottomNoUser"><div className="leaderboard__mainCO2EmissionsAddFriends"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{'5,000'}</div></div></div>
 
   </div>
 
@@ -564,13 +601,17 @@ returnFriendsRanks() {
 
   insertUser['rank'] = this.state.userRank;
 
-  let userOffsets = 0;
+  let userPoints = 0;
 
   insertUser.offsets.map((off) => {
-    userOffsets += parseFloat(off.amount);
+    userPoints += parseFloat(off.points);
   });
 
-  insertUser['offsetAmount'] = userOffsets;
+  insertUser.orders.map((or) => {
+    userPoints += parseFloat(or.points);
+  });
+
+  insertUser['totalPoints'] = userPoints;
 
   newFriends.push(this.state.user);
 
@@ -590,15 +631,15 @@ returnAllUsersLeaderboard() {
 
   return newUsers.sort((a, b) => (a.rank > b.rank) ? 1 : -1)
 }
-returnFriendOffsetWidth(offsets) {
+returnFriendOffsetWidth(points) {
 
-  let comparison = this.returnFriendsRanks()[0].offsetAmount;
+  let comparison = this.returnFriendsRanks()[0].points;
 
-  if (offsets === 0) {
+  if (points === 0) {
     return 0.2;
   } else {
 
-  let ratio = offsets / comparison;
+  let ratio = points / comparison;
 
   if (ratio < 0.3) {
 
@@ -614,12 +655,16 @@ returnFriendOffsetWidth(offsets) {
 }
 returnUserOffsetsLeaderboard() {
 
-  let totOffsets = 0;
+  let totPoints = 0;
   this.state.user.offsets.map((off) => {
-    totOffsets += parseFloat(off.amount);
+    totPoints += parseFloat(off.points);
   })
 
-  return totOffsets;
+  this.state.user.orders.map((off) => {
+    totPoints += parseFloat(off.points);
+  })
+
+  return totPoints;
 }
 returnRanColor() {
   let num = Math.random() * (1000 - 0);
@@ -655,7 +700,7 @@ returnRanColor() {
                         return (<div className="leaderboard__mainRow">
                         <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
                         <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
-                        <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.offsetAmount)}</div></div></div>
+                        <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
 
                         <div className="leaderboard__individualLineMargins">
                             <Line
@@ -681,7 +726,7 @@ returnRanColor() {
                           <div className="leaderboard__mainRow">
                           <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
                           <a href={`/user/@${friend.username}`}><img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/></a>
-                          <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.offsetAmount) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.offsetAmount)}</div></div></div>
+                          <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.points)}</div></div></div>
 
                           <div className="leaderboard__individualLineMargins">
                               <Line
@@ -763,12 +808,12 @@ returnRanColor() {
 
                     <div className="leaderboard__profileProgressMargins">
 
-                    <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins">{this.returnUserOffsets()}</div></div></div>
+                    <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnUserOffsets()}</div></div></div>
                     </div>
 
                     </div>
 
-                    <div>1 Offset Point = 0.1kg CO2 Avoided</div>
+                    <div className="leaderboard__offsetPointDescription">1 Offset Point = 0.1kg CO&#x2082;</div>
                       <div className="leaderboard__profileBottomSpacing"></div>
 
                 </CardBody>

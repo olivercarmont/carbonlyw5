@@ -85,7 +85,7 @@ class Offsets extends React.Component {
   }
   componentWillMount() {
 
-    axios.post('http://localhost:5000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
