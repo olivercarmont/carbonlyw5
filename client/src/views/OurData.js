@@ -108,7 +108,7 @@ addSubmission() {
     message: this.state.message
   }
 
-      axios.post('http://carbonly.org/form/add-submission', { "type": "data", "data": totMessage }, {
+      axios.post('https://carbonly.org/form/add-submission', { "type": "data", "data": totMessage }, {
         "type": "data", "data": totMessage
       })
     .then(response => {

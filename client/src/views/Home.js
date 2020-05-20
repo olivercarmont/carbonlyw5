@@ -93,7 +93,7 @@ class Home extends React.Component {
 }
   componentWillMount() {
 
-    axios.post('http://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
+    axios.post('https://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -192,7 +192,7 @@ createNewItemSaved() {
   /* update the server here */
   this.setState({ saved: newArray });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
       prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -226,7 +226,7 @@ createNewItemShoppingList() {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
       prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -254,7 +254,7 @@ deleteItemSaved(id) {
   /* update the server here */
   this.setState({ saved: newArray });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
       prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -282,7 +282,7 @@ deleteItemShoppingList(id) {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
       prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -324,7 +324,7 @@ updateDescriptionSaved(e, id) {
   /* update the server here */
   this.setState({ saved: newArray });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
     prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
   })
 .then(response => {

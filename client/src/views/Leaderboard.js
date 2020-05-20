@@ -86,7 +86,7 @@ class Leaderboard extends React.Component {
   }
   componentWillMount() {
 
-    axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -309,7 +309,7 @@ addUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -344,7 +344,7 @@ removeUser(id) {
 
   this.setState({ friends: newFriends });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'friends', value: newFriendsDB, }, {
       prop: 'friends', value: newFriendsDB, 'jwt': localStorage.jwtToken,
     })
   .then(response => {

@@ -122,7 +122,7 @@ avatarLeft() {
   /* Update Server */
   this.setState({ currentAvatar: newNum });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
     prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -142,7 +142,7 @@ avatarRight() {
   /* Update Server */
   this.setState({ currentAvatar: newNum });
 
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'avatar', value: this.state.avatars[newNum], }, {
     prop: 'avatar', value: this.state.avatars[newNum], 'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -173,7 +173,7 @@ setProfilePage(page) {
 }
 componentWillMount() {
 
-  axios.post('http://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -451,7 +451,7 @@ updateName(e) {
 
       console.log('got to here');
 
-    axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
+    axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
       'prop': 'name', 'value': String(e.target.value), 'jwt': localStorage.jwtToken
     })
   .then(response => {
@@ -488,7 +488,7 @@ updateUsername(e) {
 
     this.setState({ save: 'Saving..' });
 
-    axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
+    axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
       prop: 'username', value: e.target.value.slice(1, e.target.value.length), 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -528,8 +528,8 @@ changeBudget(e) {
   this.setState({ averageSelected: 'custom' });
 }
 selectBudget() {
-  
-  axios.post('http://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'budget', value: this.state.carbonBudget }, {
+
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'budget', value: this.state.carbonBudget }, {
     'prop': 'name', 'value': this.state.carbonBudget, 'jwt': localStorage.jwtToken
   })
 .then(response => {

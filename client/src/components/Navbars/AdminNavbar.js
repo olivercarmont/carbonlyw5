@@ -56,7 +56,7 @@ class AdminNavbar extends React.Component {
   }
   componentDidMount() {
 
-      axios.post('http://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
+      axios.post('https://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
         'jwt': localStorage.jwtToken,
       })
     .then(response => {
