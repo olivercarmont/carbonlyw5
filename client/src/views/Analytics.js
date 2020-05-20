@@ -1116,11 +1116,11 @@ class Analytics extends React.Component {
     let cur_month = date.getMonth() + 1;
     if (cur_month === 2) {
 
-    return [ 100, 100, 100, 100, 100, 100, 100];
+    return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget];
 
     } else {
 
-    return [ 100, 100, 100, 100, 100, 100, 100, 100 ];
+    return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget ];
 
     }
 
