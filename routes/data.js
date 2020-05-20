@@ -395,9 +395,11 @@ router.post("/req-data", (req, res) => {
 
     console.log('DES', description)
 
+    let language;
+
     try {
 
-    let language = lngDetector.detect(description, 1);
+    language = lngDetector.detect(description, 1);
 
     console.log('LANG', language[0][0])
 
@@ -409,7 +411,7 @@ router.post("/req-data", (req, res) => {
     res.json({ e: "Error Translating" });
   }
 
-    translate(description, { from: allLanguages[language] , to: 'en' }).then(text => {
+    translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
         description = text;  // Hola mundo
         console.log('TEXT', text)
 
