@@ -329,7 +329,7 @@ input:-webkit-autofill:focus {
 }
 
 .mainmenu-area.affix {
-    position: fixed;
+    /* position: fixed; */
     top: 0;
 }
 
@@ -1031,7 +1031,7 @@ input:-webkit-autofill:focus {
     background-color: #ffffff;
     bottom: 0;
     height: 100%;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     width: 100%;
     z-index: 99999999;

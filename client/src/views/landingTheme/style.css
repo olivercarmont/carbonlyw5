@@ -275,7 +275,7 @@ li {
     background-color: #fff;
     height: 100%;
     left: 0;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     width: 100%;
     z-index: 999999;
@@ -402,7 +402,7 @@ li {
     -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     height: 70px;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     z-index: 99;
 }

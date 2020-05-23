@@ -1097,7 +1097,9 @@ class Analytics extends React.Component {
 
     tFrame5 += tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
 
-    tFrame5 += tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+    tFrame6 += tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+
+    tFrame7 += tFrame6 + tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
 
     if (cur_month === 2) {
 
@@ -1123,6 +1125,15 @@ class Analytics extends React.Component {
     return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget ];
 
     }
+
+  }
+  getBudgetPercent() {
+
+    let totalMonthEmissions = 0;
+
+    totalMonthEmissions = this.returnBudgetGraphData()[this.returnBudgetGraphData().length-1];
+
+    return Math.round(( (totalMonthEmissions / parseFloat(this.state.user.budget)) *100))
 
   }
   returnDestinationGraphData() {
@@ -1279,8 +1290,12 @@ class Analytics extends React.Component {
     })
 
     this.state.user.orders.map((or) => {
+      console.log('usp', or.points)
       userPoints += parseFloat(or.points);
+      console.log('usp', userPoints)
     })
+
+    console.log('usp', userPoints)
 
     let usValues = [];
 
@@ -1323,6 +1338,8 @@ class Analytics extends React.Component {
       usValues = [userM2, userM1, userPoints, userP1, userP2];
 
       }
+
+      console.log('UP', userPoints)
 
       return usValues;
 
@@ -1654,7 +1671,7 @@ class Analytics extends React.Component {
   } else if (web === 'Momondo') {
     webImage = `momondo.png`;
   } else if (web === 'Booking.com') {
-    webImage = `momondo.png`;
+    webImage = `booking.png`;
   } else if (web === 'Kayak') {
     webImage = `kayak.png`;
   } else if (web === 'Trip Advisor') {
@@ -1798,7 +1815,7 @@ class Analytics extends React.Component {
                   <h5 className="card-category">Carbon Budget</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
-                    {this.getUserDestinations()}%
+                    {this.getBudgetPercent()}%
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

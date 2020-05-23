@@ -41,6 +41,8 @@ import pricetagsOutline from '@iconify/icons-ion/pricetags-outline';
 import statsChart from '@iconify/icons-ion/stats-chart';
 import cloudDownloadOutline from '@iconify/icons-ion/cloud-download-outline';
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
+import arrowCircleLeft from '@iconify/icons-jam/arrow-circle-left';
+import arrowCircleRight from '@iconify/icons-jam/arrow-circle-right';
 
 import { Link } from "react-router-dom";
 
@@ -58,11 +60,14 @@ import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import logo from "../assets/img/carbonlyWhiteLogo.png";
 import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 
+// let features = ['budget'];
+
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      howItWorks: 'account'
+      howItWorks: 'account',
+      allFeatures: "budget"
   }
 }
 componentDidMount() {
@@ -107,13 +112,13 @@ fun1 = () => {
         </div> */}
 
         {/* <!-- ***** Header Area Start ***** --> */}
-        <header className="header_area animated" id="home">
+        <header className="header_area animated posStatic" id="home">
             <div className="container-fluid">
-                <div className="row align-items-center">
+                <div className="row align-items-center posStatic">
                     {/* <!-- Menu Area Start --> */}
-                    <div className="col-12 col-lg-10">
-                        <div className="menu_area">
-                            <nav id="landing__navBackground" className="navbar navbar-expand-lg navbar-light">
+                    <div className="col-12 col-lg-10 posStatic">
+                        <div className="menu_area posStatic">
+                            <nav id="landing__navBackground" className="navbar navbar-expand-lg navbar-light posStatic">
                                 {/* <!-- Logo --> */}
                                 <Link to="/landing"><img src={logo} className="landing__navbarTopLogo" /></Link>
                                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar" aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
@@ -154,14 +159,21 @@ fun1 = () => {
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
                             <p className="landingPage__description">Take Back Control of Your Online Carbon-Footprint</p>
                         </div>
-                        <div className="get-start-area">
-                            {/* <!-- Form Start --> */}
-                            <div className="col-12 col-lg-2">
-                                <div className="sing-up-button d-none d-lg-block" id="landing__positioningTopAddButton">
+
+
                                     {/* <a href="#">Add to Chrome <Icon icon={chromeIcon} className="landing__chromeIconTop" /></a> */}
-                                    <div className="landing__chromeStoreDiv"><img src={require("../assets/img/landing/chromeStoreImage.png")} /></div>
-                                </div>
-                            </div>
+                                    {/* <div className="landing__chromeStoreDiv"><img src={require("../assets/img/landing/chromeStoreImage.png")} /></div> */}
+                                    <div className="app-download-area">
+                                        <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
+                                            {/* <!-- Google Store Btn --> */}
+                                            <a href="#">
+                                                <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
+                                                <p id="landingPage__chromeStoreButtonTextUp" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                            </a>
+                                        </div>
+
+
+
 
                             {/* <!-- Form End --> */}
                         </div>
@@ -228,10 +240,16 @@ fun1 = () => {
 
         */}
 
-        <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
+        <div className="landing__topVideoMargins">
+
+        <iframe width="105%" height="580" style={{ "border-radius": "5px"}} src="https://www.youtube.com/embed/Kq9KCcE_Ybc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      {/*  <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
               <div className="video-play-btn">
                   <a href="https://youtu.be/ltnRg8qXnBQ" className="video_btn"><i className="fa fa-play" aria-hidden="true"></i></a>
               </div>
+          </div> */}
+
           </div>
 
         </div>
@@ -256,14 +274,12 @@ fun1 = () => {
         <section className="cool_facts_area clearfix landing__compatibleMarketplacesSection">
 
         <div className="landing__compatibleMarketplacesBottom">
-        <div className="landing__ourStasContainingDiv">
+        <div className="landing__ourStasContainingDivReach">
         <div className="landing__ourStatsSubtitle3">Reach</div>
 
         <div className="landing__ourStatsMainTitle">Compatible Marketplaces &nbsp; 🛍️</div>
         </div>
         </div>
-
-
 
             <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/tesco.png")} id="landing__compatibleImage" /></div>
 
@@ -296,7 +312,7 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/landing/realTimeImage.png")} className="landing__howItWorksVideo"/>
+        <img src={require("../assets/img/landing/realTimeImage.png")} className="landing__howItWorksVideo" />
         </div>
 
         </section>
@@ -305,18 +321,18 @@ fun1 = () => {
 
         <div className="landing__howItWorksVideoContainer2">
 
-        <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__howItWorksVideo2"/>
+        <img src={require("../assets/img/landing/trackAPurchaseHome.png")} className="landing__howItWorksVideo" />
         </div>
 
         <div className="landing__howItWorks__leftSide">
 
         <div className="landing__howItWorksLeftSideContainer2">
 
-        <div className="landing__howItWorksSubtitle3">Analytics</div>
+        <div className="landing__howItWorksSubtitle3">Tracking</div>
 
-        <div className="landing__howItWorksMainTitle">Insightful Analytics &nbsp; 📈</div>
+        <div className="landing__howItWorksMainTitle">Order Tracking &nbsp; 🎯</div>
 
-        <div className="landing__awesomeFeaturesText">Picrture insightful analytics into your carbon footprint both in realtime and over time!</div>
+        <div className="landing__awesomeFeaturesText">Track Any Purchse and Build a Complete Personalised Online Carbon Footprint!</div>
 
         </div>
         </div>
@@ -329,24 +345,52 @@ fun1 = () => {
 
         <div className="landing__howItWorksLeftSideContainer">
 
-        <div className="landing__howItWorksSubtitle4">Social</div>
+        <div className="landing__howItWorksSubtitle3">Analytics</div>
 
-        <div className="landing__howItWorksMainTitle">A Social Experience &nbsp; 🥂</div>
+        <div className="landing__howItWorksMainTitle">Insightful Analytics &nbsp; 📈</div>
 
-        <div className="landing__awesomeFeaturesText">Reach the global leaderboard by offsetting your footprint and competing with friends!</div>
+        <div className="landing__awesomeFeaturesText">Picture insightful analytics into your carbon footprint at every new purchase!</div>
 
         </div>
         </div>
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/landing/socialExperienceImage.png")} className="landing__howItWorksVideo"/>
+          <img src={require("../assets/img/landing/insightfulAnalytics.png")} className="landing__howItWorksVideo"/>
 
         </div>
 
       </section>
 
-      <section id="landing__allFeatures">
+      <section id="landing__awesomeFeaturesSecondContainer">
+
+      <div className="landing__howItWorksVideoContainer2">
+
+      <img src={require("../assets/img/landing/socialExperienceImage.png")} className="landing__howItWorksVideo" />
+      </div>
+
+      <div className="landing__howItWorks__leftSide">
+
+      <div className="landing__howItWorksLeftSideContainer2">
+
+      <div className="landing__howItWorksSubtitle3">Social</div>
+
+      <div className="landing__howItWorksMainTitle">A Social Experience &nbsp; 🥂</div>
+
+      <div className="landing__awesomeFeaturesText">Reach the leaderboard by offsetting your footprint and competing with friends!</div>
+
+      </div>
+      </div>
+
+      </section>
+
+
+
+      {/* <section id="landing__allFeatures">
+
+      <Icon icon={arrowCircleLeft} className="landing__allFeaturesLeft" />
+
+      <Icon icon={arrowCircleRight} className="landing__allFeaturesRight" />
 
       <div className="landing__centerMiddleTitle">
       <div className="landing__howItWorksSubtitle4">Inspire</div>
@@ -375,7 +419,9 @@ fun1 = () => {
       </div>
       </div>
 
-    </section>
+      </section>*/}
+
+        <div className="landing__statsSpacing"></div>
 
         <section className="cool_facts_area clearfix landing__statsSection">
 

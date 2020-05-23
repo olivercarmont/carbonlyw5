@@ -89,16 +89,18 @@ router.route('/add').post((req, res) => {
 
 router.post("/return-extension", (req, res) => {
 
-  let token;
+  let token, language;
   let pathTaken = '';
 
-  if (req.body.jwt || !!req.header('jwt')) {
+  if ((req.body.jwt || !!req.header('jwt')) && (req.body.language || !!req.header('language'))) {
 
   if (req.body.jwt) {
   token = req.body.jwt;
-} else if (req.header('jwt')) {
+  language = req.body.language;
+  } else if (req.header('jwt')) {
   token = req.header('jwt');
-}
+  language = req.header('language');
+  }
 
     let decoded = parseJwt(token);
     let id = decoded.id;
@@ -132,7 +134,7 @@ router.post("/return-extension", (req, res) => {
           points += parseFloat(or.points);
         });
 
-        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, points });
+        usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, points: points });
 
       });
 
@@ -172,9 +174,11 @@ router.post("/return-extension", (req, res) => {
 
         clearInterval(si2);
 
+        console.log('user friends', userFriends);
+
         userFriends.map((fri) => {
 
-          User.findOne({ publicId: fri }).then(friend => {
+        User.findOne({ publicId: fri }).then(friend => {
 
         let friendPoints = 0;
 
@@ -182,80 +186,85 @@ router.post("/return-extension", (req, res) => {
           friendPoints += parseFloat(el.points);
         });
 
-        friend.orders.map((or) => {
-          friendPoints += parseFloat(or.points);
+        friend.orders.map((orf) => {
+          friendPoints += parseFloat(orf.points);
         });
 
         let ranki = 1;
 
+        let firstLoopFinished = false;
+
         for (let loopN = 0; loopN < usOffArray.length; loopN++) {
-            pathTaken += ` for loop was started `;
+
           if (usOffArray[loopN].publicId === friend.publicId) {
-            rankLoopFinished = true;
+
             break;
           } else {
             ranki++
           }
         }
 
-        if (!rankLoopFinished) {
+        let rankus = 1;
 
-        pathTaken += ` rankLoopFinished was not defined `;
+        usOffArray = usOffArray.map((ur) => {
 
-        var timer3 = 0;
-        var si3 = setInterval(() => {
+          let newOb = ur;
+          newOb['rank'] = rankus;
 
-          timer3++;
+          rankus++;
 
-        if (rankLoopFinished) {
+          return newOb;
 
-        clearInterval(si3);
+        });
 
-        pathTaken += ` rankLoopFinished became defined `;
-
-        friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
-
-        triedInsert = true;
-
-        if (userFriends.length > 0) {
-
-          if (!!triedInsert && rankLoopFinished) {
-            done = true;
-          }
-
-        } else {
-          done = true;
+        if (rankus === usOffArray.length && firstLoopFinished) {
+          rankLoopFinished = true;
         }
 
-        }
+        friendInfo.push({ rank: ranki, publicId: friend.publicId, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
 
-        }, 1);
-        } else {
+        console.log('this pushed', friendInfo.length);
 
-          friendInfo.push({ rank: ranki, name: friend.name, username: friend.username, avatar: friend.avatar, points: friendPoints });
-
-          triedInsert = true;
-
-          if (userFriends.length > 0) {
-
-            if (!!triedInsert && rankLoopFinished) {
-              done = true;
-            }
-
-          } else {
-            done = true;
-          }
-
-        }
-
-      })
-
+      });
     });
 
-  }
-}, 1);
+    if (userFriends.length > 0) {
 
-} else {
+      console.log('two lengths', `${friendInfo.length} ${userInfo.friends.length}`);
+
+      if (friendInfo.length === userInfo.friends.length) {
+        done = true;
+      } else {
+
+        var timer5 = 0;
+        var si5 = setInterval(() => {
+
+          timer5++;
+
+          if ((timer5 > 10000) || (!!leaderboardInfo)) {
+
+            if (friendInfo.length === userInfo.friends.length) {
+              clearInterval(si5);
+              done = true;
+
+
+            }
+
+        }
+
+      });
+    }
+
+    } else {
+      done = true;
+    }
+
+
+
+    }
+  }, 1);
+
+  } else {
 
   pathTaken += ` usOffArray was defined `;
 
@@ -267,7 +276,7 @@ router.post("/return-extension", (req, res) => {
 
   let friendPoints = 0;
 
-  friend.offsets.map((el) => {
+  friend.offset.map((el) => {
     friendPoints += parseFloat(el.points);
   });
 
@@ -277,7 +286,7 @@ router.post("/return-extension", (req, res) => {
 
   let ranki = 1;
 
-  console.log('usOffArray', usOffArray);
+  let firstLoopFinished = false;
 
   for (let loopN = 0; loopN < usOffArray.length; loopN++) {
 
@@ -292,6 +301,23 @@ router.post("/return-extension", (req, res) => {
     } else {
       ranki++
     }
+  }
+
+  let rankus = 1;
+
+  usOffArray = usOffArray.map((ur) => {
+
+    let newOb = ur;
+    newOb['rank'] = rankus;
+
+    rankus++;
+
+    return newOb;
+
+  });
+
+  if (rankus === usOffArray.length && firstLoopFinished) {
+    rankLoopFinished = true;
   }
 
   console.log('rankLoopFinished', rankLoopFinished);
@@ -350,9 +376,9 @@ router.post("/return-extension", (req, res) => {
 
   }
 
-});
-});
-}
+  });
+  });
+  }
 
     var timer1 = 0;
     var si1 = setInterval(() => {
@@ -365,6 +391,8 @@ router.post("/return-extension", (req, res) => {
       if ((timer1 > 10000) || (!!done && !!leaderboardInfo)) {
 
         clearInterval(si1);
+
+        console.log('user friends2', userFriends);
 
         console.log('timer', timer1);
 
@@ -383,7 +411,21 @@ router.post("/return-extension", (req, res) => {
 
         if (personalLoopFinished) {
 
-      info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }];
+      let languageText = {};
+
+      if (language === 'fi') {
+
+        languageText = {"Home": "Aloitusnäyttö", "Analytics": "Analytiikka", "Leaderboard": "Tulostaulu", "Shopping List": "Ostoslista", "NoItems": "Sinulla ei Ole Tuotteita Ostoskorissasi", "ClickBelow": "Napsauta alla olevaa linkkiä aloittaaksesi ensimmäisen luettelosi!", "AddItems": "Lisää Kohteita", "compatibleSites": "Yhteensopivat Sivustot", "allProducts": "Kaikki Tuotteet", "productFootprints": "Tuotteen jalanjäljet", "basketEmisions": "Korin Päästöt", "Hey": "Hei", "Search": "Hae", "Week": "Viikko", "Month": "Kuukausi", "Year": "Vuosi", "RecentOrders": "Äskettäiset Tilaukset",  "carbonEmissions": "Hiilidioksidipäästöt", "carbonOffsets": "Hiilen Korvaukset", "marketplaces": "Markkinapaikkojen", "seeFullStats": "Nähdä Kaikki Yksityiskohdat", "couldntFindFriends": "Emme Löytäneet Yhtään Ystävää", "clickBelowAddFriends": "Napsauta Alla Lisätäksesi Ensimmäiset Ystäväsi!", "addFriends": "Lisää Ystäviä", "default": "Oletusarvo"};
+
+      } else if (language === 'sv') {
+
+      } else if (language === 'da') {
+
+      } else if (language === 'no') {
+
+      }
+
+      info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }, usOffArray, languageText];
 
       return res.json({ info });
 
@@ -394,10 +436,193 @@ router.post("/return-extension", (req, res) => {
 
   }).catch(err => res.status(400).json(`Error:` + err));
 
-} else {
+  } else {
       return res.status(400).json({ jwt: `${res.toString()} + ${req.header('jwt')} + ${req.headers['jwt']}` });
   }
 
+  });
+
+  /*
+  *******************************************************************
+                      RETURN USER PROFILE
+  *******************************************************************
+  */
+
+  router.post("/update", (req, res) => {
+  // Form validation
+
+  let token;
+
+  console.log('IS RUNNING ----');
+
+  if ((req.body.jwt || !!req.header('jwt')) && ((!!req.body.prop &&  !!req.body.value) || (!!req.header('prop') &&  !!req.header('value')))) {
+
+    console.log('found all props');
+
+  if (req.body.jwt) {
+  token = req.body.jwt;
+  } else if (req.header('jwt')) {
+  token = req.header('jwt');
+  }
+
+    let decoded = parseJwt(token);
+    let id = decoded.id;
+    id = id.toString();
+
+    // let upUser;
+
+    let prop, value;
+
+    if (req.body.prop) {
+      prop = req.body.prop;
+      value = req.body.value;
+    } else if (req.header('prop')) {
+      prop = req.header('prop');
+      value = req.header('value');
+    }
+
+    console.log('prop', req.body.prop);
+    console.log('val', req.body.value);
+
+    User.findOne({ _id: id }).then(user => {
+
+    console.log('user', user);
+
+    if (!user) {
+      res.status(400).json({ message: 'User Not Found' });
+    }
+    if (prop === 'name' && typeof value === 'string' && value.length < 60) {
+
+      if ((/[,.+-:;=~#`'"{}/\[\]!?\-]/.test(value))) {
+        res.status(400).json({ message: 'Contains Punctuation' });
+      }
+
+      User.findOne({ _id: id }).then(user => {
+
+        User.findOneAndUpdate({ _id: id }, { $set: {
+            name: value
+          }
+        }).then(user => {
+          return res.json({ name: value });
+        })
+
+      }).catch(err => res.status(400).json(`Error:` + err));
+
+        //    (can contain: @, _, -, $, #)
+    } else if (prop === 'username' && typeof value === 'string' && value.length < 60) {
+
+      if ((/[,.+-:;=~`'"{}/\[\]!?\-]/.test(value))) {
+        res.status(400).json({ message: 'Contains Punctuation' });
+      }
+
+      let fondUserWithUsername = false;
+
+      User.find().then((users) => {
+
+        users.map((us) => {
+
+          if (us.username === value) {
+            fondUserWithUsername = true;
+          }
+
+        });
+      });
+
+     if (!fondUserWithUsername) {
+       User.findOne({ _id: id }).then(user => {
+
+         User.findOneAndUpdate({ _id: id }, { $set: {
+             username: value
+           }
+         }).then(user => {
+           return res.json({ username: value });
+         })
+
+       }).catch(err => res.status(400).json(`Error:` + err));
+     }
+   } else if (prop === 'avatar' && typeof value === 'string' && (value === 'avatars/mainProfileImage-1.png' || value === 'avatars/mainProfileImage-2.png' || value === 'avatars/mainProfileImage-3.png' || value === 'avatars/mainProfileImage-4.png' || value === 'avatars/mainProfileImage-5.png' ||  value === 'avatars/mainProfileImage.png' || value === 'avatars/mainProfileImage1.png' || value === 'avatars/mainProfileImage2.png' || value === 'avatars/mainProfileImage3.png' || value === 'avatars/mainProfileImage4.png')) {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           avatar: value
+         }
+       }).then(user => {
+         return res.json({ avatar: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
+     valid = true;
+   } else if (prop === 'shoppingList' && typeof value === 'object' && value.length < 100) {
+       User.findOne({ _id: id }).then(user => {
+
+         User.findOneAndUpdate({ _id: id }, { $set: {
+             shoppingList: value
+           }
+         }).then(user => {
+           return res.json({ shoppingList: value });
+         })
+
+       }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop === 'savedList' && typeof value === 'object' && value.length < 100) {
+
+       User.findOne({ _id: id }).then(user => {
+
+         User.findOneAndUpdate({ _id: id }, { $set: {
+             savedList: value
+           }
+         }).then(user => {
+           return res.json({ savedList: value });
+         })
+
+       }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop === 'friends' && typeof value === 'object' && value.length < 75) {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           friends: value
+         }
+       }).then(user => {
+         return res.json({ friends: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop === 'loggedIn') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           hasLoggedIn: 't'
+         }
+       }).then(user => {
+         return res.json({ hasLoggedIn: true });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop === 'budget') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           budget: value
+         }
+       }).then(user => {
+         return res.json({ budget: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
+   }
+
+  });
+
+  }
 });
 
 router.post("/return-home", (req, res) => {
