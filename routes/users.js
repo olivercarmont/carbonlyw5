@@ -89,17 +89,15 @@ router.route('/add').post((req, res) => {
 
 router.post("/return-extension", (req, res) => {
 
-  let token, language;
+  let token;
   let pathTaken = '';
 
-  if ((req.body.jwt || !!req.header('jwt')) && (req.body.language || !!req.header('language'))) {
+  if (req.body.jwt || !!req.header('jwt')) {
 
   if (req.body.jwt) {
   token = req.body.jwt;
-  language = req.body.language;
   } else if (req.header('jwt')) {
   token = req.header('jwt');
-  language = req.header('language');
   }
 
     let decoded = parseJwt(token);
@@ -411,21 +409,7 @@ router.post("/return-extension", (req, res) => {
 
         if (personalLoopFinished) {
 
-      let languageText = {};
-
-      if (language === 'fi') {
-
-        languageText = {"Home": "Aloitusnäyttö", "Analytics": "Analytiikka", "Leaderboard": "Tulostaulu", "Shopping List": "Ostoslista", "NoItems": "Sinulla ei Ole Tuotteita Ostoskorissasi", "ClickBelow": "Napsauta alla olevaa linkkiä aloittaaksesi ensimmäisen luettelosi!", "AddItems": "Lisää Kohteita", "compatibleSites": "Yhteensopivat Sivustot", "allProducts": "Kaikki Tuotteet", "productFootprints": "Tuotteen jalanjäljet", "basketEmisions": "Korin Päästöt", "Hey": "Hei", "Search": "Hae", "Week": "Viikko", "Month": "Kuukausi", "Year": "Vuosi", "RecentOrders": "Äskettäiset Tilaukset",  "carbonEmissions": "Hiilidioksidipäästöt", "carbonOffsets": "Hiilen Korvaukset", "marketplaces": "Markkinapaikkojen", "seeFullStats": "Nähdä Kaikki Yksityiskohdat", "couldntFindFriends": "Emme Löytäneet Yhtään Ystävää", "clickBelowAddFriends": "Napsauta Alla Lisätäksesi Ensimmäiset Ystäväsi!", "addFriends": "Lisää Ystäviä", "default": "Oletusarvo"};
-
-      } else if (language === 'sv') {
-
-      } else if (language === 'da') {
-
-      } else if (language === 'no') {
-
-      }
-
-      info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }, usOffArray, languageText];
+      info = [userInfo, friendInfo, leaderboardInfo, { usrank: rankip }, usOffArray];
 
       return res.json({ info });
 
