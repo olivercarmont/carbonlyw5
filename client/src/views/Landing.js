@@ -170,6 +170,7 @@ fun1 = () => {
                                                 <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
                                                 <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                             </a>
+                                                                                            <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
                                         </div>
 
 
