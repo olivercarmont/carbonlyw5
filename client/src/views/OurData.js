@@ -181,20 +181,26 @@ updateMessage(e) {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Our Data</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Carbonly</p>
+                            <p className="landingPage__description">Carbonly</p><br/>
                         </div>
-                        <div className="get-start-area">
-                            {/* <!-- Form Start --> */}
-                            <div className="col-12 col-lg-2">
-                                <div className="sing-up-button d-none d-lg-block" id="landing__positioningTopAddButton">
-                                  <a href="#">Add to Chrome <Icon icon={chromeIcon} className="landing__chromeIconTop" /></a> {/*  <a href="#">Scroll Down <Icon icon={caretDown} className="landing__chromeIconTop" /></a> */}
-                                </div>
+                        <div className="app-download-area">
+                            <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
+                                {/* <!-- Google Store Btn --> */}
+                                <a href="#" className="landing__installBackground">
+                                    <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
+                                    <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                </a>
+                                                                                <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
                             </div>
-                            {/* <!-- Form End --> */}
-                        </div>
-                    </div>
-                </div>
+
+
+
+
+                {/* <!-- Form End --> */}
             </div>
+        </div>
+    </div>
+  </div>
             {/* }<!-- Welcome thumb --> */}
             <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
                 <img src="img/bg-img/welcome-img.png" alt=""/>
@@ -262,7 +268,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area ourData__ourStatsNumber4">
-                                <h3><span className="counter">2k</span></h3>
+                                <h3><span className="counter">914</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={fruitCherries} className="landing__treeIcon" />
@@ -274,7 +280,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area ourData__ourStatsNumber3">
-                                <h3><span className="counter">1.5k</span></h3>
+                                <h3><span className="counter">914</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -287,7 +293,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area ourData__ourStatsNumber2">
-                                <h3><span className="counter">10k</span></h3>
+                                <h3><span className="counter">0</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={smogIcon} className="landing__treeIcon" />
@@ -299,7 +305,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area ourData__ourStatsNumber">
-                                <h3><span className="counter">15</span></h3>
+                                <h3><span className="counter">11</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={globeShowingEuropeAfrica} className="landing__treeIcon" />
@@ -320,7 +326,7 @@ updateMessage(e) {
         <div className="landing__howItWorksMainTitle">Have Data to Share? &nbsp; 🤲</div>
         </div>
 
-        <div className="ourData__descriptionBelowDonate">Our data is nowhere near perfect. We're constant trying our best to make it the most accurate we can. However, if you have accurate data at your disposal that you wouldn't mind sharing with us, this would be invaluable ❤️</div>
+        <div className="ourData__descriptionBelowDonate">Our data is nowhere near perfect. We're endlessly trying our best to make it the most accurate we can. However, if you have accurate data at your disposal that you wouldn't mind sharing with us, this would be invaluable ❤️</div>
         </div>
 
         <div className="ourData__donateCentering">

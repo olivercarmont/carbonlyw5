@@ -148,20 +148,26 @@ updateMessage(e) {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Contact</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Carbonly</p>
+                            <p className="landingPage__description">Carbonly</p><br/>
                         </div>
-                        <div className="get-start-area">
-                            {/* <!-- Form Start --> */}
-                            <div className="col-12 col-lg-2">
-                                <div className="sing-up-button d-none d-lg-block" id="landing__positioningTopAddButton">
-                                <a href="#">Add to Chrome <Icon icon={chromeIcon} className="landing__chromeIconTop" /></a>
-                                </div>
+                        <div className="app-download-area">
+                            <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
+                                {/* <!-- Google Store Btn --> */}
+                                <a href="#" className="landing__installBackground">
+                                    <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
+                                    <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                </a>
+                                                                                <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
                             </div>
-                            {/* <!-- Form End --> */}
-                        </div>
-                    </div>
-                </div>
+
+
+
+
+                {/* <!-- Form End --> */}
             </div>
+        </div>
+    </div>
+  </div>
             {/* }<!-- Welcome thumb --> */}
             <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
                 <img src="img/bg-img/welcome-img.png" alt=""/>
