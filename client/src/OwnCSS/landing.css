@@ -28,7 +28,7 @@ background-color:transparent !important;
 .landingPage__description {
   font-size:1.34em;
   width:380px;
-  line-height:1.44;
+  line-height:1.5;
 
 }
 #landingPage__mainLogoText {
@@ -348,6 +348,15 @@ background-color:transparent !important;
   letter-spacing:0em;
   word-spacing:0.01em;
 }
+.landing__teamDesText {
+  width:51%;
+  color:#a4a4a4;
+  line-height:1.6;
+  margin-top:0px;
+  font-size:1.04em;
+  letter-spacing:0em;
+  word-spacing:0.01em;
+}
 .landing__statsSection {
   background-color:#fcfcfc;
 
@@ -532,6 +541,13 @@ position:relative;
   position:relative;
   border:none !important;
   border-color:transparent;
+}
+.landing__installBackground {
+  background-color:#7d9e7d !important;
+  border-radius:40px !important;
+  padding-top:17px !important;
+  padding-bottom:17px !important;
+  padding-right:37px !important;
 }
 #landingPage__chromeStoreButtonText {
   line-height:1.28;

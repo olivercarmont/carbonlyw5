@@ -166,9 +166,9 @@ fun1 = () => {
                                     <div className="app-download-area">
                                         <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
                                             {/* <!-- Google Store Btn --> */}
-                                            <a href="#">
-                                                <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
-                                                <p id="landingPage__chromeStoreButtonTextUp" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                            <a href="#" className="landing__installBackground">
+                                                <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
+                                                <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                             </a>
                                         </div>
 
@@ -438,11 +438,11 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">0</span></h3>
+                                <h3><span className="counter">2</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
-                                <p>Total <br/> Installs</p>
+                                <p>Total <br/> Installs (Beta)</p>
                             </div>
                         </div>
                     </div>
@@ -450,7 +450,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">15</span></h3>
+                                <h3><span className="counter">18</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -507,7 +507,7 @@ fun1 = () => {
 
                 <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp;🌿</div>
 
-                <div className="landing__awesomeFeaturesText">Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
+                <div className="landing__teamDesText">Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
 
                 </div>
                 </div>
