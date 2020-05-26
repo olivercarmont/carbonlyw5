@@ -29,7 +29,7 @@ import {
   Col
 } from "reactstrap";
 
-import '../OwnCSS/landing.css';
+import '../OwnCSS/landing.scss';
 
 import './landingTheme/css/responsive.css';
 import './landingTheme/style.css';

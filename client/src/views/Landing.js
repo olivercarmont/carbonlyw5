@@ -28,7 +28,7 @@ import {
   Col
 } from "reactstrap";
 
-import '../OwnCSS/landing.css';
+import '../OwnCSS/landing.scss';
 import '../OwnCSS/ourData.css';
 
 import './landingTheme/css/responsive.css';
@@ -157,7 +157,7 @@ fun1 = () => {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Take Back Control of Your Online Carbon-Footprint</p>
+                            <p className="landingPage__description">Take Back Control of Your Online Carbon-Footprint 🌿👨‍💻️</p>
                         </div>
 
 
@@ -439,7 +439,7 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">2</span></h3>
+                                <h3><span className="counter">4</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
