@@ -46,6 +46,7 @@ import Features from "./views/Features.js";
 import NotFound from "./views/NotFound.js";
 import Contact from "./views/Contact.js";
 import Privacy from "./views/Privacy.js";
+import Terms from "./views/Terms.js";
 
 import "./assets/scss/black-dashboard-react.scss";
 import "./assets/demo/demo.css";
@@ -112,6 +113,7 @@ ReactDOM.render(
       <Route exact path="/not-found" render={props => <NotFound />} />
       <Route exact path="/contact" render={props => <Contact />} />
       <Route exact path="/privacy" render={props => <Privacy />} />
+      <Route exact path="/terms" render={props => <Terms />} />
 
       <Redirect exact from="/" to="/landing" />
 

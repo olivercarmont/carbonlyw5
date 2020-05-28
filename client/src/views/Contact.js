@@ -232,11 +232,10 @@ updateMessage(e) {
           {/*  <!-- social icon--> */}
 
           <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
           <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>
           <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText">Privacy</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/terms" className="landing__individualPageLinksText">Terms</Link></div>
           </div>
 
             {/* <!-- Foooter Text--> */}

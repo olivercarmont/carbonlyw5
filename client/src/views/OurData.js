@@ -267,7 +267,7 @@ updateMessage(e) {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
-                            <div className="counter-area ourData__ourStatsNumber4">
+                            <div className="counter-area ourData__ourStatsNumber3">
                                 <h3><span className="counter">914</span></h3>
                             </div>
                             <div className="cool-facts-content">
@@ -365,6 +365,36 @@ updateMessage(e) {
 
 
                     </div>
+
+        </section>
+
+        <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
+
+        <div className="landing__downloadSection">
+
+        <div className="landing__downloadImageLeft">
+                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
+
+        </div>
+
+        <div className="landing__downloadTextRight">
+
+                            <h2 id="landing__getAppTitle">What'ya Waiting For?</h2>
+                            <p className="landing__downloadDescription">Download For Free on The Chrome Store!</p>
+                            <div className="app-download-area">
+                                <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtn" data-wow-delay="0.2s">
+                                    {/* <!-- Google Store Btn --> */}
+                                    <a href="#">
+                                        <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
+                                        <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                    </a>
+                                    <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
+                                </div>
+
+                            </div>
+
+        </div>
+        </div>
 
         </section>
 

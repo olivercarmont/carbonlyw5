@@ -635,15 +635,17 @@ returnFriendOffsetWidth(points) {
 
   let comparison = this.returnFriendsRanks()[0].points;
 
+  console.log('COMP', this.returnFriendsRanks()[0])
+
   if (points === 0) {
-    return 0.2;
+    return 0.25;
   } else {
 
   let ratio = points / comparison;
 
   if (ratio < 0.3) {
 
-    return 0.3;
+    return 0.45;
 
   } else {
 
@@ -724,9 +726,12 @@ returnRanColor() {
 
                         return (
                           <div className="leaderboard__mainRow">
+                          {console.log('SEE', friend.points)}
                           <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
                           <a href={`/user/@${friend.username}`}><img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/></a>
-                          <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions">{this.returnLeaderboardOffsets(friend.points)}</div></div></div>
+                          <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points))}</div></div></div>
+
+
 
                           <div className="leaderboard__individualLineMargins">
                               <Line

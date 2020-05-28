@@ -176,7 +176,7 @@ router.post("/req-data", (req, res) => {
   //
   // quickStart();
 
-  let dataArray = [], mainLists, objectLists;
+  let dataArray = [], mainLists, objectLists, messages = "", location;
 
   let accuracyRating = 'D';
 
@@ -184,11 +184,11 @@ router.post("/req-data", (req, res) => {
 
   let foodData, preparedFoodData, drinksData;
 
-  let pFoodData, pDrinksData, pTravelData, pApparelData, pMiscellaneousData, pElectronicsData;
+  let pFoodData, pDrinksData, pTravelData, pApparelData, pMiscellaneousData, pElectronicsData, pMarketplaceData;
 
   let foodDataKeys, preparedFoodDataKeys, drinksDataKeys, productLevelDataKeys;
 
-  let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys;
+  let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys, pMarketplaceDataKeys;
 
   let predictedCategory, predictedEm, emissions, baseEmissions, predictedAverage, isDefault = '';
 
@@ -199,9 +199,11 @@ router.post("/req-data", (req, res) => {
   if (req.body.description && req.body.weight) {
     description = req.body.description;
     weight = parseFloat(req.body.weight);
+    location = req.body.location ? req.body.location : undefined;
   } else if (req.header('description') && req.header('weight')) {
     description = req.header('description');
     weight = parseFloat(req.header('weight'));
+    location = req.header('weight') ? req.header('weight') : undefined;
   }
 
   if (!req.body.description && !req.header('description')) {
@@ -249,6 +251,10 @@ router.post("/req-data", (req, res) => {
     pMiscellaneousData = JSON.parse(JSON.stringify(dataArray[0][3])).miscellaneous;
     pElectronicsData = JSON.parse(JSON.stringify(dataArray[0][3])).miscellaneous;
 
+    pMarketplaceData = JSON.parse(JSON.stringify(dataArray[0][4])).marketplaces;
+
+    console.log('DATA', dataArray)
+
     foodDataKeys = Object.keys(foodData)
     preparedFoodDataKeys = Object.keys(preparedFoodData)
     drinksDataKeys = Object.keys(drinksData)
@@ -259,6 +265,7 @@ router.post("/req-data", (req, res) => {
     pApparelDataKeys = Object.keys(pApparelData)
     pMiscellaneousDataKeys = Object.keys(pMiscellaneousData)
     pElectronicsDataKeys = Object.keys(pElectronicsData)
+    pMarketplaceDataKeys = Object.keys(pMarketplaceData)
 
     mainLists = [drinksDataKeys, foodDataKeys, preparedFoodDataKeys, pTravelDataKeys];
 
@@ -413,12 +420,10 @@ router.post("/req-data", (req, res) => {
 
     translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
         description = text;
-        console.log('TEXT', text)
 
     if (description === oldDescription) {
       translate(description, { from:'fi', to: 'en' }).then(text => {
           description = text;
-          console.log('TEXT2', text)
           runMainMethod();
     });
   } else {
@@ -590,7 +595,6 @@ router.post("/req-data", (req, res) => {
       fullArray = pElectronicsData;
     }
 
-
     if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
 
     let newPredictedCategory;
@@ -681,6 +685,59 @@ router.post("/req-data", (req, res) => {
 
     })
 
+    if (location) {
+      for (const website of pMarketplaceDataKeys) {
+      if (location.toLowerCase().includes(website.toLowerCase())) {
+          let websiteKeys = Object.keys(pMarketplaceData[website]);
+
+      for (const categ of websiteKeys) {
+
+        let descriptors = categ.split(" ");
+
+        if (descriptors.length < 3) {
+        if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+            predictedCategory = categ
+            predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
+            predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+            baseEmissions = predictedEm;
+        }
+
+      } else {
+
+        let localMatch = 0;
+
+        descriptors.map((des) => {
+
+        if ((description.toLowerCase()).includes(des.toLowerCase())) {
+          localMatch++;
+        }
+
+        })
+
+        if (localMatch >= 2) {
+
+        if (localMatch > matchingNum) {
+          newPredictedCategory = categ
+          matchingNum = localMatch;
+        }
+      } else if (fullArray === pDrinksData) {
+        if (localMatch > matchingNum) {
+          predictedCategory = categ
+          matchingNum = localMatch;
+
+          predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
+          predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+          baseEmissions = predictedEm;
+        }
+      }
+
+      }
+
+      }
+      }
+      }
+    }
+
     if (objectSpecificCat) {
       predictedCategory = objectSpecificCat;
     }
@@ -699,7 +756,7 @@ router.post("/req-data", (req, res) => {
       emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
     }
 
-    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault});
+    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault, messages });
 
 
   }

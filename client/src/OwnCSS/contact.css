@@ -30,3 +30,11 @@
 
 
 }
+.terms__descriptionBelowDonate {
+  width:40%;
+  color:#989898;
+  margin-top:0px;
+  margin-bottom:60px;
+  font-size:1.08em;
+  line-height:1.62;
+}

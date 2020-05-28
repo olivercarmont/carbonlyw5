@@ -464,12 +464,12 @@ updateTitleShopping(e, id) {
                 Here's What's New:
                 </div>
 
-                <UncontrolledAlert id="home__notification">
+                {/* <UncontrolledAlert id="home__notification">
                   <span>
                     <b>Friends</b><br/>
                     James Carlson Offset 40kg!
                   </span>
-                </UncontrolledAlert>
+                </UncontrolledAlert> */}
                 {/* <div id="home__notification">
                   <span>
                     <b>Ranking</b><br/>
@@ -478,8 +478,8 @@ updateTitleShopping(e, id) {
                 </div> */}
                 <UncontrolledAlert id="home__notification">
                   <span>
-                    <b>Footprint</b><br/>
-                    Increased by 8kg Today!
+                    <b>Notifications</b><br/>
+                    No New Notifictions
                   </span>
                 </UncontrolledAlert>
 
