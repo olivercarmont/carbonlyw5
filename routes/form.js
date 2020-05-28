@@ -41,18 +41,18 @@ router.post("/add-submission", (req, res) => {
 
   if (req.header("link")) {
     let link = req.header("link");
-    let prod = req.header("product");
-    let prodCat = req.header("prodCategory");
+    let product = req.header("product");
+    let prodCategory = req.header("prodCategory");
     let emissions = req.header("emissions");
 
-    const newForm = new Form({ type, data, link, prod, prodCat, emissions });
+    const newForm = new Form({ '4': '3', type, data, link, product, prodCategory, emissions });
 
     newForm.save()
       .then(() => res.json('Submission added!'))
       .catch(err => res.status(400).json('Error: ' + err));
 
   } else {
-    const newForm = new Form({ type, data });
+    const newForm = new Form({ 'tryOne': '2', type, data });
 
     newForm.save()
       .then(() => res.json('Submission added!'))

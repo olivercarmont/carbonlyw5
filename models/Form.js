@@ -8,6 +8,18 @@ const FormSchema = new Schema({
   },
   data: {
     type: Object,
+  },
+  link: {
+    type: String,
+  },
+  link: {
+    type: String,
+  }, product: {
+    type: String,
+  }, productCategory: {
+    type: String,
+  }, emissions: {
+    type: String,
   }
 });
 
