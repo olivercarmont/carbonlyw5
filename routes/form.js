@@ -39,16 +39,13 @@ router.post("/add-submission", (req, res) => {
     return res.status(400).json(`Input: Not Found`);
   }
 
-  const newForm;
+  const newForm = new Form({ type, data });
 
   if (req.header("link")) {
-   newForm = new Form({ type, data });
-  } else {
     let link = req.header("link");
     let prod = req.header("product");
     let prodCat = req.header("prodCategory");
     let emissions = req.header("emissions");
-
 
     newForm = new Form({ type, data, link, prod, prodCat, emissions });
   }
