@@ -157,7 +157,7 @@ fun1 = () => {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Take Back Control of Your Online Carbon-Footprint 🌿👨‍💻️</p>
+                            <p className="landingPage__description">A Chrome Extension For Product Foorptint Tracking and Compensation  💨️</p>
                         </div>
 
 
