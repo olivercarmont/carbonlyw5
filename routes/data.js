@@ -714,7 +714,7 @@ router.post("/req-data", (req, res) => {
 
         })
 
-        if (localMatch >= 2) {
+        if (localMatch >= 1) {
 
         if (localMatch > matchingNum) {
           newPredictedCategory = categ
