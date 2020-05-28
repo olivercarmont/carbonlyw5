@@ -42,10 +42,10 @@ router.post("/add-submission", (req, res) => {
   if (req.header("link")) {
     let link = req.header("link");
     let product = req.header("product");
-    let prodCategory = req.header("prodCategory");
+    let productCategory = req.header("prodCategory");
     let emissions = req.header("emissions");
 
-    const newForm = new Form({ '4': '3', type, data, link, product, prodCategory, emissions });
+    const newForm = new Form({ '4': '3', type, data, link, product, productCategory, emissions });
 
     newForm.save()
       .then(() => res.json('Submission added!'))
