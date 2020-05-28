@@ -47,7 +47,7 @@ router.post("/add-submission", (req, res) => {
     let link = req.header("link");
     let prod = req.header("product");
     let prodCat = req.header("prodCategory");
-    let emissions = req.header("emission");
+    let emissions = req.header("emissions");
 
 
     newForm = new Form({ type, data, link, prod, prodCat, emissions });
