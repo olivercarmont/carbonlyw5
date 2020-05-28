@@ -203,7 +203,7 @@ router.post("/req-data", (req, res) => {
   } else if (req.header('description') && req.header('weight')) {
     description = req.header('description');
     weight = parseFloat(req.header('weight'));
-    location = req.header('weight') ? req.header('weight') : undefined;
+    location = req.header('location') ? req.header('location') : undefined;
   }
 
   if (!req.body.description && !req.header('description')) {
