@@ -39,22 +39,27 @@ router.post("/add-submission", (req, res) => {
     return res.status(400).json(`Input: Not Found`);
   }
 
-  const newForm;
-
   if (req.header("link")) {
     let link = req.header("link");
     let prod = req.header("product");
     let prodCat = req.header("prodCategory");
     let emissions = req.header("emissions");
 
-    newForm = new Form({ type, data, link, prod, prodCat, emissions });
+    const newForm = new Form({ type, data, link, prod, prodCat, emissions });
+
+    newForm.save()
+      .then(() => res.json('Submission added!'))
+      .catch(err => res.status(400).json('Error: ' + err));
+
   } else {
-    newForm = new Form({ type, data });
+    const newForm = new Form({ type, data });
+
+    newForm.save()
+      .then(() => res.json('Submission added!'))
+      .catch(err => res.status(400).json('Error: ' + err));
   }
 
-  newForm.save()
-    .then(() => res.json('Submission added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+
 });
 
 module.exports = router;
