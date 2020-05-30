@@ -646,7 +646,7 @@ router.post("/return-register", (req, res) => {
 
     users.map((us) => {
 
-      usersArray.push({ publicId: us.publicId });
+      usersArray.push({ publicId: us.publicId, email: us.email, username: us.username });
 
     });
 

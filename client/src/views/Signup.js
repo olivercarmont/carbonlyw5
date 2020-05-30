@@ -97,6 +97,7 @@ constructor(props) {
       errors: {},
       checked: false,
       privacy: false,
+      isChanging: false,
     };
 }
 componentWillMount() {
@@ -128,11 +129,13 @@ componentWillReceiveProps(nextProps) {
 
 onChange(e) {
   this.setState({ privacy: false });
+  this.setState({ isChanging: false });
   this.setState({ [e.target.id]: e.target.value });
 };
 
 changeChecked() {
   this.setState({ privacy: false });
+  this.setState({ isChanging: false });
   this.setState({ checked: !this.state.checked })
 }
 idExists(id) {
@@ -163,6 +166,26 @@ submitForm() {
       this.generateNewId();
     }
 
+  // if (this.state.name2.length === 0) {
+  //     this.setState({ error: "Make Sure to Include Your Name!" });
+  // } else if (this.state.username.length === 0) {
+  //     this.setState({ error: "Make Sure to Pick a Username!" });
+  // } else {
+
+  let userNameExists = false, emailExists = false;
+
+  console.log('ALLU', this.state.allUsers)
+
+  this.state.allUsers.map((us) => {
+    if (us.username = this.state.username) {
+      this.setState({ error: "Username is Already Taken" });
+    } else if (us.email === this.state.email) {
+      this.setState({ error: "Username is Already Taken" });
+    }
+  })
+
+  if (!userNameExists && !emailExists) {
+
   const newUser = {
     name: this.state.name2,
     email: this.state.email2,
@@ -173,13 +196,19 @@ submitForm() {
   };
 
   this.props.registerUser(newUser, this.props.history);
+  this.setState({ isChanging: true });
 
+  // }
   // console.log('SIGNED UP', newUser)
+  }
+
   } else {
     this.setState({ privacy: true });
+    this.setState({ error: "Please Accept Carbonly's Privacy Policy!" });
   }
 };
 render() {
+  const { errors } = this.props.errors;
     return (
       <>
       {this.state.allUsers ?
@@ -208,6 +237,12 @@ render() {
                 </div>
 
                 <div className="separator"> &nbsp; Or Signup With Password  &nbsp;</div>
+
+                {this.props.errors.errors ? <div>{console.log('Test', errors)}</div> : undefined}
+
+                {this.state.isChanging ? this.props.errors ? this.props.errors.errors ? errors.name ? <div className="login__errorButton">{errors.name}</div> : errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.password2 ? <div className="login__errorButton">{errors.password2}</div> : undefined : undefined : undefined : undefined}
+
+                {this.state.error && !this.state.checked ? <div className="login__errorButton">{this.state.error}</div> : undefined}
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Name">
                   <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name} onChange={(e) => this.onChange(e)} />
@@ -239,7 +274,7 @@ render() {
                 <svg viewBox="0 0 21 21">
                 <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                 </svg>
-                  <div className={this.state.privacy ? 'signup__privacyPolicyTextRed' : 'signup__privacyPolicyText'}>I accept Carbonly's <Link to="/privacy" className="signup__privacyLink">Privacy Policy 🕵</Link></div>
+                  <div className={'signup__privacyPolicyText'}>I accept Carbonly's <Link to="/privacy" className="signup__privacyLink">Privacy Policy 🕵</Link></div>
                 </label>
                 </div>
 

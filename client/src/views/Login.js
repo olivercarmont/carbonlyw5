@@ -78,7 +78,8 @@ constructor(props) {
       hidden: false,
       emailLogin: "",
       passwordLogin: "",
-      errors: {}
+      errors: {},
+      isChanging: false,
     };
 }
 componentDidMount() {
@@ -101,6 +102,7 @@ componentDidMount() {
   }
 
   onChange = e => {
+    this.setState({ isChanging: false });
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -113,6 +115,7 @@ componentDidMount() {
     };
 
     this.props.loginUser(userData);
+    this.setState({ isChanging: true });
   };
 render() {
   const { errors } = this.state;
@@ -144,6 +147,8 @@ render() {
 
                 <div className="separator"> &nbsp; Or Login With Password  &nbsp;</div>
 
+                {this.state.isChanging ? errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.emailnotfound ? <div className="login__errorButton">{errors.emailnotfound}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.passwordincorrect ? <div className="login__errorButton">{errors.passwordincorrect}</div> : undefined : undefined}
+
                 <div className="wrap-input100 validate-input" data-validate="Enter Email">
                   <input className="input100" name="email" placeholder="Email" onChange={this.onChange}
                   value={this.state.emailLogin}
@@ -154,11 +159,6 @@ render() {
 
                   <span className="focus-input100" data-placeholder="&#xf3fa;"></span>
                 </div>
-
-                <span className="red-text">
-                  {errors.email}
-                  {errors.emailnotfound}
-                </span>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter password">
                   <input className="input100" type="password" name="pass" placeholder="Password" onChange={this.onChange}
@@ -171,13 +171,6 @@ render() {
                   <span className="focus-input100" data-placeholder="&#xf191;"></span>
                   <div className="login__forgotPassword">Forgot? &nbsp;🤯</div>
                 </div>
-
-                <span className="red-text">
-                {errors.password}
-                {errors.passwordincorrect}
-              </span>
-
-
 
                 <div className="login__eliminateSpacingBottomTop"></div>
 

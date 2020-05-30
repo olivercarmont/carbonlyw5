@@ -1044,7 +1044,7 @@ class Analytics extends React.Component {
 
   // console.log('array', [tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5]);
 
-  return [array[0].name, array[1].name, array[2].name, array[3].name, "Aldi"]; // [tescoAmt, 0, 0, 0, 0, 0]; // Always have ** 4 ** most even if others are 0
+  return [array[0].name, array[1].name, array[2].name, array[3].name, array[4].name]; // [tescoAmt, 0, 0, 0, 0, 0]; // Always have ** 4 ** most even if others are 0
 
   }
   returnBudgetGraphData() {
@@ -1477,11 +1477,7 @@ class Analytics extends React.Component {
 
     this.state.user.orders.map((or) => {
 
-      console.log('web', or.website);
-
-      let website = or.website.toLowerCase();
-
-
+    let website = or.website.toLowerCase();
 
     if (website === 'tesco' && !destinations["tesco"]) {
       des++;
