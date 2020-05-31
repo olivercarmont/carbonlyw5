@@ -174,15 +174,30 @@ submitForm() {
 
   let userNameExists = false, emailExists = false;
 
-  console.log('ALLU', this.state.allUsers)
+  this.setState({ error: "" });
 
-  this.state.allUsers.map((us) => {
-    if (us.username = this.state.username) {
+  let allUsersArray = this.state.allUsers
+
+  console.log('ALLU', typeof allUsersArray)
+
+  console.log('WAS ERROR?', `${userNameExists}, ${emailExists} - ${allUsersArray.length}`)
+
+  allUsersArray.map((us) => {
+    console.log('SEE', us)
+    console.log('ONE, ONE', `${us.username}, ${this.state.username}`)
+    console.log('TWO, TWO', `${us.email}, ${this.state.email}`)
+    if (( us.username === this.state.username) && this.state.username ) {
       this.setState({ error: "Username is Already Taken" });
-    } else if (us.email === this.state.email) {
+      userNameExists = true;
+    } else if ((us.email === this.state.email) && this.state.email) {
       this.setState({ error: "Username is Already Taken" });
+      emailExists = true;
     }
-  })
+  });
+
+
+
+  console.log('WAS ERROR?', `${userNameExists}, ${emailExists}`)
 
   if (!userNameExists && !emailExists) {
 
@@ -242,7 +257,9 @@ render() {
 
                 {this.state.isChanging ? this.props.errors ? this.props.errors.errors ? errors.name ? <div className="login__errorButton">{errors.name}</div> : errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.password2 ? <div className="login__errorButton">{errors.password2}</div> : undefined : undefined : undefined : undefined}
 
-                {this.state.error && !this.state.checked ? <div className="login__errorButton">{this.state.error}</div> : undefined}
+                {this.state.privacy ? <div className="login__errorButton">{this.state.error}</div> : undefined}
+
+                {this.state.error && !this.state.privacy ? <div className="login__errorButton">{this.state.error}</div> : undefined}
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Name">
                   <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name} onChange={(e) => this.onChange(e)} />

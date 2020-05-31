@@ -646,11 +646,11 @@ router.post("/return-register", (req, res) => {
 
     users.map((us) => {
 
-      usersArray.push({ publicId: us.publicId, email: us.email, username: us.username });
+      usersArray.push({ publicId: us.publicId, email: us.email, username: username });
 
     });
 
-    return res.json({ ...usersArray });
+    return res.json({ usersArray });
 
   });
 
