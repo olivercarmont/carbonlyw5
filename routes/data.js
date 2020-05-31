@@ -214,9 +214,9 @@ router.post("/req-data", (req, res) => {
   }
 
   if (req.body.weight) {
-    category = req.body.weight;
+    weight = req.body.weight;
   } else if (req.header('weight')) {
-    category = req.header('weight');
+    weight = req.header('weight');
   }
 
   if (req.body.category) {
@@ -443,6 +443,426 @@ router.post("/req-data", (req, res) => {
 
   }
 
+  function runMainMethod() {
+
+
+  if (weight) {
+
+  let mi = 0;
+
+  mainLists.map((list) => {
+
+  let tList;
+
+  list.sort(function(a, b){
+  return a.length - b.length;
+  });
+
+  let matchingNum = 0;
+
+  // console.log('LI', list);
+
+  // see if category is a lc substring of product name
+  for (const categ of list){
+
+  let needMatch = 1;
+
+  if (mi === 0) {
+     needMatch = drinksData[categ].match;
+  } else if (mi === 1) {
+     needMatch = foodData[categ].match;
+  } else if (mi === 2) {
+     needMatch = preparedFoodData[categ].match;
+  } if (mi === 3) {
+     needMatch = pTravelData[categ].match;
+  }
+
+  let localMatch = 0;
+
+    if(description && categ) {
+
+      let descriptors = categ.split(" ");
+
+// && list[categ].match === 1
+      if (descriptors.length < 3 && needMatch === 1) {
+        if((description.toLowerCase()).includes(categ.toLowerCase())) {
+            predictedCategory = categ
+            tList = mi;
+            // break
+        }
+      } else {
+
+        descriptors.map((des) => {
+
+          // console.log('des', des);
+
+        if ((description.toLowerCase()).includes(des.toLowerCase())) {
+          localMatch++;
+        }
+
+        })
+// && localMatch >= list[categ].match
+        if (localMatch >= needMatch) {
+
+        if (localMatch > matchingNum) {
+
+          predictedCategory = categ;
+          matchingNum = localMatch;
+          tList = mi;
+        }
+      }
+
+      }
+
+  }
+}
+
+  if (predictedCategory) {
+
+    if (tList === 0) {
+
+      accuracyRating = 'C';
+
+      predictedEm = parseFloat(drinksData[predictedCategory].emissions);
+      predictedAverage = parseFloat(drinksData[predictedCategory].average);
+
+    } else if (tList === 1) {
+
+      accuracyRating = 'C';
+
+      predictedEm = parseFloat(foodData[predictedCategory].emissions);
+      predictedAverage = parseFloat(foodData[predictedCategory].average);
+
+      console.log('SET FOOD TO', accuracyRating)
+
+    } else if (tList === 2) {
+
+      accuracyRating = 'B';
+
+      predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
+      predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
+
+    } else if (tList === 3) {
+
+      accuracyRating = 'B';
+
+      predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
+      predictedAverage = parseFloat(pTravelData[predictedCategory].average);
+
+    } else if (tList === 4) {
+
+      accuracyRating = 'B';
+
+      predictedEm = parseFloat(healthABeautyData[predictedCategory].emissions);
+      predictedAverage = parseFloat(healthABeautyData[predictedCategory].average);
+    }
+  }
+
+  mi++;
+
+  })
+
+  let objectPredictedCategory;
+
+  objectLists.map((list) => {
+
+  let matchingNum = 0;
+
+  list.sort(function(a, b){
+  return a.length - b.length;
+  });
+
+  // see if category is a lc substring of product name
+  let fullArray, fullArrayKeys;
+
+  if (list === pFoodDataKeys) {
+    fullArray = pFoodData;
+  } else if (list === pDrinksDataKeys) {
+    fullArray = pDrinksData;
+  } else if (list === pApparelDataKeys) {
+    fullArray = pApparelData;
+  } else if (list === pMiscellaneousDataKeys) {
+    fullArray = pMiscellaneousData;
+  } else if (list === pElectronicsDataKeys) {
+    fullArray = pElectronicsData;
+  }
+
+  for (const categ of list){
+
+    let localMatch = 0;
+
+    let descriptors = categ.split(" ");
+
+    if(description) {
+
+        // if (descriptors.length < 2) {
+        // if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+        //     objectPredictedCategory = categ
+        //     // break
+        // }
+        //
+        // } else {
+
+          descriptors.map((des) => {
+
+          if ((description.toLowerCase()).includes(des.toLowerCase())) {
+            localMatch++;
+          }
+
+          })
+
+          if (localMatch >= 1) {
+
+          if (localMatch > matchingNum) {
+
+            objectPredictedCategory = categ
+            matchingNum = localMatch;
+          }
+        }
+
+        // }
+    }
+
+  }
+
+  if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
+
+  let newPredictedCategory;
+
+  matchingNum = 0;
+
+  //   console.log('predic', objectPredictedCategory)
+  //
+  // console.log('fArray', fullArray);
+
+  //
+  // pDrinksDataKeys = Object.keys(pDrinksData)
+  // pTravelDataKeys = Object.keys(pTravelData)
+  // pApparelDataKeys = Object.keys(pApparelData)
+  // pMiscellaneousDataKeys = Object.keys(pMiscellaneousData)
+  // pElectronicsDataKeys = Object.keys(pElectronicsData)
+
+    let newKeys = Object.keys(fullArray[objectPredictedCategory]);
+
+    newKeys.sort(function(a, b){
+    return a.length - b.length;
+      });
+
+    // console.log('KEY', newKeys);
+
+    for (const categ of newKeys) {
+
+      let localMatch = 0;
+
+      let needMatch = fullArray[objectPredictedCategory][categ].match ? fullArray[objectPredictedCategory][categ].match : 1;
+
+      if(description) {
+
+          let descriptors = categ.split(" ");
+
+          if (descriptors.length < 3 && needMatch === 1) {
+          if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+              newPredictedCategory = categ
+              // break
+          }
+
+        } else {
+
+          descriptors.map((des) => {
+
+          if ((description.toLowerCase()).includes(des.toLowerCase())) {
+            localMatch++;
+          }
+
+          })
+
+          if (localMatch >= needMatch) {
+
+          if (localMatch > matchingNum) {
+            newPredictedCategory = categ
+            matchingNum = localMatch;
+          }
+        } else if (fullArray === pDrinksData) {
+          console.log(`matchingNum ${newPredictedCategory}`, matchingNum)
+          if (localMatch > matchingNum) {
+            newPredictedCategory = categ
+            matchingNum = localMatch;
+          }
+        }
+
+        }
+      }
+    }
+
+
+    if (newPredictedCategory) {
+      console.log('newpred', newPredictedCategory)
+       objectSpecificCat = newPredictedCategory;
+       predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
+       predictedAverage = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].average);
+       accuracyRating = 'B';
+    } else {
+
+      if (!predictedEm) {
+      predictedEm = parseFloat(foodData['Apple'].emissions);
+      predictedAverage = parseFloat(foodData['Apple'].average);
+      isDefault = 't';
+      accuracyRating = 'C';
+      }
+    }
+
+  }
+
+  })
+
+  if (location) {
+    for (const website of pMarketplaceDataKeys) {
+    if (location.toLowerCase().includes(website.toLowerCase())) {
+        let websiteKeys = Object.keys(pMarketplaceData[website]);
+
+    for (const categ of websiteKeys) {
+
+      let descriptors = categ.split(" ");
+
+      if (descriptors.length < 3) {
+      if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
+          predictedCategory = categ
+          predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
+          predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+      }
+
+    } else {
+
+      let localMatch = 0;
+
+      descriptors.map((des) => {
+
+      if ((description.toLowerCase()).includes(des.toLowerCase())) {
+        localMatch++;
+      }
+
+      })
+
+      if (localMatch >= 1) {
+
+      if (localMatch > matchingNum) {
+        newPredictedCategory = categ
+        matchingNum = localMatch;
+      }
+    } else if (fullArray === pDrinksData) {
+      if (localMatch > matchingNum) {
+        predictedCategory = categ
+        matchingNum = localMatch;
+
+        predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
+        predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+      }
+    }
+
+    }
+
+    }
+    }
+    }
+  }
+
+  if (objectSpecificCat) {
+    predictedCategory = objectSpecificCat;
+  }
+
+}
+
+function findLocationAverage() {
+
+if (priceCalc) {
+
+let locations = Object.keys(locAverageDollarData);
+
+locations.map((loc) => {
+let searchTerm = locAverageDollarData[loc].search;
+if (location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())) {
+  predictedCategory = locAverageDollarData[loc].name;
+  predictedEm = parseFloat(locAverageDollarData[loc].emissions);
+  predictedAverage = parseFloat(locAverageDollarData[loc].average);
+  unit = 'dollar';
+}
+});
+
+}
+}
+function findProductCategoryAverage() {
+
+if (priceCalc) {
+
+let dollarCategories = Object.keys(prodCatAverageDollarData);
+
+dollarCategories.map((cat) => {
+
+let searchTerms = prodCatAverageDollarData[cat].search;
+
+searchTerms.map((sTerm) => {
+  if ((prodCategory.toLowerCase().includes(sTerm.toLowerCase())) || (description.toLowerCase().includes(sTerm.toLowerCase())))  {
+    predictedCategory = prodCatAverageDollarData[cat].name;
+    predictedEm = parseFloat(prodCatAverageDollarData[cat].emissions);
+    predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
+    unit = 'dollar';
+  }
+})
+
+});
+
+}
+
+if (!predictedCategory && weight) {
+
+let kgCategories = Object.keys(prodCatAverageKgData);
+
+kgCategories.map((cat) => {
+
+  let searchTerms = prodCatAverageKgData[cat].search;
+
+searchTerms.map((sTerm) => {
+  if (prodCategory.toLowerCase() === sTerm.toLowerCase()) {
+  predictedCategory = prodCatAverageKgData[cat].name;
+  predictedEm = parseFloat(prodCatAverageKgData[cat].emissions);
+  predictedAverage = parseFloat(prodCatAverageKgData[cat].average);
+  }
+});
+});
+
+}
+}
+  if (!predictedCategory) {
+
+  if (prodCategory) {
+    findProductCategoryAverage();
+  }
+
+  if (location && !predictedCategory) {
+    findLocationAverage();
+  }
+
+  if (!predictedCategory) {
+
+    predictedCategory = 'Apple';
+    predictedEm = parseFloat(foodData['Apple'].emissions);
+    isDefault = 't';
+    predictedAverage = parseFloat(foodData['Apple'].average);
+    }
+
+  }
+
+  if (unit === 'portion') {
+    emissions = predictedEm.toFixed(4);
+  } else if (unit === 'dollar') {
+    emissions = (parseFloat(priceCalc)*parseFloat(predictedEm));
+  } else {
+    emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
+  }
+
+  return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
+
+}
     try {
 
     translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
@@ -458,427 +878,6 @@ router.post("/req-data", (req, res) => {
     if (weight) {
     runMainMethod();
     }
-  }
-
-    function runMainMethod() {
-
-    if (weight) {
-
-    let mi = 0;
-
-    mainLists.map((list) => {
-
-    let tList;
-
-    list.sort(function(a, b){
-    return a.length - b.length;
-    });
-
-    let matchingNum = 0;
-
-    // console.log('LI', list);
-
-    // see if category is a lc substring of product name
-    for (const categ of list){
-
-    let needMatch = 1;
-
-    if (mi === 0) {
-       needMatch = drinksData[categ].match;
-    } else if (mi === 1) {
-       needMatch = foodData[categ].match;
-    } else if (mi === 2) {
-       needMatch = preparedFoodData[categ].match;
-    } if (mi === 3) {
-       needMatch = pTravelData[categ].match;
-    }
-
-    let localMatch = 0;
-
-      if(description && categ) {
-
-        let descriptors = categ.split(" ");
-
-// && list[categ].match === 1
-        if (descriptors.length < 3 && needMatch === 1) {
-          if((description.toLowerCase()).includes(categ.toLowerCase())) {
-              predictedCategory = categ
-              tList = mi;
-              // break
-          }
-        } else {
-
-          descriptors.map((des) => {
-
-            // console.log('des', des);
-
-          if ((description.toLowerCase()).includes(des.toLowerCase())) {
-            localMatch++;
-          }
-
-          })
-// && localMatch >= list[categ].match
-          if (localMatch >= needMatch) {
-
-          if (localMatch > matchingNum) {
-
-            predictedCategory = categ;
-            matchingNum = localMatch;
-            tList = mi;
-          }
-        }
-
-        }
-
-    }
-  }
-
-    if (predictedCategory) {
-
-      if (tList === 0) {
-
-        accuracyRating = 'C';
-
-        predictedEm = parseFloat(drinksData[predictedCategory].emissions);
-        predictedAverage = parseFloat(drinksData[predictedCategory].average);
-
-      } else if (tList === 1) {
-
-        accuracyRating = 'C';
-
-        predictedEm = parseFloat(foodData[predictedCategory].emissions);
-        predictedAverage = parseFloat(foodData[predictedCategory].average);
-
-        console.log('SET FOOD TO', accuracyRating)
-
-      } else if (tList === 2) {
-
-        accuracyRating = 'B';
-
-        predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
-        predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
-
-      } else if (tList === 3) {
-
-        accuracyRating = 'B';
-
-        predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
-        predictedAverage = parseFloat(pTravelData[predictedCategory].average);
-
-      } else if (tList === 4) {
-
-        accuracyRating = 'B';
-
-        predictedEm = parseFloat(healthABeautyData[predictedCategory].emissions);
-        predictedAverage = parseFloat(healthABeautyData[predictedCategory].average);
-      }
-    }
-
-    mi++;
-
-    })
-
-    let objectPredictedCategory;
-
-    objectLists.map((list) => {
-
-    let matchingNum = 0;
-
-    list.sort(function(a, b){
-    return a.length - b.length;
-    });
-
-    // see if category is a lc substring of product name
-    let fullArray, fullArrayKeys;
-
-    if (list === pFoodDataKeys) {
-      fullArray = pFoodData;
-    } else if (list === pDrinksDataKeys) {
-      fullArray = pDrinksData;
-    } else if (list === pApparelDataKeys) {
-      fullArray = pApparelData;
-    } else if (list === pMiscellaneousDataKeys) {
-      fullArray = pMiscellaneousData;
-    } else if (list === pElectronicsDataKeys) {
-      fullArray = pElectronicsData;
-    }
-
-    for (const categ of list){
-
-      let localMatch = 0;
-
-      let descriptors = categ.split(" ");
-
-      if(description) {
-
-          // if (descriptors.length < 2) {
-          // if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
-          //     objectPredictedCategory = categ
-          //     // break
-          // }
-          //
-          // } else {
-
-            descriptors.map((des) => {
-
-            if ((description.toLowerCase()).includes(des.toLowerCase())) {
-              localMatch++;
-            }
-
-            })
-
-            if (localMatch >= 1) {
-
-            if (localMatch > matchingNum) {
-
-              objectPredictedCategory = categ
-              matchingNum = localMatch;
-            }
-          }
-
-          // }
-      }
-
-    }
-
-    if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
-
-    let newPredictedCategory;
-
-    matchingNum = 0;
-
-    //   console.log('predic', objectPredictedCategory)
-    //
-    // console.log('fArray', fullArray);
-
-    //
-    // pDrinksDataKeys = Object.keys(pDrinksData)
-    // pTravelDataKeys = Object.keys(pTravelData)
-    // pApparelDataKeys = Object.keys(pApparelData)
-    // pMiscellaneousDataKeys = Object.keys(pMiscellaneousData)
-    // pElectronicsDataKeys = Object.keys(pElectronicsData)
-
-      let newKeys = Object.keys(fullArray[objectPredictedCategory]);
-
-      newKeys.sort(function(a, b){
-      return a.length - b.length;
-        });
-
-      // console.log('KEY', newKeys);
-
-      for (const categ of newKeys) {
-
-        let localMatch = 0;
-
-        let needMatch = fullArray[objectPredictedCategory][categ].match ? fullArray[objectPredictedCategory][categ].match : 1;
-
-        if(description) {
-
-            let descriptors = categ.split(" ");
-
-            if (descriptors.length < 3 && needMatch === 1) {
-            if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
-                newPredictedCategory = categ
-                // break
-            }
-
-          } else {
-
-            descriptors.map((des) => {
-
-            if ((description.toLowerCase()).includes(des.toLowerCase())) {
-              localMatch++;
-            }
-
-            })
-
-            if (localMatch >= needMatch) {
-
-            if (localMatch > matchingNum) {
-              newPredictedCategory = categ
-              matchingNum = localMatch;
-            }
-          } else if (fullArray === pDrinksData) {
-            console.log(`matchingNum ${newPredictedCategory}`, matchingNum)
-            if (localMatch > matchingNum) {
-              newPredictedCategory = categ
-              matchingNum = localMatch;
-            }
-          }
-
-          }
-        }
-      }
-
-
-      if (newPredictedCategory) {
-        console.log('newpred', newPredictedCategory)
-         objectSpecificCat = newPredictedCategory;
-         predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
-         predictedAverage = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].average);
-         accuracyRating = 'B';
-      } else {
-
-        if (!predictedEm) {
-        predictedEm = parseFloat(foodData['Apple'].emissions);
-        predictedAverage = parseFloat(foodData['Apple'].average);
-        isDefault = 't';
-        accuracyRating = 'C';
-        }
-      }
-
-    }
-
-    })
-
-    if (location) {
-      for (const website of pMarketplaceDataKeys) {
-      if (location.toLowerCase().includes(website.toLowerCase())) {
-          let websiteKeys = Object.keys(pMarketplaceData[website]);
-
-      for (const categ of websiteKeys) {
-
-        let descriptors = categ.split(" ");
-
-        if (descriptors.length < 3) {
-        if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
-            predictedCategory = categ
-            predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
-            predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
-        }
-
-      } else {
-
-        let localMatch = 0;
-
-        descriptors.map((des) => {
-
-        if ((description.toLowerCase()).includes(des.toLowerCase())) {
-          localMatch++;
-        }
-
-        })
-
-        if (localMatch >= 1) {
-
-        if (localMatch > matchingNum) {
-          newPredictedCategory = categ
-          matchingNum = localMatch;
-        }
-      } else if (fullArray === pDrinksData) {
-        if (localMatch > matchingNum) {
-          predictedCategory = categ
-          matchingNum = localMatch;
-
-          predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
-          predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
-        }
-      }
-
-      }
-
-      }
-      }
-      }
-    }
-
-    if (objectSpecificCat) {
-      predictedCategory = objectSpecificCat;
-    }
-
-}
-
-function findLocationAverage() {
-
-if (priceCalc) {
-
-let locations = Object.keys(locAverageDollarData);
-
-locations.map((loc) => {
-  let searchTerm = locAverageDollarData[loc].search;
-  if (location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())) {
-    predictedCategory = locAverageDollarData[loc].name;
-    predictedEm = parseFloat(locAverageDollarData[loc].emissions);
-    predictedAverage = parseFloat(locAverageDollarData[loc].average);
-    unit = 'dollar';
-  }
-});
-
-}
-}
-function findProductCategoryAverage() {
-
-  if (priceCalc) {
-
-  let dollarCategories = Object.keys(prodCatAverageDollarData);
-
-  dollarCategories.map((cat) => {
-
-  let searchTerms = prodCatAverageDollarData[cat].search;
-
-  searchTerms.map((sTerm) => {
-    if ((prodCategory.toLowerCase().includes(sTerm.toLowerCase())) || (description.toLowerCase().includes(sTerm.toLowerCase())))  {
-      predictedCategory = prodCatAverageDollarData[cat].name;
-      predictedEm = parseFloat(prodCatAverageDollarData[cat].emissions);
-      predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
-      unit = 'dollar';
-    }
-  })
-
-  });
-
-  }
-
-  if (!predictedCategory && weight) {
-
-  let kgCategories = Object.keys(prodCatAverageKgData);
-
-  kgCategories.map((cat) => {
-
-    let searchTerms = prodCatAverageKgData[cat].search;
-
-  searchTerms.map((sTerm) => {
-    if (prodCategory.toLowerCase() === sTerm.toLowerCase()) {
-    predictedCategory = prodCatAverageKgData[cat].name;
-    predictedEm = parseFloat(prodCatAverageKgData[cat].emissions);
-    predictedAverage = parseFloat(prodCatAverageKgData[cat].average);
-    }
-  });
-  });
-
-  }
-}
-    if (!predictedCategory) {
-
-    if (prodCategory) {
-      findProductCategoryAverage();
-    }
-
-    if (location && !predictedCategory) {
-      findLocationAverage();
-    }
-
-    if (!predictedCategory) {
-
-      predictedCategory = 'Apple';
-      predictedEm = parseFloat(foodData['Apple'].emissions);
-      isDefault = 't';
-      predictedAverage = parseFloat(foodData['Apple'].average);
-      }
-
-    }
-
-    if (unit === 'portion') {
-      emissions = predictedEm.toFixed(4);
-    } else if (unit === 'dollar') {
-      emissions = (parseFloat(priceCalc)*parseFloat(predictedEm));
-    } else {
-      emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
-    }
-
-    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
-
-
   }
       });
 
