@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import axios from 'axios';
 
 // reactstrap components
 import {
@@ -84,12 +85,14 @@ class Landing extends React.Component {
 }
 componentDidMount() {
 
-  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('https://carbonly.org/users/return-landing', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
 
-     this.setState({ allUsers: response.data.info[4] });
+    console.log('DATA', response.data)
+
+     // this.setState({ allUsers: response.data.info[4] });
 
     // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
      // console.log('user', response.data.info[0]);
