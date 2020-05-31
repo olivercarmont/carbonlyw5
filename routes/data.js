@@ -449,13 +449,26 @@ router.post("/req-data", (req, res) => {
     // see if category is a lc substring of product name
     for (const categ of list){
 
+    let needMatch = 1;
+
+    if (mi === 0) {
+       needMatch = drinksData[categ].match;
+    } else if (mi === 1) {
+       needMatch = foodData[categ].match;
+    } else if (mi === 2) {
+       needMatch = preparedFoodData[categ].match;
+    } if (mi === 3) {
+       needMatch = pTravelData[categ].match;
+    }
+
     let localMatch = 0;
 
       if(description && categ) {
 
         let descriptors = categ.split(" ");
 
-        if (descriptors.length < 3) {
+// && list[categ].match === 1
+        if (descriptors.length < 3 && needMatch === 1) {
           if((description.toLowerCase()).includes(categ.toLowerCase())) {
               predictedCategory = categ
               tList = mi;
@@ -472,8 +485,8 @@ router.post("/req-data", (req, res) => {
           }
 
           })
-
-          if (localMatch >= 2) {
+// && localMatch >= list[categ].match
+          if (localMatch >= needMatch) {
 
           if (localMatch > matchingNum) {
 
@@ -523,9 +536,7 @@ router.post("/req-data", (req, res) => {
         predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
         baseEmissions = predictedEm;
         predictedAverage = parseFloat(pTravelData[predictedCategory].average);
-
       }
-
     }
 
     mi++;
@@ -543,6 +554,20 @@ router.post("/req-data", (req, res) => {
     });
 
     // see if category is a lc substring of product name
+    let fullArray, fullArrayKeys;
+
+    if (list === pFoodDataKeys) {
+      fullArray = pFoodData;
+    } else if (list === pDrinksDataKeys) {
+      fullArray = pDrinksData;
+    } else if (list === pApparelDataKeys) {
+      fullArray = pApparelData;
+    } else if (list === pMiscellaneousDataKeys) {
+      fullArray = pMiscellaneousData;
+    } else if (list === pElectronicsDataKeys) {
+      fullArray = pElectronicsData;
+    }
+
     for (const categ of list){
 
       let localMatch = 0;
@@ -581,20 +606,6 @@ router.post("/req-data", (req, res) => {
 
     }
 
-    let fullArray, fullArrayKeys;
-
-    if (list === pFoodDataKeys) {
-      fullArray = pFoodData;
-    } else if (list === pDrinksDataKeys) {
-      fullArray = pDrinksData;
-    } else if (list === pApparelDataKeys) {
-      fullArray = pApparelData;
-    } else if (list === pMiscellaneousDataKeys) {
-      fullArray = pMiscellaneousData;
-    } else if (list === pElectronicsDataKeys) {
-      fullArray = pElectronicsData;
-    }
-
     if (objectPredictedCategory && fullArray[objectPredictedCategory]) {
 
     let newPredictedCategory;
@@ -624,11 +635,13 @@ router.post("/req-data", (req, res) => {
 
         let localMatch = 0;
 
+        let needMatch = fullArray[objectPredictedCategory][categ].match ? fullArray[objectPredictedCategory][categ].match : 1;
+
         if(description) {
 
             let descriptors = categ.split(" ");
 
-            if (descriptors.length < 3) {
+            if (descriptors.length < 3 && needMatch === 1) {
             if((description.toLowerCase()).includes(categ.toLowerCase().replace(/s$/,''))) {
                 newPredictedCategory = categ
                 // break
@@ -644,7 +657,7 @@ router.post("/req-data", (req, res) => {
 
             })
 
-            if (localMatch >= 1) {
+            if (localMatch >= needMatch) {
 
             if (localMatch > matchingNum) {
               newPredictedCategory = categ
