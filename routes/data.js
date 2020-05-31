@@ -180,13 +180,13 @@ router.post("/req-data", (req, res) => {
 
   let accuracyRating = 'D';
 
-  let description, weight, category, unit = 'kg', language;
+  let description, weight, category, prodCategory, unit = 'kg', language, priceCalc;
 
-  let foodData, preparedFoodData, drinksData;
+  let foodData, preparedFoodData, drinksData, healthABeautyData;
 
   let pFoodData, pDrinksData, pTravelData, pApparelData, pMiscellaneousData, pElectronicsData, pMarketplaceData;
 
-  let foodDataKeys, preparedFoodDataKeys, drinksDataKeys, productLevelDataKeys;
+  let foodDataKeys, preparedFoodDataKeys, drinksDataKeys, healthABeautyDataKeys;
 
   let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys, pMarketplaceDataKeys;
 
@@ -222,6 +222,18 @@ router.post("/req-data", (req, res) => {
     category = req.header('category');
   }
 
+  if (req.body.prodCategory) {
+    prodCategory = req.body.prodCategory;
+  } else if (req.header('prodCategory')) {
+    prodCategory = req.header('prodCategory');
+  }
+
+  if (req.body.priceCalc) {
+    priceCalc = req.body.priceCalc;
+  } else if (req.header('priceCalc')) {
+    priceCalc = req.header('priceCalc');
+  }
+
   Data.find().then((dataA) => {
 
       // console.log('data', dataA);
@@ -243,6 +255,7 @@ router.post("/req-data", (req, res) => {
     foodData = dataArray[0][0].data;
     preparedFoodData = dataArray[0][1].data;
     drinksData = dataArray[0][2].data;
+    healthABeautyData = dataArray[0][6].data;
 
     pFoodData = JSON.parse(JSON.stringify(dataArray[0][3])).food;
     pDrinksData = JSON.parse(JSON.stringify(dataArray[0][3])).drinks;
@@ -253,11 +266,15 @@ router.post("/req-data", (req, res) => {
 
     pMarketplaceData = JSON.parse(JSON.stringify(dataArray[0][4])).marketplaces;
 
-    console.log('DATA', dataArray)
+    // Averages
+    prodCatAverageDollarData = JSON.parse(JSON.stringify(dataArray[0][5])).emissionsPerDollar.Categories;
+    prodCatAverageKgData = JSON.parse(JSON.stringify(dataArray[0][5])).emissionsPerKg.Categories;
+    locAverageDollarData = JSON.parse(JSON.stringify(dataArray[0][5])).emissionsPerDollar.Locations;
 
     foodDataKeys = Object.keys(foodData)
     preparedFoodDataKeys = Object.keys(preparedFoodData)
     drinksDataKeys = Object.keys(drinksData)
+    healthABeautyDataKeys = Object.keys(healthABeautyData)
 
     pFoodDataKeys = Object.keys(pFoodData)
     pDrinksDataKeys = Object.keys(pDrinksData)
@@ -267,7 +284,7 @@ router.post("/req-data", (req, res) => {
     pElectronicsDataKeys = Object.keys(pElectronicsData)
     pMarketplaceDataKeys = Object.keys(pMarketplaceData)
 
-    mainLists = [drinksDataKeys, foodDataKeys, preparedFoodDataKeys, pTravelDataKeys];
+    mainLists = [drinksDataKeys, foodDataKeys, preparedFoodDataKeys, pTravelDataKeys, healthABeautyDataKeys];
 
     objectLists = [pFoodDataKeys, pDrinksDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys];
 
@@ -508,7 +525,6 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'C';
 
         predictedEm = parseFloat(drinksData[predictedCategory].emissions);
-        baseEmissions = predictedEm;
         predictedAverage = parseFloat(drinksData[predictedCategory].average);
 
       } else if (tList === 1) {
@@ -516,7 +532,6 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'C';
 
         predictedEm = parseFloat(foodData[predictedCategory].emissions);
-        baseEmissions = predictedEm;
         predictedAverage = parseFloat(foodData[predictedCategory].average);
 
         console.log('SET FOOD TO', accuracyRating)
@@ -526,7 +541,6 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'B';
 
         predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
-        baseEmissions = predictedEm;
         predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
 
       } else if (tList === 3) {
@@ -534,8 +548,14 @@ router.post("/req-data", (req, res) => {
         accuracyRating = 'B';
 
         predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
-        baseEmissions = predictedEm;
         predictedAverage = parseFloat(pTravelData[predictedCategory].average);
+
+      } else if (tList === 4) {
+
+        accuracyRating = 'B';
+
+        predictedEm = parseFloat(healthABeautyData[predictedCategory].emissions);
+        predictedAverage = parseFloat(healthABeautyData[predictedCategory].average);
       }
     }
 
@@ -680,14 +700,12 @@ router.post("/req-data", (req, res) => {
         console.log('newpred', newPredictedCategory)
          objectSpecificCat = newPredictedCategory;
          predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
-         baseEmissions = predictedEm;
          predictedAverage = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].average);
          accuracyRating = 'B';
       } else {
 
         if (!predictedEm) {
         predictedEm = parseFloat(foodData['Apple'].emissions);
-        baseEmissions = predictedEm;
         predictedAverage = parseFloat(foodData['Apple'].average);
         isDefault = 't';
         accuracyRating = 'C';
@@ -712,7 +730,6 @@ router.post("/req-data", (req, res) => {
             predictedCategory = categ
             predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
             predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
-            baseEmissions = predictedEm;
         }
 
       } else {
@@ -740,7 +757,6 @@ router.post("/req-data", (req, res) => {
 
           predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
           predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
-          baseEmissions = predictedEm;
         }
       }
 
@@ -755,21 +771,95 @@ router.post("/req-data", (req, res) => {
       predictedCategory = objectSpecificCat;
     }
 
+function findLocationAverage() {
+
+if (priceCalc) {
+
+let locations = Object.keys(locAverageDollarData);
+
+locations.map((loc) => {
+  let searchTerm = locAverageDollarData[loc].search;
+  if (location.toLowerCase().trim() === searchTerm.toLowerCase().trim()) {
+    predictedCategory = locAverageDollarData[loc].name;
+    predictedEm = parseFloat(locAverageDollarData[loc].emissions);
+    predictedAverage = parseFloat(locAverageDollarData[loc].average);
+    unit = 'dollar';
+  }
+});
+
+}
+}
+function findProductCategoryAverage() {
+
+  if (priceCalc) {
+
+  let dollarCategories = Object.keys(prodCatAverageDollarData);
+
+  dollarCategories.map((cat) => {
+
+  let searchTerms = prodCatAverageDollarData[cat].search;
+
+  searchTerms.map((sTerm) => {
+    if (prodCategory.toLowerCase() === sTerm.toLowerCase()) {
+      predictedCategory = prodCatAverageDollarData[cat].name;
+      predictedEm = parseFloat(prodCatAverageDollarData[cat].emissions);
+      predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
+      unit = 'dollar';
+    }
+  })
+
+  });
+
+  }
+
+  if (!predictedCategory) {
+
+  let kgCategories = Object.keys(prodCatAverageKgData);
+
+  kgCategories.map((cat) => {
+
+    let searchTerms = prodCatAverageKgData[cat].search;
+
+  searchTerms.map((sTerm) => {
+    if (prodCategory.toLowerCase() === sTerm.toLowerCase()) {
+    predictedCategory = prodCatAverageKgData[cat].name;
+    predictedEm = parseFloat(prodCatAverageKgData[cat].emissions);
+    predictedAverage = parseFloat(prodCatAverageKgData[cat].average);
+    }
+  });
+  });
+  
+  }
+}
     if (!predictedCategory) {
+
+    if (prodCategory) {
+      findProductCategoryAverage();
+    }
+
+    if (location && !predictedCategory) {
+      findLocationAverage();
+    }
+
+    if (!predictedCategory) {
+
       predictedCategory = 'Apple';
       predictedEm = parseFloat(foodData['Apple'].emissions);
       isDefault = 't';
-      baseEmissions = predictedEm;
       predictedAverage = parseFloat(foodData['Apple'].average);
+      }
+
     }
 
-    if (unit == 'portion') {
+    if (unit === 'portion') {
       emissions = predictedEm.toFixed(4);
+    } else if (unit === 'dollar') {
+      emissions = (parseFloat(priceCalc)*parseFloat(predictedEm));
     } else {
       emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
     }
 
-    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions, isDefault, messages });
+    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
 
 
   }
@@ -780,11 +870,6 @@ router.post("/req-data", (req, res) => {
     }
 
     }
-
-
-
-
-
 
   }
 
