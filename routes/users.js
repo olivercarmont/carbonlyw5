@@ -654,19 +654,27 @@ router.post("/return-register", (req, res) => {
 
   });
 
-  // var timer1 = 0;
-  // var si1 = setInterval(() => {
-  //
-  //   timer1++;
-  //
-  //   // console.log('pathTaken', pathTaken);
-  //   // console.log('leaderboardInfo', leaderboardInfo);
-  //
-  //   if ((timer1 > 1000) || (usersArray.length > 0)) {
-  //     clearInterval(si1);
-  //
-  //   }
-  // }, 15);
+});
+
+router.post("/return-landing", (req, res) => {
+
+  let emTracked = 0, totUsers = 0;
+
+  User.find().then((users) => {
+
+    users.map((us) => {
+
+      totUsers++;
+
+      us.orders.map((or) => {
+        emTracked += parseFloat(or.carbon);
+      })
+
+    });
+
+    return res.json({ emTracked: Math.round(emTracked), totUsers });
+
+  });
 
 });
 

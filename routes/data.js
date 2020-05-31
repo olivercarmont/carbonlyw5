@@ -30,7 +30,7 @@ function parseJwt (token) {
 };
 
 let allLanguages = {
-  "afrikaans":"af",
+"afrikaans":"af",
 "albanian":	"sq",
 "amharic":"am",
 "arabic":"ar",

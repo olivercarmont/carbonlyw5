@@ -84,6 +84,24 @@ class Landing extends React.Component {
 }
 componentDidMount() {
 
+  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    'jwt': localStorage.jwtToken,
+  })
+.then(response => {
+
+     this.setState({ allUsers: response.data.info[4] });
+
+    // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
+     // console.log('user', response.data.info[0]);
+     // console.log('leaderboard', response.data.info[2].slice(0, 3));
+     //
+     // console.log('all users', response.data.info[4]);
+
+})
+.catch((error) => {
+  console.log(error);
+})
+
 if (this.state.howItWorks) {
   this.fun1();
 }
@@ -114,6 +132,9 @@ fun1 = () => {
 
   }, 8700);
 };
+returnAllEmissionsTracked() {
+
+}
   render() {
     return (
       <>
@@ -480,11 +501,11 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area landing__ourStatsNumber2">
-                                <h3><span className="counter">0</span></h3>
+                                <h3><span className="counter">1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={statsChart} className="landing__treeIcon" />
-                            <p>kg CO<span className="landing__statsSmall2">2</span> <br/> Tracked</p>
+                            <p>Carbon <br/> Labels</p>
                             </div>
                         </div>
                     </div>
@@ -492,11 +513,11 @@ fun1 = () => {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area landing__ourStatsNumber">
-                                <h3><span className="counter">0</span></h3>
+                                <h3><span className="counter"></span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />
-                            <p>kg CO<span className="landing__statsSmall2">2</span> <br/> Offset</p>
+                            <p>kg CO<span className="landing__statsSmall2">2</span> <br/> Tracked</p>
                             </div>
                         </div>
                     </div>
