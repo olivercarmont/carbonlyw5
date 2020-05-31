@@ -199,11 +199,9 @@ router.post("/req-data", (req, res) => {
   if (req.body.description && req.body.weight) {
     description = req.body.description;
     weight = parseFloat(req.body.weight);
-    location = req.body.location ? req.body.location : undefined;
   } else if (req.header('description') && req.header('weight')) {
     description = req.header('description');
     weight = parseFloat(req.header('weight'));
-    location = req.header('location') ? req.header('location') : undefined;
   }
 
   if (!req.body.description && !req.header('description')) {
@@ -232,6 +230,12 @@ router.post("/req-data", (req, res) => {
     priceCalc = req.body.priceCalc;
   } else if (req.header('priceCalc')) {
     priceCalc = req.header('priceCalc');
+  }
+
+  if (req.body.location) {
+    location = req.body.location ? req.body.location : undefined;
+  } else if (req.header('location')) {
+    location = req.header('location') ? req.header('location') : undefined;
   }
 
   Data.find().then((dataA) => {
@@ -779,7 +783,7 @@ let locations = Object.keys(locAverageDollarData);
 
 locations.map((loc) => {
   let searchTerm = locAverageDollarData[loc].search;
-  if (location.toLowerCase().trim() === searchTerm.toLowerCase().trim()) {
+  if (location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())) {
     predictedCategory = locAverageDollarData[loc].name;
     predictedEm = parseFloat(locAverageDollarData[loc].emissions);
     predictedAverage = parseFloat(locAverageDollarData[loc].average);
@@ -800,7 +804,7 @@ function findProductCategoryAverage() {
   let searchTerms = prodCatAverageDollarData[cat].search;
 
   searchTerms.map((sTerm) => {
-    if (prodCategory.toLowerCase() === sTerm.toLowerCase()) {
+    if ((prodCategory.toLowerCase().includes(sTerm.toLowerCase())) || (description.toLowerCase().includes(sTerm.toLowerCase())))  {
       predictedCategory = prodCatAverageDollarData[cat].name;
       predictedEm = parseFloat(prodCatAverageDollarData[cat].emissions);
       predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
@@ -828,12 +832,13 @@ function findProductCategoryAverage() {
     }
   });
   });
-  
+
   }
 }
     if (!predictedCategory) {
 
     if (prodCategory) {
+      messages += 'triedProd'
       findProductCategoryAverage();
     }
 

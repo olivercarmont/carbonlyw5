@@ -92,7 +92,7 @@ componentDidMount() {
 
     console.log('DATA', response.data)
 
-     // this.setState({ allUsers: response.data.info[4] });
+     this.setState({ landingData: response.data });
 
     // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
      // console.log('user', response.data.info[0]);
@@ -141,6 +141,7 @@ returnAllEmissionsTracked() {
   render() {
     return (
       <>
+      {this.state.landingData ? <div>
         <div className="landing__topDiv">
         {/* <!-- Preloader Start --> */}
       {/*  <div id="preloader">
@@ -479,11 +480,11 @@ returnAllEmissionsTracked() {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">4</span></h3>
+                                <h3><span className="counter">{this.state.landingData.totUsers}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
-                                <p>Total <br/> Installs (Beta)</p>
+                                <p>Total <br/> Users (Beta)</p>
                             </div>
                         </div>
                     </div>
@@ -515,8 +516,8 @@ returnAllEmissionsTracked() {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
-                            <div className="counter-area landing__ourStatsNumber">
-                                <h3><span className="counter"></span></h3>
+                            <div className="counter-area landing__ourStatsNumber2">
+                                <h3><span className="counter">{this.state.landingData.emTracked}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />
@@ -718,6 +719,7 @@ returnAllEmissionsTracked() {
         <div className="footer__veryBottomRemoveSpacing"></div>
         </div>
         <div style={{ "margin-bottom": "-200px"}}></div>
+      </div>  : undefined}
       </>
     );
   }
