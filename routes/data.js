@@ -196,22 +196,27 @@ router.post("/req-data", (req, res) => {
 
   if (!req.body.category && !req.header('category')) {
 
-  if (req.body.description && req.body.weight) {
+  if (req.body.description) {
     description = req.body.description;
-    weight = parseFloat(req.body.weight);
-  } else if (req.header('description') && req.header('weight')) {
+
+  } else if (req.header('description')) {
     description = req.header('description');
-    weight = parseFloat(req.header('weight'));
   }
 
   if (!req.body.description && !req.header('description')) {
     return res.status(400).json(`Description: Not Found`);
   }
 
-  if (!req.body.weight && !req.header('weight')) {
-    return res.status(400).json(`Weight: Not Found`);
+  // if (!req.body.weight && !req.header('weight')) {
+  //   return res.status(400).json(`Weight: Not Found`);
+  // }
+
   }
 
+  if (req.body.weight) {
+    category = req.body.weight;
+  } else if (req.header('weight')) {
+    category = req.header('weight');
   }
 
   if (req.body.category) {
@@ -434,7 +439,8 @@ router.post("/req-data", (req, res) => {
     console.log('LANG SHORTHAND', allLanguages[language])
 
   } catch(e) {
-    res.json({ "e": "Error Translating" });
+    res.json({ "Translate Error": e });
+
   }
 
     try {
@@ -448,10 +454,15 @@ router.post("/req-data", (req, res) => {
           runMainMethod();
     });
   } else {
+
+    if (weight) {
     runMainMethod();
+    }
   }
 
     function runMainMethod() {
+
+    if (weight) {
 
     let mi = 0;
 
@@ -775,6 +786,8 @@ router.post("/req-data", (req, res) => {
       predictedCategory = objectSpecificCat;
     }
 
+}
+
 function findLocationAverage() {
 
 if (priceCalc) {
@@ -816,7 +829,7 @@ function findProductCategoryAverage() {
 
   }
 
-  if (!predictedCategory) {
+  if (!predictedCategory && weight) {
 
   let kgCategories = Object.keys(prodCatAverageKgData);
 
@@ -838,7 +851,6 @@ function findProductCategoryAverage() {
     if (!predictedCategory) {
 
     if (prodCategory) {
-      messages += 'triedProd'
       findProductCategoryAverage();
     }
 
