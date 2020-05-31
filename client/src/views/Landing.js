@@ -200,7 +200,7 @@ returnAllEmissionsTracked() {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">A Chrome Extension For Tracking Your Online Carbon Footprint&nbsp;💨️</p>
+                            <p className="landingPage__description">A Chrome Extension For Tracking Your Online Carbon Footprint&nbsp;💨🌿️</p>
                         </div>
 
 
@@ -213,7 +213,7 @@ returnAllEmissionsTracked() {
                                                 <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
                                                 <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                             </a>
-                                            <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
+                                            <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div>
                                         </div>
                                       </div>
 
@@ -654,7 +654,7 @@ returnAllEmissionsTracked() {
                                         <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
                                         <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                     </a>
-                                    <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
+                                    <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div>
                                 </div>
 
                             </div>
@@ -677,7 +677,7 @@ returnAllEmissionsTracked() {
           <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
           <div className="footer_tagline">A Chrome Extension For Tracking Your Online Carbon Footprint&nbsp; 💨️</div>
 
-          <div className="footer__social"><Icon icon={bxlProductHunt} className="footer__socialIcon" /><Icon icon={twitterIcon} className="footer__socialIcon" /><Icon icon={facebookIcon} className="footer__socialIcon" /></div>
+          <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
 
             <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
 
