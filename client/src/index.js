@@ -96,6 +96,12 @@ if (localStorage.jwtToken) {
   }
 }
 
+console.log('LOC', window.location.href)
+
+if (window.location.href.includes('http://')) {
+  window.location = 'https://www.carbonly.org';
+}
+
 ReactDOM.render(
   <Provider store={store}>
   <Router history={hist}>
