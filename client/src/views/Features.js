@@ -41,6 +41,14 @@ import { Icon, InlineIcon } from '@iconify/react';
 import homeIcon from '@iconify/icons-fa-solid/home';
 import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
+import bxsData from '@iconify/icons-bx/bxs-data';
+import paperPlane from '@iconify/icons-fa-solid/paper-plane';
+import gitRepositoryPrivateFill from '@iconify/icons-ri/git-repository-private-fill';
+import fileDocumentEdit from '@iconify/icons-mdi/file-document-edit';
+import gamepadIcon from '@iconify/icons-fa-solid/gamepad';
+import twitterIcon from '@iconify/icons-el/twitter';
+import facebookIcon from '@iconify/icons-fa-brands/facebook';
+import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 
 import { Link } from "react-router-dom";
 
@@ -54,6 +62,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/img/carbonlyWhiteLogo.png";
 import logo2 from "../assets/img/carbonly2WhiteLogo.png";
+import logo3 from "../assets/img/greenFooterLogo.png";
 
 class Features extends React.Component {
   constructor(props) {
@@ -223,25 +232,58 @@ updateMessage(e) {
         </section>
 
        {/*  <!-- ***** Footer Area Start ***** --> */}
-        <footer className="" id="footer__ourData">
-          {/*  <!-- footer logo --> */}
+       <footer className="" id="footer">
+         {/*  <!-- footer logo --> */}
 
-          <img src={logo2} className="ourData__footerLogo"/>
-          {/*  <!-- social icon--> */}
 
-          <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText">Privacy</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/terms" className="landing__individualPageLinksText">Terms</Link></div>
-          </div>
+         {/*  <!-- social icon--> */}
 
-            {/* <!-- Foooter Text--> */}
-            <div id="landing__footerCopyrightContainer">
-                {/* <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** --> */}
-                <p  id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-            </div>
-        </footer>
+         <div className="footer__linksContainer">
+
+         <div className="footer__left">
+         {/* <img src={require("../assets/img/landing/whiteBrush.png")} style={{ "width": "450px", "position":"absolute", "z-index": "-1" }}/> */}
+         <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
+         <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
+
+         <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
+
+           <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">Learn</div>
+         <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText"><Icon icon={homeIcon} /> &nbsp; Home</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText"><Icon icon={bxsData} /> &nbsp; Our Data</Link></div>
+
+         <div className="landing__individualPageLinks"><Link to="/sign-up" className="landing__individualPageLinksText"><Icon icon={accountArrowRight} /> &nbsp; Join</Link></div>
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">About</div>
+         <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Features</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText"><Icon icon={paperPlane} /> &nbsp; Contact</Link></div>
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">Company</div>
+         <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText"><Icon icon={gitRepositoryPrivateFill} /> &nbsp; Privacy</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/terms" className="landing__individualPageLinksText"><Icon icon={fileDocumentEdit} /> &nbsp; Terms</Link></div>
+         </div>
+
+         <div className="footer__sideImage">
+         <img src={require("../assets/img/landing/Online shopping-pana.png")} className="footer__sideImageImage"/>
+         </div>
+
+         </div>
+
+         <div style={{ "clear": "both"}}></div>
+
+           {/* <!-- Foooter Text--> */}
+       {/*    <div id="landing__footerCopyrightContainer">
+
+     </div>*/}
+       </footer>
         {/* <!-- ***** Footer Area Start ***** --> */}
         </div>
       </>

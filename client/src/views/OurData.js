@@ -46,6 +46,14 @@ import phonePortrait from '@iconify/icons-ion/phone-portrait-outline';
 import fruitCherries from '@iconify/icons-mdi/fruit-cherries';
 import smogIcon from '@iconify/icons-mdi/smog';
 import globeShowingEuropeAfrica from '@iconify/icons-emojione-monotone/globe-showing-europe-africa';
+import bxsData from '@iconify/icons-bx/bxs-data';
+import paperPlane from '@iconify/icons-fa-solid/paper-plane';
+import gitRepositoryPrivateFill from '@iconify/icons-ri/git-repository-private-fill';
+import fileDocumentEdit from '@iconify/icons-mdi/file-document-edit';
+import gamepadIcon from '@iconify/icons-fa-solid/gamepad';
+import twitterIcon from '@iconify/icons-el/twitter';
+import facebookIcon from '@iconify/icons-fa-brands/facebook';
+import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 
 import { Link } from "react-router-dom";
 
@@ -59,6 +67,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/img/carbonlyWhiteLogo.png";
 import logo2 from "../assets/img/carbonly2WhiteLogo.png";
+import logo3 from "../assets/img/greenFooterLogo.png";
 
 class OurData extends React.Component {
   constructor(props) {
@@ -70,6 +79,26 @@ class OurData extends React.Component {
   }
 }
 componentDidMount() {
+
+  axios.post('https://carbonly.org/users/return-landing', { jwt: localStorage.jwtToken }, {
+    'jwt': localStorage.jwtToken,
+  })
+  .then(response => {
+
+    console.log('DATA', response.data)
+
+     this.setState({ landingData: response.data });
+
+    // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
+     // console.log('user', response.data.info[0]);
+     // console.log('leaderboard', response.data.info[2].slice(0, 3));
+     //
+     // console.log('all users', response.data.info[4]);
+
+  })
+  .catch((error) => {
+  console.log(error);
+  })
 
 if (this.state.howItWorks) {
   this.fun1();
@@ -129,6 +158,7 @@ updateMessage(e) {
   render() {
     return (
       <>
+      {this.state.landingData ? <div>
         <div className="landing__topDiv">
         {/* <!-- Preloader Start --> */}
       {/*  <div id="preloader">
@@ -268,7 +298,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area ourData__ourStatsNumber3">
-                                <h3><span className="counter">914</span></h3>
+                                <h3><span className="counter">1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={fruitCherries} className="landing__treeIcon" />
@@ -280,7 +310,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area ourData__ourStatsNumber3">
-                                <h3><span className="counter">914</span></h3>
+                                <h3><span className="counter">1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -293,7 +323,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area ourData__ourStatsNumber2">
-                                <h3><span className="counter">0</span></h3>
+                                <h3><span className="counter">{this.state.landingData.emTracked}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={smogIcon} className="landing__treeIcon" />
@@ -399,28 +429,61 @@ updateMessage(e) {
         </section>
 
        {/*  <!-- ***** Footer Area Start ***** --> */}
-        <footer className="" id="footer__ourData">
-          {/*  <!-- footer logo --> */}
+       <footer className="" id="footer">
+         {/*  <!-- footer logo --> */}
 
-          <img src={logo2} className="ourData__footerLogo"/>
-          {/*  <!-- social icon--> */}
 
-          <div className="landing__footerPageLinks">
-          <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText">Home</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText">Our Data</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText">Contact</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText">Features</Link></div>
-          <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText">Privacy</Link></div>
-          </div>
+         {/*  <!-- social icon--> */}
 
-            {/* <!-- Foooter Text--> */}
-            <div id="landing__footerCopyrightContainer">
-                {/* <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** --> */}
-                <p  id="landing__footerWhiteText">Copyright ©2020 Carbonly. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-            </div>
-        </footer>
+         <div className="footer__linksContainer">
+
+         <div className="footer__left">
+         {/* <img src={require("../assets/img/landing/whiteBrush.png")} style={{ "width": "450px", "position":"absolute", "z-index": "-1" }}/> */}
+         <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
+         <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
+
+         <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
+
+           <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">Learn</div>
+         <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText"><Icon icon={homeIcon} /> &nbsp; Home</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText"><Icon icon={bxsData} /> &nbsp; Our Data</Link></div>
+
+         <div className="landing__individualPageLinks"><Link to="/sign-up" className="landing__individualPageLinksText"><Icon icon={accountArrowRight} /> &nbsp; Join</Link></div>
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">About</div>
+         <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Features</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText"><Icon icon={paperPlane} /> &nbsp; Contact</Link></div>
+         </div>
+
+         <div className="footer__linkSection">
+         <div className="footer__linkSectionTitle">Company</div>
+         <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText"><Icon icon={gitRepositoryPrivateFill} /> &nbsp; Privacy</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/terms" className="landing__individualPageLinksText"><Icon icon={fileDocumentEdit} /> &nbsp; Terms</Link></div>
+         </div>
+
+         <div className="footer__sideImage">
+         <img src={require("../assets/img/landing/Online shopping-pana.png")} className="footer__sideImageImage"/>
+         </div>
+
+         </div>
+
+         <div style={{ "clear": "both"}}></div>
+
+           {/* <!-- Foooter Text--> */}
+       {/*    <div id="landing__footerCopyrightContainer">
+
+     </div>*/}
+       </footer>
         {/* <!-- ***** Footer Area Start ***** --> */}
         </div>
+        </div> : undefined}
       </>
     );
   }
