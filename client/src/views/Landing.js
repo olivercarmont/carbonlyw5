@@ -200,7 +200,7 @@ returnAllEmissionsTracked() {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">A Chrome Extension For Tracking Your Online Carbon Footprint&nbsp;💨🌿️</p>
+                            <p className="landingPage__description">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp;💨🌿️</p>
                         </div>
 
 
@@ -284,7 +284,7 @@ returnAllEmissionsTracked() {
 
         <div className="landing__topVideoMargins">
 
-        <iframe width="105%" height="580" style={{ "border-radius": "5px"}} src="https://www.youtube.com/embed/Kq9KCcE_Ybc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="105%" height="580" style={{ "border-radius": "5px"}} className="landing__mainVideo" src="https://www.youtube.com/embed/Kq9KCcE_Ybc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
       {/*  <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
               <div className="video-play-btn">
@@ -347,7 +347,7 @@ returnAllEmissionsTracked() {
 
         <div className="landing__howItWorksMainTitle">Realtime Data &nbsp; 💾️</div>
 
-        <div className="landing__awesomeFeaturesText">See the carbon footprints of your everyday products directly on the page!</div>
+        <div className="landing__awesomeFeaturesText">See the Carbon Footprints 💨 of Your Everyday Products 📦 Directly on The Page!</div>
 
         </div>
         </div>
@@ -374,7 +374,7 @@ returnAllEmissionsTracked() {
 
         <div className="landing__howItWorksMainTitle">Order Tracking &nbsp; 🎯</div>
 
-        <div className="landing__awesomeFeaturesText">Track Any Purchse and Build a Complete Personalised Online Carbon Footprint!</div>
+        <div className="landing__awesomeFeaturesText2">Track Any Purchase 🎯 and Build a Complete Personalised Online Carbon Footprint 💨!</div>
 
         </div>
         </div>
@@ -391,7 +391,7 @@ returnAllEmissionsTracked() {
 
         <div className="landing__howItWorksMainTitle">Insightful Analytics &nbsp; 📈</div>
 
-        <div className="landing__awesomeFeaturesText">Picture insightful analytics into your carbon footprint at every new purchase!</div>
+        <div className="landing__awesomeFeaturesText">Picture Insightful Analytics 📈 Into Your Carbon Footprint at Every new Purchase 🎁!</div>
 
         </div>
         </div>
@@ -419,7 +419,7 @@ returnAllEmissionsTracked() {
 
       <div className="landing__howItWorksMainTitle">A Social Experience &nbsp; 🥂</div>
 
-      <div className="landing__awesomeFeaturesText">Reach the leaderboard by offsetting your footprint and competing with friends!</div>
+      <div className="landing__awesomeFeaturesText2">Reach the Leaderboard 📊 by Offsetting Your Footprint and Competing With Friends 👭!</div>
 
       </div>
       </div>
@@ -549,7 +549,7 @@ returnAllEmissionsTracked() {
 
                 <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp;🌿</div>
 
-                <div className="landing__teamDesText">Founder and Frontend Developer @Carbonly. Passionate environmentalist, activist and pioneer.</div>
+                <div className="landing__teamDesText">Founder and Frontend Developer @Carbonly. Passionate environmentalist 🌳, Activist 🥁 and Pioneer 🏃</div>
 
                 </div>
                 </div>
@@ -611,7 +611,7 @@ returnAllEmissionsTracked() {
         <div className="landing__awardsImageHeight">
         <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/fortumLogo.png')} className="landing__awardProvider"/></a>
         </div>
-        <div className="landing__awardProviderDescription">Largest Renewable Energy Supplier Finland</div>
+        <div className="landing__awardProviderDescription">Largest Renewable Energy Supplier Finland ☀️</div>
 
         <div className="landing__awardDescription">Fortum Forward Accelerator <br/> €10,000 Grant</div>
 
@@ -623,7 +623,7 @@ returnAllEmissionsTracked() {
         <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider"/></a>
         </div>
 
-        <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland</div>
+        <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland ✖️</div>
 
         <div className="landing__awardDescription">£1,000 Award</div>
 
@@ -675,7 +675,7 @@ returnAllEmissionsTracked() {
           <div className="footer__left">
           {/* <img src={require("../assets/img/landing/whiteBrush.png")} style={{ "width": "450px", "position":"absolute", "z-index": "-1" }}/> */}
           <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
-          <div className="footer_tagline">A Chrome Extension For Tracking Your Online Carbon Footprint&nbsp; 💨️</div>
+          <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
 
           <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
 

@@ -30,7 +30,7 @@ background-color:transparent !important;
   width:380px;
   position:relative;
   top:4px;
-  line-height:1.51;
+  line-height:1.61;
 
 }
 #landingPage__mainLogoText {
@@ -344,15 +344,24 @@ background-color:transparent !important;
 }
 .landing__awesomeFeaturesText {
   width:45%;
-  color:#a4a4a4;
+  color:#a1a1a1;
   line-height:1.6;
   margin-top:0px;
-  font-size:1.04em;
+  font-size:1.17em;
+  letter-spacing:0em;
+  word-spacing:0.01em;
+}
+.landing__awesomeFeaturesText2 {
+  width:59%;
+  color:#a1a1a1;
+  line-height:1.6;
+  margin-top:0px;
+  font-size:1.17em;
   letter-spacing:0em;
   word-spacing:0.01em;
 }
 .landing__teamDesText {
-  width:51%;
+  width:64%;
   color:#a4a4a4;
   line-height:1.6;
   margin-top:0px;
@@ -442,6 +451,8 @@ background-color:transparent !important;
   display:flex;
   padding-left:10%;
   padding-right:10%;
+  width:85%;
+  margin:auto;
 }
 #ourTeam2 {
   display:flex;
@@ -931,4 +942,9 @@ html, body {
 }
 #home__updatedLink:hover {
   opacity:0.5;
+}
+.landing__mainVideo {
+   -webkit-box-shadow: -3px 12px 5px 8px #ddd;
+  -moz-box-shadow: -3px 12px 5px 8px #ddd;
+  box-shadow: -3px 2px 12px 8px #ddd;
 }
