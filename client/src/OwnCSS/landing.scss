@@ -31,6 +31,7 @@ background-color:transparent !important;
   position:relative;
   top:4px;
   line-height:1.61;
+  margin-bottom:-13px;
 
 }
 #landingPage__mainLogoText {
@@ -990,4 +991,46 @@ html, body {
    -webkit-box-shadow: -3px 12px 5px 8px #ddd;
   -moz-box-shadow: -3px 12px 5px 8px #ddd;
   box-shadow: -3px 2px 12px 8px #ddd;
+}
+.landing__callToActionButton {
+padding-left:28px;
+padding-right:28px;
+background-color:#fff;
+border-radius:30px;
+padding-top:17px;
+padding-bottom:17px;
+cursor:pointer;
+position:relative;
+top:42px;
+// color:#84af96 !important;
+font-weight:700;
+color:rgba(132, 175, 150, 0.9) !important;
+}
+.landing__callToActionButton:hover {
+  color:rgba(132, 175, 150, 0.65) !important;
+}
+.landing__callToActionButton2 {
+padding-left:28px;
+padding-right:28px;
+background-color:#fff;
+border-radius:30px;
+padding-top:17px;
+padding-bottom:17px;
+cursor:pointer;
+position:relative;
+top:27px;
+width:325px;
+// color:#84af96 !important;
+font-weight:700;
+display:block;
+color:rgba(132, 175, 150, 0.9) !important;
+}
+.landing__callToActionButton2:hover {
+  color:rgba(132, 175, 150, 0.65) !important;
+}
+.landing__productLaunchIcon {
+margin-left:12px;
+font-size:1.55em;
+position:relative;
+top:-1px;
 }

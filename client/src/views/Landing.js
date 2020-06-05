@@ -56,11 +56,9 @@ import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 // import homeIcon from '@iconify/icons-icomoon-free/home';
 
 import userEdit from '@iconify/icons-fa-solid/user-edit';
-
-
+import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 
 import { Link } from "react-router-dom";
-
 import homeIcon from '@iconify/icons-fa-solid/home';
 
 // import './landingTheme/js/jquery-2.2.4.min.js';
@@ -217,14 +215,16 @@ returnAllEmissionsTracked() {
                                                 <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
                                                 <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                             </a>
-                                            <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div>
+                                          {/*  <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div>*/}
+
                                         </div>
                                       </div>
 
-
+                                        <a className="landing__callToActionButton" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
                         {/* <!-- Form End --> */}
                     </div>
                 </div>
+
             </div>
           {/*  <img src={require("../assets/img/landing/backgroundRanImage.png")} className="landing__backgroundImage" /> */}
           {/*  <img src={require("../assets/img/landing/backgroundRanImage2.png")} className="landing__backgroundImage2" /> */}
@@ -658,10 +658,12 @@ returnAllEmissionsTracked() {
                                         <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
                                         <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                     </a>
-                                    <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div>
+                                    {/* <br/><div style={{ "color": "#eee", "clear": "both", "position": "absolute"}}>(Link Disabled For Beta) <a id="home__updatedLink" href="https://www.producthunt.com/upcoming/carbonly">Wanna Keep Updated?</a></div> */}
+
                                 </div>
 
                             </div>
+                            <a className="landing__callToActionButton2" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
 
         </div>
         </div>
