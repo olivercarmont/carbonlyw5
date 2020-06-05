@@ -55,6 +55,9 @@ import facebookIcon from '@iconify/icons-fa-brands/facebook';
 import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 // import homeIcon from '@iconify/icons-icomoon-free/home';
 
+import userEdit from '@iconify/icons-fa-solid/user-edit';
+
+
 
 import { Link } from "react-router-dom";
 
@@ -71,6 +74,7 @@ import homeIcon from '@iconify/icons-fa-solid/home';
 import logo from "../assets/img/carbonlyWhiteLogo.png";
 import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
+import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
 
 // let features = ['budget'];
@@ -176,17 +180,17 @@ returnAllEmissionsTracked() {
                         </div>
                     </div>
                     {/* <!-- Signup btn --> */}
-                    <div className="col-12 col-lg-2">
-                        <div className="sing-up-button d-none d-lg-block">
+                    {/*  <div className="col-12 col-lg-2">
+                        <div className="sing-up-button d-none d-lg-block"> */}
 
 
 
 
 
 
-                            {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
-                        </div>
-                    </div>
+                             <Link to="/sign-up" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
+                      {/*  </div>
+                    </div> */}
                 </div>
             </div>
         </header>
@@ -199,7 +203,7 @@ returnAllEmissionsTracked() {
                     <div className="col-12 col-md">
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Carbonly</h2>
-                            <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
+                            <h3><img className="landingPage__backgroundLogo" src={logo4}/></h3>
                             <p className="landingPage__description">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp;💨🌿️</p>
                         </div>
 
@@ -677,7 +681,7 @@ returnAllEmissionsTracked() {
           <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
           <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
 
-          <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
+          <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a><a href="https://www.facebook.com/Carbonly-111577497250555/?ref=page_internal"><Icon icon={facebookIcon} className="footer__socialIcon" /></a></div>
 
             <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
 

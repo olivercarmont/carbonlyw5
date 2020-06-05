@@ -735,9 +735,52 @@ background-color:#fafafa;
   margin-left:6px;
   margin-top:-4px;
 }
+#landing__topLoginButton {
+  float:left;
+  float:left;
+  display:block;
+  color:#fff;
+  padding-left:0px;
+  padding-right:0px;
+  margin-left:25px;
+  margin-right:24px;
+  font-size:1.1em;
+  border-radius:12px;
+  font-weight:600;
+  margin-top:-3px;
+}
+#landing__topLoginButton:hover {
+  opacity:0.5;
+}
+#landing__topSignupButton {
+  background-color:#93b5a0;
+  color:#fff;
+
+  float:left;
+  display:block;
+
+  padding-top:11px;
+  padding-bottom:11px;
+  padding-left:18px;
+  padding-right:18px;
+  margin-right:-30px;
+  font-size:1.1em;
+  border-radius:10px !important;
+  font-weight:600 !important;
+  margin-top:-5px;
+}
+#landing__topSignupButton:hover {
+background-color:transparent;
+opacity:0.5;
+}
 .landing__homeIconTop2 {
   font-size:1.15em;
   margin-left:8px;
+  margin-top:-3px;
+}
+.landing__homeIconTop2Join {
+  font-size:0.96em;
+  margin-left:9px;
   margin-top:-3px;
 }
 .landing__chromeIconTop {

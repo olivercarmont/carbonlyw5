@@ -102,15 +102,21 @@ constructor(props) {
 }
 componentWillMount() {
 
+
+
       axios.post('https://carbonly.org/users/return-register', { }, {
 
       })
     .then(response => {
+      console.log('SEND RESPONSE')
 
          this.setState({ allUsers: Array(response.data)[0] });
 
          console.log('allU', Array(response.data)[0] );
-});
+}).catch((error) => {
+  console.log(error);
+
+})
 }
 componentDidMount() {
   // If logged in and user navigates to Register page, should redirect them to dashboard
