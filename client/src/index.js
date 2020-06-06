@@ -96,11 +96,9 @@ if (localStorage.jwtToken) {
   }
 }
 
-console.log('LOC', window.location.href)
-
-// if (window.location.href.includes('http://')) {
-//   window.location = 'https://www.carbonly.org';
-// }
+if (window.location.protocol !== 'https:') {
+    window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+}
 
 ReactDOM.render(
   <Provider store={store}>
