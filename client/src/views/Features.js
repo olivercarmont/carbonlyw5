@@ -49,6 +49,9 @@ import gamepadIcon from '@iconify/icons-fa-solid/gamepad';
 import twitterIcon from '@iconify/icons-el/twitter';
 import facebookIcon from '@iconify/icons-fa-brands/facebook';
 import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
+import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
+import userEdit from '@iconify/icons-fa-solid/user-edit';
+import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 
 import { Link } from "react-router-dom";
 
@@ -63,6 +66,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/img/carbonlyWhiteLogo.png";
 import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
+import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
 class Features extends React.Component {
   constructor(props) {
@@ -134,12 +138,15 @@ updateMessage(e) {
                             </nav>
                         </div>
                     </div>
-                    {/* <!-- Signup btn --> */}
-                    <div className="col-12 col-lg-2">
+
+                {/*    <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
-                            {localStorage.jwtToken ? <Link to="/home">Home <Icon icon={homeIcon} className="landing__homeIconTop" /></Link> : <Link to="/sign-up">Sign up<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link>}
+
                         </div>
-                    </div>
+                    </div> */}
+
+                    <Link to="/sign-up" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
+
                 </div>
             </div>
         </header>
@@ -153,7 +160,7 @@ updateMessage(e) {
                         <div className="wellcome-heading">
                             <h2 id="landingPage__mainLogoText">Features</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Carbonly</p><br/>
+                            <p className="landingPage__description">Want to Request a Crazy 😝 New Feature?! 🎮</p><br/>
                         </div>
                         <div className="app-download-area">
                             <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
@@ -162,21 +169,28 @@ updateMessage(e) {
                                     <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
                                     <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                 </a>
-                                                                                <br/><div style={{ "color": "#fff", "clear": "both"}}>(Link Disabled For Beta)</div>
                             </div>
-
-
-
-
-                {/* <!-- Form End --> */}
             </div>
+
+            <a className="landing__callToActionButton" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+
         </div>
     </div>
   </div>
-            {/* }<!-- Welcome thumb --> */}
-            <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
-                <img src="img/bg-img/welcome-img.png" alt=""/>
-            </div>
+  <div className="welcome-thumb wow fadeInDown" data-wow-delay="0.5s">
+
+
+<div className="video-section" id="landing__videoMargins">
+<div className="container">
+ <div className="row">
+     <div className="col-12">
+
+      <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero"/></div>
+     </div>
+ </div>
+</div>
+</div>
+  </div>
         </section>
         {/* <!-- ***** Wellcome Area End ***** --> */}
 
@@ -231,6 +245,38 @@ updateMessage(e) {
 
         </section>
 
+        <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
+
+        <div className="landing__downloadSection">
+
+        <div className="landing__downloadImageLeft">
+                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
+
+        </div>
+
+        <div className="landing__downloadTextRight">
+
+                            <h2 id="landing__getAppTitle">What'ya Waiting For?</h2>
+                            <p className="landing__downloadDescription">Download For Free on The Chrome Store!</p>
+                            <div className="app-download-area">
+                                <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtn" data-wow-delay="0.2s">
+                                    {/* <!-- Google Store Btn --> */}
+                                    <a href="#">
+                                        <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
+                                        <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+            <a className="landing__callToActionButton2" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+
+        </div>
+        </div>
+
+        </section>
+
        {/*  <!-- ***** Footer Area Start ***** --> */}
        <footer className="" id="footer">
          {/*  <!-- footer logo --> */}
@@ -245,7 +291,7 @@ updateMessage(e) {
          <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
          <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
 
-         <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a>{/*<Icon icon={facebookIcon} className="footer__socialIcon" />*/}</div>
+         <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a><a href="https://www.facebook.com/Carbonly-111577497250555/?ref=page_internal"><Icon icon={facebookIcon} className="footer__socialIcon" /></a><a href="https://www.youtube.com/channel/UCTYFGwIzSOs_Hf5Wcy9Ta_A?"><Icon icon={youtubeFilled} style={{ "font-size": "1.45em", "position": "relative", "top": "1px"}} className="footer__socialIcon" /></a></div>
 
            <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
 

@@ -55,6 +55,8 @@ import facebookIcon from '@iconify/icons-fa-brands/facebook';
 import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 // import homeIcon from '@iconify/icons-icomoon-free/home';
 
+
+import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 
@@ -180,11 +182,6 @@ returnAllEmissionsTracked() {
                     {/* <!-- Signup btn --> */}
                     {/*  <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block"> */}
-
-
-
-
-
 
                              <Link to="/sign-up" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
                       {/*  </div>
@@ -683,7 +680,7 @@ returnAllEmissionsTracked() {
           <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
           <div className="footer_tagline">A Chrome Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
 
-          <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a><a href="https://www.facebook.com/Carbonly-111577497250555/?ref=page_internal"><Icon icon={facebookIcon} className="footer__socialIcon" /></a></div>
+          <div className="footer__social"><a href="https://www.producthunt.com/upcoming/carbonly"><Icon icon={bxlProductHunt} className="footer__socialIcon" /></a><a href="https://twitter.com/carbonly_org"><Icon icon={twitterIcon} className="footer__socialIcon" /></a><a href="https://www.facebook.com/Carbonly-111577497250555/?ref=page_internal"><Icon icon={facebookIcon} className="footer__socialIcon" /></a><a href="https://www.youtube.com/channel/UCTYFGwIzSOs_Hf5Wcy9Ta_A?"><Icon icon={youtubeFilled} style={{ "font-size": "1.45em", "position": "relative", "top": "1px"}} className="footer__socialIcon" /></a></div>
 
             <p id="landing__footerWhiteText">Copyright ©2020 Carbonly Ltd. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
 
