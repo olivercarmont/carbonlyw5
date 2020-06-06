@@ -180,7 +180,7 @@ returnAllEmissionsTracked() {
                     {/*  <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block"> */}
 
-                             <Link to="/sign-up" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
+                             <Link to="/log-in" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
                       {/*  </div>
                     </div> */}
                 </div>
