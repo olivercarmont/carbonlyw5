@@ -53,9 +53,6 @@ import gamepadIcon from '@iconify/icons-fa-solid/gamepad';
 import twitterIcon from '@iconify/icons-el/twitter';
 import facebookIcon from '@iconify/icons-fa-brands/facebook';
 import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
-// import homeIcon from '@iconify/icons-icomoon-free/home';
-
-
 import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';

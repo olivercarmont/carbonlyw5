@@ -57,6 +57,7 @@ import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
+import baselineTranslate from '@iconify/icons-ic/baseline-translate';
 
 import { Link } from "react-router-dom";
 
@@ -320,7 +321,7 @@ updateMessage(e) {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
-                            <div className="counter-area ourData__ourStatsNumber3">
+                            <div className="counter-area">
                                 <h3><span className="counter">1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
@@ -332,7 +333,7 @@ updateMessage(e) {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
-                            <div className="counter-area ourData__ourStatsNumber3">
+                            <div className="counter-area">
                                 <h3><span className="counter">1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
@@ -346,23 +347,23 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area ourData__ourStatsNumber2">
-                                <h3><span className="counter">{this.state.landingData.emTracked}</span></h3>
+                                <h3><span className="counter">11</span></h3>
                             </div>
                             <div className="cool-facts-content">
-                            <Icon icon={smogIcon} className="landing__treeIcon" />
-                            <p>kg CO<span className="landing__statsSmall2">2</span> <br/> Measured</p>
+                            <Icon icon={globeShowingEuropeAfrica} className="landing__treeIcon" />
+                            <p>Origins<br/> (Countries)</p>
                             </div>
                         </div>
                     </div>
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
-                            <div className="counter-area ourData__ourStatsNumber">
-                                <h3><span className="counter">11</span></h3>
+                            <div className="counter-area">
+                                <h3><span className="counter">110</span></h3>
                             </div>
                             <div className="cool-facts-content">
-                            <Icon icon={globeShowingEuropeAfrica} className="landing__treeIcon" />
-                            <p>Countries <br/> (Origin)</p>
+                            <Icon icon={baselineTranslate} className="landing__treeIcon" />
+                            <p>Languages <br/> (Translated)</p>
                             </div>
                         </div>
                     </div>
