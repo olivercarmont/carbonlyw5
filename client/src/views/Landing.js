@@ -504,7 +504,7 @@ returnAllEmissionsTracked() {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area landing__ourStatsNumber2">
-                                <h3><span className="counter">1k</span></h3>
+                                <h3><span className="counter">1.1k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={statsChart} className="landing__treeIcon" />
