@@ -56,6 +56,7 @@ import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
+import linkedinIcon from '@iconify/icons-cib/linkedin';
 
 import { Link } from "react-router-dom";
 import homeIcon from '@iconify/icons-fa-solid/home';
