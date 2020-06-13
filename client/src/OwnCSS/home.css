@@ -296,7 +296,7 @@ margin-top:3px;
   margin-top:-8px;
   cursor:pointer;
   transition:0.4s;
-  height:45px;
+  height:47px;
 
 
   width:75%;
@@ -307,7 +307,7 @@ margin-top:3px;
   text-align:center;
   display:inline-flex;
   flex-direction: column;
-  padding-top:11px;
+  padding-top:13px;
   padding-left:3px;
 
   letter-spacing:-0.02em;
@@ -360,11 +360,16 @@ margin-top:3px;
   margin-top:8px;
   width:100%;
   text-align:center;
-  font-size:0.965em;
-  font-weight:bold;
+  font-size:0.925em;
+
+  font-weight:700;
   letter-spacing:-0.01em;
-  margin-bottom:11px;
-  color:#939797;
+  margin-bottom:0px;
+  /* color:#939797; */
+  color:#8db8a2;
+  opacity:0.8;
+  font-family: "Poppins", sans-serif;
+  height:6px;
 }
 .homepage__firstSectionMargins {
   width:94%;

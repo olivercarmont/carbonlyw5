@@ -461,7 +461,7 @@ updateTitleShopping(e, id) {
                 <div className="homepage__firstSectionMargins">
 
                 <div className="homepage__firstBoxSecondTitle">
-                Here's What's New:
+              {/* }  Here's What's New */}
                 </div>
 
                 {/* <UncontrolledAlert id="home__notification">
