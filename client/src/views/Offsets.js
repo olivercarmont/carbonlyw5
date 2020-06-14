@@ -531,9 +531,9 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
                           {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
+                            <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
                             <p id="offsets__orderDescription" className="text-muted">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
+                              {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -562,9 +562,9 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
                           {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
+                            <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
                             <p className="text-muted" id="offsets__orderDescription">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
+                              {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -591,9 +591,9 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
                           {this.returnOrderImage(order.website)}
                           </td>
                           <td id="offsets__recentOrdersTextSize">
-                            <p className="title">{this.returnUpperCase(order.website)}</p>
+                            <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
                             <p id="offsets__orderDescription" className="text-muted">
-                              {order.name.length > 72 ? order.name.slice(0, 72) + ' ...' : order.name}
+                              {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                             </p>
                           </td>
                           <td className="td-actions text-right">

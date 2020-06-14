@@ -16,6 +16,8 @@
 
 */
 
+// import SocialSignin from "./SocialSignin.js"
+
 import axios from 'axios';
 
 import React, { Component } from "react";
@@ -24,6 +26,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
 import classnames from "classnames";
+// import GoogleLogin from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
+import ReactDOM from 'react-dom';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import externalLinkAlt from '@iconify/icons-fa-solid/external-link-alt';
@@ -84,7 +89,11 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 let publicId;
 
-class Signup extends React.Component {
+const responseGoogle = (response) => {
+  console.log(response);
+}
+
+class Signup extends Component {
 constructor(props) {
   super(props);
     this.state = {
@@ -123,6 +132,21 @@ componentDidMount() {
   if (this.props.auth.isAuthenticated) {
     this.props.history.push("/home");
   }
+
+//   setTimeout(function() {
+//
+//   ReactDOM.render(
+//     <GoogleLogin
+//       clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+//       buttonText="Login"
+//       onSuccess={responseGoogle}
+//       onFailure={responseGoogle}
+//       cookiePolicy={'single_host_origin'}
+//     />,
+//     document.getElementById('googleButton')
+//   );
+//
+// }, 5000)
 }
 
 componentWillReceiveProps(nextProps) {
@@ -182,7 +206,7 @@ submitForm() {
 
   this.setState({ error: "" });
 
-  let allUsersArray = this.state.allUsers
+  let allUsersArray = this.state.allUsers.usersArray;
 
   console.log('ALLU', typeof allUsersArray)
 
@@ -230,6 +254,7 @@ submitForm() {
 };
 render() {
   const { errors } = this.props.errors;
+
     return (
       <>
       {this.state.allUsers ?
@@ -254,6 +279,8 @@ render() {
                 <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
 
                 <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
+
+                {/* <div id="googleButton"></div> */}
 
                 </div>
 

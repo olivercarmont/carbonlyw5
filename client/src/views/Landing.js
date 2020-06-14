@@ -111,6 +111,10 @@ if (this.state.howItWorks) {
   this.fun1();
 }
 
+// setTimeout(function() {
+// this.animateValue("landing__numberOne", 100, 25, 5000);
+// }, 500)
+
 }
 fun1 = () => {
   let i = 0;
@@ -137,6 +141,20 @@ fun1 = () => {
 
   }, 8700);
 };
+animateValue(id, start, end, duration) {
+    var range = end - start;
+    var current = start;
+    var increment = end > start? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var obj = document.getElementById(id);
+    var timer = setInterval(function() {
+        current += increment;
+        obj.innerHTML = current;
+        if (current == end) {
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
 returnAllEmissionsTracked() {
 
 }
@@ -479,7 +497,7 @@ returnAllEmissionsTracked() {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter">{this.state.landingData.totUsers}</span></h3>
+                                <h3><span className="counter" id="landing__numberOne">{this.state.landingData.totUsers}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
