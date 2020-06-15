@@ -155,8 +155,31 @@ animateValue(id, start, end, duration) {
         }
     }, stepTime);
 }
-returnAllEmissionsTracked() {
+returnCO2Format() {
+let emissions = parseFloat(this.state.landingData.emTracked);
+let newEmissions = 0;
 
+  if (emissions > 1000000) {
+
+    newEmissions = emissions / 1000000;
+    newEmissions = Math.round(newEmissions);
+    newEmissions = `${newEmissions}Mt`
+
+  } else if (emissions > 10000) {
+
+    newEmissions = emissions / 1000;
+    newEmissions = Math.round(newEmissions);
+    newEmissions = `${newEmissions}t`
+
+  } else if (emissions > 1000) {
+
+    newEmissions = emissions / 1000;
+    newEmissions = newEmissions.toFixed(1);
+    newEmissions = `${newEmissions}t`
+
+  }
+
+  return newEmissions;
 }
   render() {
     return (
@@ -443,8 +466,6 @@ returnAllEmissionsTracked() {
 
       </section>
 
-
-
       {/* <section id="landing__allFeatures">
 
       <Icon icon={arrowCircleLeft} className="landing__allFeaturesLeft" />
@@ -521,8 +542,8 @@ returnAllEmissionsTracked() {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
-                            <div className="counter-area landing__ourStatsNumber2">
-                                <h3><span className="counter">1.1k</span></h3>
+                            <div className="counter-area landing__ourStatsNumber3">
+                                <h3><span className="counter">1.2k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={statsChart} className="landing__treeIcon" />
@@ -533,12 +554,12 @@ returnAllEmissionsTracked() {
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
-                            <div className="counter-area landing__ourStatsNumber2">
-                                <h3><span className="counter">{this.state.landingData.emTracked}</span></h3>
+                            <div className="counter-area landing__ourStatsNumber3">
+                                <h3><span className="counter">{this.returnCO2Format()}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />
-                            <p>kg CO<span className="landing__statsSmall2">2</span> <br/> Tracked</p>
+                            <p>{this.state.landingData.emTracked > 1000 ? '' : 'kg'} CO<span className="landing__statsSmall2">2</span> <br/> Tracked</p>
                             </div>
                         </div>
                     </div>

@@ -212,6 +212,8 @@ submitForm() {
 
   console.log('WAS ERROR?', `${userNameExists}, ${emailExists} - ${allUsersArray.length}`)
 
+  this.setState({ isChanging: false });
+
   allUsersArray.map((us) => {
     console.log('SEE', us)
     console.log('ONE, ONE', `${us.username}, ${this.state.username}`)
@@ -241,7 +243,10 @@ submitForm() {
   };
 
   this.props.registerUser(newUser, this.props.history);
+
+  setTimeout(function() {
   this.setState({ isChanging: true });
+  }, 1000)
 
   // }
   // console.log('SIGNED UP', newUser)

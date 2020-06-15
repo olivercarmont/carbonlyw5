@@ -573,7 +573,7 @@ class Analytics extends React.Component {
           callbacks: {
           label: function(tooltipItem, data) {
             console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
-                return tooltipItem.yLabel + 'kg CO2';
+                return tooltipItem.yLabel.toFixed(1) + 'kg CO2';
               }
             },
         },
@@ -947,6 +947,17 @@ class Analytics extends React.Component {
   getNumberEnding() {
 
     let lastNumber = +this.state.userRank.toString().split('').pop();
+    let secondLastNumber;
+
+    if (lastNumber > 10) {
+    secondLastNumber = +this.state.userRank.toString().split().slice(this.state.userRank.toString().length-2, this.state.userRank.toString().length-1)
+    }
+
+    console.log('SECOND LAST', secondLastNumber)
+
+    if (this.state.userRank.toString().length > 1 && secondLastNumber === 1) {
+      return 'th';
+    } else {
 
     if (lastNumber === 1) {
       return 'st';
@@ -957,6 +968,7 @@ class Analytics extends React.Component {
     } else {
       return 'th';
     }
+  }
   }
   returnDestinationDataArray() {
     let date = new Date();
