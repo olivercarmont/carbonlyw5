@@ -91,27 +91,27 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 let publicId;
 
-function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+// function onSignIn(googleUser) {
+//         // Useful data for your client-side scripts:
+//         var profile = googleUser.getBasicProfile();
+//         console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+//         console.log('Full Name: ' + profile.getName());
+//         console.log('Given Name: ' + profile.getGivenName());
+//         console.log('Family Name: ' + profile.getFamilyName());
+//         console.log("Image URL: " + profile.getImageUrl());
+//         console.log("Email: " + profile.getEmail());
+//
+//         // The ID token you need to pass to your backend:
+//         var id_token = googleUser.getAuthResponse().id_token;
+//         console.log("ID Token: " + id_token);
+// }
 
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-}
-
-function signOut() {
-  var auth2 = window.gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
-}
+// function signOut() {
+//   var auth2 = window.gapi.auth2.getAuthInstance();
+//   auth2.signOut().then(function () {
+//     console.log('User signed out.');
+//   });
+// }
 
 // const GOOGLE_BUTTON_ID = "AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg";
 
@@ -296,6 +296,13 @@ handleSocialLogin(user) {
 }
 handleSocialLoginFailure(err) {
   console.error(err)
+  alert(err)
+
+}
+handleSocialLogin(user, err){
+  console.log(user)
+  console.log(err)
+  alert(user);
 }
 render() {
   const { errors } = this.props.errors;
@@ -346,9 +353,11 @@ render() {
 
     <SocialButton
      provider='google'
-     appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
+     appId='971407209595-rvibl8nfhj8coefijt900aou352ic5cq.apps.googleusercontent.com'
+     callback={(user, err) => this.handleSocialLogin(user, err)}
      onLoginSuccess={(user) => this.handleSocialLogin(user)}
      onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+     scope="name"
      className="login__socialButton"
      >
      <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
@@ -361,7 +370,7 @@ render() {
 
                   <div id="socialSignin" dangerouslySetInnerHTML={{__html: `<script src="https://apis.google.com/js/platform.js" async defer></script>
                 <meta name="google-signin-scope" content="profile email">
-                  <meta name="google-signin-client_id" content="AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg.apps.googleusercontent.com"><div class="g-signin2" style="display:none" data-onsuccess="onSignIn"></div>` }}></div>
+                  <meta name="google-signin-client_id" content="971407209595-rvibl8nfhj8coefijt900aou352ic5cq.apps.googleusercontent.com"><div class="g-signin2" style="display:none" data-onsuccess="onSignIn"></div>` }}></div>
 
       {/*     <SocialSignin/>     */}
 

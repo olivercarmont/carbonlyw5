@@ -91,6 +91,8 @@ addSubmission() {
   }
 
   let time = new Date();
+  time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
+  time.getHours() + ":" + time.getMinutes();
 
       axios.post('https://carbonly.org/form/add-submission', { "type": "feature", "data": totMessage, time }, {
         "type": "feature", "data": totMessage, time

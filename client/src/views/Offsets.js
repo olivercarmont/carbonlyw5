@@ -489,10 +489,10 @@ this.setState({ question: select });
 let newMessage = '';
 
 if (select === 'f') {
-  newMessage = "No, I Wouldn't... 😒";
+  newMessage = "Question: Would You Use Carbonly Subscritption? : No, I Wouldn't... 😒";
 
 } else if (select === 't') {
-  newMessage = "Sure, I'd Love to! 😝";
+  newMessage = "Question: Would You Use Carbonly Subscritption? : Sure, I'd Love to! 😝";
 }
 
 let totMessage = {
@@ -501,6 +501,8 @@ let totMessage = {
 }
 
 let time = new Date();
+time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
+time.getHours() + ":" + time.getMinutes();
 
     axios.post('https://carbonly.org/form/add-submission', { "type": "user-feedback", "data": totMessage, time }, {
       "type": "user-feedback", "data": totMessage, time
