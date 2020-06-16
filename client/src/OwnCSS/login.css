@@ -95,7 +95,7 @@ flex-direction: column;
 padding-top:12px;
 padding-left:3px;
 
-margin-left:18px;
+margin-left:0px;
 
 letter-spacing:-0.02em;
 /* font-weight:500; */
@@ -143,8 +143,8 @@ letter-spacing:-0.02em;
   /* margin-top:8px; */
 }
 .login__socialLogin {
-   /* background-color:red; */
   width:360px;
+  /* background-color:red; */
   margin-bottom:30px;
   margin-left:auto;
   margin-right:auto;
@@ -288,4 +288,9 @@ letter-spacing:-0.02em;
 }
 #name2:focus {
   color:#fff !important;
+}
+.login__socialButton {
+  display:flex;
+  width:100%;
+
 }

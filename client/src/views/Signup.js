@@ -331,18 +331,25 @@ render() {
 
                 <div className="login__socialLogin">
 
+              {/*   <div className="g-signin2" data-onsuccess="onSignIn"></div>
+                  <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
 
-
-                <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
-
-                <div className="g-signin2" data-onsuccess="onSignIn"></div>
-                  <div className="g-signin2" data-onsuccess="onSignIn"></div>
+      <SocialButton
+      provider='google'
+      appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
+      onLoginSuccess={(user) => this.handleSocialLogin(user)}
+      onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+      className="login__socialButton"
+      >
+      <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
+      </SocialButton>
 
     <SocialButton
      provider='google'
      appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
      onLoginSuccess={(user) => this.handleSocialLogin(user)}
      onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+     className="login__socialButton"
      >
      <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
     </SocialButton>
@@ -354,7 +361,7 @@ render() {
 
                   <div id="socialSignin" dangerouslySetInnerHTML={{__html: `<script src="https://apis.google.com/js/platform.js" async defer></script>
                 <meta name="google-signin-scope" content="profile email">
-                  <meta name="google-signin-client_id" content="AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg.apps.googleusercontent.com"><div class="g-signin2" data-onsuccess="onSignIn"></div>` }}></div>
+                  <meta name="google-signin-client_id" content="AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg.apps.googleusercontent.com"><div class="g-signin2" style="display:none" data-onsuccess="onSignIn"></div>` }}></div>
 
       {/*     <SocialSignin/>     */}
 

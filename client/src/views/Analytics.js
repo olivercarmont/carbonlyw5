@@ -1713,7 +1713,7 @@ class Analytics extends React.Component {
                     <Col className="text-left" sm="6">
                       <h5 className="card-category">Carbon Footprint</h5>
                       <CardTitle tag="h2">{this.state.bigChartData === "data1" ? this.returnYearlyEmissions() : this.state.bigChartData === "data2" ? this.returnMonthlyEmissions() : this.state.bigChartData === "data3" ? this.returnWeeklyEmissions() : ''}<span style={{ fontSize: '0.47em', top: '3px', position: 'relative' }}>2</span> / {this.state.bigChartData === "data1" ? 'Year' : this.state.bigChartData === "data2" ? 'Month' : this.state.bigChartData === "data3" ? 'Week' : ''}</CardTitle>
-                      <div className="analytics__weekChangeGrowth"><Icon icon={arrowGrowth} /> Down 50% this {this.state.bigChartData === 'data1' ? 'year' : this.state.bigChartData === 'data2' ? 'month' : 'week'}</div>
+                  {/*  <div className="analytics__weekChangeGrowth"><Icon icon={arrowGrowth} /> Down 50% this {this.state.bigChartData === 'data1' ? 'year' : this.state.bigChartData === 'data2' ? 'month' : 'week'}</div> */}
 
                     </Col>
                     <Col sm="6">
