@@ -142,12 +142,18 @@ addSubmission() {
     message: this.state.message
   }
 
-      axios.post('https://carbonly.org/form/add-submission', { "type": "data", "data": totMessage }, {
-        "type": "data", "data": totMessage
+  let time = new Date();
+
+      axios.post('https://carbonly.org/form/add-submission', { "type": "data", "data": totMessage, time }, {
+        "type": "data", "data": totMessage, time
       })
     .then(response => {
 
-         console.log('res', response);
+      if (response.data === 'Submission added!') {
+           this.setState({ hasSent: true });
+      } else {
+        this.setState({ hasntSent: true });
+      }
 });
 }
 updateEmail(e) {

@@ -23,6 +23,7 @@ import { loginUser } from "../actions/authActions";
 import classnames from "classnames";
 import axios from 'axios';
 
+
 // reactstrap components
 import {
   Card,
@@ -70,6 +71,7 @@ import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import history from "../utils/history";
+import SocialButton from './SocialButton';
 
 class Login extends React.Component {
 constructor(props) {
@@ -117,6 +119,12 @@ componentDidMount() {
     this.props.loginUser(userData);
     this.setState({ isChanging: true });
   };
+handleSocialLogin(user) {
+  console.log(user)
+}
+handleSocialLoginFailure(err) {
+  console.error(err)
+}
 render() {
   const { errors } = this.state;
     return (
@@ -139,9 +147,25 @@ render() {
 
                 <div className="login__socialLogin">
 
-                <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
-
+                <SocialButton
+                provider='facebook'
+                appId='313951486279385'
+                onLoginSuccess={(user) => this.handleSocialLogin(user)}
+                onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+                className="login__socialButton"
+                >
                 <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
+                </SocialButton>
+
+              <SocialButton
+               provider='google'
+               appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
+               onLoginSuccess={(user) => this.handleSocialLogin(user)}
+               onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+               className="login__socialButton"
+               >
+               <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
+              </SocialButton>
 
                 </div>
 

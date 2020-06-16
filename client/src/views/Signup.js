@@ -16,7 +16,7 @@
 
 */
 
-import SocialSignin from "./SocialSignin.js"
+import SocialSignin from "./SocialSignin.js";
 
 import axios from 'axios';
 
@@ -77,7 +77,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
-import SocialButton from './SocialButton'
+import SocialButton from './SocialButton';
 
 let guid = () => {
 let s4 = () => {

@@ -25,14 +25,16 @@ function parseJwt (token) {
 
 router.post("/add-submission", (req, res) => {
 
-  let type, data;
+  let type, data, time;
 
   if (req.body.type) {
     type = req.body.type;
     data = req.body.data;
+    time = req.body.time;
   } else if (req.header('type')) {
     type = req.header('type');
     data = req.header('data');
+    time = req.header('time');
   }
 
   if (!req.body.type && !req.header('type')) {
@@ -45,14 +47,14 @@ router.post("/add-submission", (req, res) => {
     let productCategory = req.header("prodCategory");
     let emissions = req.header("emissions");
 
-    const newForm = new Form({ type, data, link, product, productCategory, emissions });
+    const newForm = new Form({ type, data, link, product, productCategory, emissions, time });
 
     newForm.save()
       .then(() => res.json('Submission added!'))
       .catch(err => res.status(400).json('Error: ' + err));
 
   } else {
-    const newForm = new Form({ type, data });
+    const newForm = new Form({ type, data, time });
 
     newForm.save()
       .then(() => res.json('Submission added!'))

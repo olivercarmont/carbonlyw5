@@ -84,8 +84,10 @@ addSubmission() {
     message: this.state.message
   }
 
-      axios.post('https://carbonly.org/form/add-submission', { "type": "contact", "data": totMessage }, {
-        "type": "contact", "data": totMessage
+  let time = new Date();
+
+      axios.post('https://carbonly.org/form/add-submission', { "type": "contact", "data": totMessage, time }, {
+        "type": "contact", "data": totMessage, time
       })
     .then(response => {
 

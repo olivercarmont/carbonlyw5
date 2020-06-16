@@ -151,9 +151,9 @@ margin-bottom:8px;
 .offsets__goToButton {
   /* background-color:#002D70; */
   background-color:transparent;
-  border:2px solid #a9dbc0;
+  border:2px solid #ddd;
   color:#fff !important;
-  background-color: #a9dbc0;
+  background-color: #ddd;
   /* font-family: 'Red Hat Display', sans-serif; */
   /* font-weight:bold; */
   letter-spacing:0.02em;
@@ -225,11 +225,15 @@ margin-right:15px;
   text-align:center;
 }
 .offsets__subscriptionDiv {
-background-color:#a9dbc0;
+  background-color:rgba(169, 219, 192, 0.5);
+
+  -webkit-box-shadow: -3px 3px 8px 4px #f1f1f1;
+  -moz-box-shadow: -3px 3px 8px 4px #f1f1f1;
+  box-shadow: -3px 2px 8px 4px #f1f1f1;
 
   width:90%;
   border-radius:10px;
-  height:104px;
+  height:111px;
   margin-top:40px;
   position:relative;
   top:5px;
@@ -281,4 +285,51 @@ background-color:#a9dbc0;
 }
 .offsets__bottomSpacing {
   height:190px;
+}
+.offsets__lowerQuestion {
+  text-align:center;
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.62;
+  /* font-weight:600; */
+  color:#222;
+  margin-bottom:25px;
+  position:relative;
+  top:12px;
+  font-size:1.02em;
+  color:#385243;
+}
+
+.offsets__questionYes {
+
+}
+
+.offsets__questionNo {
+
+}
+.offsets__positionCheckboxes {
+  width:95%;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  margin-left:auto;
+  margin-right:auto;
+
+  /* margin-left:21px; */
+
+
+}
+.offsets__questionText {
+  width:220px;
+  display:block;
+  /* margin-left:-68px; */
+  color:#fff;
+  font-size:1.09em;
+  /* position:relative; */
+  /* left:2px !important;; */
+  top:-1px;
+
+  color:#385243;
+  /* background-color:red; */
 }

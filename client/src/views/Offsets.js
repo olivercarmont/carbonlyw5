@@ -18,6 +18,7 @@
 import React from "react";
 import '../OwnCSS/leaderboard.css';
 import '../OwnCSS/offsets.css';
+import '../OwnCSS/checkbox.css';
 
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
@@ -81,6 +82,7 @@ class Offsets extends React.Component {
       period: 'monthly',
       cur: '$',
       offAmount: '',
+      changeQuestion: '',
     };
   }
   componentWillMount() {
@@ -481,6 +483,32 @@ if (web === 'tesco' || web === 'Tesco') {
 
 return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
 }
+changeQuestion(select) {
+this.setState({ question: select });
+
+let newMessage = '';
+
+if (select === 'f') {
+  newMessage = "No, I Wouldn't... 😒";
+
+} else if (select === 't') {
+  newMessage = "Sure, I'd Love to! 😝";
+}
+
+let totMessage = {
+  email: this.state.user.email,
+  message: newMessage
+}
+
+let time = new Date();
+
+    axios.post('https://carbonly.org/form/add-submission', { "type": "user-feedback", "data": totMessage, time }, {
+      "type": "user-feedback", "data": totMessage, time
+    })
+  .then(response => {
+       // console.log('res', response);
+});
+}
   render() {
     return (
       <>
@@ -630,11 +658,57 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
 
                       <div className="offsets__subscriptionDiv">
 
-                      <div className="offsets__subDescription">Want Seamless {this.state.period.charAt(0).toUpperCase() + this.state.period.slice(1)}-Based Offsets?</div>
+
+
+
+
+                      <div className="offsets__lowerQuestion">We haven't yet released this yet, but let us know if you would use it! 🙏 {this.state.question ? 'Thanks! ❤️' : ''}</div>
+
+                      <div className="offsets__positionCheckboxes">
+
+
+
+                      <div class="grid" style={{ "float": "left" }}>
+
+                      <label class="checkbox bounce">
+                      <input type="checkbox" onChange={() => this.changeQuestion('t')} checked={this.state.question === 't'} />
+                      <svg viewBox="0 0 21 21">
+                      <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                      </svg>
+                        <div className={'offsets__questionText'}>Sure, I'd Love to! 😝</div>
+                      </label>
+                      </div>
+
+
+
+
+
+                      <div class="grid" style={{ "float": "left"}}>
+
+                      <label class="checkbox bounce">
+                      <input type="checkbox" onChange={() => this.changeQuestion('f')} checked={this.state.question === 'f'} />
+                      <svg viewBox="0 0 21 21">
+                      <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                      </svg>
+                        <div className={'offsets__questionText'}>No, I Wouldn't... 😒</div>
+                      </label>
+                      </div>
+
+                      </div>
+
+
+
+                      <div className="offsets__subDescription"></div>
+                    </div>
+
+
+                    {/*  <div className="offsets__subscriptionDiv">
+
+                      <div className="offsets__subDescription"></div>
 
                         <div className="offsets__monthlySubscriptionButton">Enable Carbonly Subscription</div>
 
-                      </div>
+                      </div> */}
 
                       </div>
 
