@@ -68,6 +68,12 @@ import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
 import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
+// import React, { Component } from 'react';
+// import ReactDOM from 'react-dom';
+// import GoogleLogin from 'react-google-login';
+// or
+import { GoogleLogin } from 'react-google-login';
+
 class Features extends React.Component {
   constructor(props) {
     super(props);

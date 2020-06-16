@@ -38,6 +38,10 @@ import Login from "./views/Login.js";
 import Signup from "./views/Signup.js";
 import ExtensionIframe from "./views/ExtensionIframe.js";
 
+import { GoogleLogin } from 'react-google-login';
+
+import { useGoogleLogin } from 'react-use-googlelogin'
+
 // import Signup from "./auth/Signup";
 // import Login from "./auth/Login";
 
@@ -100,10 +104,13 @@ if (window.location.protocol !== 'https:') {
     window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
 }
 
+
+
 ReactDOM.render(
   <Provider store={store}>
   <Router history={hist}>
     <Switch>
+
       <Route exact path="/landing" render={props => <Landing />} />
       <Route exact path="/forgot-password" render={props => <ForgotPassword />} />
       <Route exact path="/extension-iframe" render={props => <ExtensionIframe />} />

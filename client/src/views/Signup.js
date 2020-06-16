@@ -16,7 +16,7 @@
 
 */
 
-// import SocialSignin from "./SocialSignin.js"
+import SocialSignin from "./SocialSignin.js"
 
 import axios from 'axios';
 
@@ -77,6 +77,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
+import SocialButton from './SocialButton'
+
 let guid = () => {
 let s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -89,9 +91,29 @@ return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + 
 
 let publicId;
 
-const responseGoogle = (response) => {
-  console.log(response);
+function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
 }
+
+function signOut() {
+  var auth2 = window.gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
+// const GOOGLE_BUTTON_ID = "AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg";
 
 class Signup extends Component {
 constructor(props) {
@@ -111,8 +133,6 @@ constructor(props) {
 }
 componentWillMount() {
 
-
-
       axios.post('https://carbonly.org/users/return-register', { }, {
 
       })
@@ -127,11 +147,22 @@ componentWillMount() {
 
 })
 }
+onSuccess(googleUser) {
+   const profile = googleUser.getBasicProfile();
+   console.log("Name: " + profile.getName());
+ }
+
 componentDidMount() {
   // If logged in and user navigates to Register page, should redirect them to dashboard
   if (this.props.auth.isAuthenticated) {
     this.props.history.push("/home");
   }
+
+// window.gapi.signin2.render(GOOGLE_BUTTON_ID, {
+//     width: 200,
+//     height: 50,
+//     onsuccess: this.onSuccess
+//   });
 
 //   setTimeout(function() {
 //
@@ -257,13 +288,32 @@ submitForm() {
     this.setState({ error: "Please Accept Carbonly's Privacy Policy!" });
   }
 };
+responseGoogle() {
+
+}
+handleSocialLogin(user) {
+  console.log(user)
+}
+handleSocialLoginFailure(err) {
+  console.error(err)
+}
 render() {
   const { errors } = this.props.errors;
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
 
     return (
       <>
       {this.state.allUsers ?
         <div className="content disableScroll">
+
+
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+      <meta name="google-signin-scope" content="profile email"/>
+        <meta name="google-signin-client_id" content="AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg.apps.googleusercontent.com"/>
+
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>
           <div className="container-login100">
@@ -281,11 +331,44 @@ render() {
 
                 <div className="login__socialLogin">
 
-                <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
+
 
                 <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
 
-                {/* <div id="googleButton"></div> */}
+                <div className="g-signin2" data-onsuccess="onSignIn"></div>
+                  <div className="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <SocialButton
+     provider='google'
+     appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
+     onLoginSuccess={(user) => this.handleSocialLogin(user)}
+     onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
+     >
+     <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
+    </SocialButton>
+
+              {/*   <div id={GOOGLE_BUTTON_ID} />
+
+                  <a href="#" onclick="signOut();">Sign out</a> */}
+
+
+                  <div id="socialSignin" dangerouslySetInnerHTML={{__html: `<script src="https://apis.google.com/js/platform.js" async defer></script>
+                <meta name="google-signin-scope" content="profile email">
+                  <meta name="google-signin-client_id" content="AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg.apps.googleusercontent.com"><div class="g-signin2" data-onsuccess="onSignIn"></div>` }}></div>
+
+      {/*     <SocialSignin/>     */}
+
+          {/*     <GoogleLogin
+                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                render={<div></div>}
+                buttonText="Login"
+                onSuccess={(response) => this.responseGoogle(response)}
+                onFailure={(response) =>  this.responseGoogle(response)}
+                cookiePolicy={'single_host_origin'}
+              /> */}
+
+
+
 
                 </div>
 
