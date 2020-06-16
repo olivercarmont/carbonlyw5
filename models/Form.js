@@ -9,7 +9,7 @@ const FormSchema = new Schema({
   data: {
     type: Object,
   },
-  link: {
+  time: {
     type: String,
   },
   link: {

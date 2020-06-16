@@ -138,7 +138,7 @@ fun1 = () => {
 addSubmission() {
 
   let totMessage = {
-    header: this.state.header,
+    email: this.state.email,
     message: this.state.message
   }
 
