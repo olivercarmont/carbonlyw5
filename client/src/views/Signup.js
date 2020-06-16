@@ -291,18 +291,44 @@ submitForm() {
 responseGoogle() {
 
 }
-handleSocialLogin(user) {
-  console.log(user)
-}
-handleSocialLoginFailure(err) {
+handleGoogleLoginFailure(err) {
   console.error(err)
-  alert(err)
+
 
 }
-handleSocialLogin(user, err){
+handleGoogleLogin(user, err){
   console.log(user)
-  console.log(err)
-  alert(user);
+
+  if (user.e._profile) {
+    console.log('trying to fetch', user.e._profile);
+
+    console.log('name', user.e._profile.name);
+    console.log('email', user.e._profile.email);
+    console.log('username', user.e._profile.firstName.slice(0, 1) + user.e._profile.lastName);
+
+
+    this.setState({ name: user.e._profile.name });
+    this.setState({ email: user.e._profile.email })
+    this.setState({ username: user.e._profile.firstName.slice(0, 1) + user.e._profile.lastName })
+
+
+    // const newUser = {
+    //   name: this.state.name2,
+    //   email: this.state.email2,
+    //   username: this.state.username,
+    //   publicId: 'NO MAKE YOUR OWN UP THERE THE SAME',
+    //   password: this.state.password,
+    //   password2: this.state.password,
+    // };
+
+    // this.props.registerUser(newUser, this.props.history);
+    //
+    // setTimeout(function() {
+    // this.setState({ isChanging: true });
+    // }, 1000)
+
+  }
+
 }
 render() {
   const { errors } = this.props.errors;
@@ -354,10 +380,9 @@ render() {
     <SocialButton
      provider='google'
      appId='971407209595-rvibl8nfhj8coefijt900aou352ic5cq.apps.googleusercontent.com'
-     callback={(user, err) => this.handleSocialLogin(user, err)}
-     onLoginSuccess={(user) => this.handleSocialLogin(user)}
-     onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
-     scope="name"
+     callback={(user, err) => this.handleGoogleLogin(user, err)}
+     onLoginSuccess={(user) => this.handleGoogleLogin(user)}
+     onLoginFailure={(err) => this.handleGoogleLoginFailure(err)}
      className="login__socialButton"
      >
      <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
