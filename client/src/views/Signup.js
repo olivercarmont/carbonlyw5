@@ -335,8 +335,8 @@ render() {
                   <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
 
       <SocialButton
-      provider='google'
-      appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
+      provider='facebook'
+      appId='313951486279385'
       onLoginSuccess={(user) => this.handleSocialLogin(user)}
       onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
       className="login__socialButton"
