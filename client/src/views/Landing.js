@@ -256,7 +256,9 @@ let newEmissions = 0;
                                         </div>
                                       </div>
 
-                                        <a className="landing__callToActionButton" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+                                      <a href="https://www.producthunt.com/posts/carbonly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-carbonly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=207154&theme=dark" alt="Carbonly 🌿️ - Track  📈 Your Online Carbon Footprint 💨 | Product Hunt Embed" style={{ "width": "225px;", "height": "54px;", "width": "225px", "height": "54px", "margin-top": "21px"}} /></a>
+
+                                  {/*     <a className="landing__callToActionButton" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a> */}
                         {/* <!-- Form End --> */}
                     </div>
                 </div>
@@ -697,7 +699,9 @@ let newEmissions = 0;
                                 </div>
 
                             </div>
-                            <a className="landing__callToActionButton2" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+                            {/* <a className="landing__callToActionButton2" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a> */}
+
+                            <a href="https://www.producthunt.com/posts/carbonly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-carbonly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=207154&theme=dark" alt="Carbonly 🌿️ - Track  📈 Your Online Carbon Footprint 💨 | Product Hunt Embed" style={{ "width": "225px;", "height": "54px;", "width": "225px", "height": "54px", "margin-top": "21px"}} /></a>
 
         </div>
         </div>

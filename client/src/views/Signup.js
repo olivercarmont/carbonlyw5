@@ -191,6 +191,7 @@ componentWillReceiveProps(nextProps) {
 onChange(e) {
   this.setState({ privacy: false });
   this.setState({ isChanging: false });
+  this.setState({ error: '' });
   this.setState({ [e.target.id]: e.target.value });
 };
 
@@ -248,12 +249,12 @@ submitForm() {
   allUsersArray.map((us) => {
     console.log('SEE', us)
     console.log('ONE, ONE', `${us.username}, ${this.state.username}`)
-    console.log('TWO, TWO', `${us.email}, ${this.state.email}`)
+    console.log('TWO, TWO', `${us.email}, ${this.state.email2}`)
     if (( us.username === this.state.username) && this.state.username ) {
       this.setState({ error: "Username is Already Taken" });
       userNameExists = true;
-    } else if ((us.email === this.state.email) && this.state.email) {
-      this.setState({ error: "Username is Already Taken" });
+    } else if ((us.email === this.state.email2) && this.state.email2) {
+      this.setState({ error: "Email is Already in Use" });
       emailExists = true;
     }
   });
@@ -275,9 +276,9 @@ submitForm() {
 
   this.props.registerUser(newUser, this.props.history);
 
-  setTimeout(function() {
+  // setTimeout(function() {
   this.setState({ isChanging: true });
-  }, 1000)
+  // }, 1000)
 
   // }
   // console.log('SIGNED UP', newUser)
@@ -292,25 +293,26 @@ responseGoogle() {
 
 }
 handleGoogleLoginFailure(err) {
-  console.error(err)
+  // console.error(err)
 
-
+  this.setState({ error: "Google Login Failed : (" });
 }
 handleGoogleLogin(user, err){
-  console.log(user)
+  // console.log(user)
+  // console.log(user._profile.email)
 
-  if (user.e._profile) {
-    console.log('trying to fetch', user.e._profile);
+  if (user._profile) {
+    // console.log('trying to fetch', user._profile);
+    //
+    // console.log('name', user._profile.name);
+    // console.log('email', user._profile.email);
+    // console.log('username', user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase());
+    
+    this.setState({ name2: user._profile.name });
+    this.setState({ email2: user._profile.email })
+    this.setState({ username: user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase() })
 
-    console.log('name', user.e._profile.name);
-    console.log('email', user.e._profile.email);
-    console.log('username', user.e._profile.firstName.slice(0, 1) + user.e._profile.lastName);
-
-
-    this.setState({ name: user.e._profile.name });
-    this.setState({ email: user.e._profile.email })
-    this.setState({ username: user.e._profile.firstName.slice(0, 1) + user.e._profile.lastName })
-
+    this.setState({ error: "Make a New Password Below" });
 
     // const newUser = {
     //   name: this.state.name2,
@@ -367,7 +369,7 @@ render() {
               {/*   <div className="g-signin2" data-onsuccess="onSignIn"></div>
                   <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
 
-      <SocialButton
+{/*       <SocialButton
       provider='facebook'
       appId='313951486279385'
       onLoginSuccess={(user) => this.handleSocialLogin(user)}
@@ -375,7 +377,7 @@ render() {
       className="login__socialButton"
       >
       <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
-      </SocialButton>
+      </SocialButton> */}
 
     <SocialButton
      provider='google'
@@ -424,7 +426,7 @@ render() {
                 {this.state.error && !this.state.privacy ? <div className="login__errorButton">{this.state.error}</div> : undefined}
 
                 <div className="wrap-input100 validate-input" data-validate="Pick Name">
-                  <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name} onChange={(e) => this.onChange(e)} />
+                  <input className="input100" name="name" placeholder="Name" id="name2" value={this.state.name2} onChange={(e) => this.onChange(e)} />
                   <span className="focus-input100" data-placeholder="&#xf204;"></span>
                 </div>
 

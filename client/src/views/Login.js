@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
+import { socialLoginUser } from "../actions/authActions";
 import classnames from "classnames";
 import axios from 'axios';
 
@@ -105,6 +106,7 @@ componentDidMount() {
 
   onChange = e => {
     this.setState({ isChanging: false });
+    this.setState({ error: '' });
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -119,24 +121,34 @@ componentDidMount() {
     this.props.loginUser(userData);
     this.setState({ isChanging: true });
   };
-handleSocialLogin(user) {
-  console.log(user)
+handleGoogleLoginFailure(err) {
+    // console.error(err)
+  this.setState({ error: "Google Login Failed : (" });
 }
-handleSocialLoginFailure(err) {
-  console.error(err)
+handleGoogleLogin(user) {
+  // console.log(user)
+
+  if (user._profile) {
+
+  let userData = {
+    email: user._profile.email
+  }
+
+  this.props.socialLoginUser(userData);
+  this.setState({ isChanging: true });
+  }
 }
 render() {
   const { errors } = this.state;
     return (
       <>
-
         <div className="content disableScroll">
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>
           <div className="container-login100">
             <div className={!this.state.hidden ? 'wrap-login100' : 'wrap-login100__hidden'}>
             <div id="login__redoOpacity">
-              <form className="login100-form validate-form" noValidate onSubmit={this.onSubmit}>
+
               <div className="login__centerLogo">
                 <img src={require("../assets/img/carbonlyWhiteLogo.png")} className="login__centralLogo"/>
               </div>
@@ -147,7 +159,7 @@ render() {
 
                 <div className="login__socialLogin">
 
-                <SocialButton
+            {/*    <SocialButton
                 provider='facebook'
                 appId='313951486279385'
                 onLoginSuccess={(user) => this.handleSocialLogin(user)}
@@ -155,23 +167,33 @@ render() {
                 className="login__socialButton"
                 >
                 <div className="login__facebookButton"><FontAwesomeIcon className="login__googleIcon" icon={faFacebookF} /> Facebook</div>
+                </SocialButton> */}
+
+                <SocialButton
+                 provider='google'
+                 appId='971407209595-rvibl8nfhj8coefijt900aou352ic5cq.apps.googleusercontent.com'
+                 callback={(user, err) => this.handleGoogleLogin(user, err)}
+                 onLoginSuccess={(user) => this.handleGoogleLogin(user)}
+                 onLoginFailure={(err) => this.handleGoogleLoginFailure(err)}
+                 className="login__socialButton"
+                 >
+                 <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
                 </SocialButton>
 
-              <SocialButton
-               provider='google'
-               appId='AIzaSyC4lWQkrWUb4kvHXHv5LD85YCUybckUAQg'
-               onLoginSuccess={(user) => this.handleSocialLogin(user)}
-               onLoginFailure={(err) => this.handleSocialLoginFailure(err)}
-               className="login__socialButton"
-               >
-               <div className="login__googleButton"><FontAwesomeIcon className="login__googleIcon" icon={faGoogle} /> Google</div>
-              </SocialButton>
+              <div id="socialSignin" dangerouslySetInnerHTML={{__html: `<script src="https://apis.google.com/js/platform.js" async defer></script>
+            <meta name="google-signin-scope" content="profile email">
+              <meta name="google-signin-client_id" content="971407209595-rvibl8nfhj8coefijt900aou352ic5cq.apps.googleusercontent.com"><div class="g-signin2" style="display:none" data-onsuccess="onSignIn"></div>` }}></div>
+
 
                 </div>
 
                 <div className="separator"> &nbsp; Or Login With Password  &nbsp;</div>
 
                 {this.state.isChanging ? errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.emailnotfound ? <div className="login__errorButton">{errors.emailnotfound}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.passwordincorrect ? <div className="login__errorButton">{errors.passwordincorrect}</div> : undefined : undefined}
+
+                {this.state.isChanging ? this.state.error ? <div className="login__errorButton">{this.state.error}</div> : undefined : undefined}
+
+                <form className="login100-form validate-form" noValidate onSubmit={this.onSubmit}>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter Email">
                   <input className="input100" name="email" placeholder="Email" onChange={this.onChange}
@@ -229,6 +251,7 @@ render() {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  socialLoginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -240,5 +263,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, socialLoginUser }
 )(Login);
