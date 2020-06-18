@@ -84,6 +84,7 @@ class Landing extends React.Component {
       allFeatures: "budget",
       num1: 0,
   }
+  // this.trackScrolling.bind(this);
 }
 componentDidMount() {
 
@@ -102,6 +103,10 @@ componentDidMount() {
      //
      // console.log('all users', response.data.info[4]);
 
+     // setTimeout(function(e) {
+     document.addEventListener('scroll', this.trackScrolling);
+     // }, 1000)
+
 })
 .catch((error) => {
   console.log(error);
@@ -114,8 +119,6 @@ if (this.state.howItWorks) {
 // setTimeout(function() {
 // this.animateValue("landing__numberOne", 100, 25, 5000);
 // }, 500)
-
-document.addEventListener('scroll', this.trackScrolling);
 
 }
 fun1 = () => {
@@ -183,26 +186,30 @@ let newEmissions = 0;
 
   return newEmissions;
 }
+// componentWillUnmount() {
+//   document.removeEventListener('scroll', (e) => this.trackScrolling(e));
+// }
 isBottom(el) {
+  alert(el.getBoundingClientRect().bottom);
+  alert(window.innerHeight);
   return el.getBoundingClientRect().bottom <= window.innerHeight;
 }
-componentWillUnmount() {
-  document.removeEventListener('scroll', this.trackScrolling);
-}
-trackScrolling = () => {
-  const wrappedElement = document.getElementById('statsSection');
-  if (this.isBottom(wrappedElement)) {
-    alert('header bottom reached');
-    document.removeEventListener('scroll', this.trackScrolling);
-  }
-};
+// trackScrolling () {
+//   const wrappedElement = document.getElementById('statsSection');
+//   console.log('ELE', wrappedElement);
+//   if (this.isBottom(wrappedElement)) {
+//     alert('ANIMATING')
+//     this.animateValue("", 0, this.state.landingData.totUsers, 5000)
+//     // document.removeEventListener('scroll', this.trackScrolling);
+//   }
+// };
 animateValue(id, start, end, duration) {
     var range = end - start;
     var current = start;
     var increment = end > start? 1 : -1;
     var stepTime = Math.abs(Math.floor(duration / range));
     // var obj = document.getElementById(id);
-    var timer = setInterval(function() {
+    var timer = setInterval(function(e) {
         current += increment;
         // obj.innerHTML = current;
         this.setState({ num1: current })
@@ -212,10 +219,10 @@ animateValue(id, start, end, duration) {
     }, stepTime);
 }
   render() {
-      this.animateValue("", 0, this.state.landingData.totUsers, 5000);
     return (
       <>
       {this.state.landingData ? <div>
+
         <div className="landing__topDiv">
         {/* <!-- Preloader Start --> */}
       {/*  <div id="preloader">

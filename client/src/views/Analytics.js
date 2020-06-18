@@ -1307,6 +1307,8 @@ class Analytics extends React.Component {
       console.log('usp', userPoints)
     })
 
+    userPoints += parseFloat(this.state.user.bonusPoints)
+
     console.log('usp', userPoints)
 
     let usValues = [];

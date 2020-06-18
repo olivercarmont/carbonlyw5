@@ -132,6 +132,8 @@ router.post("/return-extension", (req, res) => {
           points += parseFloat(or.points);
         });
 
+        points += parseFloat(us.bonusPoints);
+
         usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, points: points });
 
       });
@@ -187,6 +189,8 @@ router.post("/return-extension", (req, res) => {
         friend.orders.map((orf) => {
           friendPoints += parseFloat(orf.points);
         });
+
+        friendPoints += parseFloat(friend.bonusPoints)
 
         let ranki = 1;
 
@@ -281,6 +285,8 @@ router.post("/return-extension", (req, res) => {
   friend.orders.map((or) => {
     friendPoints += parseFloat(or.points);
   });
+
+  friendPoints += parseFloat(friend.bonusPoints);
 
   let ranki = 1;
 
@@ -705,10 +711,10 @@ router.post("/register", (req, res) => {
 
       User.findOne({ referralCode: req.body.referralUser }).then(user => {
 
-      let newPoints = user.points += 500;
+      let newPoints = parseFloat(user.bonusPoints) += 2500;
 
         User.findOneAndUpdate({ referralCode: req.body.referralUser }, { $set: {
-            points: newPoints,
+            bonusPoints: newPoints,
           }
         }).then(user => {
           // return res.json({ budget: value });
@@ -718,15 +724,16 @@ router.post("/register", (req, res) => {
 
     }
 
-    if (req.bod.referralUser.length > 0) {
+    if (req.body.referralUser.length > 0) {
     const newUser = new User({
        name: req.body.name,
        username: req.body.username,
        email: req.body.email,
        password: req.body.password,
        publicId: req.body.publicId,
+       referralCode:req.body.referralCode,
        hasloggedIn: 'f',
-       bonusPoints: 500,
+       bonusPoints: 2500,
      });
 
      // Hash password before saving in database
@@ -748,6 +755,7 @@ router.post("/register", (req, res) => {
        email: req.body.email,
        password: req.body.password,
        publicId: req.body.publicId,
+       referralCode:req.body.referralCode,
        hasloggedIn: 'f',
      });
 
@@ -812,6 +820,8 @@ router.post("/return-leaderboard", (req, res) => {
           points += parseFloat(or.points);
         });
 
+        points += parseFloat(user.bonusPoints);
+
         usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, points: points });
 
       });
@@ -867,6 +877,8 @@ router.post("/return-leaderboard", (req, res) => {
         friend.orders.map((orf) => {
           friendPoints += parseFloat(orf.points);
         });
+
+        friendPoints += parseFloat(friend.bonusPoints);
 
         let ranki = 1;
 
@@ -961,6 +973,8 @@ router.post("/return-leaderboard", (req, res) => {
   friend.orders.map((or) => {
     friendPoints += parseFloat(or.points);
   });
+
+  friendPoints += parseFloat(friend.bonusPoints);
 
   let ranki = 1;
 

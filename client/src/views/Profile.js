@@ -716,7 +716,7 @@ render() {
 
               <div className="leaderboard__mainTitleNotFound">No Friends to Show &nbsp;<Icon icon={sadTear} /></div>
 
-              <div className="leaderboard__noFriendsDescription">Go to Leaderboard to Add Your First Friends!</div>
+              <div className="leaderboard__noFriendsDescriptionProfile">Go to Leaderboard to Add Your First Friends!</div>
 
               <div className="notFound__positionButton">
 
@@ -771,7 +771,7 @@ render() {
                       <div className="profile__getPointsSubtitle">1. Buy Sustainable Goods</div>
                       <div className="profile__getPointsDescription"> > The More Carbon Avoided, The More Points!</div>
                       </div>
-                      <div className="profile__getPointsNumber">Up to 1,500 Points <br/> <div className="profile__getPointsNumSmaller">Per Product</div></div>
+                      <div className="profile__getPointsNumber">Up to 1500 Points <br/> <div className="profile__getPointsNumSmaller">Per Product</div></div>
                       </div>
 
                       <div className="profile__getPointsMiddleDiv"></div>
@@ -779,9 +779,9 @@ render() {
                       <div className="profile__getPointsInd">
                       <div className="profile__getPointsIndLeft">
                       <div className="profile__getPointsSubtitle">2. Refer New Users</div>
-                      <div className="profile__getPointsDescription"> > Referal Code: &nbsp; FH49GE</div>
+                      <div className="profile__getPointsDescription"> > Referal Code:&nbsp;{this.state.user.referralCode}</div>
                       </div>
-                      <div className="profile__getPointsNumber">2,500 points <br/><div className="profile__getPointsNumSmaller">Per User</div></div>
+                      <div className="profile__getPointsNumber">2500 points <br/><div className="profile__getPointsNumSmaller">Per User</div></div>
                       </div>
 
                       <div className="profile__getPointsMiddleDiv"></div>

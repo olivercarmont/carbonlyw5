@@ -176,6 +176,9 @@ letter-spacing:-0.02em;
 .separator::after {
     margin-left: .25em;
 }
+.login__eliminateSpacingBottomSignup {
+  margin-top:-52px;
+}
 .login__eliminateSpacingBottom {
   margin-top:-45px;
 }
@@ -304,7 +307,7 @@ letter-spacing:-0.02em;
   color:#fff;
   cursor:pointer;
   margin-top:-20px;
-  margin-bottom:20px;
+  margin-bottom:23px;
   font-size:0.97em;
   text-align:center;
 }
@@ -315,6 +318,9 @@ letter-spacing:-0.02em;
   margin-bottom:20px;
   font-size:0.97em;
   text-align:center;
+  width:177px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .signup__referralPointsText {
   font-weight:bold;

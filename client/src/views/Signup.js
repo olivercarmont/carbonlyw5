@@ -250,7 +250,7 @@ submitForm() {
     publicId = guid();
     newReferralCode = guid2().toUpperCase();
 
-    console.log('id', publicId);
+    // console.log('id', publicId);
 
     if (this.idExists(publicId)) {
       this.generateNewId();
@@ -272,18 +272,15 @@ submitForm() {
 
   let allUsersArray = this.state.allUsers.usersArray;
 
-  console.log('ALLU', typeof allUsersArray)
-
-  console.log('WAS ERROR?', `${userNameExists}, ${emailExists} - ${allUsersArray.length}`)
+  // console.log('ALLU', typeof allUsersArray)
+  //
+  // console.log('WAS ERROR?', `${userNameExists}, ${emailExists} - ${allUsersArray.length}`)
 
   this.setState({ isChanging: false });
 
   let referralUser = '';
 
   allUsersArray.map((us) => {
-    console.log('SEE', us)
-    console.log('ONE, ONE', `${us.username}, ${this.state.username}`)
-    console.log('TWO, TWO', `${us.email}, ${this.state.email2}`)
     if (( us.username === this.state.username) && this.state.username ) {
       this.setState({ error: "Username is Already Taken" });
       userNameExists = true;
@@ -291,8 +288,6 @@ submitForm() {
       this.setState({ error: "Email is Already in Use" });
       emailExists = true;
     }
-
-    console.log('USER', us);
 
     if (this.state.referralCode.length > 0 && (us.referralCode.toLowerCase() === this.state.referralCode.toLowerCase())) {
       referralUser = us.referralCode;
@@ -304,7 +299,7 @@ submitForm() {
     this.setState({ error: "Referral User Not Found" });
   }
 
-  console.log('WAS ERROR?', `${userNameExists}, ${emailExists}`)
+  // console.log('WAS ERROR?', `${userNameExists}, ${emailExists}`)
 
   if (!userNameExists && !emailExists) {
 
@@ -316,6 +311,7 @@ submitForm() {
     password: this.state.password,
     password2: this.state.password,
     referralUser,
+    referralCode: newReferralCode,
   };
 
   this.props.registerUser(newUser, this.props.history);
@@ -519,7 +515,7 @@ render() {
 
                   <div className="signup__referralTextNot" onClick={() => this.clearReferralCode()}>Don't Have Referral Code?</div>
 
-                  </div> : <div className="signup__referralText" onClick={() => this.setState({ referralEnabled: true })}>Have Referral Code? <span className="signup__referralPointsText">Earn 500 Points!</span></div>}
+                  </div> : <div className="signup__referralText" onClick={() => this.setState({ referralEnabled: true })}>Have Referral Code? <span className="signup__referralPointsText">Earn 2500 Points!</span></div>}
 
                 <div className="container-login100-form-btn">
                   <button onClick={() => this.submitForm()} className="login100-form-btn">
@@ -527,14 +523,14 @@ render() {
                   </button>
                 </div>
 
-                <div className="login__eliminateSpacingBottom"></div>
+                <div className="login__eliminateSpacingBottomSignup"></div>
 
                 <div className="text-center p-t-90">
                   <a className="txt1 login__bottomStopHoverEffect">
                     Already Have an Account? <Link to="/login"><div className="login__signupLink">Login!</div></Link>
                   </a>
                 </div>
-                <div className="login__bottomStopHoverEffect2">Click <div onClick={() => this.setState({ hidden: !this.state.hidden })} className="login__signupLink">Here</div> to {!this.state.hidden ? 'Hide' : 'Show'} This Card!</div>
+              {/*   <div className="login__bottomStopHoverEffect2">Click <div onClick={() => this.setState({ hidden: !this.state.hidden })} className="login__signupLink">Here</div> to {!this.state.hidden ? 'Hide' : 'Show'} This Card!</div> */}
 
               </div>
               </div>
