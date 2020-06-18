@@ -89,7 +89,17 @@ let s4 = () => {
 return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-let publicId;
+let guid2 = () => {
+let s4 = () => {
+  return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    }
+    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+return s4();
+}
+
+let publicId, newReferralCode;
 
 // function onSignIn(googleUser) {
 //         // Useful data for your client-side scripts:
@@ -129,6 +139,8 @@ constructor(props) {
       checked: false,
       privacy: false,
       isChanging: false,
+      referralEnabled: false,
+      referralCode: '',
     };
 }
 componentWillMount() {
@@ -208,10 +220,25 @@ idExists(id) {
     }
   })
 }
-generateNewId(id) {
+referralExists(referral) {
+  let users = Array(this.state.allUsers);
+  users.map((us) => {
+    if (us.referralCode === referral) {
+      return true;
+    }
+  })
+}
+generateNewId() {
 
-  while (this.idExists(id)) {
+  while (this.idExists(publicId)) {
     publicId = guid();
+  }
+
+}
+generateNewReferralCode() {
+
+  while (this.referralExists(newReferralCode)) {
+    newReferralCode = guid2();
   }
 
 }
@@ -221,11 +248,18 @@ submitForm() {
   if (this.state.checked) {
 
     publicId = guid();
+    newReferralCode = guid2().toUpperCase();
+
+    alert(newReferralCode)
 
     console.log('id', publicId);
 
     if (this.idExists(publicId)) {
       this.generateNewId();
+    }
+
+    if (this.referralExists(newReferralCode)) {
+      this.generateNewReferralCode();
     }
 
   // if (this.state.name2.length === 0) {
@@ -246,6 +280,8 @@ submitForm() {
 
   this.setState({ isChanging: false });
 
+  let referralUser = '';
+
   allUsersArray.map((us) => {
     console.log('SEE', us)
     console.log('ONE, ONE', `${us.username}, ${this.state.username}`)
@@ -257,9 +293,16 @@ submitForm() {
       this.setState({ error: "Email is Already in Use" });
       emailExists = true;
     }
+
+    if (this.state.referralCode.length > 0 && (us.referralCode.toLowerCase() === this.state.referralCode.toLowerCase())) {
+      referralUser = us.referralCode;
+    }
+
   });
 
-
+  if (this.state.referralCode.length > 0 && !referralUser) {
+    this.setState({ error: "Referral User Not Found" });
+  }
 
   console.log('WAS ERROR?', `${userNameExists}, ${emailExists}`)
 
@@ -272,6 +315,7 @@ submitForm() {
     publicId,
     password: this.state.password,
     password2: this.state.password,
+    referralUser,
   };
 
   this.props.registerUser(newUser, this.props.history);
@@ -307,7 +351,7 @@ handleGoogleLogin(user, err){
     // console.log('name', user._profile.name);
     // console.log('email', user._profile.email);
     // console.log('username', user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase());
-    
+
     this.setState({ name2: user._profile.name });
     this.setState({ email2: user._profile.email })
     this.setState({ username: user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase() })
@@ -332,17 +376,20 @@ handleGoogleLogin(user, err){
   }
 
 }
+clearReferralCode() {
+  this.setState({ referralEnabled: false })
+  this.setState({ referralCode: '' })
+}
 render() {
   const { errors } = this.props.errors;
 
   const responseGoogle = (response) => {
     console.log(response);
   }
-
     return (
       <>
       {this.state.allUsers ?
-        <div className="content disableScroll">
+        <div className="content">
 
 
         <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -459,8 +506,20 @@ render() {
                 </label>
                 </div>
 
-
                 <div className="login__eliminateSpacingBottomTop"></div>
+
+                {this.state.referralEnabled ? <div>
+
+                  <div className="login__referralSpacing"></div>
+
+                  <div className="wrap-input100 validate-input" data-validate="Enter Referral Code">
+                    <input className="input100" type="referralCode" name="referralCode" placeholder="Referral Code" id="referralCode" value={this.state.referralCode} onChange={(e) => this.setState({ referralCode: e.target.value })} />
+                    <span className="focus-input100" data-placeholder="&#xf187;"></span>
+                  </div>
+
+                  <div className="signup__referralTextNot" onClick={() => this.clearReferralCode()}>Don't Have Referral Code?</div>
+
+                  </div> : <div className="signup__referralText" onClick={() => this.setState({ referralEnabled: true })}>Have Referral Code? <span className="signup__referralPointsText">Earn 500 Points!</span></div>}
 
                 <div className="container-login100-form-btn">
                   <button onClick={() => this.submitForm()} className="login100-form-btn">

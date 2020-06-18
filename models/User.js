@@ -50,6 +50,10 @@ const UserSchema = new Schema({
     type: String,
     required:true
   },
+  referralCode: {
+    type:String,
+    required:true
+  },
   hasLoggedIn: {
     type: String,
     default: 'f',
@@ -65,7 +69,10 @@ const UserSchema = new Schema({
   budget: {
     type: Number,
     default:900
-
+  },
+  bonusPoints: {
+    type: Number,
+    default:0
   }
 
 });

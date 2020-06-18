@@ -231,8 +231,9 @@ letter-spacing:-0.02em;
   float:left;
   margin-left:0px;
   position:relative;
-  margin-top:-20px;
-  margin-left:32px;
+  margin-top:-19px;
+  margin-left:30px;
+
   display:block;
   width:300px;
   font-size:0.96em;
@@ -289,8 +290,36 @@ letter-spacing:-0.02em;
 #name2:focus {
   color:#fff !important;
 }
+#referralCode {
+  color:white !important;
+}
+#referralCode:focus {
+  color:white !important;
+}
 .login__socialButton {
   display:flex;
   width:100%;
+}
+.signup__referralText {
+  color:#fff;
+  cursor:pointer;
+  margin-top:-20px;
+  margin-bottom:20px;
+  font-size:0.97em;
+  text-align:center;
+}
+.signup__referralTextNot {
+  color:#fff;
+  cursor:pointer;
+  margin-top:-16px;
+  margin-bottom:20px;
+  font-size:0.97em;
+  text-align:center;
+}
+.signup__referralPointsText {
+  font-weight:bold;
 
+}
+.login__referralSpacing {
+  margin-top:-30px;
 }

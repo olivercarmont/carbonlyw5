@@ -146,7 +146,7 @@ class Privacy extends React.Component {
                             </div>
                               </div>
 
-            <a className="landing__callToActionButton" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+          <a href="https://www.producthunt.com/posts/carbonly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-carbonly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=207154&theme=dark" alt="Carbonly 🌿️ - Track  📈 Your Online Carbon Footprint 💨 | Product Hunt Embed" style={{ "width": "225px;", "height": "54px;", "width": "225px", "height": "54px", "margin-top": "21px"}} /></a>
 
                     </div>
                 </div>
@@ -210,7 +210,7 @@ class Privacy extends React.Component {
                             <div className="app-download-area">
                                 <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtn" data-wow-delay="0.2s">
                                     {/* <!-- Google Store Btn --> */}
-                                    <a href="#">
+                                    <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" target="_blank">
                                         <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
                                         <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                     </a>
@@ -219,7 +219,7 @@ class Privacy extends React.Component {
 
                             </div>
 
-            <a className="landing__callToActionButton2" href="https://www.producthunt.com/upcoming/carbonly">Subscribe to Our Product Launch<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+          <a href="https://www.producthunt.com/posts/carbonly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-carbonly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=207154&theme=dark" alt="Carbonly 🌿️ - Track  📈 Your Online Carbon Footprint 💨 | Product Hunt Embed" style={{ "width": "225px;", "height": "54px;", "width": "225px", "height": "54px", "margin-top": "21px"}} /></a>
 
         </div>
         </div>

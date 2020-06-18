@@ -680,7 +680,6 @@ router.post("/return-landing", (req, res) => {
 
 router.post("/register", (req, res) => {
 
-  console.log('GOT TO HERE')
   // Form validation
 
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -702,15 +701,45 @@ router.post("/register", (req, res) => {
     }
     });
 
+    if (req.body.referralUser.length > 0) {
 
-      const newUser = new User({
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        publicId: req.body.publicId,
-        hasloggedIn: 'f',
-      });
+      User.findOne({ referralCode: req.body.referralUser }).then(user => {
+
+      let newPoints = user.points += 500;
+
+        User.findOneAndUpdate({ referralCode: req.body.referralUser }, { $set: {
+            points: newPoints;
+          }
+        }).then(user => {
+          // return res.json({ budget: value });
+        })
+
+      }).catch(err => res.status(400).json(`Error:` + err));
+
+    }
+
+    const newUser;
+
+    if (req.bod.referralUser.length > 0) {
+    newUser = new User({
+       name: req.body.name,
+       username: req.body.username,
+       email: req.body.email,
+       password: req.body.password,
+       publicId: req.body.publicId,
+       hasloggedIn: 'f',
+       bonusPoints: 500,
+     });
+    } else {
+    newUser = new User({
+       name: req.body.name,
+       username: req.body.username,
+       email: req.body.email,
+       password: req.body.password,
+       publicId: req.body.publicId,
+       hasloggedIn: 'f',
+     });
+    }
 
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {

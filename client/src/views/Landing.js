@@ -247,7 +247,7 @@ let newEmissions = 0;
                                     <div className="app-download-area">
                                         <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
                                             {/* <!-- Google Store Btn --> */}
-                                            <a href="#" className="landing__installBackground">
+                                            <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" target="_blank" className="landing__installBackground">
                                                 <Icon icon={chromeIcon} className="landing__downloadChromeIcon" style={{"color": "#f2f2f2"}} />
                                                 <p id="landingPage__chromeStoreButtonTextUp" style={{"color": "#f2f2f2"}} className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                             </a>
@@ -690,7 +690,7 @@ let newEmissions = 0;
                             <div className="app-download-area">
                                 <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtn" data-wow-delay="0.2s">
                                     {/* <!-- Google Store Btn --> */}
-                                    <a href="#">
+                                    <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" target="_blank">
                                         <Icon icon={chromeIcon} className="landing__downloadChromeIcon" />
                                         <p id="landingPage__chromeStoreButtonText" className="mb-0"><span className="landing__bottomButtonAvailable">Available on</span> Chrome Store</p>
                                     </a>
