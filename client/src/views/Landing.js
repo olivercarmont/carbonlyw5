@@ -74,7 +74,6 @@ import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
 import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
-
 // let features = ['budget'];
 
 class Landing extends React.Component {
@@ -82,7 +81,8 @@ class Landing extends React.Component {
     super(props);
     this.state = {
       howItWorks: 'account',
-      allFeatures: "budget"
+      allFeatures: "budget",
+      num1: 0,
   }
 }
 componentDidMount() {
@@ -114,6 +114,8 @@ if (this.state.howItWorks) {
 // setTimeout(function() {
 // this.animateValue("landing__numberOne", 100, 25, 5000);
 // }, 500)
+
+document.addEventListener('scroll', this.trackScrolling);
 
 }
 fun1 = () => {
@@ -181,7 +183,36 @@ let newEmissions = 0;
 
   return newEmissions;
 }
+isBottom(el) {
+  return el.getBoundingClientRect().bottom <= window.innerHeight;
+}
+componentWillUnmount() {
+  document.removeEventListener('scroll', this.trackScrolling);
+}
+trackScrolling = () => {
+  const wrappedElement = document.getElementById('statsSection');
+  if (this.isBottom(wrappedElement)) {
+    alert('header bottom reached');
+    document.removeEventListener('scroll', this.trackScrolling);
+  }
+};
+animateValue(id, start, end, duration) {
+    var range = end - start;
+    var current = start;
+    var increment = end > start? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    // var obj = document.getElementById(id);
+    var timer = setInterval(function() {
+        current += increment;
+        // obj.innerHTML = current;
+        this.setState({ num1: current })
+        if (current == end) {
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
   render() {
+      this.animateValue("", 0, this.state.landingData.totUsers, 5000);
     return (
       <>
       {this.state.landingData ? <div>
@@ -505,7 +536,7 @@ let newEmissions = 0;
 
         <div className="landing__statsSpacing"></div>
 
-        <section className="cool_facts_area clearfix landing__statsSection">
+        <section className="cool_facts_area clearfix landing__statsSection" id="statsSection">
 
         <div className="landing__ourStatsBottom">
         <div className="landing__ourStasContainingDiv">
@@ -520,7 +551,7 @@ let newEmissions = 0;
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter" id="landing__numberOne">{this.state.landingData.totUsers}</span></h3>
+                                <h3><span className="counter" id="landing__numberOne">{this.state.num1}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />

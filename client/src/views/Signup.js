@@ -250,8 +250,6 @@ submitForm() {
     publicId = guid();
     newReferralCode = guid2().toUpperCase();
 
-    alert(newReferralCode)
-
     console.log('id', publicId);
 
     if (this.idExists(publicId)) {
@@ -293,6 +291,8 @@ submitForm() {
       this.setState({ error: "Email is Already in Use" });
       emailExists = true;
     }
+
+    console.log('USER', us);
 
     if (this.state.referralCode.length > 0 && (us.referralCode.toLowerCase() === this.state.referralCode.toLowerCase())) {
       referralUser = us.referralCode;
