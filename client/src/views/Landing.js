@@ -74,7 +74,41 @@ import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
 import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
+import { fadeInRight } from 'react-animations';
+
+import { CountUp } from 'countup.js';
+
+// import { bounce } from 'react-animations';
+import { StyleSheet, css } from 'aphrodite';
+
+// import styled, { keyframes } from "styled-components";
+// import FadeInLeft from "@bit/formidablelabs.react-animations.fade-in-left";
+// const FadeInLeftAnimation = keyframes`${FadeInLeft}`;
+
+// const animationStyles = StyleSheet.create({
+//   fadeIn: {
+//     animationName: fadeInRight,
+//     animationDuration: '5s'
+//   }
+// })
+//
+//
+// const FadeInLeftDiv = styled.div`
+//   animation: infinite 5s ${FadeInLeftAnimation};
+// `;
+
+import styled, { keyframes } from 'styled-components';
+import { bounce } from 'react-animations';
+
+const bounceAnimation = keyframes`${bounce}`;
+
+const BouncyDiv = styled.div`
+  animation: 1s ${bounceAnimation};
+`;
+
 // let features = ['budget'];
+
+let numberAnimationOccured = false;
 
 class Landing extends React.Component {
   constructor(props) {
@@ -84,7 +118,8 @@ class Landing extends React.Component {
       allFeatures: "budget",
       num1: 0,
   }
-  // this.trackScrolling.bind(this);
+  this.trackScrolling = this.trackScrolling.bind(this);
+  this.animateValue = this.animateValue.bind(this);
 }
 componentDidMount() {
 
@@ -146,20 +181,6 @@ fun1 = () => {
 
   }, 8700);
 };
-animateValue(id, start, end, duration) {
-    var range = end - start;
-    var current = start;
-    var increment = end > start? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duration / range));
-    var obj = document.getElementById(id);
-    var timer = setInterval(function() {
-        current += increment;
-        obj.innerHTML = current;
-        if (current == end) {
-            clearInterval(timer);
-        }
-    }, stepTime);
-}
 returnCO2Format() {
 let emissions = parseFloat(this.state.landingData.emTracked);
 let newEmissions = 0;
@@ -168,55 +189,55 @@ let newEmissions = 0;
 
     newEmissions = emissions / 1000000;
     newEmissions = Math.round(newEmissions);
-    newEmissions = `${newEmissions}Mt`
+    newEmissions = newEmissions
 
   } else if (emissions > 10000) {
 
     newEmissions = emissions / 1000;
     newEmissions = Math.round(newEmissions);
-    newEmissions = `${newEmissions}t`
+    newEmissions = newEmissions
 
   } else if (emissions > 1000) {
 
     newEmissions = emissions / 1000;
     newEmissions = newEmissions.toFixed(1);
-    newEmissions = `${newEmissions}t`
+    newEmissions = newEmissions
 
   }
 
   return newEmissions;
 }
-// componentWillUnmount() {
-//   document.removeEventListener('scroll', (e) => this.trackScrolling(e));
-// }
-isBottom(el) {
-  alert(el.getBoundingClientRect().bottom);
-  alert(window.innerHeight);
-  return el.getBoundingClientRect().bottom <= window.innerHeight;
+componentWillUnmount() {
+  document.removeEventListener('scroll', (e) => this.trackScrolling(e));
 }
-// trackScrolling () {
-//   const wrappedElement = document.getElementById('statsSection');
-//   console.log('ELE', wrappedElement);
-//   if (this.isBottom(wrappedElement)) {
-//     alert('ANIMATING')
-//     this.animateValue("", 0, this.state.landingData.totUsers, 5000)
-//     // document.removeEventListener('scroll', this.trackScrolling);
-//   }
-// };
-animateValue(id, start, end, duration) {
-    var range = end - start;
-    var current = start;
-    var increment = end > start? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duration / range));
-    // var obj = document.getElementById(id);
-    var timer = setInterval(function(e) {
-        current += increment;
-        // obj.innerHTML = current;
-        this.setState({ num1: current })
-        if (current == end) {
-            clearInterval(timer);
-        }
-    }, stepTime);
+trackScrolling() {
+  const wrappedElement = document.getElementById('statsSection');
+  if (wrappedElement.getBoundingClientRect().bottom <= window.innerHeight) {
+    // alert('ANIMATING')
+    this.animateValue()
+    // document.removeEventListener('scroll', this.trackScrolling);
+  }
+};
+animateValue() {
+
+  if (!numberAnimationOccured) {
+
+    console.log('NUM', numberAnimationOccured)
+
+    const countUpFirst = new CountUp('landing__numberOne', this.state.landingData.totUsers);
+    countUpFirst.start();
+
+    const countUpSecond = new CountUp('landing__numberTwo', 18);
+    countUpSecond.start();
+
+    const countUpThird = new CountUp('landing__numberThree', 1.2);
+    countUpThird.start();
+
+    const countUpFourth = new CountUp('landing__numberFour', this.returnCO2Format());
+    countUpFourth.start();
+
+    numberAnimationOccured = true;
+  }
 }
   render() {
     return (
@@ -313,7 +334,14 @@ animateValue(id, start, end, duration) {
            <div className="row">
                <div className="col-12">
 
-                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero"/></div>
+
+
+
+
+
+
+
+                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero" /></div>
 
 
                 {/*   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
@@ -558,7 +586,7 @@ animateValue(id, start, end, duration) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area landing__ourStatsNumber4">
-                                <h3><span className="counter" id="landing__numberOne">{this.state.num1}</span></h3>
+                                <h3><span className="counter" id="landing__numberOne">{0}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={cloudDownloadOutline} className="landing__treeIcon" />
@@ -570,7 +598,7 @@ animateValue(id, start, end, duration) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">18</span></h3>
+                                <h3><span className="counter" id="landing__numberTwo">0</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -583,7 +611,7 @@ animateValue(id, start, end, duration) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">1.2k</span></h3>
+                                <h3><span className="counter"><span id="landing__numberThree">0</span>k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={statsChart} className="landing__treeIcon" />
@@ -591,11 +619,12 @@ animateValue(id, start, end, duration) {
                             </div>
                         </div>
                     </div>
+
                     {/* <!-- Single Cool Fact--> */}
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter">{this.returnCO2Format()}</span></h3>
+                                <h3><span className="counter"><span id="landing__numberFour">{0}</span>{this.state.landingData.emTracked > 1000000 ? 'Mt' : this.state.landingData.emTracked ? 't' : ''}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />

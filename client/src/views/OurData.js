@@ -74,6 +74,10 @@ import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
 import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
+import { CountUp } from 'countup.js';
+
+let numberAnimationOccured = false;
+
 class OurData extends React.Component {
   constructor(props) {
     super(props);
@@ -82,6 +86,8 @@ class OurData extends React.Component {
       email: '',
       message: ''
   }
+  this.trackScrolling = this.trackScrolling.bind(this);
+  this.animateValue = this.animateValue.bind(this);
 }
 componentDidMount() {
 
@@ -93,6 +99,8 @@ componentDidMount() {
     console.log('DATA', response.data)
 
      this.setState({ landingData: response.data });
+
+     document.addEventListener('scroll', this.trackScrolling);
 
     // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
      // console.log('user', response.data.info[0]);
@@ -167,6 +175,38 @@ updateMessage(e) {
   this.setState({ message: e.target.value });
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
+}
+componentWillUnmount() {
+  document.removeEventListener('scroll', (e) => this.trackScrolling(e));
+}
+trackScrolling() {
+  const wrappedElement = document.getElementById('ourData__numbersSection');
+  if (wrappedElement.getBoundingClientRect().bottom <= window.innerHeight) {
+    // alert('ANIMATING')
+    this.animateValue()
+    // document.removeEventListener('scroll', this.trackScrolling);
+  }
+};
+animateValue() {
+
+  if (!numberAnimationOccured) {
+
+    console.log('NUM', numberAnimationOccured)
+
+    const countUpFirst = new CountUp('ourData__numberOne', 1);
+    countUpFirst.start();
+
+    const countUpSecond = new CountUp('ourData__numberTwo', 1);
+    countUpSecond.start();
+
+    const countUpThird = new CountUp('ourData__numberThree', 11);
+    countUpThird.start();
+
+    const countUpFourth = new CountUp('ourData__numberFour', 110);
+    countUpFourth.start();
+
+    numberAnimationOccured = true;
+  }
 }
   render() {
     return (
@@ -315,7 +355,7 @@ updateMessage(e) {
 
         </section>
 
-        <section className="cool_facts_area clearfix landing__statsSection">
+        <section className="cool_facts_area clearfix landing__statsSection" id="ourData__numbersSection">
 
         <div className="landing__ourStatsBottom">
         <div className="ourData__ourStasContainingDiv">
@@ -330,7 +370,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
                             <div className="counter-area">
-                                <h3><span className="counter">1k</span></h3>
+                                <h3><span className="counter"><span id="ourData__numberOne">0</span>k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                                 <Icon icon={fruitCherries} className="landing__treeIcon" />
@@ -342,7 +382,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
                             <div className="counter-area">
-                                <h3><span className="counter">1k</span></h3>
+                                <h3><span className="counter"><span id="ourData__numberTwo">0</span>k</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
@@ -355,7 +395,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
                             <div className="counter-area ourData__ourStatsNumber2">
-                                <h3><span className="counter">11</span></h3>
+                                <h3><span className="counter"><span id="ourData__numberThree">0</span></span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={globeShowingEuropeAfrica} className="landing__treeIcon" />
@@ -367,7 +407,7 @@ updateMessage(e) {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area">
-                                <h3><span className="counter">110</span></h3>
+                                <h3><span className="counter"><span id="ourData__numberFour">0</span></span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={baselineTranslate} className="landing__treeIcon" />
