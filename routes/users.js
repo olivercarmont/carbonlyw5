@@ -708,7 +708,7 @@ router.post("/register", (req, res) => {
       let newPoints = user.points += 500;
 
         User.findOneAndUpdate({ referralCode: req.body.referralUser }, { $set: {
-            points: newPoints;
+            points: newPoints,
           }
         }).then(user => {
           // return res.json({ budget: value });
@@ -718,10 +718,8 @@ router.post("/register", (req, res) => {
 
     }
 
-    const newUser;
-
     if (req.bod.referralUser.length > 0) {
-    newUser = new User({
+    const newUser = new User({
        name: req.body.name,
        username: req.body.username,
        email: req.body.email,
@@ -730,8 +728,21 @@ router.post("/register", (req, res) => {
        hasloggedIn: 'f',
        bonusPoints: 500,
      });
+
+     // Hash password before saving in database
+     bcrypt.genSalt(10, (err, salt) => {
+       bcrypt.hash(newUser.password, salt, (err, hash) => {
+         if (err) throw err;
+         newUser.password = hash;
+         newUser
+           .save()
+           .then(user => res.json(user))
+           .catch(err => console.log(err));
+       });
+     });
+
     } else {
-    newUser = new User({
+    const newUser = new User({
        name: req.body.name,
        username: req.body.username,
        email: req.body.email,
@@ -739,19 +750,21 @@ router.post("/register", (req, res) => {
        publicId: req.body.publicId,
        hasloggedIn: 'f',
      });
+
+     // Hash password before saving in database
+     bcrypt.genSalt(10, (err, salt) => {
+       bcrypt.hash(newUser.password, salt, (err, hash) => {
+         if (err) throw err;
+         newUser.password = hash;
+         newUser
+           .save()
+           .then(user => res.json(user))
+           .catch(err => console.log(err));
+       });
+     });
+
     }
 
-      // Hash password before saving in database
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
 });
 
 router.post("/return-leaderboard", (req, res) => {
