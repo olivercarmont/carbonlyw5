@@ -124,6 +124,7 @@ componentDidMount() {
 handleGoogleLoginFailure(err) {
     // console.error(err)
   this.setState({ error: "Google Login Failed : (" });
+  console.log('Error', err)
 }
 handleGoogleLogin(user) {
   // console.log(user)

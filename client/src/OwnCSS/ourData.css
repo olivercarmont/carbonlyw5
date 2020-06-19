@@ -158,3 +158,9 @@ color:#a6a6a6;
     margin-left:auto;
     margin-right:auto;
 }
+.ourData__howItWorksDescription {
+  font-size:0.99em;
+  margin-top:5px;
+  width:72%;
+  line-height:1.45;
+}

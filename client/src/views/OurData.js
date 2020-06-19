@@ -355,22 +355,22 @@ animateValue() {
 
         <div className="landing__howItWorksMainTitle">How We Collect Data &nbsp;💾️</div>
 
-        <div onClick={() => { this.setState({ ourData: 'studies' })}} className={this.state.howItWorks === 'account' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'studies' })}} className={this.state.ourData === 'studies' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">1. Scientific Studies &nbsp;📑</div>
 
-        <div className="landing__howItWorksDescription">We try our very best to the most up-to-date studies!</div>
+        <div className="ourData__howItWorksDescription">We Try Our Very Best to the Most up-to-Date Studies!</div>
         </div>
 
-        <div onClick={() => { this.setState({ ourData: 'org' })}} className={this.state.howItWorks === 'buy' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'org' })}} className={this.state.ourData === 'org' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">2. Partnering Organisations &nbsp;👨‍💼️</div>
 
-        <div className="landing__howItWorksDescription">Our partners that help share their hard-earned data are a massive help!</div>
+        <div className="ourData__howItWorksDescription">Our Partners That Help Share Their Hard-Earned Data are a Massive Help!</div>
         </div>
 
-        <div onClick={() => { this.setState({ ourData: 'company' })}} className={this.state.howItWorks === 'track' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
+        <div onClick={() => { this.setState({ ourData: 'company' })}} className={this.state.ourData === 'company' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
         <div className="landing__howItWorksFirstPoint">3. Company Reports &nbsp;🏢</div>
 
-        <div className="landing__howItWorksDescription">Companies themselves do in fact report highly accurate data!</div>
+        <div className="ourData__howItWorksDescription">Corporate Product-CO2 Reporting is a Highly Reliable Source of Data.</div>
         </div>
 
         </div>
@@ -382,7 +382,7 @@ animateValue() {
 
         {this.state.ourData === 'studies' ? <img src={require("../assets/img/landing/studiesScroll.gif")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
 
-        {this.state.ourData === 'org' ? <img className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
+        {this.state.ourData === 'org' ? <img src={require("../assets/img/landing/ourData__partners.png")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
 
         {this.state.ourData === 'company' ? <img src={require("../assets/img/landing/prodDatabases.gif")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
 
