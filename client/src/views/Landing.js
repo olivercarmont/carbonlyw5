@@ -78,33 +78,8 @@ import { fadeInRight } from 'react-animations';
 
 import { CountUp } from 'countup.js';
 
-// import { bounce } from 'react-animations';
-import { StyleSheet, css } from 'aphrodite';
 
-// import styled, { keyframes } from "styled-components";
-// import FadeInLeft from "@bit/formidablelabs.react-animations.fade-in-left";
-// const FadeInLeftAnimation = keyframes`${FadeInLeft}`;
-
-// const animationStyles = StyleSheet.create({
-//   fadeIn: {
-//     animationName: fadeInRight,
-//     animationDuration: '5s'
-//   }
-// })
-//
-//
-// const FadeInLeftDiv = styled.div`
-//   animation: infinite 5s ${FadeInLeftAnimation};
-// `;
-
-import styled, { keyframes } from 'styled-components';
-import { bounce } from 'react-animations';
-
-const bounceAnimation = keyframes`${bounce}`;
-
-const BouncyDiv = styled.div`
-  animation: 1s ${bounceAnimation};
-`;
+import { Fade } from 'react-awesome-reveal';
 
 // let features = ['budget'];
 
@@ -117,9 +92,27 @@ class Landing extends React.Component {
       howItWorks: 'account',
       allFeatures: "budget",
       num1: 0,
+      videoClass: '',
+      computer1: '',
+      header1: '',
+      computer2: '',
+      header2: '',
+      computer3: '',
+      header3: '',
+      computer4: '',
+      header4: '',
+      teamHeader: '',
+      teamText: '',
+      teamImage: '',
+      award1: '',
+      award2: '',
+      downloadText: '',
+      downloadImage: '',
+      footerImage: '',
+      footerText: '',
   }
   this.trackScrolling = this.trackScrolling.bind(this);
-  this.animateValue = this.animateValue.bind(this);
+  this.animateNumbers = this.animateNumbers.bind(this);
 }
 componentDidMount() {
 
@@ -208,17 +201,120 @@ let newEmissions = 0;
   return newEmissions;
 }
 componentWillUnmount() {
-  document.removeEventListener('scroll', (e) => this.trackScrolling(e));
+  document.removeEventListener('scroll', this.trackScrolling);
 }
 trackScrolling() {
-  const wrappedElement = document.getElementById('statsSection');
-  if (wrappedElement.getBoundingClientRect().bottom <= window.innerHeight) {
+  const statsSection = document.getElementById('statsSection');
+  const mainVideo = document.getElementById('landing__mainVideo');
+  const compatibleSection = document.getElementById('compatibleSection');
+  const firstComputerSection = document.getElementById('landing__howItWorks2');
+  const secondComputerSection = document.getElementById('landing__awesomeFeaturesSecondContainer');
+  const thirdComputerSection = document.getElementById('landing__howItWorks3');
+  const fourthComputerSection = document.getElementById('landing__awesomeFeaturesSecondContainer2');
+  const teamSection = document.getElementById('team');
+  const awardsSection = document.getElementById('awards');
+  const downloadSection = document.getElementById('downloadSection');
+  const footerSection = document.getElementById('footer');
+
+  if (statsSection.getBoundingClientRect().bottom <= window.innerHeight) {
     // alert('ANIMATING')
-    this.animateValue()
+    this.animateNumbers()
     // document.removeEventListener('scroll', this.trackScrolling);
   }
+  if ((mainVideo.getBoundingClientRect().bottom-650) <= window.innerHeight) {
+
+    this.setState({ videoClass: 'slide-in-video' });
+    this.setState({ videoHeader: 'slide-in-video' });
+    // document.removeEventListener('scroll', this.trackScrolling);
+  } else {
+    this.setState({ videoClass: '' });
+    this.setState({ videoHeader: '' });
+  }
+  if ((compatibleSection.getBoundingClientRect().bottom-590) <= window.innerHeight) {
+    this.setState({ compatible1: 'fadeIn' });
+    this.setState({ compatible2: 'fadeIn' });
+    this.setState({ compatible3: 'fadeIn' });
+    this.setState({ compatible4: 'fadeIn' });
+    this.setState({ compatible5: 'fadeIn' });
+    this.setState({ compatible6: 'fadeIn' });
+  } else {
+    this.setState({ compatible1: '' });
+    this.setState({ compatible2: '' });
+    this.setState({ compatible3: '' });
+    this.setState({ compatible4: '' });
+    this.setState({ compatible5: '' });
+    this.setState({ compatible6: '' });
+  }
+  if ((firstComputerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+
+    this.setState({ computer1: 'slide-in' });
+    this.setState({ header1: 'slide-in' });
+
+  } else {
+    this.setState({ computer1: '' });
+    this.setState({ header1: '' });
+  }
+  if ((secondComputerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+
+    this.setState({ computer2: 'slide-in' });
+    this.setState({ header2: 'slide-in' });
+
+  } else {
+    this.setState({ computer2: '' });
+    this.setState({ header2: '' });
+  }
+  if ((thirdComputerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+
+    this.setState({ computer3: 'slide-in' });
+    this.setState({ header3: 'slide-in-text' });
+
+  } else {
+    this.setState({ computer3: '' });
+    this.setState({ header3: '' });
+  }
+  if ((fourthComputerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+
+    this.setState({ computer4: 'slide-in' });
+    this.setState({ header4: 'slide-in' });
+
+  } else {
+    this.setState({ computer4: '' });
+    this.setState({ header4: '' });
+  }
+  if ((teamSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+
+    this.setState({ teamHeader: 'slide-in' });
+    this.setState({ teamText: 'slide-in' });
+    this.setState({ teamImage: 'slide-in' });
+
+  } else {
+    this.setState({ teamHeader: '' });
+    this.setState({ teamText: '' });
+    this.setState({ teamImage: '' });
+  }
+  if ((awardsSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+    this.setState({ awardsHeader: 'slide-in' });
+    this.setState({ award: 'slide-in' });
+  } else {
+    this.setState({ awardsHeader: '' });
+    this.setState({ award: '' });
+  }
+  if ((downloadSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+    this.setState({ downloadText: 'slide-in' });
+    this.setState({ downloadImage: 'slide-in' });
+  } else {
+    this.setState({ downloadText: '' });
+    this.setState({ downloadImage: '' });
+  }
+  if ((footerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+    this.setState({ footerText: 'slide-in' });
+    this.setState({ footerImage: 'slide-in' });
+  } else {
+    this.setState({ footerText: '' });
+    this.setState({ footerImage: '' });
+  }
 };
-animateValue() {
+animateNumbers() {
 
   if (!numberAnimationOccured) {
 
@@ -295,9 +391,9 @@ animateValue() {
                 <div className="row h-100 align-items-center">
                     <div className="col-12 col-md">
                         <div className="wellcome-heading">
-                            <h2 id="landingPage__mainLogoText">Carbonly</h2>
+                            <h2 id="landingPage__mainLogoText" className="slide-in">Carbonly</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo4}/></h3>
-                            <p className="landingPage__description">A Browser Extension For Tracking 📈 Your Online Carbon Footprint&nbsp;💨🌿️</p>
+                            <p className="landingPage__description slide-in">A Browser Extension For Tracking 📈 Your Online Carbon Footprint&nbsp;💨🌿️</p>
                         </div>
 
 
@@ -334,14 +430,7 @@ animateValue() {
            <div className="row">
                <div className="col-12">
 
-
-
-
-
-
-
-
-                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero" /></div>
+                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero" id="landing__imageSlide" className="slide-in" /></div>
 
 
                 {/*   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
@@ -365,7 +454,7 @@ animateValue() {
 
         <div className="landing__howItWorksLeftSideContainer">
 
-        <div className="landing__centerMiddleTitle">
+        <div className={`landing__centerMiddleTitle ${this.state.videoHeader}`}>
         <div className="landing__howItWorksSubtitle">Learn</div>
         <div className="landing__howItWorksMainTitle">How It Works 🛠️</div>
         </div>
@@ -392,7 +481,7 @@ animateValue() {
 
         <div className="landing__topVideoMargins">
 
-        <iframe width="105%" height="580" style={{ "border-radius": "5px"}} className="landing__mainVideo" src="https://www.youtube.com/embed/Kq9KCcE_Ybc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="105%" height="580" style={{ "border-radius": "5px"}} id="landing__mainVideo" className={`landing__mainVideo ${this.state.videoClass}`} src="https://www.youtube.com/embed/Kq9KCcE_Ybc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
       {/*  <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
               <div className="video-play-btn">
@@ -421,7 +510,7 @@ animateValue() {
 
         {/* Compatible Marketplaces */}
 
-        <section className="cool_facts_area clearfix landing__compatibleMarketplacesSection">
+        <section id="compatibleSection" className="cool_facts_area clearfix landing__compatibleMarketplacesSection">
 
         <div className="landing__compatibleMarketplacesBottom">
         <div className="landing__ourStasContainingDivReach">
@@ -431,17 +520,17 @@ animateValue() {
         </div>
         </div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/tesco.png")} id="landing__compatibleImage" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/tesco.png")} id="landing__compatibleImage" className={`compatibleFades ${this.state.compatible1}`} /></div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/amazon.png")} id="landing__compatibleImage2" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/amazon.png")} id="landing__compatibleImage2" className={`compatibleFades ${this.state.compatible2}`} /></div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/skyscanner.png")} id="landing__compatibleImage3" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/skyscanner.png")} id="landing__compatibleImage3" className={`compatibleFades ${this.state.compatible3}`} /></div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/ubereats.png")} id="landing__compatibleImage4" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/ubereats.png")} id="landing__compatibleImage4" className={`compatibleFades ${this.state.compatible4}`} /></div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/foodie.png")} id="landing__compatibleImage9" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/foodie.png")} id="landing__compatibleImage9" className={`compatibleFades ${this.state.compatible5}`} /></div>
 
-            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/kruoka.png")} id="landing__compatibleImage10" /></div>
+            <div className="landing__compatibleMarketplacesPositioningCircle"><img src={require("../assets/img/companyLogos/kruoka.png")} id="landing__compatibleImage10" className={`compatibleFades ${this.state.compatible6}`} /></div>
 
         </section>
 
@@ -449,7 +538,7 @@ animateValue() {
 
         <div className="landing__howItWorks__leftSide">
 
-        <div className="landing__howItWorksLeftSideContainer">
+        <div className={`landing__howItWorksLeftSideContainer ${this.state.header1}`}>
 
         <div className="landing__howItWorksSubtitle2">Data</div>
 
@@ -462,7 +551,7 @@ animateValue() {
 
         <div className="landing__howItWorksVideoContainer">
 
-        <img src={require("../assets/img/landing/realTimeImage.png")} className="landing__howItWorksVideo" />
+        <img src={require("../assets/img/landing/realTimeImage.png")} className={`landing__howItWorksVideo ${this.state.computer1}`} />
         </div>
 
         </section>
@@ -471,10 +560,10 @@ animateValue() {
 
         <div className="landing__howItWorksVideoContainer2">
 
-        <img src={require("../assets/img/landing/trackAPurchaseHome.png")} className="landing__howItWorksVideo" />
+        <img src={require("../assets/img/landing/trackAPurchaseHome.png")} className={`landing__howItWorksVideoRight ${this.state.computer2}`} />
         </div>
 
-        <div className="landing__howItWorks__leftSide">
+        <div className={`landing__howItWorks__leftSide ${this.state.header2}`}>
 
         <div className="landing__howItWorksLeftSideContainer2">
 
@@ -491,7 +580,7 @@ animateValue() {
 
         <section id="landing__howItWorks3">
 
-        <div className="landing__howItWorks__leftSide">
+        <div className={`landing__howItWorks__leftSideLeftHeader ${this.state.header3}`}>
 
         <div className="landing__howItWorksLeftSideContainer">
 
@@ -506,20 +595,20 @@ animateValue() {
 
         <div className="landing__howItWorksVideoContainer">
 
-          <img src={require("../assets/img/landing/insightfulAnalytics.png")} className="landing__howItWorksVideo"/>
+          <img src={require("../assets/img/landing/insightfulAnalytics.png")} className={`landing__howItWorksVideo ${this.state.computer3}`}/>
 
         </div>
 
       </section>
 
-      <section id="landing__awesomeFeaturesSecondContainer">
+      <section id="landing__awesomeFeaturesSecondContainer2">
 
       <div className="landing__howItWorksVideoContainer2">
 
-      <img src={require("../assets/img/landing/socialExperienceImage.png")} className="landing__howItWorksVideo" />
+      <img src={require("../assets/img/landing/socialExperienceImage.png")} className={`landing__howItWorksVideoRight ${this.state.computer4}`} />
       </div>
 
-      <div className="landing__howItWorks__leftSide">
+      <div className={`landing__howItWorks__leftSide ${this.state.header4}`}>
 
       <div className="landing__howItWorksLeftSideContainer2">
 
@@ -640,7 +729,7 @@ animateValue() {
 
         <div className="landing__ourTeamHeader">
 
-        <div className="ourData__subtitleAndTitle">
+        <div id="landing__ourTeamHeaderText" className={`ourData__subtitleAndTitle ${this.state.teamHeader}`}>
         <div className="landing__howItWorksSubtitle">Team</div>
         <div className="landing__howItWorksMainTitle">Our Stunning Team &nbsp; 👥</div>
         </div>
@@ -648,7 +737,7 @@ animateValue() {
 
         <div id="ourTeam">
 
-                <div className="landing__howItWorks__leftSide">
+                <div className={`landing__howItWorks__leftSideLeft ${this.state.teamText}`}>
 
                 <div className="landing__howItWorksLeftSideContainer">
 
@@ -663,7 +752,7 @@ animateValue() {
 
                 <div className="landing__ourTeamPersonContainer">
 
-                <img src={require('../assets/img/ourTeam/olivercarmont.png')} className="landing__ourTeamPerson"/>
+                <img src={require('../assets/img/ourTeam/olivercarmont.png')} className={`landing__ourTeamPerson ${this.state.teamImage}`} />
                 </div>
 
 
@@ -705,18 +794,18 @@ animateValue() {
 
         <div className="landing__ourTeamHeader">
 
-        <div className="ourData__subtitleAndTitle">
+        <div id="landing__ourAwardsText" className={`ourData__subtitleAndTitle ${this.state.awardsHeader}`}>
         <div className="landing__howItWorksSubtitle">Awards</div>
         <div className="landing__howItWorksMainTitle">Sponsors & Awards &nbsp; 🏆</div>
         </div>
         </div>
 
-        <div className="landing__centerAwards">
+        <div className={`landing__centerAwards ${this.state.award}`}>
 
         <div className="landing__indAward">
 
         <div className="landing__awardsImageHeight">
-        <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/fortumLogo.png')} className="landing__awardProvider"/></a>
+        <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/fortumLogo.png')} className="landing__awardProvider" /></a>
         </div>
         <div className="landing__awardProviderDescription">Largest Renewable Energy Supplier Finland ☀️</div>
 
@@ -727,7 +816,7 @@ animateValue() {
         <div className="landing__indAward">
 
         <div className="landing__awardsImageHeight">
-        <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider"/></a>
+        <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider" /></a>
         </div>
 
         <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland ✖️</div>
@@ -741,16 +830,16 @@ animateValue() {
         </section>
 
 
-        <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
+        <section id="downloadSection" className="cool_facts_area clearfix landing__downloadSectionTopContainer">
 
         <div className="landing__downloadSection">
 
         <div className="landing__downloadImageLeft">
-                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
+                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className={`landing__tryItNowImage ${this.state.downloadImage}`} />
 
         </div>
 
-        <div className="landing__downloadTextRight">
+        <div className={`landing__downloadTextRight ${this.state.downloadText}`}>
 
                             <h2 id="landing__getAppTitle">What'ya Waiting For?</h2>
                             <p className="landing__downloadDescription">Download For Free on The Chrome Store!</p>
@@ -776,14 +865,10 @@ animateValue() {
         </section>
 
         <footer className="" id="footer">
-          {/*  <!-- footer logo --> */}
-
-
-          {/*  <!-- social icon--> */}
 
           <div className="footer__linksContainer">
 
-          <div className="footer__left">
+          <div className={`footer__left ${this.state.footerText}`}>
           {/* <img src={require("../assets/img/landing/whiteBrush.png")} style={{ "width": "450px", "position":"absolute", "z-index": "-1" }}/> */}
           <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
           <div className="footer_tagline">A Browser Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
@@ -815,7 +900,7 @@ animateValue() {
           </div>
 
           <div className="footer__sideImage">
-          <img src={require("../assets/img/landing/Online shopping-pana.png")} className="footer__sideImageImage"/>
+          <img src={require("../assets/img/landing/Online shopping-pana.png")} className={`footer__sideImageImage ${this.state.footerImage}`} />
           </div>
 
           </div>

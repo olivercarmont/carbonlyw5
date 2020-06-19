@@ -263,8 +263,38 @@ class Terms extends React.Component {
     super(props);
     this.state = {
       howItWorks: 'account',
-  }
+      downloadText: '',
+      downloadImage: '',
+      footerImage: '',
+      footerText: '',
+    }
+    this.trackScrolling = this.trackScrolling.bind(this);
 }
+componentDidMount() {
+  document.addEventListener('scroll', this.trackScrolling);
+}
+componentWillUnmount() {
+  document.removeEventListener('scroll', this.trackScrolling);
+}
+trackScrolling() {
+  const downloadSection = document.getElementById('downloadSection');
+  const footerSection = document.getElementById('footer');
+
+  if ((downloadSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+    this.setState({ downloadText: 'slide-in' });
+    this.setState({ downloadImage: 'slide-in' });
+  } else {
+    this.setState({ downloadText: '' });
+    this.setState({ downloadImage: '' });
+  }
+  if ((footerSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
+    this.setState({ footerText: 'slide-in' });
+    this.setState({ footerImage: 'slide-in' });
+  } else {
+    this.setState({ footerText: '' });
+    this.setState({ footerImage: '' });
+  }
+};
   render() {
     return (
       <>
@@ -321,9 +351,9 @@ class Terms extends React.Component {
                 <div className="row h-100 align-items-center">
                     <div className="col-12 col-md">
                         <div className="wellcome-heading">
-                            <h2 id="landingPage__mainLogoText">Terms</h2>
+                            <h2 id="landingPage__mainLogoText" className="slide-in">Terms</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description">Carbonly</p>
+                            <p className="landingPage__description slide-in">Carbonly</p>
                         </div>
                         <div className="app-download-area">
                             <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
@@ -347,7 +377,7 @@ class Terms extends React.Component {
            <div className="row">
                <div className="col-12">
 
-                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} alt="hero"/></div>
+                <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} id="landing__imageSlide" className="slide-in" alt="hero"/></div>
                </div>
            </div>
           </div>
@@ -382,16 +412,16 @@ class Terms extends React.Component {
 
         </section>
 
-        <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
+        <section id="downloadSection" className="cool_facts_area clearfix landing__downloadSectionTopContainer">
 
         <div className="landing__downloadSection">
 
         <div className="landing__downloadImageLeft">
-                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className="landing__tryItNowImage"/>
+                  <img src={require("../assets/img/landing/insightfulAnalytics2.gif")} className={`landing__tryItNowImage ${this.state.downloadImage}`} />
 
         </div>
 
-        <div className="landing__downloadTextRight">
+        <div className={`landing__downloadTextRight ${this.state.downloadText}`}>
 
                             <h2 id="landing__getAppTitle">What'ya Waiting For?</h2>
                             <p className="landing__downloadDescription">Download For Free on The Chrome Store!</p>
@@ -423,7 +453,7 @@ class Terms extends React.Component {
 
          <div className="footer__linksContainer">
 
-         <div className="footer__left">
+         <div className={`footer__left ${this.state.footerText}`}>
          {/* <img src={require("../assets/img/landing/whiteBrush.png")} style={{ "width": "450px", "position":"absolute", "z-index": "-1" }}/> */}
          <img src={logo3} className="landing__footerLogo"/><div className="footer_mainLogo"> Carbonly</div>
          <div className="footer_tagline">A Browser Extension For Tracking 📈 Your Online Carbon Footprint&nbsp; 💨️</div>
@@ -455,7 +485,7 @@ class Terms extends React.Component {
          </div>
 
          <div className="footer__sideImage">
-         <img src={require("../assets/img/landing/Online shopping-pana.png")} className="footer__sideImageImage"/>
+         <img src={require("../assets/img/landing/Online shopping-pana.png")} className={`footer__sideImageImage ${this.state.footerImage}`} />
          </div>
 
          </div>
