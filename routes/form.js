@@ -61,6 +61,93 @@ router.post("/add-submission", (req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   }
 
+});
+
+router.post("/has-submitted-form", (req, res) => {
+
+  let formId, userE;
+
+  if (req.body.formId) {
+    formId = req.body.formId;
+    userE = req.body.email;
+  } else if (req.header('formId')) {
+    formId = req.header('formId');
+    userE = req.header('email');
+  }
+
+  if (!req.body.formId && !req.header('formId')) {
+    return res.status(400).json(`FormId: Not Found`);
+  }
+
+  if (!req.body.email && !req.header('email')) {
+    return res.status(400).json(`Email: Not Found`);
+  }
+
+  Form.findOne({ formId }).then(form => {
+
+    let hasAnswered = 'f';
+
+    console.log(form)
+
+    form.usersAnswered.map((user) => {
+      if (user.email === userE) {
+        hasAnswered = 't';
+      }
+    })
+
+    return res.json({ hasAnswered });
+
+  });
+});
+
+router.post("/submit-question", (req, res) => {
+
+  let formId, userE, details;
+
+  if (req.body.formId) {
+    formId = req.body.formId;
+    userE = req.body.email;
+    details = req.body.details;
+    time = req.body.time;
+  } else if (req.header('formId')) {
+    formId = req.header('formId');
+    userE = req.header('email');
+    details = req.header('details');
+    time = req.header('time');
+  }
+
+  if (!req.body.formId && !req.header('formId')) {
+    return res.status(400).json(`FormId: Not Found`);
+  }
+
+  if (!req.body.email && !req.header('email')) {
+    return res.status(400).json(`Email: Not Found`);
+  }
+
+  if (!req.body.details && !req.header('details')) {
+    return res.status(400).json(`Details: Not Found`);
+  }
+
+  Form.findOne({ formId }).then(form => {
+
+  let newUserList = form.usersAnswered.map((frm) => {
+    return frm;
+  });
+
+    newUserList.push({
+    email: userE,
+    details,
+    time,
+  })
+
+  Form.findOneAndUpdate({ formId }, { $set: {
+        usersAnswered: newUserList
+    }
+  }).then(user => {
+    return res.json({ newUserList: 'Worked' });
+  })
+
+});
 
 });
 

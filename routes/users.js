@@ -432,189 +432,6 @@ router.post("/return-extension", (req, res) => {
 
   });
 
-  /*
-  *******************************************************************
-                      RETURN USER PROFILE
-  *******************************************************************
-  */
-
-  router.post("/update", (req, res) => {
-  // Form validation
-
-  let token;
-
-  console.log('IS RUNNING ----');
-
-  if ((req.body.jwt || !!req.header('jwt')) && ((!!req.body.prop &&  !!req.body.value) || (!!req.header('prop') &&  !!req.header('value')))) {
-
-    console.log('found all props');
-
-  if (req.body.jwt) {
-  token = req.body.jwt;
-  } else if (req.header('jwt')) {
-  token = req.header('jwt');
-  }
-
-    let decoded = parseJwt(token);
-    let id = decoded.id;
-    id = id.toString();
-
-    // let upUser;
-
-    let prop, value;
-
-    if (req.body.prop) {
-      prop = req.body.prop;
-      value = req.body.value;
-    } else if (req.header('prop')) {
-      prop = req.header('prop');
-      value = req.header('value');
-    }
-
-    console.log('prop', req.body.prop);
-    console.log('val', req.body.value);
-
-    User.findOne({ _id: id }).then(user => {
-
-    console.log('user', user);
-
-    if (!user) {
-      res.status(400).json({ message: 'User Not Found' });
-    }
-    if (prop === 'name' && typeof value === 'string' && value.length < 60) {
-
-      if ((/[,.+-:;=~#`'"{}/\[\]!?\-]/.test(value))) {
-        res.status(400).json({ message: 'Contains Punctuation' });
-      }
-
-      User.findOne({ _id: id }).then(user => {
-
-        User.findOneAndUpdate({ _id: id }, { $set: {
-            name: value
-          }
-        }).then(user => {
-          return res.json({ name: value });
-        })
-
-      }).catch(err => res.status(400).json(`Error:` + err));
-
-        //    (can contain: @, _, -, $, #)
-    } else if (prop === 'username' && typeof value === 'string' && value.length < 60) {
-
-      if ((/[,.+-:;=~`'"{}/\[\]!?\-]/.test(value))) {
-        res.status(400).json({ message: 'Contains Punctuation' });
-      }
-
-      let fondUserWithUsername = false;
-
-      User.find().then((users) => {
-
-        users.map((us) => {
-
-          if (us.username === value) {
-            fondUserWithUsername = true;
-          }
-
-        });
-      });
-
-     if (!fondUserWithUsername) {
-       User.findOne({ _id: id }).then(user => {
-
-         User.findOneAndUpdate({ _id: id }, { $set: {
-             username: value
-           }
-         }).then(user => {
-           return res.json({ username: value });
-         })
-
-       }).catch(err => res.status(400).json(`Error:` + err));
-     }
-   } else if (prop === 'avatar' && typeof value === 'string' && (value === 'avatars/mainProfileImage-1.png' || value === 'avatars/mainProfileImage-2.png' || value === 'avatars/mainProfileImage-3.png' || value === 'avatars/mainProfileImage-4.png' || value === 'avatars/mainProfileImage-5.png' ||  value === 'avatars/mainProfileImage.png' || value === 'avatars/mainProfileImage1.png' || value === 'avatars/mainProfileImage2.png' || value === 'avatars/mainProfileImage3.png' || value === 'avatars/mainProfileImage4.png')) {
-
-     User.findOne({ _id: id }).then(user => {
-
-       User.findOneAndUpdate({ _id: id }, { $set: {
-           avatar: value
-         }
-       }).then(user => {
-         return res.json({ avatar: value });
-       })
-
-     }).catch(err => res.status(400).json(`Error:` + err));
-
-     valid = true;
-   } else if (prop === 'shoppingList' && typeof value === 'object' && value.length < 100) {
-       User.findOne({ _id: id }).then(user => {
-
-         User.findOneAndUpdate({ _id: id }, { $set: {
-             shoppingList: value
-           }
-         }).then(user => {
-           return res.json({ shoppingList: value });
-         })
-
-       }).catch(err => res.status(400).json(`Error:` + err));
-
-   } else if (prop === 'savedList' && typeof value === 'object' && value.length < 100) {
-
-       User.findOne({ _id: id }).then(user => {
-
-         User.findOneAndUpdate({ _id: id }, { $set: {
-             savedList: value
-           }
-         }).then(user => {
-           return res.json({ savedList: value });
-         })
-
-       }).catch(err => res.status(400).json(`Error:` + err));
-
-   } else if (prop === 'friends' && typeof value === 'object' && value.length < 75) {
-
-     User.findOne({ _id: id }).then(user => {
-
-       User.findOneAndUpdate({ _id: id }, { $set: {
-           friends: value
-         }
-       }).then(user => {
-         return res.json({ friends: value });
-       })
-
-     }).catch(err => res.status(400).json(`Error:` + err));
-
-   } else if (prop === 'loggedIn') {
-
-     User.findOne({ _id: id }).then(user => {
-
-       User.findOneAndUpdate({ _id: id }, { $set: {
-           hasLoggedIn: 't'
-         }
-       }).then(user => {
-         return res.json({ hasLoggedIn: true });
-       })
-
-     }).catch(err => res.status(400).json(`Error:` + err));
-
-   } else if (prop === 'budget') {
-
-     User.findOne({ _id: id }).then(user => {
-
-       User.findOneAndUpdate({ _id: id }, { $set: {
-           budget: value
-         }
-       }).then(user => {
-         return res.json({ budget: value });
-       })
-
-     }).catch(err => res.status(400).json(`Error:` + err));
-
-   }
-
-  });
-
-  }
-});
-
 router.post("/return-home", (req, res) => {
 
   let token;
@@ -1157,10 +974,13 @@ router.post("/update", (req, res) => {
     } else if (req.header('prop')) {
       prop = req.header('prop');
       value = req.header('value');
+
+      console.log('prop', req.header('prop'))
+      console.log('val', req.header('value'))
     }
 
-    console.log('prop', req.body.prop);
-    console.log('val', req.body.value);
+    // console.log('prop', req.body.prop);
+    // console.log('val', req.body.value);
 
     User.findOne({ _id: id }).then(user => {
 
@@ -1292,6 +1112,21 @@ router.post("/update", (req, res) => {
          }
        }).then(user => {
          return res.json({ budget: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
+   } else if (prop == 'bonusPoints') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       let newPoints = parseFloat(user.bonusPoints) + parseFloat(value);
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+           bonusPoints: newPoints
+         }
+       }).then(user => {
+         return res.json({ bonusPoints: newPoints });
        })
 
      }).catch(err => res.status(400).json(`Error:` + err));

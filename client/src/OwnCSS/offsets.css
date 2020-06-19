@@ -224,24 +224,39 @@ margin-right:15px;
   margin-bottom:7px;
   text-align:center;
 }
-.offsets__subscriptionDiv {
-  background-color:rgba(169, 219, 192, 0.5);
-
-  -webkit-box-shadow: -3px 3px 8px 4px #f1f1f1;
-  -moz-box-shadow: -3px 3px 8px 4px #f1f1f1;
-  box-shadow: -3px 2px 8px 4px #f1f1f1;
-
-  width:90%;
-  border-radius:10px;
-  height:111px;
-  margin-top:40px;
+.offsets__aboveQuestion {
+  font-weight:700;
   position:relative;
-  top:5px;
+  top:15px;
+  margin-bottom:8px;
+  font-size:1.02em;
+}
+.offsets__subscriptionDiv {
+  /* background-color:rgba(169, 219, 192, 0.5); */
+
+  background: #b4d1c2;
+  background: -webkit-linear-gradient(to left, #b4d1c2, #b5dec9);
+  background: -webkit-linear-gradient(right, #b4d1c2, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #b4d1c2, #b5dec9);
+  background: linear-gradient(to left, #a9d1bd, #a9d1bd);
+
+  /* -webkit-box-shadow: -1px 3px 8px 1px #f1f1f1;
+  -moz-box-shadow: -1px 3px 8px 1px #f1f1f1;
+  box-shadow: -1px 2px 8px 1px #f1f1f1; */
+
+  width:95%;
+  border-radius:10px;
+  height:141px;
+
+  position:relative;
+  top:-5px;
   margin:auto;
   color:#fff;
   opacity:0.9;
   text-align:center;
   margin-bottom:15px;
+
 }
 .offsets__monthlySubscriptionButton {
   border-radius:23px;
@@ -285,20 +300,25 @@ margin-right:15px;
 }
 .offsets__bottomSpacing {
   height:190px;
+
 }
 .offsets__lowerQuestion {
   text-align:center;
-  width:80%;
+  width:60%;
   margin-left:auto;
   margin-right:auto;
   line-height:1.62;
   /* font-weight:600; */
-  color:#222;
+  color:#fff;
   margin-bottom:25px;
   position:relative;
   top:12px;
-  font-size:1.02em;
-  color:#385243;
+  font-size:0.98em;
+
+  /* font-weight:700; */
+
+  font-family: "Poppins", sans-serif;
+
 }
 
 .offsets__questionYes {
@@ -311,13 +331,20 @@ margin-right:15px;
 .offsets__positionCheckboxes {
   width:95%;
   display:flex;
-  flex-direction:row;
+   flex-direction:row;
   justify-content:center;
   margin-left:auto;
   margin-right:auto;
+  /* background-color:red; */
+
+  margin-left:51px;
 
   /* margin-left:21px; */
 
+
+}
+.offset__checkBox {
+  position:relative;
 
 }
 .offsets__questionText {
@@ -329,7 +356,10 @@ margin-right:15px;
   /* position:relative; */
   /* left:2px !important;; */
   top:-1px;
+  margin-left:-55px;
 
-  color:#385243;
+  /* background-color:blue; */
+
+  /* color:#385243; */
   /* background-color:red; */
 }

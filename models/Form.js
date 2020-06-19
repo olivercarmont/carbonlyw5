@@ -20,6 +20,15 @@ const FormSchema = new Schema({
     type: String,
   }, emissions: {
     type: String,
+  },
+  formId: {
+    type: String
+  },
+  name: {
+    type: String
+  },
+  usersAnswered: {
+    type: Array
   }
 });
 

@@ -236,6 +236,8 @@ returnUserOffsets() {
     totalPoints += parseFloat(or.points);
   })
 
+  totalPoints += parseFloat(this.state.user.bonusPoints);
+  
   console.log('offsetAmount', totalPoints)
 
   return `${this.returnOffsets(totalPoints)}`;
@@ -665,6 +667,8 @@ returnUserOffsetsLeaderboard() {
   this.state.user.orders.map((off) => {
     totPoints += parseFloat(off.points);
   })
+
+  totPoints += parseFloat(this.state.user.bonusPoints);
 
   return totPoints;
 }

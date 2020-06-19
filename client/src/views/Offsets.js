@@ -83,21 +83,39 @@ class Offsets extends React.Component {
       cur: '$',
       offAmount: '',
       changeQuestion: '',
+      hasAnswered: '',
     };
   }
   componentWillMount() {
 
-    axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
       'jwt': localStorage.jwtToken,
     })
   .then(response => {
 
        this.setState({ user: response.data.info[0] });
 
+       let cur_user = response.data.info[0];
+
+       axios.post('https://carbonly.org/form/has-submitted-form', { formId: "JR74HA0", email: cur_user.email }, {
+         formId: "JR74HA0", email: this.state.user.email
+         })
+       .then(response => {
+
+           console.log('RESPPPPPP', response.data.hasAnswered)
+
+            this.setState({ hasAnswered: response.data.hasAnswered });
+
+       })
+       .catch((error) => {
+         console.log(error);
+       })
+
   })
   .catch((error) => {
     console.log(error);
   })
+
   }
   setBgChartData = name => {
     this.setState({
@@ -484,7 +502,6 @@ if (web === 'tesco' || web === 'Tesco') {
 return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
 }
 changeQuestion(select) {
-this.setState({ question: select });
 
 let newMessage = '';
 
@@ -495,27 +512,41 @@ if (select === 'f') {
   newMessage = "Question: Would You Use Carbonly Subscritption? : Sure, I'd Love to! 😝";
 }
 
-let totMessage = {
-  email: this.state.user.email,
-  message: newMessage
-}
+// let totMessage = {
+//   email: this.state.user.email,
+//   message: newMessage
+// }
 
 let time = new Date();
 time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
 time.getHours() + ":" + time.getMinutes();
 
-    axios.post('https://carbonly.org/form/add-submission', { "type": "user-feedback", "data": totMessage, time }, {
-      "type": "user-feedback", "data": totMessage, time
+    axios.post('https://carbonly.org/form/submit-question', { formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time }, {
+      formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time
     })
   .then(response => {
        // console.log('res', response);
+
+  if (this.state.hasAnswered === 'f') {
+
+  axios.post('https://carbonly.org/users/update', { prop: "bonusPoints", value: 250, jwt: localStorage.jwtToken }, {
+    prop: "bonusPoints", value: 250, jwt: localStorage.jwtToken
+   })
+   .then(response2 => {
+
+      this.setState({ question: select });
+
+   });
+
+ }
+
 });
 }
   render() {
     return (
       <>
         <div className="content">
-        {this.state.user ? <div>
+        {this.state.user && this.state.hasAnswered ? <div>
           <Row>
             <Col md="6">
               <Card>
@@ -662,9 +693,9 @@ time.getHours() + ":" + time.getMinutes();
 
 
 
+                      <div className="offsets__aboveQuestion">{this.state.question || (this.state.hasAnswered === 't') ? 'Received 250 Points! 🎉' : 'Earn 250 Points! 😝'}</div>
 
-
-                      <div className="offsets__lowerQuestion">We haven't yet released this yet, but let us know if you would use it! 🙏 {this.state.question ? 'Thanks! ❤️' : ''}</div>
+                      <div className="offsets__lowerQuestion">We Haven't Yet Released This Feature. <br/>Would You Use it?</div>
 
                       <div className="offsets__positionCheckboxes">
 
@@ -673,16 +704,13 @@ time.getHours() + ":" + time.getMinutes();
                       <div class="grid" style={{ "float": "left" }}>
 
                       <label class="checkbox bounce">
-                      <input type="checkbox" onChange={() => this.changeQuestion('t')} checked={this.state.question === 't'} />
+                      <input type="checkbox"  onChange={() => this.changeQuestion('t')} checked={this.state.question === 't'} />
                       <svg viewBox="0 0 21 21">
                       <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                       </svg>
                         <div className={'offsets__questionText'}>Sure, I'd Love to! 😝</div>
                       </label>
                       </div>
-
-
-
 
 
                       <div class="grid" style={{ "float": "left"}}>

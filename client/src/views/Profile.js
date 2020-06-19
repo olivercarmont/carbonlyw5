@@ -253,7 +253,7 @@ let calcData;
     return `${calcData}`;
   }
 }
-returnUserOffsets() {
+returnUserPoints() {
 
   let totPoints = 0;
 
@@ -264,6 +264,8 @@ returnUserOffsets() {
   this.state.user.orders.map((or) => {
     totPoints += parseFloat(or.points);
   })
+
+  totPoints += parseFloat(this.state.user.bonusPoints)
 
   return `${this.returnOffsets(totPoints)}`;
 }
@@ -605,7 +607,7 @@ render() {
 
                   <div className="leaderboard__profileProgressMargins">
 
-                  <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnUserOffsets()}</div></div></div>
+                  <div className="leaderboard__progressbarProfile"><div id="leaderBoard__progressBarContainerProfile" style={{ width: '60%', margin: 'auto' }}><div className="leaderboard__carbonProfileMargins"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnUserPoints()}</div></div></div>
                   </div>
 
                   </div>
