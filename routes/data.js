@@ -439,8 +439,8 @@ router.post("/req-data", (req, res) => {
     console.log('LANG SHORTHAND', allLanguages[language])
 
   } catch(e) {
-    res.json({ "Translate Error": e });
-
+    return res.json({ "Translate Error": e });
+    console.log('TRANSLATE ERROR')
   }
 
   function runMainMethod() {
@@ -736,6 +736,7 @@ router.post("/req-data", (req, res) => {
           predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
           predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
           tooltipCatName = pMarketplaceData[website][categ].name;
+          accuracyRating = 'B';
       }
 
     } else {
@@ -764,6 +765,7 @@ router.post("/req-data", (req, res) => {
         predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
         predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
         tooltipCatName = pMarketplaceData[website][categ].name;
+        accuracyRating = 'B';
       }
     }
 
@@ -794,6 +796,8 @@ if (location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())) {
   predictedAverage = parseFloat(locAverageDollarData[loc].average);
   tooltipCatName = locAverageDollarData[loc].name;
   unit = 'dollar';
+  accuracyRating = 'D';
+  isDefault = '';
 }
 });
 
@@ -816,6 +820,8 @@ searchTerms.map((sTerm) => {
     predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
     tooltipCatName = prodCatAverageDollarData[cat].name;
     unit = 'dollar';
+    accuracyRating = 'D';
+    isDefault = '';
   }
 })
 
@@ -837,6 +843,8 @@ searchTerms.map((sTerm) => {
   predictedEm = parseFloat(prodCatAverageKgData[cat].emissions);
   predictedAverage = parseFloat(prodCatAverageKgData[cat].average);
   tooltipCatName = prodCatAverageKgData[cat].name;
+  accuracyRating = 'D';
+  isDefault = '';
   }
 });
 });
@@ -871,6 +879,10 @@ searchTerms.map((sTerm) => {
     emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
   }
 
+  if (predictedCategory != 'Apple') {
+    isDefault = "";
+  }
+
   if (tooltipCatName) {
     return res.json({ emissions, unit, predictedCategory: tooltipCatName, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
   } else {
@@ -883,6 +895,8 @@ searchTerms.map((sTerm) => {
     translate(description, { from:allLanguages[language], to: 'en' }).then(text => {
         description = text;
 
+
+
     if (description === oldDescription) {
       translate(description, { from:'fi', to: 'en' }).then(text => {
           description = text;
@@ -890,14 +904,19 @@ searchTerms.map((sTerm) => {
     });
   } else {
 
-    if (weight) {
+    // if (weight) {
     runMainMethod();
+    // }
     }
-  }
-      });
+  }).catch((e) => {
+      console.log('Translate Error', e);
+      // return res.json({ translateError: e })
+      runMainMethod();
+    }) ;
 
     } catch(e) {
       console.log('----- E ----', e);
+      return res.json({ translateError: "Lower Translate Error" })
     }
 
     }
