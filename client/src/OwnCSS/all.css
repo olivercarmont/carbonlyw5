@@ -80,3 +80,9 @@ text-decoration:none;
   margin-top:1px;
   margin-left:1px;
 }
+.notFound__eliminateSpacingBetweenDownload {
+  margin-top:-80px;
+  display:block;
+  height:10px;
+  margin-bottom:-100px;
+}

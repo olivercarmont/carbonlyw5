@@ -237,7 +237,7 @@ returnUserOffsets() {
   })
 
   totalPoints += parseFloat(this.state.user.bonusPoints);
-  
+
   console.log('offsetAmount', totalPoints)
 
   return `${this.returnOffsets(totalPoints)}`;
@@ -635,9 +635,15 @@ returnAllUsersLeaderboard() {
 }
 returnFriendOffsetWidth(points) {
 
-  let comparison = this.returnFriendsRanks()[0].points;
+  let comparison = this.returnFriendsRanks()[0];
 
-  console.log('COMP', this.returnFriendsRanks()[0])
+  // console.log('COMP', this.returnFriendsRanks())
+
+  if (!comparison.points) {
+    comparison = this.returnUserOffsetsLeaderboard();
+  }
+
+  // console.log('COMP2', comparison)
 
   if (points === 0) {
     return 0.25;
@@ -645,7 +651,7 @@ returnFriendOffsetWidth(points) {
 
   let ratio = points / comparison;
 
-  if (ratio < 0.3) {
+  if (ratio < 0.45) {
 
     return 0.45;
 

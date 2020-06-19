@@ -36,6 +36,7 @@ import Landing from "./views/Landing.js";
 import ForgotPassword from "./views/ForgotPassword";
 import Login from "./views/Login.js";
 import Signup from "./views/Signup.js";
+import EarlySignup from "./views/EarlySignup.js";
 import ExtensionIframe from "./views/ExtensionIframe.js";
 
 import { GoogleLogin } from 'react-google-login';
@@ -116,6 +117,7 @@ ReactDOM.render(
       <Route exact path="/login" component={Login} /> */}
        <Route exact path="/log-in" render={props => <Login />} />
       <Route exact path="/sign-up" render={props => <Signup />} />
+      <Route exact path="/early-sign-up" render={props => <EarlySignup />} />
 
       <Route exact path="/data" render={props => <OurData />} />
       <Route exact path="/features" render={props => <Features />} />

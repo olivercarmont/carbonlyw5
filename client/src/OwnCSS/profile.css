@@ -519,15 +519,19 @@ font-size:1.02em;
 border-radius:25px;
 /* margin-right:5px;
 margin-top:23px; */
-margin-top:6px;
+/* margin-top:-5px; */
 cursor:pointer;
 transition:0.4s;
+
+left:63.5%;
+
+margin-top:6px;
 
 padding-left:19px;
 padding-right:19px;
 
-padding-top:11px;
-padding-bottom:11px;
+padding-top:8px;
+padding-bottom:8px;
 
 
 text-align:center;
@@ -695,4 +699,12 @@ font-size:1.03em;
   /* background-color:red; */
   width:90%;
   text-align:center;
+}
+.profile__bottomComparisonAndCarbonContainer {
+display:flex;
+width:80%;
+margin:auto;
+margin-top:0px;
+margin-bottom:-7px;
+
 }

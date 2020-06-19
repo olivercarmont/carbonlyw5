@@ -1123,7 +1123,8 @@ router.post("/update", (req, res) => {
        let newPoints = parseFloat(user.bonusPoints) + parseFloat(value);
 
        User.findOneAndUpdate({ _id: id }, { $set: {
-           bonusPoints: newPoints
+           bonusPoints: newPoints,
+
          }
        }).then(user => {
          return res.json({ bonusPoints: newPoints });

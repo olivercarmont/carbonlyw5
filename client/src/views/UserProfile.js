@@ -78,6 +78,32 @@ constructor(props) {
       page: 'home',
       friendsMove: 1,
       userFound: true,
+      lineOptions: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              drawBorder: false,
+            },
+          }], xAxes: [{
+            gridLines: {
+              display: false,
+            },
+          }], yAxes: [{
+            display: false, ticks: { reverse: true }
+          }],
+          xAxes: [{
+            display: false
+          }]
+        }, legend: {
+          display: false
+        }, tooltips: {
+          enabled: false
+        }, elements: {
+          point:{
+            radius: 0
+          }
+        }
+      },
     };
 }
 setProfilePage(page) {
@@ -347,7 +373,7 @@ returnFriendsTwo() {
 
   </div>
 
-    <div className="leaderboard__noUserHeight"></div>
+    <div className="profile__noUserHeight"></div>
 
     </div>
 
@@ -459,12 +485,12 @@ render() {
                   src={require(`../assets/img/${this.state.puser.avatar}`)}
                 />
 
+                {this.state.puser.publicId !== this.state.user.publicId ? this.state.isFriend ? <div onClick={() => this.removeUser(this.state.puser.publicId)} className="userProfile__addButton">Remove &nbsp; 🙅</div> : <div onClick={() => this.addUser(this.state.puser.publicId)} className="userProfile__addButton">Add &nbsp; 🎉</div> : undefined}
+
                 <h5 className="title" id="profile__mainName">{this.state.puser.name}</h5>
 
               <p className="description" id="profile__mainUsername">@{this.state.puser.username}</p>
             </div>
-
-            {this.state.puser.publicId !== this.state.user.publicId ? this.state.isFriend ? <div onClick={() => this.removeUser(this.state.puser.publicId)} className="userProfile__addButton">Remove &nbsp; 🙅</div> : <div onClick={() => this.addUser(this.state.puser.publicId)} className="userProfile__addButton">Add &nbsp; 🎉</div> : undefined}
 
             <div className="profile__statsMargins">
 
@@ -540,22 +566,6 @@ render() {
 
 
       </div> : undefined}
-
-
-        {/* <Row className="profile__bottomCenteringRow">
-
-        <Col md="8">
-        <Card>
-        <CardBody>
-
-          <div className="profile__friendsTitle">Friends <div className="leaderboard__sideIcon"><i className="tim-icons icon-badge" /></div> </div>
-
-        </CardBody>
-
-        </Card>
-        </Col>
-
-        </Row> */}
 
     </div> : undefined}
 

@@ -288,7 +288,7 @@ returnFriends() {
     <a href={`/user/@${this.state.friends[friend1].username}`} className="description" id="leaderabord__sideUsernameBottom">@{this.state.friends[friend1].username}</a>
   </div>
 
-  <div className="leaderboard__bottomComparisonAndCarbonContainer">
+  <div className="profile__bottomComparisonAndCarbonContainer">
 
   <div className="leaderboard__graphsLagerContainer">
   <div className="leaderboard__bottomComparisonGraphsMargins">
@@ -389,14 +389,6 @@ returnFriendsTwo() {
     return (<Col md="4">
     <Card>
     <CardBody>
-
-  {/*  <hr className="leaderboard__noUserHr1" />
-
-    <hr className="leaderboard__noUserHr2" />
-
-    <hr className="leaderboard__noUserHr3" />
-
-    <hr className="leaderboard__noUserHr4" /> */}
 
     <div className="leaderboard__noUserMargins">
 

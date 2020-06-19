@@ -180,7 +180,7 @@ router.post("/req-data", (req, res) => {
 
   let accuracyRating = 'D';
 
-  let description, weight, category, prodCategory, unit = 'kg', language, priceCalc;
+  let description, weight, category, prodCategory, unit = 'kg', language, priceCalc, tooltipCatName = '';
 
   let foodData, preparedFoodData, drinksData, healthABeautyData;
 
@@ -525,6 +525,7 @@ router.post("/req-data", (req, res) => {
 
       predictedEm = parseFloat(drinksData[predictedCategory].emissions);
       predictedAverage = parseFloat(drinksData[predictedCategory].average);
+      tooltipCatName = drinksData[predictedCategory].name;
 
     } else if (tList === 1) {
 
@@ -532,15 +533,17 @@ router.post("/req-data", (req, res) => {
 
       predictedEm = parseFloat(foodData[predictedCategory].emissions);
       predictedAverage = parseFloat(foodData[predictedCategory].average);
+      tooltipCatName = foodData[predictedCategory].name;
 
       console.log('SET FOOD TO', accuracyRating)
 
-    } else if (tList === 2) {
+    } else if (tList === 2 && location != 'amazon') {
 
       accuracyRating = 'B';
 
       predictedEm = parseFloat(preparedFoodData[predictedCategory].emissions);
       predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
+      tooltipCatName = preparedFoodData[predictedCategory].name;
 
     } else if (tList === 3) {
 
@@ -548,6 +551,7 @@ router.post("/req-data", (req, res) => {
 
       predictedEm = parseFloat(pTravelData[predictedCategory].emissions);
       predictedAverage = parseFloat(pTravelData[predictedCategory].average);
+      tooltipCatName = pTravelData[predictedCategory].name
 
     } else if (tList === 4) {
 
@@ -555,6 +559,7 @@ router.post("/req-data", (req, res) => {
 
       predictedEm = parseFloat(healthABeautyData[predictedCategory].emissions);
       predictedAverage = parseFloat(healthABeautyData[predictedCategory].average);
+      tooltipCatName = healthABeautyData[predictedCategory].name;
     }
   }
 
@@ -700,6 +705,7 @@ router.post("/req-data", (req, res) => {
        objectSpecificCat = newPredictedCategory;
        predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
        predictedAverage = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].average);
+       tooltipCatName = fullArray[objectPredictedCategory][newPredictedCategory].name;
        accuracyRating = 'B';
     } else {
 
@@ -729,6 +735,7 @@ router.post("/req-data", (req, res) => {
           predictedCategory = categ
           predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
           predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+          tooltipCatName = pMarketplaceData[website][categ].name;
       }
 
     } else {
@@ -756,6 +763,7 @@ router.post("/req-data", (req, res) => {
 
         predictedEm = parseFloat(pMarketplaceData[website][categ].emissions);
         predictedAverage = parseFloat(pMarketplaceData[website][categ].average);
+        tooltipCatName = pMarketplaceData[website][categ].name;
       }
     }
 
@@ -784,6 +792,7 @@ if (location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())) {
   predictedCategory = locAverageDollarData[loc].name;
   predictedEm = parseFloat(locAverageDollarData[loc].emissions);
   predictedAverage = parseFloat(locAverageDollarData[loc].average);
+  tooltipCatName = locAverageDollarData[loc].name;
   unit = 'dollar';
 }
 });
@@ -805,6 +814,7 @@ searchTerms.map((sTerm) => {
     predictedCategory = prodCatAverageDollarData[cat].name;
     predictedEm = parseFloat(prodCatAverageDollarData[cat].emissions);
     predictedAverage = parseFloat(prodCatAverageDollarData[cat].average);
+    tooltipCatName = prodCatAverageDollarData[cat].name;
     unit = 'dollar';
   }
 })
@@ -826,6 +836,7 @@ searchTerms.map((sTerm) => {
   predictedCategory = prodCatAverageKgData[cat].name;
   predictedEm = parseFloat(prodCatAverageKgData[cat].emissions);
   predictedAverage = parseFloat(prodCatAverageKgData[cat].average);
+  tooltipCatName = prodCatAverageKgData[cat].name;
   }
 });
 });
@@ -860,7 +871,11 @@ searchTerms.map((sTerm) => {
     emissions = (parseFloat(weight)*parseFloat(predictedEm)).toFixed(4);
   }
 
-  return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
+  if (tooltipCatName) {
+    return res.json({ emissions, unit, predictedCategory: tooltipCatName, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
+  } else {
+    return res.json({ emissions, unit, predictedCategory, accuracyRating, predictedAverage, baseEmissions: predictedEm, isDefault, messages });
+  }
 
 }
     try {
