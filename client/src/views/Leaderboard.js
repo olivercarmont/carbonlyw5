@@ -106,7 +106,6 @@ class Leaderboard extends React.Component {
 
       this.setState({ userRank: response.data.info[3].usrank });
 
-
       // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
        // console.log('user', response.data.info[0]);
        // console.log('leaderboard', response.data.info[2].slice(0, 3));

@@ -86,3 +86,13 @@ text-decoration:none;
   height:10px;
   margin-bottom:-100px;
 }
+.clickExtension__haventInstalledExtension {
+  margin-top:25px;
+  color:#84af96;
+  font-weight:700;
+  margin-bottom:-5px;
+}
+.clickExtension__chromeLink {
+  margin-left:3px;
+  color:#84af96;
+}

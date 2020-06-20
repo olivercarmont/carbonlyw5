@@ -58,6 +58,8 @@ class ClickExtension extends React.Component {
 
                 <div className="settings__constructionMessage">(It should be on the right-hand corner!)</div>
 
+                <div className="clickExtension__haventInstalledExtension">Haven't Installed The Extension? <a className="clickExtension__chromeLink" href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn/related" target="_blank">Click Here!</a></div>
+
                 <div className="notFound__positionButtonClick">
 
                 <Link to="/home" className="userProfile__submitButton">Done &nbsp; ✔️</Link>

@@ -447,6 +447,7 @@ router.post("/req-data", (req, res) => {
 
   function runMainMethod() {
 
+console.log('NEW')
 
   if (true) {
 
@@ -490,8 +491,23 @@ router.post("/req-data", (req, res) => {
       let descriptors = categ.split(" ");
 
 // && list[categ].match === 1
+
+if (categ.includes('camera')) {
+  console.log('CATEG', needMatch)
+
+
+}
+
+console.log('DES--', description)
+console.log('DES--', descriptors.length)
+
+
       if (descriptors.length < 3 && needMatch === 1) {
+
+
+
         if((description.toLowerCase()).includes(categ.toLowerCase())) {
+          console.log('PRED UP', categ)
             predictedCategory = categ
             tList = mi;
             // break
@@ -506,16 +522,18 @@ router.post("/req-data", (req, res) => {
 
           // console.log('des', des);
 
-        if ((description.toLowerCase()).includes(des.toLowerCase())) {
-                    console.log('des', des)
+        if ((description.toLowerCase()).includes(des.toLowerCase()) && des.length > 1) {
+
+          console.log('des', des)
           localMatch++;
         }
 
         })
 
-        console.log('LO', localMatch);
-        console.log('NE', needMatch);
+
 // && localMatch >= list[categ].match
+
+
         if (localMatch >= needMatch) {
 
         if (localMatch > matchingNum) {
@@ -523,6 +541,12 @@ router.post("/req-data", (req, res) => {
           predictedCategory = categ;
           matchingNum = localMatch;
           tList = mi;
+
+          console.log('MNUM', matchingNum)
+          console.log('CATEG', categ)
+
+
+            console.log('PRED', predictedCategory)
         }
       }
 
@@ -580,6 +604,8 @@ router.post("/req-data", (req, res) => {
     } else if (tList === 5) {
 
       accuracyRating = 'B';
+
+      console.log('PRED', predictedCategory)
 
       predictedEm = parseFloat(electronicsData[predictedCategory].emissions);
       predictedAverage = parseFloat(electronicsData[predictedCategory].average);

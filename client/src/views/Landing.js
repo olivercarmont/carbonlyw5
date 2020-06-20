@@ -714,7 +714,7 @@ animateNumbers() {
                     <div className="col-12 col-md-3 col-lg-3">
                         <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
                             <div className="counter-area landing__ourStatsNumber3">
-                                <h3><span className="counter"><span id="landing__numberFour">{0}</span>{this.state.landingData.emTracked > 1000000 ? 'Mt' : this.state.landingData.emTracked ? 't' : ''}</span></h3>
+                                <h3><span className="counter"><span id="landing__numberFour">{0}</span>{this.state.landingData.emTracked > 1000000 ? 'kt' : this.state.landingData.emTracked ? 't' : ''}</span></h3>
                             </div>
                             <div className="cool-facts-content">
                             <Icon icon={gumtreeIcon} className="landing__treeIcon" />

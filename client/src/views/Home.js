@@ -119,8 +119,6 @@ class Home extends React.Component {
          window.location.href = "/click";
        }
 
-
-
   })
   .catch((error) => {
     console.log(error);
