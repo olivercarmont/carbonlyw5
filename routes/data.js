@@ -182,11 +182,11 @@ router.post("/req-data", (req, res) => {
 
   let description, weight, category, prodCategory, unit = 'kg', language, priceCalc, tooltipCatName = '';
 
-  let foodData, preparedFoodData, drinksData, healthABeautyData;
+  let foodData, preparedFoodData, drinksData, healthABeautyData, electronicsData;
 
   let pFoodData, pDrinksData, pTravelData, pApparelData, pMiscellaneousData, pElectronicsData, pMarketplaceData;
 
-  let foodDataKeys, preparedFoodDataKeys, drinksDataKeys, healthABeautyDataKeys;
+  let foodDataKeys, preparedFoodDataKeys, drinksDataKeys, healthABeautyDataKeys, electronicsDataKeys;
 
   let pFoodDataKeys, pDrinksDataKeys, pTravelDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys, pMarketplaceDataKeys;
 
@@ -197,10 +197,10 @@ router.post("/req-data", (req, res) => {
   if (!req.body.category && !req.header('category')) {
 
   if (req.body.description) {
-    description = req.body.description;
+    description = decodeURI(req.body.description);
 
   } else if (req.header('description')) {
-    description = req.header('description');
+    description = decodeURI(req.header('description'));
   }
 
   if (!req.body.description && !req.header('description')) {
@@ -265,13 +265,14 @@ router.post("/req-data", (req, res) => {
     preparedFoodData = dataArray[0][1].data;
     drinksData = dataArray[0][2].data;
     healthABeautyData = dataArray[0][6].data;
+    electronicsData = dataArray[0][7].data;
 
     pFoodData = JSON.parse(JSON.stringify(dataArray[0][3])).food;
     pDrinksData = JSON.parse(JSON.stringify(dataArray[0][3])).drinks;
     pTravelData = JSON.parse(JSON.stringify(dataArray[0][3])).travel;
     pApparelData = JSON.parse(JSON.stringify(dataArray[0][3])).apparel;
     pMiscellaneousData = JSON.parse(JSON.stringify(dataArray[0][3])).miscellaneous;
-    pElectronicsData = JSON.parse(JSON.stringify(dataArray[0][3])).miscellaneous;
+    pElectronicsData = JSON.parse(JSON.stringify(dataArray[0][3])).electronics;
 
     pMarketplaceData = JSON.parse(JSON.stringify(dataArray[0][4])).marketplaces;
 
@@ -284,6 +285,7 @@ router.post("/req-data", (req, res) => {
     preparedFoodDataKeys = Object.keys(preparedFoodData)
     drinksDataKeys = Object.keys(drinksData)
     healthABeautyDataKeys = Object.keys(healthABeautyData)
+    electronicsDataKeys = Object.keys(electronicsData)
 
     pFoodDataKeys = Object.keys(pFoodData)
     pDrinksDataKeys = Object.keys(pDrinksData)
@@ -293,7 +295,7 @@ router.post("/req-data", (req, res) => {
     pElectronicsDataKeys = Object.keys(pElectronicsData)
     pMarketplaceDataKeys = Object.keys(pMarketplaceData)
 
-    mainLists = [drinksDataKeys, foodDataKeys, preparedFoodDataKeys, pTravelDataKeys, healthABeautyDataKeys];
+    mainLists = [drinksDataKeys, foodDataKeys, preparedFoodDataKeys, pTravelDataKeys, healthABeautyDataKeys, electronicsDataKeys];
 
     objectLists = [pFoodDataKeys, pDrinksDataKeys, pApparelDataKeys, pMiscellaneousDataKeys, pElectronicsDataKeys];
 
@@ -446,7 +448,7 @@ router.post("/req-data", (req, res) => {
   function runMainMethod() {
 
 
-  if (weight) {
+  if (true) {
 
   let mi = 0;
 
@@ -475,6 +477,10 @@ router.post("/req-data", (req, res) => {
      needMatch = preparedFoodData[categ].match;
   } if (mi === 3) {
      needMatch = pTravelData[categ].match;
+  } if (mi === 4) {
+     needMatch = healthABeautyData[categ].match;
+  } if (mi === 5) {
+     needMatch = electronicsData[categ].match;
   }
 
   let localMatch = 0;
@@ -494,13 +500,21 @@ router.post("/req-data", (req, res) => {
 
         descriptors.map((des) => {
 
+
+
+                  // console.log('CATEG', des)
+
           // console.log('des', des);
 
         if ((description.toLowerCase()).includes(des.toLowerCase())) {
+                    console.log('des', des)
           localMatch++;
         }
 
         })
+
+        console.log('LO', localMatch);
+        console.log('NE', needMatch);
 // && localMatch >= list[categ].match
         if (localMatch >= needMatch) {
 
@@ -519,7 +533,7 @@ router.post("/req-data", (req, res) => {
 
   if (predictedCategory) {
 
-    if (tList === 0) {
+    if (tList === 0 && weight) {
 
       accuracyRating = 'C';
 
@@ -527,7 +541,7 @@ router.post("/req-data", (req, res) => {
       predictedAverage = parseFloat(drinksData[predictedCategory].average);
       tooltipCatName = drinksData[predictedCategory].name;
 
-    } else if (tList === 1) {
+    } else if (tList === 1 && weight) {
 
       accuracyRating = 'C';
 
@@ -545,7 +559,9 @@ router.post("/req-data", (req, res) => {
       predictedAverage = parseFloat(preparedFoodData[predictedCategory].average);
       tooltipCatName = preparedFoodData[predictedCategory].name;
 
-    } else if (tList === 3) {
+      unit = 'portion';
+
+    } else if (tList === 3 && weight) {
 
       accuracyRating = 'B';
 
@@ -553,13 +569,23 @@ router.post("/req-data", (req, res) => {
       predictedAverage = parseFloat(pTravelData[predictedCategory].average);
       tooltipCatName = pTravelData[predictedCategory].name
 
-    } else if (tList === 4) {
+    } else if (tList === 4 && weight) {
 
       accuracyRating = 'B';
 
       predictedEm = parseFloat(healthABeautyData[predictedCategory].emissions);
       predictedAverage = parseFloat(healthABeautyData[predictedCategory].average);
       tooltipCatName = healthABeautyData[predictedCategory].name;
+
+    } else if (tList === 5) {
+
+      accuracyRating = 'B';
+
+      predictedEm = parseFloat(electronicsData[predictedCategory].emissions);
+      predictedAverage = parseFloat(electronicsData[predictedCategory].average);
+      tooltipCatName = electronicsData[predictedCategory].name;
+
+      unit = 'portion';
     }
   }
 
@@ -700,7 +726,7 @@ router.post("/req-data", (req, res) => {
     }
 
 
-    if (newPredictedCategory) {
+    if (newPredictedCategory && weight) {
       console.log('newpred', newPredictedCategory)
        objectSpecificCat = newPredictedCategory;
        predictedEm = parseFloat(fullArray[objectPredictedCategory][newPredictedCategory].emissions);
