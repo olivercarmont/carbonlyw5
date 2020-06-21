@@ -43,7 +43,7 @@ router.post("/add-submission", (req, res) => {
 
   if (req.header("link")) {
     let link = req.header("link");
-    let product = req.header("product");
+    let product = decodeURI(req.header("product"));
     let productCategory = req.header("prodCategory");
     let emissions = req.header("emissions");
 

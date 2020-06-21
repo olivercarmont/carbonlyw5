@@ -1166,9 +1166,9 @@ router.post("/add-order", (req, res) => {
     }
 
     if (req.header('name')) {
-      name = req.header('name');
+      name = decodeURI(req.header('name'));
     } else if (req.body.name) {
-      name = req.body.name;
+      name = decodeURI(req.body.name);
     }
 
     if (req.header('time')) {
