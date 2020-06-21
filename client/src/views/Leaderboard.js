@@ -124,7 +124,7 @@ class Leaderboard extends React.Component {
   };
   changeGlobal(bool) {
     this.setState({ global: bool });
-    console.log('changed');
+    // console.log('changed');
   }
   returnNumberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -233,7 +233,7 @@ returnUserOffsets() {
 
   totalPoints += parseFloat(this.state.user.bonusPoints);
 
-  console.log('offsetAmount', totalPoints)
+  // console.log('offsetAmount', totalPoints)
 
   return `${this.returnOffsets(totalPoints)}`;
 }
@@ -390,9 +390,9 @@ insertAddFriendsContainer() {
 
   let shuffledUsers = this.state.search;
 
-  console.log('updated', this.state.searchValue);
-
-  console.log('updated', this.state.search);
+  // console.log('updated', this.state.searchValue);
+  //
+  // console.log('updated', this.state.search);
 
 
 

@@ -102,7 +102,7 @@ class Home extends React.Component {
       //   name: response.data[0].name
       // });
 
-      console.log('response', response.data);
+      // console.log('response', response.data);
 
       // response.data.map((findUser) => {
       //   if (findUser._id === this.props.auth.user.id) {
@@ -153,7 +153,7 @@ updateSearchFunction(searchValue) {
 
 var search = [];
 
-console.log('val', searchValue);
+// console.log('val', searchValue);
 
 this.state.compatibleMarketplaces.map((marketplace) => {
 
@@ -195,7 +195,7 @@ createNewItemSaved() {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -229,7 +229,7 @@ createNewItemShoppingList() {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -257,7 +257,7 @@ deleteItemSaved(id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -285,7 +285,7 @@ deleteItemShoppingList(id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -302,14 +302,14 @@ setShoppingList(newState) {
 }
 updateDescriptionSaved(e, id) {
 
-  console.log('event', e.target.value);
+  // console.log('event', e.target.value);
 
   let newArray = this.state.savedList;
   let index;
 
   newArray = newArray.map((el) => {
     if (el.id === id) {
-      console.log('id is the same', id);
+      // console.log('id is the same', id);
       index = newArray.indexOf(el);
       return { id: el.id, title: el.title, description: e.target.value }
     } else {
@@ -318,7 +318,7 @@ updateDescriptionSaved(e, id) {
 
   });
 
-  console.log('newArray', newArray);
+  // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ saved: newArray });
 
@@ -327,7 +327,7 @@ updateDescriptionSaved(e, id) {
   })
 .then(response => {
 
-  console.log('UPDATED');
+  // console.log('UPDATED');
 
 })
 .catch((error) => {
@@ -337,14 +337,14 @@ updateDescriptionSaved(e, id) {
 }
 updateDescriptionShopping(e, id) {
 
-  console.log('event', e.target.value);
+  // console.log('event', e.target.value);
 
   let newArray = this.state.shoppingList;
   let index;
 
   newArray = newArray.map((el) => {
     if (el.id === id) {
-      console.log('id is the same', id);
+      // console.log('id is the same', id);
       index = newArray.indexOf(el);
       return { id: el.id, title: el.title, description: e.target.value }
     } else {
@@ -353,7 +353,7 @@ updateDescriptionShopping(e, id) {
 
   });
 
-  console.log('newArray', newArray);
+  // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
@@ -362,7 +362,7 @@ axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, p
   })
 .then(response => {
 
-  console.log('UPDATED');
+  // console.log('UPDATED');
 
 })
 .catch((error) => {
@@ -377,7 +377,7 @@ updateTitleSaved(e, id) {
 
   newArray = newArray.map((el) => {
     if (el.id === id) {
-      console.log('id is the same', id);
+      // console.log('id is the same', id);
       index = newArray.indexOf(el);
       return { id: el.id, title: e.target.value, description: el.description  }
     } else {
@@ -386,7 +386,7 @@ updateTitleSaved(e, id) {
 
   });
 
-  console.log('newArray', newArray);
+  // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ saved: newArray });
 
@@ -395,7 +395,7 @@ updateTitleSaved(e, id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -410,7 +410,7 @@ updateTitleShopping(e, id) {
 
   newArray = newArray.map((el) => {
     if (el.id === id) {
-      console.log('id is the same', id);
+      // console.log('id is the same', id);
       index = newArray.indexOf(el);
       return { id: el.id, title: e.target.value, description: el.description  }
     } else {
@@ -419,7 +419,7 @@ updateTitleShopping(e, id) {
 
   });
 
-  console.log('newArray', newArray);
+  // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
@@ -428,7 +428,7 @@ updateTitleShopping(e, id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {

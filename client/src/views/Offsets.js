@@ -102,7 +102,7 @@ class Offsets extends React.Component {
          })
        .then(response => {
 
-           console.log('RESPPPPPP', response.data.hasAnswered)
+           // console.log('RESPPPPPP', response.data.hasAnswered)
 
             this.setState({ hasAnswered: response.data.hasAnswered });
 
@@ -159,7 +159,7 @@ returnUserOffsets() {
     offsetAmount += parseFloat(off.amount);
   })
 
-  console.log('offsetAmount', offsetAmount)
+  // console.log('offsetAmount', offsetAmount)
 
   return `${this.returnOffsets(offsetAmount)} CO`;
 }
@@ -436,7 +436,7 @@ getTimeSizeOfEmissions(num) {
       if (!((cost/3) > (totalEm + (em/1000)))) {
         time = new Date(Date.parse(this.state.user.orders[r].time));
 
-        console.log('time', time);
+        // console.log('time', time);
       } else {
         totalEm += (em/1000);
       }

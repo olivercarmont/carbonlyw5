@@ -104,7 +104,7 @@ componentDidMount() {
   })
   .then(response => {
 
-    console.log('DATA', response.data)
+    // console.log('DATA', response.data)
 
      this.setState({ landingData: response.data });
 
@@ -227,7 +227,7 @@ animateValue() {
 
   if (!numberAnimationOccured) {
 
-    console.log('NUM', numberAnimationOccured)
+    // console.log('NUM', numberAnimationOccured)
 
     const countUpFirst = new CountUp('ourData__numberOne', 1);
     countUpFirst.start();
@@ -315,7 +315,7 @@ animateValue() {
                             </div>
             </div>
 
-        <a href="https://www.producthunt.com/posts/carbonly?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-carbonly" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=207154&theme=dark" alt="Carbonly 🌿️ - Track  📈 Your Online Carbon Footprint 💨 | Product Hunt Embed" style={{ "width": "225px;", "height": "54px;", "width": "225px", "height": "54px", "margin-top": "21px"}} /></a>
+            <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" className="landing__callToActionButton">We're Planting One &nbsp;🌳 For Every Download!<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
 
         </div>
     </div>

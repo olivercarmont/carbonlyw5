@@ -141,6 +141,7 @@ constructor(props) {
       isChanging: false,
       referralEnabled: false,
       referralCode: '',
+      referralPoints: 0,
     };
 }
 componentWillMount() {
@@ -149,11 +150,11 @@ componentWillMount() {
 
       })
     .then(response => {
-      console.log('SEND RESPONSE')
+      // console.log('SEND RESPONSE')
 
          this.setState({ allUsers: Array(response.data)[0] });
 
-         console.log('allU', Array(response.data)[0] );
+         // console.log('allU', Array(response.data)[0] );
 }).catch((error) => {
   console.log(error);
 
@@ -161,7 +162,7 @@ componentWillMount() {
 }
 onSuccess(googleUser) {
    const profile = googleUser.getBasicProfile();
-   console.log("Name: " + profile.getName());
+   // console.log("Name: " + profile.getName());
  }
 
 componentDidMount() {
@@ -312,6 +313,7 @@ submitForm() {
     password2: this.state.password,
     referralUser,
     referralCode: newReferralCode,
+    points:this.state.referralPoints,
   };
 
   this.props.registerUser(newUser, this.props.history);
@@ -375,6 +377,29 @@ handleGoogleLogin(user, err){
 clearReferralCode() {
   this.setState({ referralEnabled: false })
   this.setState({ referralCode: '' })
+}
+changeReferralCode(e) {
+  this.setState({ referralCode: e.target.value })
+
+  let newValue = e.target.value;
+
+  let referralUser = '';
+
+  this.state.allUsers.usersArray.map((us) => {
+
+    if (newValue.length > 0 && (us.referralCode.toLowerCase() === newValue.toLowerCase())) {
+      referralUser = us.referralCode;
+    }
+
+  });
+
+  if (newValue.length > 0 && referralUser) {
+    this.setState({ referralPoints: 2500 });
+  } else if (newValue === 'CARB') {
+    this.setState({ referralPoints: 10000 });
+  } else {
+    this.setState({ referralPoints: 0 });
+  }
 }
 render() {
   const { errors } = this.props.errors;
@@ -460,7 +485,7 @@ render() {
 
                 <div className="separator"> &nbsp; Or Signup With Password  &nbsp;</div>
 
-                {this.props.errors.errors ? <div>{console.log('Test', errors)}</div> : undefined}
+                {/* this.props.errors.errors ? <div>{console.log('Test', errors)}</div> : undefined */}
 
                 {this.state.isChanging ? this.props.errors ? this.props.errors.errors ? errors.name ? <div className="login__errorButton">{errors.name}</div> : errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.password2 ? <div className="login__errorButton">{errors.password2}</div> : undefined : undefined : undefined : undefined}
 
@@ -509,13 +534,15 @@ render() {
                   <div className="login__referralSpacing"></div>
 
                   <div className="wrap-input100 validate-input" data-validate="Enter Referral Code">
-                    <input className="input100" type="referralCode" name="referralCode" placeholder="Referral Code" id="referralCode" value={this.state.referralCode} onChange={(e) => this.setState({ referralCode: e.target.value })} />
+                    <input className="input100" type="referralCode" name="referralCode" placeholder="Referral Code" id="referralCode" value={this.state.referralCode} onChange={(e) => this.changeReferralCode(e)} />
                     <span className="focus-input100" data-placeholder="&#xf187;"></span>
                   </div>
 
-                  <div className="signup__referralTextNot" onClick={() => this.clearReferralCode()}>Don't Have Referral Code?</div>
+                  {this.state.referralPoints > 0 ? <span className="signup__referralPoints">{this.state.referralPoints} Points 🎉</span> : this.state.referralCode.length > 0 ? <span className="signup__referralPoints2">Couldn't Find Code 😞</span> : undefined}
 
-                  </div> : <div className="signup__referralText" onClick={() => this.setState({ referralEnabled: true })}>Have Referral Code? <span className="signup__referralPointsText">Earn 2500 Points!</span></div>}
+                  <div className="signup__referralTextNot" onClick={() => this.clearReferralCode()}>Don't Have a Referral Code?</div>
+
+                  </div> : <div className="signup__referralText" onClick={() => this.setState({ referralEnabled: true })}>Have a Referral Code? <span className="signup__referralPointsText">Earn 2500 Points!</span></div>}
 
                 <div className="container-login100-form-btn">
                   <button onClick={() => this.submitForm()} className="login100-form-btn">

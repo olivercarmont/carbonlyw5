@@ -127,7 +127,7 @@ avatarLeft() {
   })
 .then(response => {
 
-  console.log('UPDATED');
+  // console.log('UPDATED');
 
 })
 .catch((error) => {
@@ -147,7 +147,7 @@ avatarRight() {
   })
 .then(response => {
 
-  console.log('UPDATED');
+  // console.log('UPDATED');
 
 })
 .catch((error) => {
@@ -327,7 +327,7 @@ shiftFriendsRight() {
 }
 onLogoutClick() {
   // e.preventDefault();
-  console.log('should be logged out');
+  // console.log('should be logged out');
   this.props.logoutUser();
 };
 returnFriendsTwo() {
@@ -443,14 +443,14 @@ updateName(e) {
 
     this.setState({ save: 'Saving..' });
 
-      console.log('got to here');
+      // console.log('got to here');
 
     axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'name', value: String(e.target.value) }, {
       'prop': 'name', 'value': String(e.target.value), 'jwt': localStorage.jwtToken
     })
   .then(response => {
 
-    console.log('saved');
+    // console.log('saved');
 
     this.setState({ save: 'Saved' });
 
@@ -460,14 +460,14 @@ updateName(e) {
     // SHOW ERROR AND DON'T CHANGE PAGE
   })
 
-console.log('got to the end');
+// console.log('got to the end');
 
 }
 
 }
 updateUsername(e) {
 
-  console.log('e.target', e.target.value);
+  // console.log('e.target', e.target.value);
 
   const re = /^\S*$/;
 
@@ -475,19 +475,19 @@ updateUsername(e) {
 
   let input = e.target.value.slice(1, e.target.value.length);
 
-  console.log('type', input);
+  // console.log('type', input);
 
   if ((String(input).length < 20) && (re.test(input)) && !(ret.test(input))) {
     this.setState({ username: e.target.value.slice(1, e.target.value.length) });
 
-    this.setState({ save: 'Saving..' });
+    this.setState({ save: 'Saving.. 😴' });
 
     axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'username', value: e.target.value.slice(1, e.target.value.length), }, {
       prop: 'username', value: e.target.value.slice(1, e.target.value.length), 'jwt': localStorage.jwtToken,
     })
   .then(response => {
 
-    this.setState({ save: 'Saved' });
+    this.setState({ save: 'Saved 🎉' });
 
   })
   .catch((error) => {
@@ -528,7 +528,7 @@ selectBudget() {
   })
 .then(response => {
 
-  console.log('saved');
+  // console.log('saved');
 
   this.setState({ budgetSelected: true });
 
@@ -659,7 +659,7 @@ render() {
                     {/* <div className="profile__settingsAtIcon">@</div> */}
                   </div>
 
-                  {this.state.save}
+                  <div className="editProfile__positionSave">{this.state.save}</div>
 
                   <div className="profile__positionLogOutButton" onClick={() => this.onLogoutClick()}>
                   <a className="profile__logOutButton">Logout &nbsp;👋️</a>

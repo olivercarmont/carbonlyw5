@@ -115,7 +115,7 @@ componentWillMount() {
 
   pusername = pusername.slice(1, pusername.length);
 
-  console.log('username', pusername);
+  // console.log('username', pusername);
 
   axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
@@ -149,15 +149,15 @@ componentWillMount() {
        });
      });
 
-     console.log('actual friend', pfriends[0]);
+     // console.log('actual friend', pfriends[0]);
 
      let isFriend = false;
      let uFriends = response.data.info[0].friends;
 
      uFriends.map((fri) => {
 
-       console.log('fri', fri);
-       console.log('puser', puser.publicId);
+       // console.log('fri', fri);
+       // console.log('puser', puser.publicId);
 
        if (fri === puser.publicId) {
          isFriend = true;
@@ -170,8 +170,8 @@ componentWillMount() {
      this.setState({ pfriends: pfriends });
      this.setState({ puser: puser });
 
-     console.log('puser', puser);
-     console.log('pfriends', pfriends);
+     // console.log('puser', puser);
+     // console.log('pfriends', pfriends);
 
     }
 
@@ -215,7 +215,7 @@ let calcData;
 
 returnFriends() {
 
-  console.log('friends', this.state.pfriends)
+  // console.log('friends', this.state.pfriends)
 
   let friend1 = this.state.friendsMove - 1;
 
@@ -410,7 +410,7 @@ addUser(id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -447,7 +447,7 @@ removeUser(id) {
     })
   .then(response => {
 
-    console.log('UPDATED');
+    // console.log('UPDATED');
 
   })
   .catch((error) => {
@@ -461,7 +461,7 @@ render() {
     return (
       <>
       <div className="content">
-      {console.log('stateChecks', `1 ${!!this.state.user} 2 ${!!this.state.friends} 3 ${!!this.state.allUsers} 4 ${!!this.state.puser} 5 ${!!this.state.pfriernds}`)}
+      {/* console.log('stateChecks', `1 ${!!this.state.user} 2 ${!!this.state.friends} 3 ${!!this.state.allUsers} 4 ${!!this.state.puser} 5 ${!!this.state.pfriernds}`) */}
       {this.state.user && this.state.friends && this.state.allUsers && this.state.puser ? <div>
       <Row>
       <div className="profile__centeringMainCard">

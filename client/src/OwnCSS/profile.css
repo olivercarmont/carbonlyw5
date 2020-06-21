@@ -226,6 +226,7 @@
 
   border-width: 0 0 2px;
 border-color:#a9dbc0;
+color:#222 !important;
 
 background-color: transparent;
 margin-top:30px;
@@ -238,6 +239,7 @@ letter-spacing:0.02em;
 #profile__mainNameInput:focus {
   border-color:#dbdbdb;
   transition:0.5s;
+  color:#84af96 !important;
 }
 #profile__mainUsernameInput {
   /* font-size:0.91em; */
@@ -253,6 +255,8 @@ letter-spacing:0.02em;
   border-width: 0 0 2px;
   border-color:#a9dbc0;
 
+  color:#222 !important;
+
   background-color: transparent;
   margin-top:30px;
   width:30%;
@@ -263,6 +267,7 @@ letter-spacing:0.02em;
 }
 #profile__mainUsernameInput:focus {
   border-color:#dbdbdb;
+  color:#84af96 !important;
   transition:0.5s;
 }
 .profile__settingsTopEditContainer {
@@ -707,4 +712,12 @@ margin:auto;
 margin-top:0px;
 margin-bottom:-7px;
 
+}
+.editProfile__positionSave {
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  margin-top:25px;
+  margin-bottom:-22px;
+  font-size:0.95em;
 }

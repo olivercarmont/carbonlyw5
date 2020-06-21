@@ -318,7 +318,7 @@ letter-spacing:-0.02em;
   margin-bottom:20px;
   font-size:0.97em;
   text-align:center;
-  width:177px;
+  width:200px;
   margin-left:auto;
   margin-right:auto;
 }
@@ -328,4 +328,18 @@ letter-spacing:-0.02em;
 }
 .login__referralSpacing {
   margin-top:-30px;
+}
+.signup__referralPoints {
+  position:absolute;
+  color:#fff;
+  margin-top:-60px;
+  float:right;
+  margin-left:19.5%;
+}
+.signup__referralPoints2 {
+  position:absolute;
+  color:#fff;
+  margin-top:-60px;
+  float:right;
+  margin-left:16.5%;
 }

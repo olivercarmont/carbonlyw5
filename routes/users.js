@@ -541,7 +541,7 @@ router.post("/register", (req, res) => {
 
     }
 
-    if (req.body.referralUser.length > 0) {
+    if (parseFloat(req.body.points) > 0) {
     const newUser = new User({
        name: req.body.name,
        username: req.body.username,
@@ -550,7 +550,7 @@ router.post("/register", (req, res) => {
        publicId: req.body.publicId,
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
-       bonusPoints: 2500,
+       bonusPoints: parseFloat(req.body.points),
      });
 
      // Hash password before saving in database

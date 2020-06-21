@@ -134,7 +134,7 @@ class Analytics extends React.Component {
   start_of_week.setMinutes(0)
   start_of_week.setSeconds(0)
 
-  console.log('START', start_of_week);
+  // console.log('START', start_of_week);
 
   let ordersArray = this.state.user.orders;
 
@@ -572,7 +572,7 @@ class Analytics extends React.Component {
           displayColors: false,
           callbacks: {
           label: function(tooltipItem, data) {
-            console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
+            // console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
                 return tooltipItem.yLabel.toFixed(1) + 'kg CO2';
               }
             },
@@ -713,11 +713,11 @@ class Analytics extends React.Component {
 
        this.setState({ userRank: response.data.info[3].usrank });
 
-       console.log('chart example dataset', chartExample1);
+       // console.log('chart example dataset', chartExample1);
 
   })
   .catch((error) => {
-    console.log(error);
+    console.log('E', error);
   })
   }
   setBgChartData = name => {
@@ -953,7 +953,7 @@ class Analytics extends React.Component {
     secondLastNumber = +this.state.userRank.toString().split().slice(this.state.userRank.toString().length-2, this.state.userRank.toString().length-1)
     }
 
-    console.log('SECOND LAST', secondLastNumber)
+    // console.log('SECOND LAST', secondLastNumber)
 
     if (this.state.userRank.toString().length > 1 && secondLastNumber === 1) {
       return 'th';
@@ -1046,7 +1046,7 @@ class Analytics extends React.Component {
 
   desEm.sort((a, b) => (a.amount < b.amount) ? 1 : -1)
 
-  console.log('desEm', desEm);
+  // console.log('desEm', desEm);
 
   return desEm;
   }
@@ -1063,6 +1063,7 @@ class Analytics extends React.Component {
 
     let date = new Date();
     let cur_month = date.getMonth() + 1;
+    let cur_year = date.getFullYear();
 
     let tFrame0 = 0, tFrame1 = 0, tFrame2 = 0, tFrame3 = 0, tFrame4 = 0, tFrame5 = 0, tFrame6 = 0, tFrame7 = 0;
 
@@ -1072,8 +1073,9 @@ class Analytics extends React.Component {
 
       let time = new Date(Date.parse(el.time));
       let orderMonth = time.getMonth() + 1;
+      let orderYear = time.getFullYear();
 
-      if (orderMonth === cur_month) {
+      if ((orderMonth === cur_month) && (orderYear === cur_year)) {
 
       let day = time.getDate();
       let cur_amt = el.carbon;
@@ -1101,17 +1103,17 @@ class Analytics extends React.Component {
 
     tFrame1 += tFrame0;
 
-    tFrame2 += tFrame1 + tFrame0;
+    tFrame2 += tFrame1;
 
-    tFrame3 += tFrame2 + tFrame1 + tFrame0;
+    tFrame3 += tFrame2;
 
-    tFrame4 += tFrame3 + tFrame2 + tFrame1 + tFrame0;
+    tFrame4 += tFrame3;
 
-    tFrame5 += tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+    tFrame5 += tFrame4;
 
-    tFrame6 += tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+    tFrame6 += tFrame5;
 
-    tFrame7 += tFrame6 + tFrame5 + tFrame4 + tFrame3 + tFrame2 + tFrame1 + tFrame0;
+    tFrame7 += tFrame6;
 
     if (cur_month === 2) {
 
@@ -1221,7 +1223,7 @@ class Analytics extends React.Component {
 
     let time = new Date(Date.parse(el.time));
 
-    console.log('TIME', time);
+    // console.log('TIME', time);
 
     let monthsSince = this.getMonthFrom(time);
 
@@ -1302,18 +1304,18 @@ class Analytics extends React.Component {
     })
 
     this.state.user.orders.map((or) => {
-      console.log('usp', or.points)
+      // console.log('usp', or.points)
       userPoints += parseFloat(or.points);
-      console.log('usp', userPoints)
+      // console.log('usp', userPoints)
     })
 
     userPoints += parseFloat(this.state.user.bonusPoints)
 
-    console.log('usp', userPoints)
+    // console.log('usp', userPoints)
 
     let usValues = [];
 
-    console.log('AU', this.state.allUsers);
+    // console.log('AU', this.state.allUsers);
 
     if (this.state.userRank === 1) {
 
@@ -1353,7 +1355,7 @@ class Analytics extends React.Component {
 
       }
 
-      console.log('UP', userPoints)
+      // console.log('UP', userPoints)
 
       return usValues;
 
@@ -1442,7 +1444,7 @@ class Analytics extends React.Component {
       points += parseFloat(off.amount);
     })
 
-    console.log('points', points)
+    // console.log('points', points)
 
     return ` ${this.returnOffsets(points)} CO`;
 
@@ -1537,12 +1539,12 @@ class Analytics extends React.Component {
       destinations["foodie"] = true;
     }
   });
-  console.log('DES', des)
+  // console.log('DES', des)
   return des;
   }
   returnOrderCategories() {
 
-    let travel = ['skyscanner', 'momondo', 'booking.com', 'expedia', 'tripadvisor', 'klm', 'kayak', 'googleflights']
+    let travel = ['skyscanner', 'momondo', 'booking.com', 'expedia', 'trip advisor', 'klm', 'kayak', 'google flights']
 
     let hasInsWeb = [];
 
@@ -1617,9 +1619,9 @@ class Analytics extends React.Component {
     totalFootprint += parseFloat(or.carbon);
     })
 
-    console.log('TOT', totalFootprint)
+    // console.log('TOT', totalFootprint)
 
-    console.log('categoriesCHECK', categories[1].amount / totalFootprint)
+    // console.log('categoriesCHECK', categories[1].amount / totalFootprint)
 
     categories[0].percentage = Math.round((categories[0].amount / totalFootprint) * 100);
     categories[1].percentage = Math.round((categories[1].amount / totalFootprint) * 100);
@@ -1646,7 +1648,7 @@ class Analytics extends React.Component {
 
     categories.push(misCat);
 
-    console.log('cat', categories);
+    // console.log('cat', categories);
 
     return categories;
   }
