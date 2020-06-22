@@ -1209,9 +1209,25 @@ router.post("/add-order", (req, res) => {
 
   // return res.json(tokenObject);
 
+  let isRepeat = false;
+
   User.findOne({ _id: id }).then(user => {
 
     let orders = user.orders.map((or) => { return or });
+
+    orders.map((ord) => {
+      let minutesDiff = Date.parse(time) - Date.parse(time);
+      minutesDiff = Math.abs(minutesDiff / 60000);
+
+      console.log('DIFF', minutesDiff);
+
+      if (minutesDiff < 2) {
+        if (name === ord.name) {
+          isRepeat = true;
+          return res.status(400).json({ isRepeat: `Is a Repeat` });
+        }
+      }
+    })
 
     orders.push(order)
 
