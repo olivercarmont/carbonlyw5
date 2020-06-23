@@ -1965,7 +1965,11 @@ class Analytics extends React.Component {
                                 >
                                   <p id="analytics__mainTextSideOrders">{this.returnOrdersEm(or.carbon)}<span id="analytics__ordersSmall2">2</span></p>
                                 </Button>
-                                <div className="analytics__deleteOrderIcon" onClick={() => this.deleteOrder(or.time, or.name)}><i className="tim-icons icon-trash-simple analytics__deleteOrderInner" /></div>
+
+                              <div className="tooltipAnalytics"><div className="analytics__deleteOrderIcon" onClick={() => this.deleteOrder(or.time, or.name)}><i className="tim-icons icon-trash-simple analytics__deleteOrderInner" /></div>
+                                <span className="tooltiptextAnalytics"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto"}}>This Action Cannot be Undone. You Sure? 🤞</div>
+
+                                </span></div>
                               </td>
                             </tr>)
                           }) : undefined}

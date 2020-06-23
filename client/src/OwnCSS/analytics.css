@@ -199,8 +199,48 @@ border-bottom:2px solid #75c79a !important;
   margin-left:auto;
   margin-right:auto;
   /* transition-delay:0.5s; */
+  z-index: 100000 !important;
+  position:relative;
 }
 .analytics__deleteOrderInner:hover {
   opacity:0.5;
   transition:0.5s;
+}
+.tooltipAnalytics {
+  position: relative;
+  display: inline-block;
+  z-index: 100000 !important;
+}
+
+.tooltipAnalytics .tooltiptextAnalytics {
+  visibility: hidden;
+  width: 180px;
+  background-color: #fff;
+  color: rgba(152, 199, 176, 1);
+  border: 1px solid rgba(152, 199, 176, 0.6);
+  text-align: center;
+  font-size:0.925em;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -11px;
+
+  right: 180%;
+}
+
+.tooltipAnalytics .tooltiptextAnalytics::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(152, 199, 176, 0.6);
+}
+
+.tooltipAnalytics:hover .tooltiptextAnalytics {
+  visibility: visible;
 }

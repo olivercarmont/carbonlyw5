@@ -85,17 +85,18 @@ router.post("/has-submitted-form", (req, res) => {
 
   Form.findOne({ formId }).then(form => {
 
-    let hasAnswered = 'f';
+    let hasAnswered = 'f', answerType = '';
 
     console.log(form)
 
-    form.usersAnswered.map((user) => {
-      if (user.email === userE) {
+    form.usersAnswered.map((frm) => {
+      if (frm.email === userE) {
         hasAnswered = 't';
+        answerType = frm.answerType;
       }
     })
 
-    return res.json({ hasAnswered });
+    return res.json({ hasAnswered, answerType });
 
   });
 });
@@ -128,6 +129,10 @@ router.post("/submit-question", (req, res) => {
     return res.status(400).json(`Details: Not Found`);
   }
 
+  if (!req.body.answerType && !req.header('answerType')) {
+    return res.status(400).json(`answerType: Not Found`);
+  }
+
   Form.findOne({ formId }).then(form => {
 
   let newUserList = form.usersAnswered.map((frm) => {
@@ -138,6 +143,7 @@ router.post("/submit-question", (req, res) => {
     email: userE,
     details,
     time,
+    answerType
   })
 
   Form.findOneAndUpdate({ formId }, { $set: {

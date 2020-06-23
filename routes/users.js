@@ -592,6 +592,96 @@ router.post("/register", (req, res) => {
 
 });
 
+router.post("/social-register", (req, res) => {
+
+  // Form validation
+
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json({ "reason": "isValid", "errors": errors});
+  }
+
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    }
+  });
+
+  User.findOne({ username: req.body.username }).then(user => {
+    if (user) {
+      return res.status(400).json({ username: "Username is Taken" });
+    }
+    });
+
+    if (req.body.referralUser.length > 0) {
+
+      User.findOne({ referralCode: req.body.referralUser }).then(user => {
+
+      let newPoints = parseFloat(user.bonusPoints) += 2500;
+
+        User.findOneAndUpdate({ referralCode: req.body.referralUser }, { $set: {
+            bonusPoints: newPoints,
+          }
+        }).then(user => {
+          // return res.json({ budget: value });
+        })
+
+      }).catch(err => res.status(400).json(`Error:` + err));
+
+    }
+
+    if (parseFloat(req.body.points) > 0) {
+    const newUser = new User({
+       name: req.body.name,
+       username: req.body.username,
+       email: req.body.email,
+       publicId: req.body.publicId,
+       referralCode:req.body.referralCode,
+       hasloggedIn: 'f',
+       bonusPoints: parseFloat(req.body.points),
+     });
+
+     // Hash password before saving in database
+     bcrypt.genSalt(10, (err, salt) => {
+       bcrypt.hash(newUser.password, salt, (err, hash) => {
+         if (err) throw err;
+         newUser.password = hash;
+         newUser
+           .save()
+           .then(user => res.json(user))
+           .catch(err => console.log(err));
+       });
+     });
+
+    } else {
+    const newUser = new User({
+       name: req.body.name,
+       username: req.body.username,
+       email: req.body.email,
+       password: req.body.password,
+       publicId: req.body.publicId,
+       referralCode:req.body.referralCode,
+       hasloggedIn: 'f',
+     });
+
+     // Hash password before saving in database
+     bcrypt.genSalt(10, (err, salt) => {
+       bcrypt.hash(newUser.password, salt, (err, hash) => {
+         if (err) throw err;
+         newUser.password = hash;
+         newUser
+           .save()
+           .then(user => res.json(user))
+           .catch(err => console.log(err));
+       });
+     });
+
+    }
+
+});
+
 router.post("/return-leaderboard", (req, res) => {
 
   let token;

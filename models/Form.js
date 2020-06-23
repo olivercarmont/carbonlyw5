@@ -29,6 +29,9 @@ const FormSchema = new Schema({
   },
   usersAnswered: {
     type: Array
+  },
+  answerType: {
+    type: Boolean
   }
 });
 

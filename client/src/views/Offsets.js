@@ -106,6 +106,10 @@ class Offsets extends React.Component {
 
             this.setState({ hasAnswered: response.data.hasAnswered });
 
+            // if (hasAnswered === )
+            //
+            // hasAnswered
+
        })
        .catch((error) => {
          console.log(error);
@@ -503,13 +507,15 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
 }
 changeQuestion(select) {
 
-let newMessage = '';
+let newMessage = '', answerType;
 
 if (select === 'f') {
   newMessage = "Question: Would You Use Carbonly Subscritption? : No, I Wouldn't... 😒";
+  answerType = false;
 
 } else if (select === 't') {
   newMessage = "Question: Would You Use Carbonly Subscritption? : Sure, I'd Love to! 😝";
+  answerType = true;
 }
 
 // let totMessage = {
@@ -521,8 +527,8 @@ let time = new Date();
 time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
 time.getHours() + ":" + time.getMinutes();
 
-    axios.post('https://carbonly.org/form/submit-question', { formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time }, {
-      formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time
+    axios.post('https://carbonly.org/form/submit-question', { formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time, answerType }, {
+      formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time, answerType
     })
   .then(response => {
        // console.log('res', response);
@@ -691,11 +697,9 @@ time.getHours() + ":" + time.getMinutes();
 
                       <div className="offsets__subscriptionDiv">
 
+                    {this.state.question || (this.state.hasAnswered === 't') ? <div className="offsets__aboveQuestion">Received 250 Points &nbsp;🎉</div> : <div className="offsets__aboveQuestion">Earn 250 Points! 😝</div>}
 
-
-                      <div className="offsets__aboveQuestion">{this.state.question || (this.state.hasAnswered === 't') ? 'Received 250 Points! 🎉' : 'Earn 250 Points! 😝'}</div>
-
-                      <div className="offsets__lowerQuestion">We Haven't Yet Released This Feature. <br/>Would You Use it?</div>
+                      <div className="offsets__lowerQuestion">We Haven't Yet Released Our Subscription Offsets. <br/>Would You Use it?</div>
 
                       <div className="offsets__positionCheckboxes">
 
