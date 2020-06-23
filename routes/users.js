@@ -1327,7 +1327,7 @@ router.post("/add-order", (req, res) => {
       if (minutesDiff < 0.22) {
         if (name === ord.name) {
           isRepeat = true;
-          return res.json({ addedOrder:order });
+          return res.json({ orders:orders });
         }
       } else if (minutesDiff < 3) {
         if (name === ord.name) {
@@ -1343,7 +1343,7 @@ router.post("/add-order", (req, res) => {
         orders: orders
       }
     }).then(user => {
-      return res.json({ addedOrder:order });
+      return res.json({ orders:orders });
     })
 
   }).catch(err => res.status(400).json(`Error:` + err));
