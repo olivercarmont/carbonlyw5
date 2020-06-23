@@ -135,9 +135,7 @@ router.post("/submit-question", (req, res) => {
 
   Form.findOne({ formId }).then(form => {
 
-  let newUserList = form.usersAnswered.map((frm) => {
-    return frm;
-  });
+  let newUserList = form.usersAnswered.filter(frm => !(frm.email === userE));
 
     newUserList.push({
     email: userE,
