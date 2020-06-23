@@ -705,6 +705,8 @@ class Analytics extends React.Component {
 
        this.setState({ user: response.data.info[0] });
 
+       this.setState({ orders: response.data.info[0].orders });
+
        let ordersRe = response.data.info[0].orders;
 
        ordersRe.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
@@ -1704,6 +1706,39 @@ class Analytics extends React.Component {
 
   return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
   }
+  deleteOrder(orTime, orName) {
+
+    console.log('RAN DELTE ORDER')
+
+    let newOrders = this.state.orders;
+    let arrIndex;
+
+
+    newOrders.map((ord) => {
+      if ((ord.time === orTime) && (ord.name === orName)) {
+        arrIndex = newOrders.indexOf(ord);
+      }
+    })
+    console.log('ARR', arrIndex)
+
+    if (arrIndex.toFixed) {
+      console.log('ARR', arrIndex)
+      newOrders.splice(arrIndex, 1);
+      this.setState({ orders: newOrders });
+
+      axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'changeOrders', value: newOrders, }, {
+          prop: 'changeOrders', value: newOrders, 'jwt': localStorage.jwtToken,
+        })
+      .then(response => {
+
+        console.log('RESP', response);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }
   render() {
     return (
       <>
@@ -1930,6 +1965,7 @@ class Analytics extends React.Component {
                                 >
                                   <p id="analytics__mainTextSideOrders">{this.returnOrdersEm(or.carbon)}<span id="analytics__ordersSmall2">2</span></p>
                                 </Button>
+                                <div className="analytics__deleteOrderIcon" onClick={() => this.deleteOrder(or.time, or.name)}><i className="tim-icons icon-trash-simple analytics__deleteOrderInner" /></div>
                               </td>
                             </tr>)
                           }) : undefined}

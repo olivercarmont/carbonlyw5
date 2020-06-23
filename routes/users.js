@@ -1132,6 +1132,19 @@ router.post("/update", (req, res) => {
 
      }).catch(err => res.status(400).json(`Error:` + err));
 
+   } else if (prop == 'changeOrders') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+            orders: value,
+         }
+       }).then(user => {
+         return res.json({ newOrders: value });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
    }
 
 });

@@ -188,3 +188,19 @@ border-bottom:2px solid #75c79a !important;
 #analytics__ordersTable {
   margin-top:20px;
 }
+.analytics__deleteOrderIcon {
+}
+.analytics__deleteOrderInner {
+  font-size:0.92em !important;
+  color:#e05645 !important;
+  cursor:pointer;
+  transition:0.5s;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+  /* transition-delay:0.5s; */
+}
+.analytics__deleteOrderInner:hover {
+  opacity:0.5;
+  transition:0.5s;
+}
