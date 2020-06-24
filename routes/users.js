@@ -648,7 +648,7 @@ router.post("/social-register", (req, res) => {
     }
     });
 
-    if (req.body.referralUser.length > 0) {
+    if (req.body.referralUser.length > 0 && !!req.body.referralExists) {
 
       User.findOne({ referralCode: req.body.referralUser }).then(user => {
 
@@ -670,6 +670,7 @@ router.post("/social-register", (req, res) => {
        name: req.body.name,
        username: req.body.username,
        email: req.body.email,
+       password: req.body.socialToken,
        publicId: req.body.publicId,
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
@@ -682,12 +683,18 @@ router.post("/social-register", (req, res) => {
        name: req.body.name,
        username: req.body.username,
        email: req.body.email,
-       password: req.body.password,
+       password: req.body.socialToken,
        publicId: req.body.publicId,
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
        socialLogin: true,
      });
+
+         newUser
+           .save()
+           .then(user => res.end(user))
+           .catch(err => console.log(err));
+
     }
 
 });

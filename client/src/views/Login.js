@@ -24,7 +24,6 @@ import { socialLoginUser } from "../actions/authActions";
 import classnames from "classnames";
 import axios from 'axios';
 
-
 // reactstrap components
 import {
   Card,
@@ -135,7 +134,7 @@ handleGoogleLogin(user) {
     email: user._profile.email
   }
 
-  this.props.socialLoginUser(userData);
+  this.props.socialLoginUser(userData, this.props.history);
   this.setState({ isChanging: true });
   }
 }

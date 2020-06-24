@@ -17,6 +17,7 @@
 */
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // reactstrap components
 import {
@@ -34,8 +35,24 @@ import toolsIcon from '@iconify/icons-fa-solid/tools';
 
 import '../OwnCSS/settings.css';
 
-class ClickExtension extends React.Component {
-  render() {
+class InstructionManual extends React.Component {
+  componentWillMount() {
+
+    axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+      'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+      if (response.data.info[0].hasLoggedIn === 'f') {
+        window.location.href="/click";
+      }
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  }
+render() {
     return (
       <>
         <div className="content">
@@ -54,7 +71,7 @@ class ClickExtension extends React.Component {
 
                 <div className="settings__constructionTitle">Instructions Manual</div>
 
-               Add a LARGE GIF HERE (ADD ARROWS ON THE SIDE AND DO MAX 4 OF THEM AND THEN MAKE A SCREEN FOR 'GET STARTED!')
+               We're still building this section, for now click 'Let Me In' below!
 
                 <div className="instructions__mainListItem">1. &nbsp;Go to a Compatible Marketplace</div>
 
@@ -82,4 +99,4 @@ class ClickExtension extends React.Component {
   }
 }
 
-export default ClickExtension;
+export default InstructionManual;

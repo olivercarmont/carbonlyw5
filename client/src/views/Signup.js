@@ -26,11 +26,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
 import { registerSocialUser } from "../actions/authActions";
+import { socialLoginUser } from "../actions/authActions";
+import { loginUser } from "../actions/authActions";
 import classnames from "classnames";
-// import GoogleLogin from 'react-google-login';
 import { GoogleLogin } from 'react-google-login';
 import ReactDOM from 'react-dom';
-
 import { Icon, InlineIcon } from '@iconify/react';
 import externalLinkAlt from '@iconify/icons-fa-solid/external-link-alt';
 
@@ -336,7 +336,16 @@ submitForm() {
     points:this.state.referralPoints,
   };
 
+  let userData = {
+    email: this.state.email2,
+    password: this.state.password
+  }
+
   this.props.registerUser(newUser, this.props.history);
+
+  this.props.loginUser(userData, this.props.history);
+
+  this.props.history.push("/home");
 
   // setTimeout(function() {
   this.setState({ isChanging: true });
@@ -358,6 +367,7 @@ handleGoogleLoginFailure(err) {
   // console.error(err)
 
   this.setState({ error: "Google Login Failed : (" });
+  window.location.reload(false);
 }
 handleGoogleLogin(user, err){
   // console.log(user)
@@ -389,9 +399,12 @@ handleGoogleLogin(user, err){
         this.generateNewReferralCode();
       }
 
+    console.log('TOKEN', user._profile);
+
     let name = user._profile.name;
     let email = user._profile.email;
     let username = user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase();
+    let token = user._profile.id;
 
     let emailExists = false;
 
@@ -437,9 +450,31 @@ handleGoogleLogin(user, err){
       referralExists: this.state.referralCode != 'CARB' ? true : false,
       referralCode: newReferralCode,
       points:this.state.referralPoints,
+      socialToken: token,
     };
 
+    let userData = {
+      email: email
+    }
+
+    // async function signup(){
+
     this.props.registerSocialUser(newUser, this.props.history);
+
+    this.props.socialLoginUser(userData, this.props.history);
+
+    this.props.history.push("/home");
+
+
+    //   return;
+    // };
+    //
+    // async function signupAndLogin(){
+    //   await signup();
+
+    // };
+
+    // signupAndLogin();
 
     // setTimeout(function() {
     this.setState({ isChanging: true });
@@ -655,6 +690,8 @@ render() {
 Signup.propTypes = {
   registerUser: PropTypes.func.isRequired,
   registerSocialUser: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  socialLoginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -666,5 +703,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser, registerSocialUser }
+  { registerUser, registerSocialUser, loginUser, socialLoginUser }
 )(withRouter(Signup));

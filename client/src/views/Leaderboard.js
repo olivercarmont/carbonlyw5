@@ -94,6 +94,10 @@ class Leaderboard extends React.Component {
     })
   .then(response => {
 
+      if (response.data.info[0].hasLoggedIn === 'f') {
+          window.location.href="/click";
+      }
+
        this.setState({ friends: response.data.info[1] });
 
        this.setState({ user: response.data.info[0] });

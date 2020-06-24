@@ -179,6 +179,10 @@ componentWillMount() {
   })
 .then(response => {
 
+  if (response.data.info[0].hasLoggedIn === 'f') {
+    window.location.href="/click";
+  }
+
     // console.log('response', response.data);
 
      this.setState({ user: response.data.info[0] });

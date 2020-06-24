@@ -93,6 +93,10 @@ class Offsets extends React.Component {
     })
   .then(response => {
 
+      if (response.data.info[0].hasLoggedIn === 'f') {
+        window.location.href="/click";
+      }
+
        this.setState({ user: response.data.info[0] });
 
        let cur_user = response.data.info[0];

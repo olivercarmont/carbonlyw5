@@ -227,9 +227,7 @@ class AdminNavbar extends React.Component {
                     </Link>
                     </NavLink>
                     <DropdownItem divider tag="li" />
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item"><Logout/></DropdownItem>
-                    </NavLink>
+                    <Logout/>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <li className="separator d-lg-none" />

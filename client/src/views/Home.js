@@ -20,13 +20,11 @@ import React from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import axios from 'axios';
 
 import '../OwnCSS/home.css';
 import { ReactSortable } from "react-sortablejs";
-
 import NotificationAlert from "react-notification-alert";
-
-import axios from 'axios';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import storeIcon from '@iconify/icons-fa-solid/store';
@@ -172,6 +170,9 @@ componentWillMount() {
   })
 .then(response => {
 
+    if (response.data.info[0].hasLoggedIn === 'f') {
+      window.location.href="/click";
+    }
 
      this.setState({ allUsers: response.data.info[4] });
 

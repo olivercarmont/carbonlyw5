@@ -292,6 +292,10 @@ class Analytics extends React.Component {
     })
   .then(response => {
 
+    if (response.data.info[0].hasLoggedIn === 'f') {
+      window.location.href="/click";
+    }
+
       this.setState({ allUsers: response.data.info[4] });
 
       chartExample1 = {

@@ -7,6 +7,24 @@ import { logoutUser } from "../../actions/authActions";
 
 import '../../OwnCSS/all.css';
 
+// reactstrap components
+import {
+  Button,
+  Collapse,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  Input,
+  InputGroup,
+  NavbarBrand,
+  Navbar,
+  Nav,
+  NavLink,
+  Container,
+  Modal
+} from "reactstrap";
+
 class Logout extends Component {
 constructor(props) {
 super(props);
@@ -21,7 +39,9 @@ onLogoutClick() {
   render() {
     const { user } = this.props.auth;
     return (
-          <p id="navbar__logoutText" onClick={() => this.onLogoutClick()}>Log out</p>
+      <NavLink tag="li" onClick={() => this.onLogoutClick()}>
+        <DropdownItem className="nav-item"><p id="navbar__logoutText">Log out</p></DropdownItem>
+      </NavLink>
     );
   }
 }
