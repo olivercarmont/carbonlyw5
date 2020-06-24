@@ -17,6 +17,7 @@
 */
 import axios from 'axios';
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -53,8 +54,6 @@ import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
-
-import { Link } from "react-router-dom";
 
 // import './landingTheme/js/jquery-2.2.4.min.js';
 // import './landingTheme/js/popper.min.js';

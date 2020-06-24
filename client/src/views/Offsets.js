@@ -538,9 +538,6 @@ time.getHours() + ":" + time.getMinutes();
     })
   .then(response => {
 
-    console.log('GOT TO HERE!')
-       console.log('res', response);
-
   if (this.state.hasAnswered === 'f') {
 
   axios.post('https://carbonly.org/users/update', { prop: "bonusPoints", value: 250, jwt: localStorage.jwtToken }, {
@@ -762,7 +759,7 @@ time.getHours() + ":" + time.getMinutes();
                   </Form>
 
                   <div className="leaderboard__leaderboardBottomCardSpacing"></div>
-                  <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
+                  <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Select a Time or Amount to Start an Offset!</span> &nbsp;🕰</span>
                 </CardHeader>
 
               </Card>
@@ -790,7 +787,7 @@ time.getHours() + ":" + time.getMinutes();
                     <div className="offsets__bottomSpacing"></div>
 
                 </CardBody>
-                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">All Your Recent Offsets!</span> &nbsp;🌳</span>
               </Card>
             </Col>
 

@@ -261,6 +261,7 @@ border-bottom:2px solid #75c79a !important;
   cursor:pointer;
   transition:0.9s;
   transition-delay:1s;
+  height:20px;
 }
 .analytics__middleCardExplanations:hover .analytics__descriptionText {
 text-decoration: line-through;

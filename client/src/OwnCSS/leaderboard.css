@@ -830,6 +830,7 @@ transition:0.4s;
   cursor:pointer;
   transition:0.9s;
   transition-delay:1s;
+  height:20px;
 }
 .leaderboard__middleCardExplanations:hover .analytics__descriptionText {
 text-decoration: line-through;

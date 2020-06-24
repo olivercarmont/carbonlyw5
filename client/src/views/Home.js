@@ -21,6 +21,7 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import '../OwnCSS/home.css';
 import { ReactSortable } from "react-sortablejs";
@@ -48,6 +49,7 @@ import cloudIcon from '@iconify/icons-subway/cloud';
 import moneyBillWave from '@iconify/icons-fa-solid/money-bill-wave';
 import gumtreeIcon from '@iconify/icons-simple-icons/gumtree';
 import roundLeaderboard from '@iconify/icons-ic/round-leaderboard';
+import graphPie from '@iconify/icons-foundation/graph-pie';
 
 // reactstrap components
 import {
@@ -158,9 +160,36 @@ class Home extends React.Component {
       bigChartData: "data1",
       global: true,
       shoppingList: [],
+      cur: '$',
       search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Products'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
       compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Flights'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
       period: 'yearly',
+      lineOptions: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              drawBorder: false,
+            },
+          }], xAxes: [{
+            gridLines: {
+              display: false,
+            },
+          }], yAxes: [{
+            display: false, ticks: { reverse: true }
+          }],
+          xAxes: [{
+            display: false
+          }]
+        }, legend: {
+          display: false
+        }, tooltips: {
+          enabled: false
+        }, elements: {
+          point:{
+            radius: 0
+          }
+        }
+      },
   };
 }
 componentWillMount() {
@@ -1161,7 +1190,7 @@ render() {
 
               <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
 
-              <div className="home__pageLabel"><div className="home__pageLabelText">Leaderboard <div className="home__pageLabelIcon"><Icon icon={roundLeaderboard} /></div></div></div>
+              <Link to="/leaderboard" className="home__pageLabel"><span className="home__pageLabelText">Leaderboard</span> <span className="home__pageLabelIcon"><Icon icon={roundLeaderboard} /></span></Link>
 
                 <Form>
                   <Row>
@@ -1250,6 +1279,7 @@ render() {
             <Col lg="6">
             <Card className="card-chart">
               <CardHeader>
+              <Link to="/analytics" className="home__pageLabel"><span className="home__pageLabelText">Analytics</span> <span className="home__pageLabelIcon"><Icon style={{"font-size": "1.27em"}} icon={graphPie} /></span></Link>
                 <h5 className="card-category">Carbon Budget</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
@@ -1271,14 +1301,17 @@ render() {
           <Col md="6">
             <Card>
               <CardHeader>
-              <div className="offsets__mainTitle">Pending Offsets <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
+
+              <Link to="/offsets" className="home__pageLabel"><span className="home__pageLabelText">Offsets</span> <span className="home__pageLabelIcon"><Icon icon={seedlingIcon} /></span></Link>
+
+              <div className="home__offsetsMainTitle">Pending Offsets <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
 
                 <Form>
                   <Row>
 
                   <div className="offsets__leftTopDiv">
 
-                  {this.state.period === 'custom' ? <div className="offsets__orderTitle">Custom <span className="offsets__orderTitleIcon"><Icon icon={gumtreeIcon} /></span></div> : <div className="offsets__orderTitle">Orders <span className="offsets__orderTitleIcon"><Icon icon={boxOpen} /></span></div>}
+                  {/* this.state.period === 'custom' ? <div className="offsets__orderTitle">Custom <span className="offsets__orderTitleIcon"><Icon icon={gumtreeIcon} /></span></div> : <div className="offsets__orderTitle">Orders <span className="offsets__orderTitleIcon"><Icon icon={boxOpen} /></span></div> */}
 
                   {this.state.period === 'custom' ? <div className="offsets__customSection">
 
@@ -1406,7 +1439,7 @@ render() {
 
                     </div>}
 
-                    <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Go to Offsets &nbsp;🎉</a></div>
+                  {/*  <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Go to Offsets &nbsp;🎉</a></div> */}
 
 
                     <div className="offsets__subDescription"></div>
@@ -1427,7 +1460,7 @@ render() {
                 </Form>
 
                 <div className="leaderboard__leaderboardBottomCardSpacing"></div>
-                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Orders You Have Not Yet Offset!</span> &nbsp;🌿</span>
               </CardHeader>
 
             </Card>
