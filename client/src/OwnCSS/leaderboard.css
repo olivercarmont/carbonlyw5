@@ -526,7 +526,8 @@ margin-top:-9px;
 }
 .leaderboard__leaderboardBottomCardSpacing {
   display:block;
-  height:20px;
+  height:0px;
+  margin-bottom:-3px;
 }
 .leaderboard__submitButton {
 /* background-color:#002D70; */
@@ -801,4 +802,39 @@ transition:0.4s;
   font-size:0.98em;
   position:relative;
   top:0px;
+}
+.leaderboard__howDoPointsWork {
+  margin-top:36px;
+  text-align:center;
+  font-size:0.95em;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.5s;
+  transition-delay:0.5s;
+}
+.leaderboard__howDoPointsWork:hover {
+  opacity:0.65;
+  transition:0.5s;
+}
+.leaderboard__middleCardExplanations {
+  clear:both;
+  width:100%;
+  color:#b5b5b5;
+  font-family: "Poppins", sans-serif;
+  display:block;
+  margin-left:1px;
+  font-size:0.95em;
+  margin-top:4px;
+  margin-bottom:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.9s;
+  transition-delay:1s;
+}
+.leaderboard__middleCardExplanations:hover .analytics__descriptionText {
+text-decoration: line-through;
+transition:0.9s;
+}
+.leaderboard__middleCardExplanations:hover .analytics__positionDescriptionCheck {
+display:inline-block;
 }

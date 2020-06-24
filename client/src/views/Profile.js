@@ -29,6 +29,7 @@ import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import checkCircle from '@iconify/icons-la/check-circle';
 
 import { faHistory } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark} from "@fortawesome/free-solid-svg-icons";
@@ -618,9 +619,9 @@ render() {
                   <option value="carbonlyAvg">Carbonly Avg</option>
                   </select></span><input value={this.state.carbonBudget} maxlength="8" onChange={(e) => this.changeBudget(e)} className="profile__carbonBudgetInput"/>   </div><div onClick={() => { this.selectBudget()}} className={this.state.budgetSelected ? "profile__addBudgetSelected" : "profile__addBudget"}>{this.state.budgetSelected ? 'Selected' : 'Select'}</div>
 
-
-
                     <div className="profile__profileBottomSpacing"></div>
+
+                    <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Set Your Personal Budget for <Link className="analytics__infoLink" to="/Analytics">Analytics</Link></span> &nbsp;🎯</span>
 
                     </div> :
 

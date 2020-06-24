@@ -28,6 +28,7 @@ import Leaderboard from "./views/Leaderboard.js";
 import Offsets from "./views/Offsets.js";
 import Lookup from "./views/Lookup.js";
 import ClickExtension from "./views/ClickExtension.js";
+import InstructionManual from "./views/InstructionManual.js";
 
 var routes = [
   {
@@ -110,6 +111,15 @@ var routes = [
     layout: "/",
     disabled: true,
     emoji: '🖱️',
+  },
+  {
+    path: "/instructions",
+    name: "Instructions",
+    icon: "tim-icons icon-puzzle-10",
+    component: InstructionManual,
+    layout: "/",
+    disabled: true,
+    emoji: '🛠️',
   },
 
 /*

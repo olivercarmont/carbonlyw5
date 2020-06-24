@@ -198,9 +198,11 @@ border-bottom:2px solid #75c79a !important;
   text-align:center;
   margin-left:auto;
   margin-right:auto;
+  margin-top:15px;
   /* transition-delay:0.5s; */
   z-index: 100000 !important;
   position:relative;
+  margin-left:-3px;
 }
 .analytics__deleteOrderInner:hover {
   opacity:0.5;
@@ -210,6 +212,7 @@ border-bottom:2px solid #75c79a !important;
   position: relative;
   display: inline-block;
   z-index: 100000 !important;
+  float:left;
 }
 
 .tooltipAnalytics .tooltiptextAnalytics {
@@ -224,9 +227,9 @@ border-bottom:2px solid #75c79a !important;
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  top: -11px;
+  top: -3px;
 
-  right: 180%;
+  right: 210%;
 }
 
 .tooltipAnalytics .tooltiptextAnalytics::after {
@@ -243,4 +246,65 @@ border-bottom:2px solid #75c79a !important;
 
 .tooltipAnalytics:hover .tooltiptextAnalytics {
   visibility: visible;
+}
+.analytics__middleCardExplanations {
+  clear:both;
+  width:100%;
+  color:#b5b5b5;
+  font-family: "Poppins", sans-serif;
+  display:block;
+  margin-left:1px;
+  font-size:0.95em;
+  margin-top:4px;
+  margin-bottom:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.9s;
+  transition-delay:1s;
+}
+.analytics__middleCardExplanations:hover .analytics__descriptionText {
+text-decoration: line-through;
+transition:0.9s;
+}
+.analytics__middleCardExplanations:hover .analytics__positionDescriptionCheck {
+display:inline-block;
+}
+.analytics__middleCardExplanationsOrders {
+  clear:both;
+  width:100%;
+  color:#b5b5b5;
+  font-family: "Poppins", sans-serif;
+  display:block;
+  margin-left:1px;
+  font-size:0.95em;
+  margin-top:16px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.9s;
+  transition-delay:1s;
+}
+.analytics__middleCardExplanationsOrders:hover .analytics__descriptionText {
+text-decoration: line-through;
+transition:0.9s;
+}
+.analytics__middleCardExplanationsOrders:hover .analytics__positionDescriptionCheck {
+display:inline-block;
+}
+.analytics__infoLink {
+  color:#86b890;
+}
+.analytics__joinOrderEmissionsAndDelete {
+  display:flex;
+  float:right;
+  margin-right:6px;
+}
+.analytics__positionDescriptionCheck {
+  margin-right:6px;
+  margin-top:-1px;
+  font-size:1.15em;
+  color:#999;
+  display:none;
+}
+#analyticsOrders__hideScrollBar::-webkit-scrollbar {
+  display: none;
 }

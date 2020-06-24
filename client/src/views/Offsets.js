@@ -40,7 +40,7 @@ import boxOpen from '@iconify/icons-fa-solid/box-open';
 import searchIcon from '@iconify/icons-fa-solid/search';
 import cloudIcon from '@iconify/icons-subway/cloud';
 import moneyBillWave from '@iconify/icons-fa-solid/money-bill-wave';
-
+import checkCircle from '@iconify/icons-la/check-circle';
 import gumtreeIcon from '@iconify/icons-simple-icons/gumtree';
 
 import axios from 'axios';
@@ -507,6 +507,8 @@ return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytic
 }
 changeQuestion(select) {
 
+  console.log('TRYING')
+
 let newMessage = '', answerType;
 
 if (select === 'f') {
@@ -531,7 +533,9 @@ time.getHours() + ":" + time.getMinutes();
       formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time, answerType
     })
   .then(response => {
-       // console.log('res', response);
+
+    console.log('GOT TO HERE!')
+       console.log('res', response);
 
   if (this.state.hasAnswered === 'f') {
 
@@ -542,10 +546,14 @@ time.getHours() + ":" + time.getMinutes();
 
       this.setState({ question: select });
 
+   }).catch((err) => {
+     console.log(err);
    });
 
  }
 
+}).catch((err) => {
+  console.log(err);
 });
 }
   render() {
@@ -748,7 +756,9 @@ time.getHours() + ":" + time.getMinutes();
 
                     </Row>
                   </Form>
+
                   <div className="leaderboard__leaderboardBottomCardSpacing"></div>
+                  <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
                 </CardHeader>
 
               </Card>
@@ -776,6 +786,7 @@ time.getHours() + ":" + time.getMinutes();
                     <div className="offsets__bottomSpacing"></div>
 
                 </CardBody>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
               </Card>
             </Col>
 

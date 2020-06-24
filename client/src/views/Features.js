@@ -190,7 +190,7 @@ trackScrolling() {
                         </div>
                     </div> */}
 
-
+                    <Link to="/log-in" id="landing__topLoginButton">Log in<Icon icon={accountArrowRight} className="landing__homeIconTop2" /></Link><Link to="/sign-up" id="landing__topSignupButton">Join<Icon icon={userEdit} className="landing__homeIconTop2Join" /></Link>
 
                 </div>
             </div>

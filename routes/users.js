@@ -524,7 +524,7 @@ router.post("/register", (req, res) => {
     }
     });
 
-    if (req.body.referralUser.length > 0) {
+    if (req.body.referralUser.length > 0 && !!req.body.referralExists) {
 
       User.findOne({ referralCode: req.body.referralUser }).then(user => {
 
@@ -551,6 +551,7 @@ router.post("/register", (req, res) => {
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
        bonusPoints: parseFloat(req.body.points),
+       socialLogin: false,
      });
 
      // Hash password before saving in database
@@ -574,6 +575,7 @@ router.post("/register", (req, res) => {
        publicId: req.body.publicId,
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
+       socialLogin: false,
      });
 
      // Hash password before saving in database
@@ -588,6 +590,37 @@ router.post("/register", (req, res) => {
        });
      });
 
+     // Check password
+     bcrypt.compare(newUser.password, newUser.password).then(isMatch => {
+       if (isMatch) {
+         // User matched
+         // Create JWT Payload
+         const payload = {
+           id: user.id,
+           name: user.name
+         };
+
+         // Sign token
+         jwt.sign(
+           payload,
+           keys.secretOrKey,
+           {
+             expiresIn: 31556926 // 1 year in seconds
+           },
+           (err, token) => {
+             res.json({
+               success: true,
+               token: "Bearer " + token
+             });
+           }
+         );
+       } else {
+         return res
+           .status(400)
+           .json({ passwordincorrect: "Password incorrect" });
+       }
+     });
+
     }
 
 });
@@ -596,12 +629,12 @@ router.post("/social-register", (req, res) => {
 
   // Form validation
 
-  const { errors, isValid } = validateRegisterInput(req.body);
+  // const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation
-  if (!isValid) {
-    return res.status(400).json({ "reason": "isValid", "errors": errors});
-  }
+  // if (!isValid) {
+  //   return res.status(400).json({ "reason": "isValid", "errors": errors});
+  // }
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
@@ -641,18 +674,7 @@ router.post("/social-register", (req, res) => {
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
        bonusPoints: parseFloat(req.body.points),
-     });
-
-     // Hash password before saving in database
-     bcrypt.genSalt(10, (err, salt) => {
-       bcrypt.hash(newUser.password, salt, (err, hash) => {
-         if (err) throw err;
-         newUser.password = hash;
-         newUser
-           .save()
-           .then(user => res.json(user))
-           .catch(err => console.log(err));
-       });
+       socialLogin: true,
      });
 
     } else {
@@ -664,20 +686,8 @@ router.post("/social-register", (req, res) => {
        publicId: req.body.publicId,
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
+       socialLogin: true,
      });
-
-     // Hash password before saving in database
-     bcrypt.genSalt(10, (err, salt) => {
-       bcrypt.hash(newUser.password, salt, (err, hash) => {
-         if (err) throw err;
-         newUser.password = hash;
-         newUser
-           .save()
-           .then(user => res.json(user))
-           .catch(err => console.log(err));
-       });
-     });
-
     }
 
 });

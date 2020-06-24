@@ -16,14 +16,12 @@
 
 */
 import React from "react";
-// nodejs library that concatenates classes
+import { Link } from "react-router-dom";
 import classNames from "classnames";
-// react plugin used to create charts
+import axios from 'axios';
 import { Line, Bar } from "react-chartjs-2";
 
 import '../OwnCSS/analytics.css';
-
-import axios from 'axios';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import arrowGrowth from '@iconify/icons-uil/arrow-growth';
@@ -32,6 +30,7 @@ import shippingFast from '@iconify/icons-fa-solid/shipping-fast';
 import utensilsIcon from '@iconify/icons-fa-solid/utensils';
 import movieOpen from '@iconify/icons-mdi/movie-open';
 import boxesIcon from '@iconify/icons-fa-solid/boxes';
+import checkCircle from '@iconify/icons-la/check-circle';
 
 // reactstrap components
 import {
@@ -1854,6 +1853,7 @@ class Analytics extends React.Component {
                     />
                   </div>
                 </CardBody>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Position on Carbonly's <Link className="analytics__infoLink" to="/leaderboard">Leaderboard</Link></span> &nbsp;🏆</span>
               </Card>
             </Col>
             <Col lg="4">
@@ -1873,6 +1873,7 @@ class Analytics extends React.Component {
                     />
                   </div>
                 </CardBody>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Set Personal Carbon Goals!</span> &nbsp;⛳️</span>
               </Card>
             </Col>
             <Col lg="4">
@@ -1891,6 +1892,7 @@ class Analytics extends React.Component {
                     />
                   </div>
                 </CardBody>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
               </Card>
             </Col>
           </Row>
@@ -1941,8 +1943,8 @@ class Analytics extends React.Component {
                   </UncontrolledDropdown>
                 </CardHeader>
                 <CardBody>
-                  <div className="table-full-width table-responsive">
-                    <Table>
+                  <div className="table-full-width table-responsive" id="analyticsOrders__hideScrollBar" style={{"height": "365px"}}>
+                    <Table >
                       <tbody>
                         {this.state.ordersSort === 'recent' ? this.state.ordersRecent.map((or) => {
 
@@ -1957,29 +1959,38 @@ class Analytics extends React.Component {
                                 </p>
                               </td>
                               <td className="td-actions text-right">
+
+                              <div className="analytics__joinOrderEmissionsAndDelete">
                                 <Button
                                   color="link"
                                   id="tooltip636901683"
                                   title=""
                                   type="button"
+                                  style={{ "float":"left"}}
                                 >
                                   <p id="analytics__mainTextSideOrders">{this.returnOrdersEm(or.carbon)}<span id="analytics__ordersSmall2">2</span></p>
                                 </Button>
 
-                              <div className="tooltipAnalytics"><div className="analytics__deleteOrderIcon" onClick={() => this.deleteOrder(or.time, or.name)}><i className="tim-icons icon-trash-simple analytics__deleteOrderInner" /></div>
-                                <span className="tooltiptextAnalytics"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto"}}>This Action Cannot be Undone. You Sure? 🤞</div>
+                                <div className="tooltipAnalytics"><div className="analytics__deleteOrderIcon" onClick={() => this.deleteOrder(or.time, or.name)}><i className="tim-icons icon-trash-simple analytics__deleteOrderInner" /></div>
+                                  <span className="tooltiptextAnalytics"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto"}}>This Action Cannot be Undone. You Sure? 🤞</div>
 
-                                </span></div>
+                                  </span></div>
+
+                                  </div>
+
+
                               </td>
                             </tr>)
                           }) : undefined}
                       </tbody>
                     </Table>
                   </div>
+                  <span className="analytics__middleCardExplanationsOrders"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Each One of Your Online Orders</span> 🛍️</span>
+                  <div className="analytics__ordersBottomSpacing"></div>
                 </CardBody>
+
               </Card>
             </Col>
-
 
             <Col lg="6" md="12">
               <Card>
@@ -2047,8 +2058,11 @@ class Analytics extends React.Component {
 
                     </tbody>
                     </Table>*/}
+
                           </div>
                         </CardBody>
+
+                      <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Your Footprint by Retail Categories</span> 🛒</span>
 
               </Card>
             </Col>

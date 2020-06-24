@@ -155,4 +155,25 @@ router.post("/submit-question", (req, res) => {
 
 });
 
+router.post("/return-faq", (req, res) => {
+
+  let formId, userE;
+
+  if (req.body.formId) {
+    formId = req.body.formId;
+  } else if (req.header('formId')) {
+    formId = req.header('formId');
+  }
+
+  if (!req.body.formId && !req.header('formId')) {
+    return res.status(400).json(`FormId: Not Found`);
+  }
+
+  Form.findOne({ formId }).then(form => {
+
+    return res.json({ questions: form.faqQuestions });
+
+  });
+});
+
 module.exports = router;

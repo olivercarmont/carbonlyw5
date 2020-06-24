@@ -18,7 +18,6 @@ margin-bottom:77px;
   margin-bottom:8px;
   line-height:1.28;
   color:#84af96;
-
 }
 .settings__constructionMessage {
   font-size:1.07em;
@@ -26,4 +25,59 @@ margin-bottom:77px;
   letter-spacing:0em;
   word-spacing:0.025em;
   margin-top:10px;
+}
+.instructions__mainListItem {
+  font-size:1.3em;
+  font-weight:600;
+  letter-spacing:-0.02em;
+  word-spacing:0.025em;
+  margin-bottom:8px;
+  line-height:1.28;
+  color:#84af96;
+}
+.click__doneButton {
+/* background-color:#002D70; */
+background-color:transparent;
+border:2px solid #a9dbc0;
+color:#fff;
+background-color: #a9dbc0;
+/* font-family: 'Red Hat Display', sans-serif; */
+/* font-weight:bold; */
+letter-spacing:0.02em;
+font-size:1.04em;
+border-radius:25px;
+/* margin-right:5px;
+margin-top:23px; */
+margin-top:6px;
+cursor:pointer;
+transition:0.4s;
+
+padding-left:25px;
+padding-right:25px;
+
+padding-top:11px;
+padding-bottom:11px;
+
+
+text-align:center;
+display:flex;
+flex-direction: column;
+
+
+letter-spacing:-0.02em;
+font-weight:500;
+}
+.click__doneButton:hover {
+
+background-color: #dddddd;
+border-color:#ddd;
+color:#fff;
+transition:0.4s;
+}
+.instructions__centerContent {
+width:60%;
+margin:auto;
+text-align:center;
+margin-top:20px;
+margin-bottom:77px;
 }

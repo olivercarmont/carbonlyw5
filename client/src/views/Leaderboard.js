@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import axios from 'axios';
 import '../OwnCSS/leaderboard.css';
 
 import { Line, Bar, Doughnut} from "react-chartjs-2";
@@ -31,8 +32,7 @@ import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-l
 import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
 import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
-
-import axios from 'axios';
+import checkCircle from '@iconify/icons-la/check-circle';
 
 // reactstrap components
 import {
@@ -48,6 +48,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+
+import LeaderboardModal from './LeaderboardModal.js';
 
 class Leaderboard extends React.Component {
   constructor(props) {
@@ -84,6 +86,7 @@ class Leaderboard extends React.Component {
       }
     };
   }
+
   componentWillMount() {
 
     axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
@@ -775,8 +778,9 @@ returnRanColor() {
 
 
 
-                      })}</div>
+                      })}
 
+                      </div>
 
                       }
 
@@ -786,8 +790,9 @@ returnRanColor() {
                     </Row>
                   </Form>
                   <div className="leaderboard__leaderboardBottomCardSpacing"></div>
-                </CardHeader>
 
+                </CardHeader>
+                  <span className="leaderboard__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span>{this.state.global ? <span><span className="analytics__descriptionText">Carbonly's Global Leaderboard</span> &nbsp;🏆</span> : <span><span className="analytics__descriptionText">Your Friend Leaderboard</span> &nbsp;🍻</span>}</span>
               </Card>
             </Col>
 
@@ -844,12 +849,16 @@ returnRanColor() {
 
                     <div className="leaderboard__offsetPointDescription">1 Offset Point = 0.1kg CO&#x2082;</div>
                       <div className="leaderboard__profileBottomSpacing"></div>
+                      <div className="analytics__infoLink leaderboard__howDoPointsWork">How Do Points Work?</div>
+
 
                 </CardBody>
               </Card>
             </Col>
 
           </Row>
+
+        {/* <LeaderboardModal/> */}
 
           {this.state.friends.length > 0 ? <Row>{this.returnFriends()}{this.returnFriendsTwo()}{this.insertAddFriendsContainer()}</Row>
 

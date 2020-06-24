@@ -14,11 +14,14 @@ const FormSchema = new Schema({
   },
   link: {
     type: String,
-  }, product: {
+  }, 
+  product: {
     type: String,
-  }, productCategory: {
+  },
+  productCategory: {
     type: String,
-  }, emissions: {
+  },
+  emissions: {
     type: String,
   },
   formId: {
@@ -32,6 +35,9 @@ const FormSchema = new Schema({
   },
   answerType: {
     type: Boolean
+  },
+  faqQuestions: {
+    type: Array,
   }
 });
 

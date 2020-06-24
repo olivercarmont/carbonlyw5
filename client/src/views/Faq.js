@@ -30,23 +30,18 @@ import {
 } from "reactstrap";
 
 import '../OwnCSS/landing.scss';
+import '../OwnCSS/contact.css';
 import '../OwnCSS/ourData.css';
+import '../OwnCSS/faq.css';
 
 import './landingTheme/css/responsive.css';
 import './landingTheme/style.css';
 import './landingTheme/appy/style.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
-import caretDown from '@iconify/icons-fa-solid/caret-down';
-import arrowBackOutline from '@iconify/icons-ion/arrow-back-outline'
-import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import homeIcon from '@iconify/icons-fa-solid/home';
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import chromeIcon from '@iconify/icons-icomoon-free/chrome';
-
-import phonePortrait from '@iconify/icons-ion/phone-portrait-outline';
-import fruitCherries from '@iconify/icons-mdi/fruit-cherries';
-import smogIcon from '@iconify/icons-mdi/smog';
-import globeShowingEuropeAfrica from '@iconify/icons-emojione-monotone/globe-showing-europe-africa';
 import bxsData from '@iconify/icons-bx/bxs-data';
 import paperPlane from '@iconify/icons-fa-solid/paper-plane';
 import gitRepositoryPrivateFill from '@iconify/icons-ri/git-repository-private-fill';
@@ -58,7 +53,6 @@ import bxlProductHunt from '@iconify/icons-bx/bxl-product-hunt';
 import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
-import baselineTranslate from '@iconify/icons-ic/baseline-translate';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
 
 import { Link } from "react-router-dom";
@@ -76,81 +70,27 @@ import logo2 from "../assets/img/carbonly2WhiteLogo.png";
 import logo3 from "../assets/img/greenFooterLogo.png";
 import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 
-import { CountUp } from 'countup.js';
+// import React, { Component } from 'react';
+// import ReactDOM from 'react-dom';
+// import GoogleLogin from 'react-google-login';
+// or
+import { GoogleLogin } from 'react-google-login';
 
-let numberAnimationOccured = false;
-
-class OurData extends React.Component {
+class Features extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ourData: 'studies',
+      howItWorks: 'account',
       email: '',
       message: '',
-      infoText: '',
-      infoImage: '',
       downloadText: '',
       downloadImage: '',
       footerImage: '',
       footerText: '',
-  }
-  this.trackScrolling = this.trackScrolling.bind(this);
-  this.animateValue = this.animateValue.bind(this);
-}
-componentDidMount() {
-
-  axios.post('https://carbonly.org/users/return-landing', { jwt: localStorage.jwtToken }, {
-    'jwt': localStorage.jwtToken,
-  })
-  .then(response => {
-
-    // console.log('DATA', response.data)
-
-     this.setState({ landingData: response.data });
-
-     document.addEventListener('scroll', this.trackScrolling);
-
-    // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
-     // console.log('user', response.data.info[0]);
-     // console.log('leaderboard', response.data.info[2].slice(0, 3));
-     //
-     // console.log('all users', response.data.info[4]);
-
-  })
-  .catch((error) => {
-  console.log(error);
-  })
-
-if (this.state.howItWorks) {
-  this.fun1();
-}
-
-}
-fun1 = () => {
-  let i = 0;
-  let intervalId = setInterval(() => {
-
-    let sec;
-
-    if (this.state.ourData === 'studies') {
-      sec = 'org';
-    } else if (this.state.ourData === 'org') {
-      sec = 'company';
-    } else if (this.state.ourData === 'company') {
-      sec = 'studies';
+      searchValue: '',
     }
-
-    this.setState({
-      ourData: sec
-    });
-
-    if (i > 180) {
-      clearInterval(intervalId);
-    }
-    i++;
-
-  }, 8700);
-};
+    this.trackScrolling = this.trackScrolling.bind(this);
+}
 addSubmission() {
 
   let totMessage = {
@@ -162,8 +102,8 @@ addSubmission() {
   time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
   time.getHours() + ":" + time.getMinutes();
 
-      axios.post('https://carbonly.org/form/add-submission', { "type": "data", "data": totMessage, time }, {
-        "type": "data", "data": totMessage, time
+      axios.post('https://carbonly.org/form/add-submission', { "type": "feature", "data": totMessage, time }, {
+        "type": "feature", "data": totMessage, time
       })
     .then(response => {
 
@@ -184,27 +124,28 @@ updateMessage(e) {
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
 }
+componentDidMount() {
+  document.addEventListener('scroll', this.trackScrolling);
+}
 componentWillUnmount() {
   document.removeEventListener('scroll', this.trackScrolling);
+
+  axios.post('https://carbonly.org/form/return-faq', { jwt: localStorage.jwtToken }, {
+      'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+    console.log('QUESTIONS', response.data)
+
+       this.setState({ questions: response.data });
+
+       let cur_user = response.data.info[0];
+});
 }
 trackScrolling() {
-  const numbersSection = document.getElementById('ourData__numbersSection');
-  const dataInfoSection = document.getElementById('landing__howItWorks');
   const downloadSection = document.getElementById('downloadSection');
   const footerSection = document.getElementById('footer');
 
-  if (numbersSection.getBoundingClientRect().bottom <= window.innerHeight) {
-    // alert('ANIMATING')
-    this.animateValue()
-    // document.removeEventListener('scroll', this.trackScrolling);
-  }
-  if ((dataInfoSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
-    this.setState({ infoText: 'slide-in-text' });
-    this.setState({ infoImage: 'slide-in-imageOurData' });
-  } else {
-    this.setState({ infoText: '' });
-    this.setState({ infoImage: '' });
-  }
   if ((downloadSection.getBoundingClientRect().bottom-400) <= window.innerHeight) {
     this.setState({ downloadText: 'slide-in' });
     this.setState({ downloadImage: 'slide-in' });
@@ -219,35 +160,57 @@ trackScrolling() {
     this.setState({ footerText: '' });
     this.setState({ footerImage: '' });
   }
-
-
-
 };
-animateValue() {
-
-  if (!numberAnimationOccured) {
-
-    // console.log('NUM', numberAnimationOccured)
-
-    const countUpFirst = new CountUp('ourData__numberOne', 1);
-    countUpFirst.start();
-
-    const countUpSecond = new CountUp('ourData__numberTwo', 1);
-    countUpSecond.start();
-
-    const countUpThird = new CountUp('ourData__numberThree', 11);
-    countUpThird.start();
-
-    const countUpFourth = new CountUp('ourData__numberFour', 110);
-    countUpFourth.start();
-
-    numberAnimationOccured = true;
-  }
+updateSearchValue(e) {
+  this.setState({ searchValue: e.target.value });
+  this.updateSearchFunction(e.target.value);
 }
-  render() {
+updateSearchFunction(searchValue) {
+
+var search = [];
+
+/* let searchStrings = this.state.searchValue.match(/.{1,3}/g); */
+//
+// console.log('searchStrings', searchStrings);
+
+this.state.allUsers.map((user) => {
+
+  if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
+    search.push(user);
+  } else if (user.username.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
+    search.push(user);
+  }
+
+
+})
+
+this.setState({ search });
+
+}
+shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+newFaqSubmission() {
+
+}
+render() {
     return (
       <>
-      {this.state.landingData ? <div>
         <div className="landing__topDiv">
         {/* <!-- Preloader Start --> */}
       {/*  <div id="preloader">
@@ -281,8 +244,8 @@ animateValue() {
                             </nav>
                         </div>
                     </div>
-                    {/* <!-- Signup btn --> */}
-                    {/* <div className="col-12 col-lg-2">
+
+                {/*    <div className="col-12 col-lg-2">
                         <div className="sing-up-button d-none d-lg-block">
 
                         </div>
@@ -301,9 +264,9 @@ animateValue() {
                 <div className="row h-100 align-items-center">
                     <div className="col-12 col-md">
                         <div className="wellcome-heading">
-                            <h2 id="landingPage__mainLogoText" className="slide-in">Our Data</h2>
+                            <h2 id="landingPage__mainLogoText" className="slide-in">FAQ</h2>
                             <h3><img className="landingPage__backgroundLogo" src={logo}/></h3>
-                            <p className="landingPage__description slide-in">Learn how we Label The Footprints 💨 of Everyday Products! 📦</p><br/>
+                            <p className="landingPage__description slide-in">Have Some Burning Questions? &nbsp;🤷</p><br/>
                         </div>
                         <div className="app-download-area">
                             <div className="app-download-btn wow fadeInUp" id="landing__positioningBottomInstallBtnUp" data-wow-delay="0.2s">
@@ -315,8 +278,7 @@ animateValue() {
                             </div>
             </div>
 
-            <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" className="landing__callToActionButton">We're Planting One &nbsp;🌳 For Every Download!<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
-
+          <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" className="landing__callToActionButton">We're Planting One &nbsp;🌳 For Every Download!<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
         </div>
     </div>
   </div>
@@ -329,184 +291,70 @@ animateValue() {
      <div className="col-12">
 
       <div className="landing__topImageHeader"><img src={require("../assets/img/landing/homePageAdobe-01.svg")} id="landing__imageSlide" className="slide-in" alt="hero"/></div>
-
-
-      {/*   <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
-             <div className="video-play-btn">
-                 <a href="https://youtu.be/ltnRg8qXnBQ" className="video_btn"><i className="fa fa-play" aria-hidden="true"></i></a>
-             </div>
-         </div>*/}
      </div>
  </div>
 </div>
 </div>
-
-      {/*<img src={require("../assets/img/landing/computerFrame.png")} id="landing__topMainVisual" alt=""/> */} {/* img/bg-img/welcome-img.png */}
   </div>
         </section>
         {/* <!-- ***** Wellcome Area End ***** --> */}
 
-        <section id="landing__howItWorks">
-
-        <div className="landing__howItWorks__leftSideLeft" className={`${this.state.infoText}`}>
-
-        <div className="landing__howItWorksLeftSideContainer">
-
-        <div className="landing__howItWorksSubtitle">Learn</div>
-
-        <div className="landing__howItWorksMainTitle">How We Collect Data &nbsp;💾️</div>
-
-        <div onClick={() => { this.setState({ ourData: 'studies' })}} className={this.state.ourData === 'studies' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
-        <div className="landing__howItWorksFirstPoint">1. Scientific Studies &nbsp;📑</div>
-
-        <div className="ourData__howItWorksDescription">We Try Our Very Best to the Most up-to-Date Studies!</div>
-        </div>
-
-        <div onClick={() => { this.setState({ ourData: 'org' })}} className={this.state.ourData === 'org' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
-        <div className="landing__howItWorksFirstPoint">2. Partnering Organisations &nbsp;👨‍💼️</div>
-
-        <div className="ourData__howItWorksDescription">Our Partners That Help Share Their Hard-Earned Data are a Massive Help!</div>
-        </div>
-
-        <div onClick={() => { this.setState({ ourData: 'company' })}} className={this.state.ourData === 'company' ? 'landing__howItWorksFirstContainerSelected' : 'landing__howItWorksFirstContainer'}>
-        <div className="landing__howItWorksFirstPoint">3. Company Reports &nbsp;🏢</div>
-
-        <div className="ourData__howItWorksDescription">Corporate Product-CO2 Reporting is a Highly Reliable Source of Data.</div>
-        </div>
-
-        </div>
-
-
-        </div>
-
-        <div className="landing__howItWorksVideoContainer">
-
-        {this.state.ourData === 'studies' ? <img src={require("../assets/img/landing/studiesScroll.gif")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
-
-        {this.state.ourData === 'org' ? <img src={require("../assets/img/landing/ourData__partners.png")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
-
-        {this.state.ourData === 'company' ? <img src={require("../assets/img/landing/prodDatabases.gif")} className={`ourData__howItWorksVideo ${this.state.infoImage}`} /> : undefined}
-
-        </div>
-
-        </section>
-
-        <section className="cool_facts_area clearfix landing__statsSection" id="ourData__numbersSection">
-
-        <div className="landing__ourStatsBottom">
-        <div className="ourData__ourStasContainingDiv">
-        <div className="landing__ourStatsSubtitleAc">Reach</div>
-
-        <div className="landing__ourStatsMainTitleAc">Our Data &nbsp; 📊</div>
-        </div>
-        </div>
-            <div className="container">
-                <div className="row">
-                    {/* <!-- Single Cool Fact--> */}
-                    <div className="col-12 col-md-3 col-lg-3">
-                        <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.2s">
-                            <div className="counter-area">
-                                <h3><span className="counter"><span id="ourData__numberOne">0</span>k</span></h3>
-                            </div>
-                            <div className="cool-facts-content">
-                                <Icon icon={fruitCherries} className="landing__treeIcon" />
-                                <p>Total <br/> Goods</p>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <!-- Single Cool Fact--> */}
-                    <div className="col-12 col-md-3 col-lg-3">
-                        <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.4s">
-                            <div className="counter-area">
-                                <h3><span className="counter"><span id="ourData__numberTwo">0</span>k</span></h3>
-                            </div>
-                            <div className="cool-facts-content">
-                            <span class="iconify" data-icon="cib:gumtree" data-inline="false"></span>
-                            <Icon icon={phonePortrait} className="landing__treeIcon" />
-                                <p>Total<br/> Products</p>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <!-- Single Cool Fact--> */}
-                    <div className="col-12 col-md-3 col-lg-3">
-                        <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.6s">
-                            <div className="counter-area ourData__ourStatsNumber2">
-                                <h3><span className="counter"><span id="ourData__numberThree">0</span></span></h3>
-                            </div>
-                            <div className="cool-facts-content">
-                            <Icon icon={globeShowingEuropeAfrica} className="landing__treeIcon" />
-                            <p>Origins<br/> (Countries)</p>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <!-- Single Cool Fact--> */}
-                    <div className="col-12 col-md-3 col-lg-3">
-                        <div className="single-cool-fact d-flex justify-content-center wow fadeInUp" data-wow-delay="0.8s">
-                            <div className="counter-area">
-                                <h3><span className="counter"><span id="ourData__numberFour">0</span></span></h3>
-                            </div>
-                            <div className="cool-facts-content">
-                            <Icon icon={baselineTranslate} className="landing__treeIcon" />
-                            <p>Languages <br/> (Translated)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section className="" id="ourData__section">
+        <section className="" id="contact__mainSection">
 
         <div className="ourData__ourTeamHeader">
 
         <div className="ourData__subtitleAndTitle">
-        <div className="landing__howItWorksSubtitle">Donate</div>
-        <div className="landing__howItWorksMainTitle">Have Data to Share? &nbsp; 🤲</div>
+        <div className="landing__howItWorksSubtitle">FAQ</div>
+        <div className="landing__howItWorksMainTitle">Frequently Asked Questions &nbsp; 👨‍🚀️</div>
         </div>
 
-        <div className="ourData__descriptionBelowDonate">Our data is nowhere near perfect. We're endlessly trying our best to make it the most accurate we can. However, if you have accurate data at your disposal that you wouldn't mind sharing with us, this would be invaluable ❤️</div>
+        <div className="features__descriptionBelow">We try to make our site as intuitive as possible, but we often take things for understood! 🚀 Check out the questions below or <span href="#faq__submitNewOne" className="faq__submitNewLink">Submit Another</span>️</div>
         </div>
 
         <div className="ourData__donateCentering">
 
         <div className="ourData__donateFormCentering">
 
-        <div className="ourData__indFormContainer">
-        <div className="ourData__donateSubtitle">Email</div>
-        <input className="ourData__donateInput" value={this.state.email} maxlength="400" onChange={(e) => this.updateEmail(e)} placeholder="Psst. We'll only use this to contact you! But It's Optional! 🕵" />
-        {/* <div className="ourData__donateDisclaimer"></div> */}
-        </div>
+        <div className="leaderboard__searchMargins"><input id="leaderboard__addFriendsSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="Search" /><div className="leaderboard__addFriendsPositionSearch"><i className="tim-icons icon-zoom-split" /></div></div>
 
-        <div className="ourData__indFormContainer">
-        <div className="ourData__donateSubtitle">Message</div>
-        <textarea className="ourData__donateTextarea" value={this.state.message} maxlength="1500" onChange={(e) => this.updateMessage(e)} placeholder="Don't worry about fitting all the data here, we'll follow up! 👋" />
-        {/* <div className="ourData__donateDisclaimer"></div> */}
-        </div>
+        <div className="leaderboard__addFriendsScrollableContainer">
 
-        <div className="ourData__submitButtonPositioning">
+        {this.state.search.map((userf) => {
 
-        <div onClick={() => this.addSubmission()} className="ourData__goToButton">Send &nbsp; 🚀</div>
+          return(<div>
+        <div className="leaderboard__addFriendsMainRow">
+
+        <a href={`/user/@${userf.username}`}><img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/></a>
+        <a href={`/user/@${userf.username}`} className="leaderboard__nameAndUsernamContainer"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__addFriendsUsername">@{userf.username}</div></a>
+
+        {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
 
         </div>
 
-        <div className="landing__formBottomMessages">
+        <div className="leaderboard__addFriendsIndvSpacing"></div>
 
-        {this.state.hasSent ? <div id="landingForm__sentConfirm">It Sent! &nbsp;🎉</div> : undefined}
 
-        {this.state.hasntSent ? <div id="landingForm__notSent">It doesn't appear to have sent. Try reloading! &nbsp;👨‍💻️</div> : undefined}
+        </div>)
 
-        </div>
+        })}
 
         </div>
 
 
+        <div id="faq__submitNewOne">Don't worry about all the details! As long as we understand the issue we'll take the time to formulate the Q&A!</div>
 
 
-                    </div>
+        </div>
+        </div>
+
+
+
+
+
 
         </section>
 
-        <section className="cool_facts_area clearfix landing__downloadSectionTopContainer">
+        <section id="downloadSection" className="cool_facts_area clearfix landing__downloadSectionTopContainer">
 
         <div className="landing__downloadSection">
 
@@ -515,7 +363,7 @@ animateValue() {
 
         </div>
 
-        <div id="downloadSection" className={`landing__downloadTextRight ${this.state.downloadText}`}>
+        <div className={`landing__downloadTextRight ${this.state.downloadText}`}>
 
                             <h2 id="landing__getAppTitle">We're Planting a 🌳 for Every Install In The Next 48 Hours!</h2>
                             <p className="landing__downloadDescription">Download For Free on The Chrome Store!</p>
@@ -531,7 +379,7 @@ animateValue() {
 
                             </div>
 
-          <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" className="landing__callToActionButton2">We're Planting One &nbsp;🌳 For Every Download!<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
+                        <a href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn" className="landing__callToActionButton2">We're Planting One &nbsp;🌳 For Every Download!<Icon icon={arrowRightCircle} className="landing__productLaunchIcon" /></a>
 
         </div>
         </div>
@@ -593,10 +441,9 @@ animateValue() {
        </footer>
         {/* <!-- ***** Footer Area Start ***** --> */}
         </div>
-        </div> : undefined}
       </>
     );
   }
 }
 
-export default OurData;
+export default Features;

@@ -48,6 +48,7 @@ import { useGoogleLogin } from 'react-use-googlelogin'
 
 import OurData from "./views/OurData.js";
 import Features from "./views/Features.js";
+import FAQ from "./views/Faq.js";
 import NotFound from "./views/NotFound.js";
 import Contact from "./views/Contact.js";
 import Privacy from "./views/Privacy.js";
@@ -101,9 +102,9 @@ if (localStorage.jwtToken) {
   }
 }
 
-if (window.location.protocol !== 'https:') {
-    window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
-}
+// if (window.location.protocol !== 'https:') {
+//     window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+// }
 
 ReactDOM.render(
   <Provider store={store}>
@@ -121,6 +122,7 @@ ReactDOM.render(
 
       <Route exact path="/data" render={props => <OurData />} />
       <Route exact path="/features" render={props => <Features />} />
+      <Route exact path="/faq" render={props => <FAQ />} />
       <Route exact path="/not-found" render={props => <NotFound />} />
       <Route exact path="/contact" render={props => <Contact />} />
       <Route exact path="/privacy" render={props => <Privacy />} />

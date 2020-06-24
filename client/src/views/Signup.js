@@ -25,6 +25,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
+import { registerSocialUser } from "../actions/authActions";
 import classnames from "classnames";
 // import GoogleLogin from 'react-google-login';
 import { GoogleLogin } from 'react-google-login';
@@ -229,6 +230,14 @@ referralExists(referral) {
     }
   })
 }
+usernameExists(username) {
+  let users = Array(this.state.allUsers);
+  users.map((us) => {
+    if (us.username === username) {
+      return true;
+    }
+  })
+}
 generateNewId() {
 
   while (this.idExists(publicId)) {
@@ -243,10 +252,20 @@ generateNewReferralCode() {
   }
 
 }
+generateNewSocialUsername() {
+  let num = 1;
+  while (this.usernameExists(this.state.username)) {
+    this.setState({ username: this.newSocialUsername(this.state.username, num) })
+    num++;
+  }
+}
+newSocialUsername(username, num) {
+  this.setState({ username: `${username}${num}`})
+}
 submitForm() {
     // e.preventDefault();
 
-  if (this.state.checked) {
+  // if (this.state.checked) {
 
     publicId = guid();
     newReferralCode = guid2().toUpperCase();
@@ -282,13 +301,14 @@ submitForm() {
   let referralUser = '';
 
   allUsersArray.map((us) => {
-    if (( us.username === this.state.username) && this.state.username ) {
-      this.setState({ error: "Username is Already Taken" });
-      userNameExists = true;
-    } else if ((us.email === this.state.email2) && this.state.email2) {
-      this.setState({ error: "Email is Already in Use" });
-      emailExists = true;
-    }
+
+      if ((us.email === this.state.email2) && this.state.email2) {
+        this.setState({ error: "Email is Already in Use" });
+        emailExists = true;
+      }  else if (( us.username === this.state.username) && this.state.username ) {
+       this.setState({ error: "Username is Already Taken" });
+       userNameExists = true;
+     }
 
     if (this.state.referralCode.length > 0 && (us.referralCode.toLowerCase() === this.state.referralCode.toLowerCase())) {
       referralUser = us.referralCode;
@@ -326,10 +346,10 @@ submitForm() {
   // console.log('SIGNED UP', newUser)
   }
 
-  } else {
-    this.setState({ privacy: true });
-    this.setState({ error: "Please Accept Carbonly's Privacy Policy!" });
-  }
+  // } else {
+  //   // this.setState({ privacy: true });
+  //   // this.setState({ error: "Please Accept Carbonly's Privacy Policy!" });
+  // }
 };
 responseGoogle() {
 
@@ -344,32 +364,90 @@ handleGoogleLogin(user, err){
   // console.log(user._profile.email)
 
   if (user._profile) {
+
+    console.log('FOUND PROFILE')
     // console.log('trying to fetch', user._profile);
     //
     // console.log('name', user._profile.name);
     // console.log('email', user._profile.email);
     // console.log('username', user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase());
 
-    this.setState({ name2: user._profile.name });
-    this.setState({ email2: user._profile.email })
-    this.setState({ username: user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase() })
-
-    this.setState({ error: "Make a New Password Below" });
-
-    // const newUser = {
-    //   name: this.state.name2,
-    //   email: this.state.email2,
-    //   username: this.state.username,
-    //   publicId: 'NO MAKE YOUR OWN UP THERE THE SAME',
-    //   password: this.state.password,
-    //   password2: this.state.password,
-    // };
-
-    // this.props.registerUser(newUser, this.props.history);
+    // this.setState({ name2: user._profile.name });
+    // this.setState({ email2: user._profile.email })
+    // this.setState({ username: user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase() })
     //
+    // this.setState({ error: "Make a New Password Below" });
+
+      publicId = guid();
+      newReferralCode = guid2().toUpperCase();
+
+      if (this.idExists(publicId)) {
+        this.generateNewId();
+      }
+
+      if (this.referralExists(newReferralCode)) {
+        this.generateNewReferralCode();
+      }
+
+    let name = user._profile.name;
+    let email = user._profile.email;
+    let username = user._profile.firstName.slice(0, 1).toLowerCase() + user._profile.lastName.toLowerCase();
+
+    let emailExists = false;
+
+    this.setState({ error: "" });
+
+    let allUsersArray = this.state.allUsers.usersArray;
+
+    this.setState({ isChanging: false });
+
+    let referralUser = '';
+
+    allUsersArray.map((us) => {
+
+      if ((us.email === email) && email) {
+        this.setState({ error: "Email is Already in Use" });
+        emailExists = true;
+      } else if (( us.username === username) && username ) {
+        this.setState({ username });
+        this.generateNewSocialUsername();
+      }
+      if (this.state.referralCode != 'CARB') {
+      if (this.state.referralCode.length > 0 && (us.referralCode.toLowerCase() === this.state.referralCode.toLowerCase())) {
+        referralUser = us.referralCode;
+      }
+      }
+
+    });
+
+    if (this.state.referralCode.length > 0 && !referralUser && this.state.referralCode != 'CARB') {
+      this.setState({ error: "Referral User Not Found" });
+    }
+
+    // console.log('WAS ERROR?', `${userNameExists}, ${emailExists}`)
+
+    if (!emailExists) {
+
+    const newUser = {
+      name: name,
+      email: email,
+      username: username,
+      publicId,
+      referralUser,
+      referralExists: this.state.referralCode != 'CARB' ? true : false,
+      referralCode: newReferralCode,
+      points:this.state.referralPoints,
+    };
+
+    this.props.registerSocialUser(newUser, this.props.history);
+
     // setTimeout(function() {
-    // this.setState({ isChanging: true });
+    this.setState({ isChanging: true });
     // }, 1000)
+
+    // }
+    // console.log('SIGNED UP', newUser)
+    }
 
   }
 
@@ -516,7 +594,7 @@ render() {
 
                 {/* Checkbox */}
 
-                <div class="grid">
+            {/*     <div class="grid">
 
                 <label class="checkbox bounce">
                 <input type="checkbox" onChange={() => this.changeChecked()} checked={this.state.checked} />
@@ -525,7 +603,7 @@ render() {
                 </svg>
                   <div className={'signup__privacyPolicyText'}>I accept Carbonly's <Link to="/privacy" className="signup__privacyLink">Privacy Policy 🕵</Link></div>
                 </label>
-                </div>
+                </div>    */}
 
                 <div className="login__eliminateSpacingBottomTop"></div>
 
@@ -576,6 +654,7 @@ render() {
 
 Signup.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  registerSocialUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -587,5 +666,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser, registerSocialUser }
 )(withRouter(Signup));

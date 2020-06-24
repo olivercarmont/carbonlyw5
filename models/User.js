@@ -72,6 +72,10 @@ const UserSchema = new Schema({
   bonusPoints: {
     type: Number,
     default:0
+  },
+  socialLogin: {
+    type: Boolean,
+    required: true,
   }
 
 });

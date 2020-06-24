@@ -68,6 +68,7 @@ text-decoration:none;
 }
 .features__descriptionBelow {
   width:49%;
+  text-align:center;
   color:#989898;
   margin-top:0px;
   margin-bottom:50px;

@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-
 import { Link } from "react-router-dom";
 
 // reactstrap components
@@ -31,8 +30,7 @@ import {
 } from "reactstrap";
 
 import { Icon, InlineIcon } from '@iconify/react';
-import smCursorClick from '@iconify/icons-heroicons/sm-cursor-click';
-
+import toolsIcon from '@iconify/icons-fa-solid/tools';
 
 import '../OwnCSS/settings.css';
 
@@ -50,19 +48,21 @@ class ClickExtension extends React.Component {
                 </CardHeader>
                 <CardBody>
 
-                <div className="settings__centerContent">
+                <div className="instructions__centerContent">
 
-                <div className="settings__cogsIcon"><Icon icon={smCursorClick} /></div>
+                <div className="settings__cogsIcon"><Icon icon={toolsIcon} /></div>
 
-                <div className="settings__constructionTitle">Click The Extension to Get Started! 🖱️</div>
+                <div className="settings__constructionTitle">Instructions Manual</div>
 
-                <div className="settings__constructionMessage">(It should be on the right-hand corner!)</div>
+               Add a LARGE GIF HERE (ADD ARROWS ON THE SIDE AND DO MAX 4 OF THEM AND THEN MAKE A SCREEN FOR 'GET STARTED!')
+
+                <div className="instructions__mainListItem">1. &nbsp;Go to a Compatible Marketplace</div>
 
                 <div className="clickExtension__haventInstalledExtension">Haven't Installed The Extension? <a className="clickExtension__chromeLink" href="https://chrome.google.com/webstore/detail/carbonly/anipbbamcfddggbegnjdmphhajmgclpn/related" target="_blank">Click Here!</a></div>
 
                 <div className="notFound__positionButtonClick">
 
-                <Link to="/instructions" className="click__doneButton">Done &nbsp; ✔️</Link>
+                <Link to="/home" className="click__doneButton">Let Me In! &nbsp; 😝</Link>
 
                 </div>
 

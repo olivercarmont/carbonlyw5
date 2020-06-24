@@ -411,3 +411,34 @@ color:#444 !important;
   width:80%;
   display:block; */
 }
+.home__shoppingListExplanation {
+  clear:both;
+  width:100%;
+  color:#b5b5b5;
+  font-family: "Poppins", sans-serif;
+  display:block;
+  margin-left:1px;
+  font-size:0.95em;
+  margin-top:-17px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.9s;
+  transition-delay:1s;
+}
+.home__shoppingListExplanation:hover .analytics__descriptionText {
+text-decoration: line-through;
+transition:0.9s;
+}
+.home__shoppingListExplanation:hover .analytics__positionDescriptionCheck {
+display:inline-block;
+}
+.home__pageLabel {
+
+}
+.home__pageLabelText {
+
+}
+
+.home__pageLabelIcon {
+
+}

@@ -741,7 +741,7 @@ animateNumbers() {
 
                 <div className="landing__howItWorksLeftSideContainer">
 
-                <div className="landing__ourTeamSubtitle">Founder</div>
+                <div className="landing__ourTeamSubtitle">Co-Founder</div>
 
                 <div className="landing__ourTeamsMainTitle">Oliver Carmont &nbsp;🌿</div>
 
@@ -757,10 +757,8 @@ animateNumbers() {
 
 
                 </div>
-    {/*
+
                 <div className="landing__ourTeamSpacing"></div>
-
-
 
                 <div id="ourTeam2">
 
@@ -777,7 +775,7 @@ animateNumbers() {
 
                       <div className="landing__ourTeamsMainTitle">Nicolas Carmont &nbsp; 🤖</div>
 
-                        <div className="landing__awesomeFeaturesText">Co-Founder and Backend Developer @Carbonly. Clinton Fellow and Founder @Netzero</div>
+                        <div className="landing__awesomeFeaturesText3">Co-Founder and Backend Developer @Carbonly. Clinton Fellow and Founder @Netzero</div>
 
                         </div>
 
@@ -786,7 +784,7 @@ animateNumbers() {
 
 
 
-                    </div> */}
+                    </div>
 
         </section>
 

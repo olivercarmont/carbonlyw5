@@ -30,6 +30,26 @@ import axios from 'axios';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import storeIcon from '@iconify/icons-fa-solid/store';
+import externalLinkAlt from '@iconify/icons-fa-solid/external-link-alt';
+import accountMusic from '@iconify/icons-mdi/account-music';
+import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
+import sadTear from '@iconify/icons-fa-regular/sad-tear';
+import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
+
+import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-left';
+import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
+import seedlingIcon from '@iconify/icons-fa-solid/seedling';
+import personCircle from '@iconify/icons-ion/person-circle';
+import checkCircle from '@iconify/icons-la/check-circle';
+
+import leafIcon from '@iconify/icons-entypo/leaf';
+import treesIcon from '@iconify/icons-foundation/trees';
+import boxOpen from '@iconify/icons-fa-solid/box-open';
+import searchIcon from '@iconify/icons-fa-solid/search';
+import cloudIcon from '@iconify/icons-subway/cloud';
+import moneyBillWave from '@iconify/icons-fa-solid/money-bill-wave';
+import gumtreeIcon from '@iconify/icons-simple-icons/gumtree';
+import roundLeaderboard from '@iconify/icons-ic/round-leaderboard';
 
 // reactstrap components
 import {
@@ -47,6 +67,7 @@ import {
   FormGroup,
   Input,
   Table,
+  Form,
   Row,
   Col,
   UncontrolledTooltip,
@@ -54,15 +75,11 @@ import {
   UncontrolledAlert,
 } from "reactstrap";
 
-
-
-
 // let moment = require('moment');
  // const moment = require('moment');
 
 // import moment from 'moment';
 // let date = moment();
-
 
 let amazonImg = require("../assets/img/companyLogos/amazon.png");
 let bookingImg = require("../assets/img/companyLogos/booking.png");
@@ -79,56 +96,416 @@ let tescoImg = require("../assets/img/companyLogos/tesco.png");
 let tripAdvisorImg = require("../assets/img/companyLogos/tripAdvisor.png");
 let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
 
+let chartExample3;
+
+let chart1_2_options = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false
+  },
+  tooltips: {
+    backgroundColor: "rgba(160, 209, 186, 0.88)",
+    borderColor: '#fff',
+    titleFontColor: "#fff",
+    bodyFontColor: "#fff",
+    bodySpacing: 8,
+    xPadding: 12,
+    mode: "nearest",
+    intersect: 0,
+    position: "nearest",
+    displayColors: false,
+    callbacks: {
+    label: function(tooltipItem, data) {
+          return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+        }
+      },
+
+  },
+  responsive: true,
+  scales: {
+    yAxes: [
+      {
+        barPercentage: 1.6,
+        gridLines: {
+          drawBorder: false,
+          color: "rgba(29,140,248,0.0)",
+          zeroLineColor: "transparent"
+        },
+        ticks: {
+          padding: 20,
+          fontColor: "#9a9a9a"
+        }
+      }
+    ],
+    xAxes: [
+      {
+        barPercentage: 1.6,
+        gridLines: {
+          display:false
+        },
+        ticks: {
+          padding: 20,
+          fontColor: "#9a9a9a"
+        }
+      }
+    ]
+  }
+};
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchValue: '',
       bigChartData: "data1",
-      savedList: [],
+      global: true,
       shoppingList: [],
       search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Products'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
       compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Flights'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
+      period: 'yearly',
   };
 }
-  componentWillMount() {
+componentWillMount() {
 
-    axios.post('https://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
-      'jwt': localStorage.jwtToken,
-    })
-  .then(response => {
-      // this.setState({
-      //   users: response.data.map(user => user.username),
-      //   name: response.data[0].name
-      // });
-
-      // console.log('response', response.data);
-
-      // response.data.map((findUser) => {
-      //   if (findUser._id === this.props.auth.user.id) {
-      //     user = findUser;
-      //   }
-      // })
-
-      this.setState({ shoppingList: response.data.shoppingList });
-      this.setState({ savedList: response.data.savedList });
-
-       this.setState({ user: response.data });
-
-       if (response.data.hasLoggedIn === 'f') {
-         window.location.href = "/click";
-       }
-
+  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+    'jwt': localStorage.jwtToken,
   })
-  .catch((error) => {
-    console.log(error);
-  })
-  }
-  setBgChartData = name => {
-    this.setState({
-      bigChartData: name
-    });
+.then(response => {
+
+
+     this.setState({ allUsers: response.data.info[4] });
+
+    chartExample3 = {
+    data: canvas => {
+      let ctx = canvas.getContext("2d");
+
+      let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+      let gradientStrokeRed = ctx.createLinearGradient(0, 230, 0, 50);
+
+      gradientStroke.addColorStop(1, "rgba(137, 179, 157,0.2)");
+      gradientStroke.addColorStop(0.4, "rgba(137, 179, 157,0.0)");
+      gradientStroke.addColorStop(0, "rgba(137, 179, 157,0)"); //blue colors
+
+      gradientStrokeRed.addColorStop(1, "rgba(196, 143, 143,0.2)");
+      gradientStrokeRed.addColorStop(0.4, "rgba(196, 143, 143,0)");
+      gradientStrokeRed.addColorStop(0, "rgba(196, 143, 143,0)"); //blue colors
+
+      return {
+        labels:  this.returnMonthLabels(),
+        datasets: [
+          {
+            label: "Emissions",
+            fill: true,
+            backgroundColor: gradientStroke,
+            borderColor: "#75c79a",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "#75c79a",
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: "#75c79a",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.returnBudgetGraphData(),
+          },
+          {
+            label: "Budget",
+            fill: true,
+            backgroundColor: gradientStrokeRed,
+            borderColor: "#e07073",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "#e07073",
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: "#e07073",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.returnBudgetGraph(),
+          },
+        ]
+      };
+    },
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        backgroundColor: "rgba(160, 209, 186, 0.88)",
+        titleFontColor: "#fff",
+        bodyFontColor: "#fff",
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+        displayColors: false,
+        callbacks: {
+        label: function(tooltipItem, data) {
+          // console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
+              return tooltipItem.yLabel.toFixed(1) + 'kg CO2';
+            }
+          },
+      },
+      responsive: true,
+      scales: {
+        yAxes: [
+          {
+            gridLines: {
+              display: false
+            },
+            ticks: {
+
+              padding: 20,
+              fontColor: "#9e9e9e"
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+              display:false
+            },
+            ticks: {
+              padding: 20,
+              fontColor: "#9e9e9e"
+            }
+          }
+        ]
+      }
+    }
   };
+
+  this.setState({ friends: response.data.info[1] });
+
+  this.setState({ user: response.data.info[0] });
+
+  let shuffleUsers = response.data.info[4].map((el) => {
+    return el;
+  })
+
+  this.setState({ search: this.shuffleArray(shuffleUsers) });
+
+
+ this.setState({ userRank: response.data.info[3].usrank });
+
+    // this.setState({ leaderboard: response.data.info[2].slice(0, 3) });
+     // console.log('user', response.data.info[0]);
+     // console.log('leaderboard', response.data.info[2].slice(0, 3));
+     //
+     // console.log('all users', response.data.info[4]);
+
+})
+.catch((error) => {
+  console.log(error);
+})
+}
+setBgChartData = name => {
+  this.setState({
+    bigChartData: name,
+  });
+};
+changeGlobal(bool) {
+  this.setState({ global: bool });
+  // console.log('changed');
+}
+returnNumberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+returnBudgetGraph() {
+
+  let date = new Date();
+  let cur_month = date.getMonth() + 1;
+  if (cur_month === 2) {
+
+  return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget];
+
+  } else {
+
+  return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget ];
+
+  }
+
+}
+returnMonthLabels() {
+
+  let date = new Date();
+    let currentMonth = date.getMonth();
+    let lastDay;
+
+    if (currentMonth === 0) {
+      lastDay = `31`;
+    } else if (currentMonth === 1) {
+      lastDay = `28`;
+    } else if (currentMonth === 2) {
+      lastDay = `31`;
+    } else if (currentMonth === 3) {
+      lastDay = `30`;
+    } else if (currentMonth === 4) {
+      lastDay = `31`;
+    } else if (currentMonth === 5) {
+      lastDay = `30`;
+    } else if (currentMonth === 6) {
+      lastDay = `31`;
+    } else if (currentMonth === 7) {
+      lastDay = `31`;
+    } else if (currentMonth === 8) {
+      lastDay = `30`;
+    } else if (currentMonth === 9) {
+      lastDay = `31`;
+    } else if (currentMonth === 10) {
+      lastDay = `30`;
+    } else if (currentMonth === 11) {
+      lastDay = `31`;
+    }
+
+    if (lastDay === `28th`) {
+
+    return ['1 - 4', '5 - 9', '10 - 13', '14 - 17', '18 - 21', '22 - 24', '25 - 28'];
+
+    } else {
+
+    return ['1 - 4', '5 - 9', '10 - 13', '14 - 17', '18 - 21', '22 - 24', '25 - 28', `29 - ${lastDay}`];
+
+    }
+}
+returnOffsets(amount) {
+
+let calcData;
+
+  if (amount === 0) {
+
+    return `${amount}`;
+
+  } else if (amount > 999) {
+
+    calcData = amount;
+
+    calcData = Math.round(calcData);
+
+    calcData = this.returnNumberWithCommas(calcData);
+
+    return `${calcData}`
+
+  } else if (amount >= 10000000) {
+
+    calcData = amount / 10000000;
+
+    calcData = Math.round(calcData);
+
+    calcData = this.returnNumberWithCommas(calcData);
+
+    return `${calcData}m`
+
+  } else {
+    let calcData = Math.round(amount);
+    return `${calcData}`;
+  }
+}
+returnLeaderboardOffsets(amount) {
+
+  let calcData = 0;
+
+  if (amount === 0) {
+
+    return `${amount}`;
+
+  } else if (amount > 999) {
+
+    calcData = amount;
+
+    calcData = Math.round(calcData);
+
+    return `${calcData}`
+
+  } else if (amount >= 10000000) {
+
+    calcData = amount / 10000000;
+
+    calcData = Math.round(calcData);
+
+    return `${calcData}m`
+
+  } else {
+    let calcData = Math.round(amount);
+    return `${calcData}`;
+  }
+
+}
+returnOffsetWidth(points) {
+
+  let comparison;
+
+  if (this.returnAllUsersLeaderboard()[0].publicId === this.state.user.publicId) {
+    comparison = this.returnUserOffsetsLeaderboard();
+  } else {
+    comparison = parseFloat(this.returnAllUsersLeaderboard()[0].points);
+  }
+
+  if (points === 0) {
+    return 0.25;
+  } else {
+
+  let ratio = points / comparison;
+
+  if (ratio < 0.45) {
+
+    return 0.45;
+
+  } else {
+
+    return ratio;
+
+  }
+}
+}
+returnUserOffsets() {
+
+let totalPoints = 0;
+
+this.state.user.offsets.map((off) => {
+  totalPoints += parseFloat(off.points);
+})
+
+this.state.user.orders.map((or) => {
+  totalPoints += parseFloat(or.points);
+})
+
+totalPoints += parseFloat(this.state.user.bonusPoints);
+
+// console.log('offsetAmount', totalPoints)
+
+return `${this.returnOffsets(totalPoints)}`;
+}
+returnAddFriendsContainerNum() {
+if (this.state.friends.length < 2) {
+  return 4;
+}
+}
   preventDrag(e) {
     e.preventDefault();
   }
@@ -170,39 +547,6 @@ this.state.compatibleMarketplaces.map((marketplace) => {
 this.setState({ search });
 
 }
-createNewItemSaved() {
-  let newId;
-
-  let newArray = this.state.savedList;
-
-  let newSortList = this.state.savedList.map((el) => { return el });
-
-  newSortList.sort((a, b) => (a.id < b.id) ? 1 : -1)
-
-  if (newSortList.length > 0) {
-    newId = parseFloat(newSortList[0].id) + 1;
-  } else {
-    newId = 1;
-  }
-
-  newArray.push({ id: newId, title: '', description: ''})
-
-  /* update the server here */
-  this.setState({ saved: newArray });
-
-  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
-      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
-    })
-  .then(response => {
-
-    // console.log('UPDATED');
-
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-
-}
 createNewItemShoppingList() {
 
   let newId;
@@ -226,34 +570,6 @@ createNewItemShoppingList() {
 
   axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
       prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
-    })
-  .then(response => {
-
-    // console.log('UPDATED');
-
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-
-}
-deleteItemSaved(id) {
-  let newArray = this.state.savedList;
-  let index;
-
-  newArray.map((el) => {
-    if (el.id == id) {
-      index = newArray.indexOf(el);
-    }
-  });
-
-  newArray.splice(index, 1);
-
-  /* update the server here */
-  this.setState({ saved: newArray });
-
-  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
-      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
 
@@ -292,48 +608,10 @@ deleteItemShoppingList(id) {
     console.log(error);
   })
 }
-setSavedList(newState) {
-  /* update the server here */
-  this.setState({ saved: newState })
-}
+
 setShoppingList(newState) {
   /* update the server here */
   this.setState({ shoppingList: newState })
-}
-updateDescriptionSaved(e, id) {
-
-  // console.log('event', e.target.value);
-
-  let newArray = this.state.savedList;
-  let index;
-
-  newArray = newArray.map((el) => {
-    if (el.id === id) {
-      // console.log('id is the same', id);
-      index = newArray.indexOf(el);
-      return { id: el.id, title: el.title, description: e.target.value }
-    } else {
-      return el;
-    }
-
-  });
-
-  // console.log('newArray', newArray);
-  /* update the server here */
-  this.setState({ saved: newArray });
-
-  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
-    prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
-  })
-.then(response => {
-
-  // console.log('UPDATED');
-
-})
-.catch((error) => {
-  console.log(error);
-})
-
 }
 updateDescriptionShopping(e, id) {
 
@@ -370,39 +648,7 @@ axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, p
 })
 
 }
-updateTitleSaved(e, id) {
 
-  let newArray = this.state.savedList;
-  let index;
-
-  newArray = newArray.map((el) => {
-    if (el.id === id) {
-      // console.log('id is the same', id);
-      index = newArray.indexOf(el);
-      return { id: el.id, title: e.target.value, description: el.description  }
-    } else {
-      return el;
-    }
-
-  });
-
-  // console.log('newArray', newArray);
-  /* update the server here */
-  this.setState({ saved: newArray });
-
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'savedList', value: newArray, }, {
-      prop: 'savedList', value: newArray, 'jwt': localStorage.jwtToken,
-    })
-  .then(response => {
-
-    // console.log('UPDATED');
-
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-
-}
 updateTitleShopping(e, id) {
 
   let newArray = this.state.shoppingList;
@@ -436,7 +682,391 @@ updateTitleShopping(e, id) {
   })
 
 }
-  render() {
+returnFriendsRanks() {
+
+  let newFriends = this.state.friends.map((friend) => { return friend });
+
+  let insertUser = this.state.user;
+
+  insertUser['rank'] = this.state.userRank;
+
+  let userPoints = 0;
+
+  insertUser.offsets.map((off) => {
+    userPoints += parseFloat(off.points);
+  });
+
+  insertUser.orders.map((or) => {
+    userPoints += parseFloat(or.points);
+  });
+
+  insertUser['totalPoints'] = userPoints;
+
+  newFriends.push(this.state.user);
+
+  return newFriends.sort((a, b) => (a.rank > b.rank) ? 1 : -1)
+}
+returnAllUsersLeaderboard() {
+
+  let newUsers = this.state.allUsers.map((user) => {
+
+    if (user.publicId === this.state.user.publicId) {
+      user['rank'] = this.state.userRank;
+    }
+
+    return user;
+
+  });
+
+  return newUsers.sort((a, b) => (a.rank > b.rank) ? 1 : -1)
+}
+returnFriendOffsetWidth(points) {
+
+  let comparison = this.returnFriendsRanks()[0].points;
+
+  if (!comparison) {
+    comparison = this.returnUserOffsetsLeaderboard();
+  }
+
+  // console.log('COMP2', comparison)
+
+  if (points === 0) {
+    return 0.25;
+  } else {
+
+  let ratio = points / comparison;
+
+  if (ratio < 0.45) {
+
+    return 0.45;
+
+  } else {
+
+    return ratio;
+
+  }
+}
+
+}
+returnUserOffsetsLeaderboard() {
+
+  let totPoints = 0;
+  this.state.user.offsets.map((off) => {
+    totPoints += parseFloat(off.points);
+  })
+
+  this.state.user.orders.map((off) => {
+    totPoints += parseFloat(off.points);
+  })
+
+  totPoints += parseFloat(this.state.user.bonusPoints);
+
+  return totPoints;
+}
+returnRanColor() {
+  let num = Math.random() * (1000 - 0);
+
+  if (num > 500) {
+    return "#a9dbc0";
+  } else {
+    return "#e07073";
+  }
+
+}
+getBudgetPercent() {
+
+  let totalMonthEmissions = 0;
+
+  totalMonthEmissions = this.returnBudgetGraphData()[this.returnBudgetGraphData().length-1];
+
+  return Math.round(( (totalMonthEmissions / parseFloat(this.state.user.budget)) *100))
+
+}
+returnBudgetGraphData() {
+
+  let date = new Date();
+  let cur_month = date.getMonth() + 1;
+  let cur_year = date.getFullYear();
+
+  let tFrame0 = 0, tFrame1 = 0, tFrame2 = 0, tFrame3 = 0, tFrame4 = 0, tFrame5 = 0, tFrame6 = 0, tFrame7 = 0;
+
+  let selectArray = this.state.user.orders;
+
+  selectArray.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+    let orderMonth = time.getMonth() + 1;
+    let orderYear = time.getFullYear();
+
+    if ((orderMonth === cur_month) && (orderYear === cur_year)) {
+
+    let day = time.getDate();
+    let cur_amt = el.carbon;
+
+    if (day <= 4) {
+     tFrame0 += parseFloat(cur_amt);
+   } else if (day > 4 && day <= 9) {
+     tFrame1 += parseFloat(cur_amt);
+   } else if (day > 9 && day <= 13) {
+     tFrame2 += parseFloat(cur_amt);
+   } else if (day > 13 && day <= 17) {
+     tFrame3 += parseFloat(cur_amt);
+   } else if (day > 17 && day <= 21) {
+     tFrame4 += parseFloat(cur_amt);
+   } else if (day > 21 && day <= 24) {
+     tFrame5 += parseFloat(cur_amt);
+   } else if (day > 24 && day <= 28) {
+     tFrame6 += parseFloat(cur_amt);
+   } else if (day > 28) {
+     tFrame7 += parseFloat(cur_amt);
+   }
+
+  }
+  });
+
+  tFrame1 += tFrame0;
+
+  tFrame2 += tFrame1;
+
+  tFrame3 += tFrame2;
+
+  tFrame4 += tFrame3;
+
+  tFrame5 += tFrame4;
+
+  tFrame6 += tFrame5;
+
+  tFrame7 += tFrame6;
+
+  if (cur_month === 2) {
+
+  return [tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5, tFrame6];
+
+  } else {
+
+  return [ tFrame0, tFrame1, tFrame2, tFrame3, tFrame4, tFrame5, tFrame6, tFrame7 ];
+
+  }
+
+}
+returnTotalWeek() {
+  let totalEmissions = 0;
+  let date = new Date()
+
+  let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
+  start_of_week.setHours(0)
+  start_of_week.setMinutes(0)
+  start_of_week.setSeconds(0)
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+
+    if (( time <= date && time >= start_of_week) && !el.offset) {
+      totalEmissions += parseFloat(el.carbon);
+   }
+
+   return this.formatEmissions(totalEmissions);
+
+  });
+
+  return this.formatEmissions(totalEmissions);
+}
+returnTotalMonth() {
+
+  let date = new Date();
+  let cur_month = date.getMonth() + 1;
+  let totalEmissions = 0;
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+    let orderMonth = time.getMonth() + 1;
+
+    if (orderMonth === cur_month) {
+        totalEmissions += parseFloat(el.carbon);
+    }
+
+});
+  return this.formatEmissions(totalEmissions);
+}
+returnTotalYear() {
+
+  let date = new Date();
+  var cur_year = date.getFullYear();
+  let totalEmissions = 0;
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+
+    if (time.getFullYear() === cur_year) {
+        totalEmissions += parseFloat(el.carbon);
+    }
+
+  });
+  return this.formatEmissions(totalEmissions);
+}
+formatEmissions(em) {
+  if (em === 0) {
+      return `${em}kg CO`;
+    } else {
+
+      if (em > 999) {
+
+        let calcData;
+
+        calcData = em / 1000;
+
+        calcData = calcData.toFixed(1);
+
+        em = `${calcData}t CO `
+
+      } else if (em >= 10000000) {
+
+        let calcData;
+
+        calcData = em / 10000000;
+
+        calcData = calcData.toFixed(1);
+
+        em = `${calcData}Mt CO`
+
+      } else {
+        let calcData = em.toFixed(1);
+        em = `${calcData}kg CO`;
+      }
+
+      return em;
+    }
+}
+returnTotalWeekCost() {
+  let totalEmissions = 0;
+  let date = new Date()
+
+  let start_of_week = new Date(date.getTime() - (6) * 24*60*60*1000 )
+  start_of_week.setHours(0)
+  start_of_week.setMinutes(0)
+  start_of_week.setSeconds(0)
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+
+    if (( time <= date && time >= start_of_week) && !el.offset) {
+      totalEmissions += parseFloat(el.carbon);
+   }
+
+  });
+
+  return (((totalEmissions/1000))*3).toFixed(2);
+}
+returnTotalMonthCost() {
+
+  let date = new Date();
+  let cur_month = date.getMonth() + 1;
+  let totalEmissions = 0;
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+    let orderMonth = time.getMonth() + 1;
+
+    if ((orderMonth === cur_month) && !el.offset) {
+        totalEmissions += parseFloat(el.carbon);
+    }
+
+});
+  return (((totalEmissions/1000))*3).toFixed(2);
+}
+returnTotalYearCost() {
+
+  let date = new Date();
+  var cur_year = date.getFullYear();
+  let totalEmissions = 0;
+
+  this.state.user.orders.map((el) => {
+
+    let time = new Date(Date.parse(el.time));
+
+    if ((time.getFullYear() === cur_year) && !el.offset) {
+        totalEmissions += parseFloat(el.carbon);
+    }
+
+  });
+  return (((totalEmissions/1000))*3).toFixed(2);
+}
+returnYearlyOrders() {
+
+  let date = new Date();
+  var cur_year = date.getFullYear();
+  let yearOrders = [];
+
+  this.state.user.orders.map((or) => {
+
+  let time = new Date(Date.parse(or.time));
+
+  if ((time.getFullYear() === cur_year) && !or.offset) {
+      yearOrders.push(or);
+  }
+
+});
+
+  yearOrders.sort((a, b) => (Date.parse(a.time) < Date.parse(b.time)) ? 1 : -1)
+
+  return yearOrders;
+
+}
+returnOrderImage(web) {
+
+let webImage;
+
+if (web === 'tesco' || web === 'Tesco') {
+  webImage = 'tesco.png';
+} else if (web === 'Amazon') {
+  webImage = 'amazon.png';
+} else if (web === 'Skyscanner') {
+  webImage = 'skyscanner.png';
+} else if (web === 'Uber Eats') {
+  webImage = `ubereats.png`;
+} else if (web === 'Momondo') {
+  webImage = `momondo.png`;
+} else if (web === 'Booking.com') {
+  webImage = `momondo.png`;
+} else if (web === 'Kayak') {
+  webImage = `kayak.png`;
+} else if (web === 'Trip Advisor') {
+  webImage = `tripAdvisor.png`;
+} else if (web === 'KLM') {
+  webImage = `klm.png`;
+} else if (web === 'Expedia') {
+  webImage = `expedia.png`;
+} else if (web === 'Google Flights') {
+  webImage = `googleFlights.png`;
+} else if (web === 'Foodie') {
+  webImage = `foodie.png`;
+} else if (web === 'K Ruoka') {
+  webImage = `kruoka.png`;
+} else if (web === 'Kauppahalli24') {
+  webImage = `kauppahalli24.png`;
+}
+
+return <img src={require(`../assets/img/companyLogos/${webImage}`)} id="analytics__ordersImage" />;
+}
+returnUpperCase(string) {
+return string.charAt(0).toUpperCase() + string.slice(1);
+}
+roundNumber(num) {
+  return Math.round(num * 10) / 10;
+}
+roundCarbon(amt) {
+  if (amt >= 100) {
+    return Math.round(amt);
+  } else {
+    return parseFloat(amt).toFixed(1);
+  }
+}
+render() {
 
     let newDateHome = new Date();
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -444,122 +1074,10 @@ updateTitleShopping(e, id) {
       <>
         <div className="content">
 
-        {this.state.user ?
+        {this.state.user && this.state.allUsers ?
           <div>
+
           <Row>
-          <Col lg="4">
-            <Card className="card-chart homepage__firstBasicHeight">
-              <CardHeader>
-                <h5 className="card-category">{`${newDateHome.getDate()}${newDateHome.getDate() === 1 ? 'st' : newDateHome.getDate() === 2 ? 'nd' : newDateHome.getDate() === 3 ? 'rd' : 'th'} ${months[newDateHome.getMonth()]} ${newDateHome.getFullYear()}`}</h5>
-                <CardTitle tag="h3">
-                  {/* <i className="tim-icons icon-minimal-down text-info" />{" "} */}
-                Hey {this.state.user.name.split(' ')[0]} 👋
-                </CardTitle>
-
-                <div className="homepage__firstSectionMargins">
-
-                <div className="homepage__firstBoxSecondTitle">
-              {/* }  Here's What's New */}
-                </div>
-
-                {/* <UncontrolledAlert id="home__notification">
-                  <span>
-                    <b>Friends</b><br/>
-                    James Carlson Offset 40kg!
-                  </span>
-                </UncontrolledAlert> */}
-                {/* <div id="home__notification">
-                  <span>
-                    <b>Ranking</b><br/>
-                    Rank Decreased From 500 to 515!
-                  </span>
-                </div> */}
-                <UncontrolledAlert id="home__notification">
-                  <span>
-                    <b>Notifications</b><br/>
-                    No New Notifictions
-                  </span>
-                </UncontrolledAlert>
-
-                <div className="homepage__firstSectionSuggestion">
-
-                </div>
-
-                </div>
-              </CardHeader>
-              <CardBody>
-              </CardBody>
-            </Card>
-          </Col>
-
-            <Col lg="4">
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">{this.state.savedList.length} {this.state.savedList.length === 1 ? 'Item' : 'Items'}</h5>
-                  <CardTitle tag="h3">
-                    <i className="tim-icons icon-paper text-primary" />{" "}
-                    Saved List
-                  </CardTitle>
-                  </CardHeader>
-                  <CardBody>
-
-
-                <div id="savedList__mainContainer">
-
-                <ReactSortable
-       list={this.state.savedList}
-       setList={newState => this.setSavedList(newState)}
-       handle={"#drag1"}
-       group={'shared'}
-       animation={200}
-      delayOnTouchStart={true}
-      delay={2}
-     >
-       {this.state.savedList.map(item => (
-         <div key={item.id}>
-
-         <div className="home__listCheckboxes">
-
-         <FormGroup check>
-               <Label check>
-                 <Input defaultValue="" type="checkbox" />
-                 <span className="form-check-sign home__listsCheckboxColour">
-                   <span className="check" />
-                 </span>
-               </Label>
-           </FormGroup>
-
-         </div>
-
-            <div className="home__topListsRightEl">
-             <input className="home__topInputLists" id="home__inputListsHover" placeholder="Super Greens 🥕" onChange={(e) => this.updateTitleSaved(e, item.id)} defaultValue={item.title} />
-             <textarea defaultValue={item.description} placeholder="At least 5 a Day Right?" id="home__textAreaPlaceholderStyling" onChange={(e) => this.updateDescriptionSaved(e, item.id)} className="text-muted home__smallerTextInput"/>
-             </div>
-
-             <div className="home__topListsIconRight">
-
-             <div className="home__topListsDragSide" id="drag1"><i className="tim-icons icon-align-center" /></div>
-
-             <div className="home__topListsXSide" onClick={() => this.deleteItemSaved(item.id)}><i className="tim-icons icon-trash-simple" /></div>
-             </div>
-
-             <div className="home__betweenListsSpacing"></div>
-
-             </div>
-       ))}
-     </ReactSortable>
-
-     <div className="home__betweenListsSpacing"></div>
-
-     <div className="home__addListButtonPositioning">
-     <a onClick={() => { this.createNewItemSaved() }} className="home__newItemButton">New Item &nbsp; 🛒</a>
-     </div>
-
-                  </div>
-
-                </CardBody>
-              </Card>
-            </Col>
 
             <Col lg="4">
               <Card className="card-chart">
@@ -567,7 +1085,10 @@ updateTitleShopping(e, id) {
                   <h5 className="card-category">{this.state.shoppingList.length} {this.state.shoppingList.length === 1 ? 'Item' : 'Items'}</h5>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-basket-simple text-success" id="analytics__destinationIconColour" /> Shopping List
+
+
                   </CardTitle>
+
                 </CardHeader>
                 <CardBody>
 
@@ -625,272 +1146,294 @@ updateTitleShopping(e, id) {
 
                       </div>
 
-
+                        <span className="home__shoppingListExplanation"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">This is the List on Your Extension</span> 🗒️</span>
                 </CardBody>
               </Card>
             </Col>
-          </Row>
-          <Row>
 
 
-            <Col lg="6" md="12">
-              <Card className="card-tasks">
-                <CardHeader>
 
-                {/*  <UncontrolledDropdown>
-                    <DropdownToggle
-                      caret
-                      className="btn-icon"
-                      color="link"
-                      data-toggle="dropdown"
-                      type="button"
-                    >
-                      <i className="tim-icons icon-settings-gear-63" />
-                    </DropdownToggle>
-                    <DropdownMenu aria-labelledby="dropdownMenuLink" right>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Action
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Another action
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Something else
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown> */}
+          <Col md="8">
+            <Card>
+              <CardHeader>
+              <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
 
-                    <h6 id="home__recentOrdersTitle" className="title d-inline">🛍️ Compatible Marketplaces</h6>
-                    <div className="home__topTitleSpacing"></div>
-                </CardHeader>
-                <CardBody>
+              <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
 
-                <div className="home__compatSearchBarDiv">
-                <input className="home__compatSearchBar" placeholder="Find Marketplace" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} />
-                </div>
+              <div className="home__pageLabel"><div className="home__pageLabelText">Leaderboard <div className="home__pageLabelIcon"><Icon icon={roundLeaderboard} /></div></div></div>
 
-                <div id="home__compatScroll" className="table-full-width table-responsive">
+                <Form>
+                  <Row>
 
-              {this.state.search.map((marketplace) => {
+                    <div className="leaderboard__mainContentMargins">
 
-                return (<div className="home__indvCompat">
+                    {this.state.global ? <div>
 
-                    <a href={marketplace.link}><img src={marketplace.image} id="home__ordersImage" /></a>
+                    {this.returnAllUsersLeaderboard().map((user) => {
 
-                        <div className="home__compatText">
-                            <a href={marketplace.link} className="title home__compatTitle">{marketplace.name}</a>
+                      return (<div className="leaderboard__mainRow">
+                      <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
+                      <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
+                      <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
 
-                            <p className="text-muted home__compatAllProd">
-                              {marketplace.description}
-                            </p>
+                      <div className="leaderboard__individualLineMargins">
+                          <Line
+                            data={ { labels: [],
+                                      datasets: [{
+                                      data: [(Math.random() * (1000 - 0)),(Math.random() * (1000 - 0)), (Math.random() * (1000 - 0))],
+                                      label: "Ranking",
+                                      borderColor: this.returnRanColor(),
+                                      fill: false
+                                    }] } }
+                            options={this.state.lineOptions}
+                          />
                         </div>
 
-                        <div className="home__compatButton">
+                      </div>)
 
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <p id="analytics__mainTextSideOrders"><a href={marketplace.link} className="home__goToButton">Go to &nbsp; ✈️</a></p>
-                            </Button>
 
-                            </div>
-                            </div>)
-              })}
+                    })}</div> :
 
+                    <div className="leaderboard__friendRightShift">{this.returnFriendsRanks().map((friend) => {
+
+                      return (
+                        <div className="leaderboard__mainRow">
+
+                        <div className="leaderboard__mainNumber">&nbsp; {friend.rank}</div>
+                        <a href={`/user/@${friend.username}`}><img src={require(`../assets/img/${friend.avatar}`)} className="leaderboard__mainImage"/></a>
+                        <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points))}</div></div></div>
+
+
+                        <div className="leaderboard__individualLineMargins">
+                            <Line
+                              data={ { labels: [],
+                                        datasets: [{
+                                        data: [(Math.random() * (1000 - 0)),(Math.random() * (1000 - 0)), (Math.random() * (1000 - 0))],
+                                        label: "Ranking",
+                                        borderColor: this.returnRanColor(),
+                                        fill: false
+                                      }] } }
+                              options={this.state.lineOptions}
+                            />
+                          </div>
+
+                        </div>
+                      )
+
+
+
+                    })}
+
+                    </div>
+
+                    }
+
+                    </div>
+
+
+                  </Row>
+                </Form>
+                <div className="leaderboard__leaderboardBottomCardSpacing"></div>
+
+              </CardHeader>
+                <span className="leaderboard__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span>{this.state.global ? <span><span className="analytics__descriptionText">Carbonly's Global Leaderboard</span> &nbsp;🏆</span> : <span><span className="analytics__descriptionText">Your Friend Leaderboard</span> &nbsp;🍻</span>}</span>
+            </Card>
+          </Col>
+
+          </Row>
+
+          {/*     SECOND ROW HOME    */}
+
+            <Row>
+
+            <Col lg="6">
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">Carbon Budget</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
+                  {this.getBudgetPercent()}%
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area" id="analytics__middleCharts">
+                  <Line
+                    data={chartExample3.data}
+                    options={chartExample3.options}
+                  />
+                </div>
+              </CardBody>
+              <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Set Personal Carbon Goals!</span> &nbsp;⛳️</span>
+            </Card>
+          </Col>
+
+          <Col md="6">
+            <Card>
+              <CardHeader>
+              <div className="offsets__mainTitle">Pending Offsets <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
+
+                <Form>
+                  <Row>
+
+                  <div className="offsets__leftTopDiv">
+
+                  {this.state.period === 'custom' ? <div className="offsets__orderTitle">Custom <span className="offsets__orderTitleIcon"><Icon icon={gumtreeIcon} /></span></div> : <div className="offsets__orderTitle">Orders <span className="offsets__orderTitleIcon"><Icon icon={boxOpen} /></span></div>}
+
+                  {this.state.period === 'custom' ? <div className="offsets__customSection">
+
+                  <div className="offsets__customInputTopDecription">Enter an Amount:</div>
+
+                  <span className="offsets__currency"><select className="offsets__currencySelect" value={this.state.cur} onChange={(e) => this.changeCurrency(e)}>
+                  <option value="$">$</option>
+                  <option value="€">€</option>
+                  <option value="£">£</option>
+                  <option value="kg CO2">kg CO&#x2082;</option>
+                  </select></span><input value={this.state.offAmount} onChange={(e) => this.updateOffAmount(e)} className="offsets__customInput"/>
+
+                  {this.state.offAmount ? <div className="offsets__customInputOffsetCalc">{this.getTimeSizeOfEmissions(this.state.offAmount)}</div> : undefined}
+
+                  <div className="offsets__customSpacing"></div>
 
                   </div>
-                  <div className="home__compatibleMarketplacesNum">{this.state.search.length} {this.state.search.length === 1 ? 'Marketplace' : 'Marketplaces'} &nbsp;<Icon icon={storeIcon} /></div>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="6" md="12">
-              <Card>
-                <CardHeader>
-                <h6 id="home__recentOrdersTitleSide" className="title d-inline">🌳 Top Ranked Goods <span className="home__topRankedKG">(kg / km)</span></h6>
-                <div className="home__topTitleSpacing"></div>
-                </CardHeader>
-                <CardBody>
-                  <Table className="tablesorter" responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>By Category &nbsp;&nbsp;🗂️</th>
-                        <th></th>
-                        <th>By Product &nbsp;&nbsp;📦</th>
-                        <th className="text-center"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
 
-                      </tbody></Table>
 
-                      <div className="home__reduceSpacingTopRanked"></div>
+                  : <div className="offsets__makeNewMainDiv">
 
-                      <div className="topRanked__mainContainer">
+                    <div className="offsets__mainOrdersDiv">
 
-                      <div className="topRanked__leftContainer">
+                    <div className="offsets__centerOrders">
 
-                          <img src={require("../assets/img/topRankedImages/category/tomato.png")} id="home__rankedImage" />
+                    {this.state.period === 'weekly' ? this.returnWeeklyOrders().length > 0 ? this.returnWeeklyOrders().map((order) => {
 
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Tomatoes</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.15kg CO2e
+                      return (<tr id="offsets__mainOrderDiv">
+                        <td id="analytics__recentOrdersImageWidth">
+                        {this.returnOrderImage(order.website)}
+                        </td>
+                        <td id="offsets__recentOrdersTextSize">
+                          <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
+                          <p id="offsets__orderDescription" className="text-muted">
+                            {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                           </p>
-                          </div>
+                        </td>
+                        <td className="td-actions text-right">
+                          <Button
+                            color="link"
+                            id="tooltip636901683"
+                            title=""
+                            type="button"
+                          >
+                            <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                          </Button>
+                        </td>
+                      </tr>);
 
-                          <div className="home__betweenRanksSpacing"></div>
 
-                          <img src={require("../assets/img/topRankedImages/category/onion.png")} id="home__rankedImage" />
+                    }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
 
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Onions</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.18kg CO2e
+                    </div>
+
+                    <div className="offsets__centerOrders">
+
+                    {this.state.period === 'monthly' ? this.returnMonthlyOrders().length > 0 ? this.returnMonthlyOrders().map((order) => {
+
+                      return (<div id="offsets__mainOrderDiv"><tr>
+                        <td id="analytics__recentOrdersImageWidth">
+                        {this.returnOrderImage(order.website)}
+                        </td>
+                        <td id="offsets__recentOrdersTextSize">
+                          <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
+                          <p className="text-muted" id="offsets__orderDescription">
+                            {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                           </p>
-                          </div>
+                        </td>
+                        <td className="td-actions text-right">
+                          <Button
+                            color="link"
+                            id="tooltip636901683"
+                            title=""
+                            type="button"
+                          >
+                            <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                          </Button>
+                        </td>
+                      </tr></div>);
 
-                          <div className="home__betweenRanksSpacing"></div>
+                    }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
 
-                          <img src={require("../assets/img/topRankedImages/category/blueberry.png")} id="home__rankedImage" />
+                    </div>
 
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Blueberries</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.19kg CO2e
+                    <div className="offsets__centerOrders">
+                    {this.state.period === 'yearly' ? this.returnYearlyOrders().length > 0 ? this.returnYearlyOrders().map((order) => {
+
+                      return (<div id="offsets__mainOrderDiv"><tr>
+                        <td id="analytics__recentOrdersImageWidth">
+                        {this.returnOrderImage(order.website)}
+                        </td>
+                        <td id="offsets__recentOrdersTextSize">
+                          <p className="title" id="offsets__orderTitle">{this.returnUpperCase(order.website)}</p>
+                          <p id="offsets__orderDescription" className="text-muted">
+                            {order.name.length > 32 ? order.name.slice(0, 32) + ' ...' : order.name}
                           </p>
-                          </div>
+                        </td>
+                        <td className="td-actions text-right">
+                          <Button
+                            color="link"
+                            id="tooltip636901683"
+                            title=""
+                            type="button"
+                          >
+                            <p id="analytics__mainTextSideOrders">{this.roundCarbon(order.carbon)}kg CO<span id="analytics__ordersSmall2">2</span></p>
+                          </Button>
+                        </td>
+                      </tr></div>);
 
-                          <div className="home__betweenRanksSpacing"></div>
+                    }) : <div><div className="offsets__notOrdersFoundIcon"><Icon icon={searchIcon} /></div> <div className="offsets__notOrdersFoundTitle">No Orders to Found</div><div className="offsets__notOrdersFound">You're All Set! </div></div> : undefined}
 
-                          <img src={require("../assets/img/topRankedImages/category/potato.png")} id="home__rankedImage" />
+                    </div>
 
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Potatoes</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.2kg CO2
-                          </p>
-                          </div>
+                    </div>
 
-                          <div className="home__betweenRanksSpacing"></div>
+                    <div className="offsets__totalSection">
 
-                          <img src={require("../assets/img/topRankedImages/category/sweetPotato.png")} id="home__rankedImage" />
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Sweet Potato</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.27kg CO2e
-                          </p>
-                          </div>
+                    <div className="offsets__totalText"><Icon icon={cloudIcon} /> &nbsp;Total Emissions</div><div className="offsets__totalNum">{this.state.period === 'weekly' ? this.returnTotalWeek() : this.state.period === 'monthly' ? this.returnTotalMonth() : this.returnTotalYear()}<span id="offsets__subScript2">2</span></div>
 
-                          <div className="home__betweenRanksSpacing"></div>
+                    <div className="offsets__clearBoth"></div>
 
-                          <img src={require("../assets/img/topRankedImages/category/apple.png")} id="home__rankedImage" />
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Apples</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.29kg CO2e
-                          </p>
-                          </div>
+                    <div className="offsets__totalText"><Icon icon={moneyBillWave} />&nbsp; Total Offset</div><div className="offsets__totalNum">{this.state.cur}{this.state.period === 'weekly' ? this.returnTotalWeekCost() : this.state.period === 'monthly' ? this.returnTotalMonthCost() : this.returnTotalYearCost()}</div>
 
-                          <div className="home__betweenRanksSpacing"></div>
+                    </div>
 
-                        </div>
+                    </div>}
 
-                        <div className="topRanked__rightContainer">
+                    <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Go to Offsets &nbsp;🎉</a></div>
 
-                            <div className="home__betweenRanksSpacing"></div>
 
-                            <img src={require("../assets/img/topRankedImages/company/eurostar.png")} id="home__rankedImage" />
-                            <div className="home__topRankedGoodTitleLeft">
-                            <p className="title">Eurostar</p>
-                            <p className="text-muted home__topRankedSmallerText">
-                              0.006kg CO2e
-                            </p>
-                            </div>
+                    <div className="offsets__subDescription"></div>
+                  </div>
 
-                            <div className="home__betweenRanksSpacing"></div>
 
-                            <img src={require("../assets/img/topRankedImages/company/carlsberg.png")} id="home__rankedImage" />
-                            <div className="home__topRankedGoodTitleLeft">
-                            <p className="title">Carlsberg Beer</p>
-                            <p className="text-muted home__topRankedSmallerText">
-                              0.18kg CO2e
-                            </p>
-                            </div>
+                  {/*  <div className="offsets__subscriptionDiv">
 
-                            <div className="home__betweenRanksSpacing"></div>
+                    <div className="offsets__subDescription"></div>
 
-                            <img src={require("../assets/img/topRankedImages/company/cocacola.png")} id="home__rankedImage" />
-                            <div className="home__topRankedGoodTitleLeft">
-                            <p className="title">Coke Zero 2L Plastic</p>
-                            <p className="text-muted home__topRankedSmallerText">
-                              0.2kg CO2e
-                            </p>
-                            </div>
+                      <div className="offsets__monthlySubscriptionButton">Enable Carbonly Subscription</div>
 
-                            <div className="home__betweenRanksSpacing"></div>
-
-                            <img src={require("../assets/img/topRankedImages/company/oatly.png")} id="home__rankedImage" />
-
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">Oatly Original 330ml</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.4kg CO2e
-                          </p>
-                          </div>
-
-                          <div className="home__betweenRanksSpacing"></div>
-
-                          <img src={require("../assets/img/topRankedImages/company/quorn.png")} id="home__rankedImage" />
-                          <div className="home__topRankedGoodTitleLeft">
-                          <p className="title">6 Pack Quorn Nuggets</p>
-                          <p className="text-muted home__topRankedSmallerText">
-                            0.58kg CO2e
-                          </p>
-                          </div>
-
-                            <div className="home__betweenRanksSpacing"></div>
-
-                            <img src={require("../assets/img/topRankedImages/company/barilla.png")} id="home__rankedImage" />
-                            <div className="home__topRankedGoodTitleLeft">
-                            <p className="title">Barilla Basilico Sauce</p>
-                            <p className="text-muted home__topRankedSmallerText">
-                              1.31kg CO2e
-                            </p>
-                            </div>
-
-                            <div className="home__betweenRanksSpacing"></div>
-
-                        </div>
-
-                        </div>
-
-                        <div className="home__dataWarning">*Disclaimer: This ranking is solely based on data obtained by Carbonly. Click <a className="home__dataWarningLink" href="">here</a> to learn more about our data.</div>
-
-                        <div className="topRanked__bottomCardHeight"></div>
+                    </div> */}
 
 
 
-                </CardBody>
-              </Card>
-            </Col>
+                  </Row>
+                </Form>
+
+                <div className="leaderboard__leaderboardBottomCardSpacing"></div>
+                <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
+              </CardHeader>
+
+            </Card>
+          </Col>
+
+
+
           </Row></div> : undefined }
         </div>
       </>
