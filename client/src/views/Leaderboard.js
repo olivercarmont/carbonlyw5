@@ -853,16 +853,13 @@ returnRanColor() {
 
                     <div className="leaderboard__offsetPointDescription">1 Offset Point = 0.1kg CO&#x2082;</div>
                       <div className="leaderboard__profileBottomSpacing"></div>
-                      <div className="analytics__infoLink leaderboard__howDoPointsWork">How Do Points Work?</div>
-
+                      <LeaderboardModal/>
 
                 </CardBody>
               </Card>
             </Col>
 
           </Row>
-
-        {/* <LeaderboardModal/> */}
 
           {this.state.friends.length > 0 ? <Row>{this.returnFriends()}{this.returnFriendsTwo()}{this.insertAddFriendsContainer()}</Row>
 

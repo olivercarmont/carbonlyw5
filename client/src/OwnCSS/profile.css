@@ -721,3 +721,45 @@ margin-bottom:-7px;
   margin-bottom:-22px;
   font-size:0.95em;
 }
+.tooltipProfile {
+  position: absolute;
+  display: inline-block;
+  z-index: 100000 !important;
+  margin-left:11px;
+  margin-top:0px;
+  font-size:0.88em;
+  cursor:pointer;
+  /* float:left; */
+
+}
+.tooltipProfile .tooltiptextProfile {
+  visibility: hidden;
+  width: 180px;
+  background-color: #fff;
+  color: rgba(152, 199, 176, 1);
+  border: 1px solid rgba(152, 199, 176, 0.6);
+  text-align: center;
+  font-size:0.925em;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -8px;
+
+  left: 190%;
+}
+.tooltipProfile .tooltiptextProfile::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent rgba(152, 199, 176, 0.6) transparent transparent;
+}
+
+.tooltipProfile:hover .tooltiptextProfile {
+  visibility: visible;
+}

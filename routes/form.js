@@ -103,18 +103,20 @@ router.post("/has-submitted-form", (req, res) => {
 
 router.post("/submit-question", (req, res) => {
 
-  let formId, userE, details;
+  let formId, userE, details, time, answerType;
 
   if (req.body.formId) {
     formId = req.body.formId;
     userE = req.body.email;
     details = req.body.details;
     time = req.body.time;
+    answerType = req.body.answerType;
   } else if (req.header('formId')) {
     formId = req.header('formId');
     userE = req.header('email');
     details = req.header('details');
     time = req.header('time');
+    answerType = req.header('answerType')
   }
 
   if (!req.body.formId && !req.header('formId')) {

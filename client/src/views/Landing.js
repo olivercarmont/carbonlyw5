@@ -58,6 +58,7 @@ import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import linkedinIcon from '@iconify/icons-cib/linkedin';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
+import questionCircle from '@iconify/icons-fa-solid/question-circle';
 
 import { Link } from "react-router-dom";
 import homeIcon from '@iconify/icons-fa-solid/home';
@@ -888,6 +889,7 @@ animateNumbers() {
           <div className="footer__linkSection">
           <div className="footer__linkSectionTitle">About</div>
           <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Features</Link></div>
+          <div className="landing__individualPageLinks"><Link to="/faq" className="landing__individualPageLinksText"><Icon icon={questionCircle} /> &nbsp; FAQ</Link></div>
           <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText"><Icon icon={paperPlane} /> &nbsp; Contact</Link></div>
           </div>
 

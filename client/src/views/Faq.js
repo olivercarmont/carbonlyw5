@@ -17,6 +17,7 @@
 */
 import axios from 'axios';
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -56,9 +57,6 @@ import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
 import questionCircle from '@iconify/icons-fa-solid/question-circle';
 import arrowBackCircle from '@iconify/icons-ion/arrow-back-circle';
-
-
-import { Link } from "react-router-dom";
 
 // import './landingTheme/js/jquery-2.2.4.min.js';
 // import './landingTheme/js/popper.min.js';
@@ -140,8 +138,12 @@ componentWillMount() {
 
     console.log('QUESTIONS ==', response.data)
 
-      this.setState({ allQuestions: response.data.questions });
-       this.setState({ questions: response.data.questions });
+      let getQuestions = response.data.questions;
+
+      getQuestions.sort(function(a,b) {return (parseFloat(a.foundseful) < parseFloat(b.foundUseful)) ? 1 : ((parseFloat(b.foundUseful) < parseFloat(a.foundUseful)) ? -1 : 0);} );
+
+      this.setState({ allQuestions: getQuestions });
+       this.setState({ questions: getQuestions });
 
        // let cur_user = response.data.info[0];
 
@@ -221,7 +223,7 @@ setQuestion(question) {
 
     this.setState({ questionSet: question });
 
-    console.log('SET Q', question)
+    document.getElementById( 'faq__mainContainer' ).scrollIntoView();
 
 }
 unsetQuestion() {
@@ -248,6 +250,10 @@ answerQuestion(status) {
     });
 
 }
+}
+returnQuestionHTML(text) {
+
+return text.slice(0,82) + '...';
 }
 render() {
     return (
@@ -350,25 +356,26 @@ render() {
         <div className="landing__howItWorksMainTitle">Frequently Asked Questions &nbsp; 👨‍🚀️</div>
         </div>
 
-        <div className="features__descriptionBelow">We try to make our site as intuitive as possible, but we often take things for understood! 🚀 Check out the questions below or <a href="#faq__beforeAddNew" className="faq__submitNewLink">Submit Another!</a>️</div>
+        <div className="features__descriptionBelow" id="faq__mainContainer">We try to make our site as intuitive as possible, but we often take things for understood! 🚀 Check out the questions below or <a href="#faq__beforeAddNew" className="faq__submitNewLink">Submit Another 🎉</a>️</div>
         </div>
 
         <div className="ourData__donateCentering">
 
         <div className="ourData__donateFormCentering">
 
-        <div className="leaderboard__searchMargins"><input id="faq__mainSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="Search" /><div className="faq__positionSearchIcon"><i className="tim-icons icon-zoom-split" /></div></div>
+        <div className="faq__topSpacingSearch"><input id="faq__mainSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="How Do You..." /><div className="faq__positionSearchIcon"><i className="tim-icons icon-zoom-split" /></div></div>
 
         <div className="faq__scrollableContainer">
 
         {this.state.questionSet ? <div>
        <div className="faq__answerContainer">
        <Icon icon={arrowBackCircle} onClick={() => this.unsetQuestion()}className="faq__xIcon" />
+      <div className="faq__categoryTop">{this.state.questionSet.category}</div>
       <div className="faq__individualTitle">{this.state.questionSet.title}</div>
       <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: this.state.questionSet.text }}></div>
       <div className="faq__indFoundUsefulFull">{this.state.questionSet.foundUseful}/{parseFloat(this.state.questionSet.foundUseful) + parseFloat(this.state.questionSet.foundNotUseful)} Found This Useful</div>
 
-      <div className="faq__wasAnswerUseful">Was This Answer Useful?</div><div onClick={() => this.answerQuestion('useful')} className={`faq__wasUsefulButton ${this.state.answered === 'notUseful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>Yes</div><div onClick={() => this.answerQuestion('notUseful')} className={`faq__wasntUsefulButton ${this.state.answered === 'useful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>No</div>{this.state.thanks ? <div className="faq__thankYouMessage">Thank You! ❤️🎉</div> : undefined}
+      <div className="faq__wasAnswerUseful">Was This Answer Useful?</div><div onClick={() => this.answerQuestion('useful')} className={`faq__wasUsefulButton ${this.state.answered === 'notUseful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>Yes</div><div onClick={() => this.answerQuestion('notUseful')} className={`faq__wasntUsefulButton ${this.state.answered === 'useful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>No</div>{this.state.thanks ? <div className="faq__thankYouMessage">Thank You ❤️</div> : undefined}
       <div className="faq__answerContainerBottomSpacing"></div>
       </div>
 
@@ -379,7 +386,7 @@ render() {
           return(<div>
          <div onClick={() => this.setQuestion(question)} className="faq__individualContainer">
         <div className="faq__individualTitle">{question.title}</div>
-        <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: question.text.slice(0,122) }}></div>
+        <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: this.returnQuestionHTML(question.text) }}></div>
         <div className="faq__indFoundUseful">{question.foundUseful}/{parseFloat(question.foundUseful) + parseFloat(question.foundNotUseful)} Found This Useful</div>
 
 
@@ -504,6 +511,7 @@ render() {
          <div className="footer__linkSection">
          <div className="footer__linkSectionTitle">About</div>
          <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Features</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/faq" className="landing__individualPageLinksText"><Icon icon={questionCircle} /> &nbsp; FAQ</Link></div>
          <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText"><Icon icon={paperPlane} /> &nbsp; Contact</Link></div>
          </div>
 

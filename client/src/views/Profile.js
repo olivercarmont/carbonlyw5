@@ -53,6 +53,7 @@ import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
 import bxCut from '@iconify/icons-bx/bx-cut';
+import shareSquare from '@iconify/icons-fa-solid/share-square';
 
 import axios from 'axios';
 
@@ -86,6 +87,7 @@ constructor(props) {
       carbonBudget: 0,
       averageSelected: 'custom',
       budgetSelected: false,
+      addedReferralCode: false,
       friendsMove: 1,
       save: '',
       lineOptions: {
@@ -543,6 +545,17 @@ selectBudget() {
 })
 
 }
+copyReferral() {
+
+    var input = document.createElement('input');
+    input.setAttribute('value', this.state.user.referralCode);
+    document.body.appendChild(input);
+    input.select();
+    var result = document.execCommand('copy');
+    document.body.removeChild(input);
+
+  this.setState({ addedReferralCode: true })
+}
 render() {
     return (
       <>
@@ -574,7 +587,10 @@ render() {
                       src={require(`../assets/img/${this.state.avatars[this.state.currentAvatar]}`)}
                     />
 
-                    <h5 className="title" id="profile__mainName">{this.state.name}</h5>
+                    <h5 className="title" id="profile__mainName">{this.state.name} <div className="tooltipProfile" onClick={() => this.copyReferral()}><Icon className="profile__referralSharer" icon={shareSquare} />
+                      <span className="tooltiptextProfile"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto", "font-size": "0.87em", "line-height": "1.35"}}>{this.state.addedReferralCode ? 'Copied 🎉 ' : 'Copy Referral Code to Share 👪'}</div></span></div>
+
+                      </h5>
 
                     <p className="description" id="profile__mainUsername">{`@` + this.state.username}</p>
                 </div>

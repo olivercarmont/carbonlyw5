@@ -838,3 +838,60 @@ transition:0.9s;
 .leaderboard__middleCardExplanations:hover .analytics__positionDescriptionCheck {
 display:inline-block;
 }
+.leaderboardModal__xIcon {
+  position:absolute;
+  top:16px;
+  left:16px;
+  color:#88b6a0 !important;
+  font-size:1.4em;
+  cursor:pointer;
+}
+.leaderboardModal__mainTitle {
+  color:#88b6a0 !important;
+  font-weight:bold;
+  font-size:1.35em;
+  text-align:center;
+}
+.leaderboardModal__topDescription {
+  margin-top:7px;
+  color:#9f9f9f;
+  text-align:center;
+  width:85%;
+  margin-left:auto;
+  margin-right:auto;
+}
+.leaderboardModal__getPointsSubtitle {
+  text-align:center;
+  color:#a6a6a6;
+  font-size:0.98em;
+  margin-top:25px;
+  margin-bottom:8px;
+  font-weight:bold;
+}
+.leaderboardModal__numberOne {
+  color:#88b6a0 !important;
+  font-size:1.06em;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:1px;
+}
+.leaderboardModal__numberTwo {
+  color:#88b6a0 !important;
+  font-size:1.06em;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:1px;
+}
+.leaderboardModal__numberThree {
+  color:#88b6a0 !important;
+  font-size:1.06em;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:1px;
+}
+.leaderboardModal__mainPointDescription {
+  text-align:center;
+  color:#88b6a0 !important;
+  font-size:0.95em;
+  margin-bottom:12px;
+}
