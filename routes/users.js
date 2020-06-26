@@ -469,7 +469,7 @@ router.post("/return-register", (req, res) => {
 
     users.map((us) => {
 
-      usersArray.push({ publicId: us.publicId, email: us.email, username: us.username, referralCode: us.referralCode, });
+      usersArray.push({ publicId: us.publicId, email: us.email, username: us.username, referralCode: us.referralCode, socialLogin: us.socialLogin });
 
     });
 

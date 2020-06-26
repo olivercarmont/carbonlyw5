@@ -84,6 +84,22 @@ constructor(props) {
       isChanging: false,
     };
 }
+componentWillMount() {
+
+      axios.post('https://carbonly.org/users/return-register', { }, {
+
+      })
+    .then(response => {
+      // console.log('SEND RESPONSE')
+
+         this.setState({ allUsers: Array(response.data)[0] });
+
+         // console.log('allU', Array(response.data)[0] );
+}).catch((error) => {
+  console.log(error);
+
+})
+}
 componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
@@ -117,8 +133,27 @@ componentDidMount() {
       password: this.state.passwordLogin,
     };
 
-    this.props.loginUser(userData);
-    this.setState({ isChanging: true });
+    let allUsersArray = this.state.allUsers.usersArray;
+
+    allUsersArray.map((us) => {
+
+      console.log('users', `${us.email}, ${this.state.emailLogin}`)
+
+      if ((us.email == this.state.emailLogin) && this.state.emailLogin) {
+          console.log('WAS SOCIAL LOGIN', us)
+        if (us.socialLogin) {
+          this.setState({ error: "This Account Requires Google Login" });
+
+        } else {
+          this.props.loginUser(userData);
+          this.setState({ isChanging: true });
+        }
+      }
+
+    });
+
+
+
   };
 handleGoogleLoginFailure(err) {
     // console.error(err)
@@ -142,6 +177,7 @@ render() {
   const { errors } = this.state;
     return (
       <>
+      {this.state.allUsers ?
         <div className="content disableScroll">
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>
@@ -244,6 +280,7 @@ render() {
 
         <div id="dropDownSelect1"></div>
         </div>
+        : undefined }
       </>
     );
   }

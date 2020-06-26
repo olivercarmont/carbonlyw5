@@ -1864,6 +1864,7 @@ class Analytics extends React.Component {
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">Carbon Budget</h5>
+                  <Link to="/profile" className="analytics__changeBudget">Change</Link>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
                     {this.getBudgetPercent()}%
