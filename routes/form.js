@@ -200,7 +200,7 @@ router.post("/update-faq", (req, res) => {
 
     let newQuestionList = form.faqQuestions.filter(frm => !(frm.questionId === questionId));
 
-    cur_question.foundUseful = cur_question.foundUseful + 1;
+    cur_question.foundUseful = parseFloat(cur_question.foundUseful) + 1;
 
     newQuestionList.push(cur_question)
 
@@ -219,7 +219,7 @@ router.post("/update-faq", (req, res) => {
 
     let newQuestionList = form.faqQuestions.filter(frm => !(frm.questionId === questionId));
 
-    cur_question.foundNotUseful = cur_question.foundNotUseful + 1;
+    cur_question.foundNotUseful = parseFloat(cur_question.foundNotUseful) + 1;
 
     newQuestionList.push(cur_question)
 

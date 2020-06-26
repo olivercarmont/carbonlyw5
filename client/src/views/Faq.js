@@ -55,7 +55,8 @@ import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
 import questionCircle from '@iconify/icons-fa-solid/question-circle';
-import arrowBackCircleOutline from '@iconify/icons-ion/arrow-back-circle-outline';
+import arrowBackCircle from '@iconify/icons-ion/arrow-back-circle';
+
 
 import { Link } from "react-router-dom";
 
@@ -229,6 +230,7 @@ unsetQuestion() {
   this.setState({ thanks: '' });
 }
 answerQuestion(status) {
+
   if (!this.state.answered) {
 
       axios.post('https://carbonly.org/form/update-faq', { "useful": status, "cur_question": this.state.questionSet  }, {
@@ -236,7 +238,7 @@ answerQuestion(status) {
       })
     .then(response => {
 
-      if (response.updated) {
+      if (response.data.updated) {
         this.setState({ answered: status });
         this.setState({ thanks: true });
       }
@@ -361,12 +363,12 @@ render() {
 
         {this.state.questionSet ? <div>
        <div className="faq__answerContainer">
-       <Icon icon={arrowBackCircleOutline} onClick={() => this.unsetQuestion()}className="faq__xIcon" />
+       <Icon icon={arrowBackCircle} onClick={() => this.unsetQuestion()}className="faq__xIcon" />
       <div className="faq__individualTitle">{this.state.questionSet.title}</div>
       <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: this.state.questionSet.text }}></div>
       <div className="faq__indFoundUsefulFull">{this.state.questionSet.foundUseful}/{parseFloat(this.state.questionSet.foundUseful) + parseFloat(this.state.questionSet.foundNotUseful)} Found This Useful</div>
 
-      <div className="faq__wasAnswerUseful">Was This Answer Useful?</div><div onClick={() => this.answerQuestion('useful')} className={`faq__wasUsefulButton ${this.state.answered === 'notUseful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>Yes</div><div onClick={() => this.answerQuestion('notUseful')} className={`faq__wasntUsefulButton ${this.state.answered === 'useful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>No</div>
+      <div className="faq__wasAnswerUseful">Was This Answer Useful?</div><div onClick={() => this.answerQuestion('useful')} className={`faq__wasUsefulButton ${this.state.answered === 'notUseful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>Yes</div><div onClick={() => this.answerQuestion('notUseful')} className={`faq__wasntUsefulButton ${this.state.answered === 'useful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>No</div>{this.state.thanks ? <div className="faq__thankYouMessage">Thank You! ❤️🎉</div> : undefined}
       <div className="faq__answerContainerBottomSpacing"></div>
       </div>
 
@@ -378,7 +380,7 @@ render() {
          <div onClick={() => this.setQuestion(question)} className="faq__individualContainer">
         <div className="faq__individualTitle">{question.title}</div>
         <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: question.text.slice(0,122) }}></div>
-        <div className="faq__indFoundUseful">{question.foundUseful}/{parseFloat(question.foundUseful) + parseFloat(question.foundNotUseful)} Found This Useful</div>{<div className="faq__thankYouMessage">Thank You! ❤️🎉</div>}
+        <div className="faq__indFoundUseful">{question.foundUseful}/{parseFloat(question.foundUseful) + parseFloat(question.foundNotUseful)} Found This Useful</div>
 
 
         </div>
