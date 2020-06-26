@@ -54,6 +54,8 @@ import youtubeFilled from '@iconify/icons-ant-design/youtube-filled';
 import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
+import questionCircle from '@iconify/icons-fa-solid/question-circle';
+import arrowBackCircleOutline from '@iconify/icons-ion/arrow-back-circle-outline';
 
 import { Link } from "react-router-dom";
 
@@ -88,21 +90,23 @@ class Features extends React.Component {
       footerImage: '',
       footerText: '',
       searchValue: '',
+      newQuestion: '',
+      questionSet: '',
     }
     this.trackScrolling = this.trackScrolling.bind(this);
 }
 addSubmission() {
 
   let totMessage = {
-    email: this.state.email,
-    message: this.state.message
+    email: 'None --> FAQ',
+    question: this.state.newQuestion
   }
 
   let time = new Date();
   time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
   time.getHours() + ":" + time.getMinutes();
 
-      axios.post('https://carbonly.org/form/add-submission', { "type": "feature", "data": totMessage, time }, {
+      axios.post('https://carbonly.org/form/add-submission', { "type": "FAQ", "data": totMessage, time }, {
         "type": "feature", "data": totMessage, time
       })
     .then(response => {
@@ -112,15 +116,12 @@ addSubmission() {
       } else {
         this.setState({ hasntSent: true });
       }
-});
+    }).catch((error) => {
+    console.log('E', error);
+  });
 }
-updateEmail(e) {
-  this.setState({ email: e.target.value });
-  this.setState({ hasSent: false });
-  this.setState({ hasntSent: false });
-}
-updateMessage(e) {
-  this.setState({ message: e.target.value });
+updateNewQuestion(e) {
+  this.setState({ newQuestion: e.target.value });
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
 }
@@ -129,18 +130,24 @@ componentDidMount() {
 }
 componentWillUnmount() {
   document.removeEventListener('scroll', this.trackScrolling);
+}
+componentWillMount() {
 
-  axios.post('https://carbonly.org/form/return-faq', { jwt: localStorage.jwtToken }, {
-      'jwt': localStorage.jwtToken,
-    })
+  axios.post('https://carbonly.org/form/return-faq', { "formId": "4JF931" }, {
+    "formId": "4JF931" })
   .then(response => {
 
-    console.log('QUESTIONS', response.data)
+    console.log('QUESTIONS ==', response.data)
 
-       this.setState({ questions: response.data });
+      this.setState({ allQuestions: response.data.questions });
+       this.setState({ questions: response.data.questions });
 
-       let cur_user = response.data.info[0];
-});
+       // let cur_user = response.data.info[0];
+
+     }).catch((error) => {
+    console.log('E', error);
+
+  });
 }
 trackScrolling() {
   const downloadSection = document.getElementById('downloadSection');
@@ -164,27 +171,28 @@ trackScrolling() {
 updateSearchValue(e) {
   this.setState({ searchValue: e.target.value });
   this.updateSearchFunction(e.target.value);
+  this.setState({ questionSet: '' });
 }
 updateSearchFunction(searchValue) {
 
-var search = [];
+var questions = [];
 
 /* let searchStrings = this.state.searchValue.match(/.{1,3}/g); */
 //
 // console.log('searchStrings', searchStrings);
 
-this.state.allUsers.map((user) => {
+this.state.allQuestions.map((que) => {
 
-  if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
-    search.push(user);
-  } else if (user.username.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
-    search.push(user);
+  if (que.title.toLowerCase().includes(searchValue.toLowerCase())) {
+    questions.push(que);
+  } else if (que.text.toLowerCase().includes(this.state.searchValue.toLowerCase())) {
+    questions.push(que);
   }
 
 
 })
 
-this.setState({ search });
+this.setState({ questions });
 
 }
 shuffleArray(array) {
@@ -208,9 +216,41 @@ shuffleArray(array) {
 newFaqSubmission() {
 
 }
+setQuestion(question) {
+
+    this.setState({ questionSet: question });
+
+    console.log('SET Q', question)
+
+}
+unsetQuestion() {
+  this.setState({ questionSet: '' });
+  this.setState({ answered: '' });
+  this.setState({ thanks: '' });
+}
+answerQuestion(status) {
+  if (!this.state.answered) {
+
+      axios.post('https://carbonly.org/form/update-faq', { "useful": status, "cur_question": this.state.questionSet  }, {
+        "useful": status, "cur_question": this.state.questionSet
+      })
+    .then(response => {
+
+      if (response.updated) {
+        this.setState({ answered: status });
+        this.setState({ thanks: true });
+      }
+
+    }).catch((error) => {
+      console.log('E', error);
+    });
+
+}
+}
 render() {
     return (
       <>
+        {this.state.questions ? <div>
         <div className="landing__topDiv">
         {/* <!-- Preloader Start --> */}
       {/*  <div id="preloader">
@@ -308,46 +348,91 @@ render() {
         <div className="landing__howItWorksMainTitle">Frequently Asked Questions &nbsp; 👨‍🚀️</div>
         </div>
 
-        <div className="features__descriptionBelow">We try to make our site as intuitive as possible, but we often take things for understood! 🚀 Check out the questions below or <span href="#faq__submitNewOne" className="faq__submitNewLink">Submit Another</span>️</div>
+        <div className="features__descriptionBelow">We try to make our site as intuitive as possible, but we often take things for understood! 🚀 Check out the questions below or <a href="#faq__beforeAddNew" className="faq__submitNewLink">Submit Another!</a>️</div>
         </div>
 
         <div className="ourData__donateCentering">
 
         <div className="ourData__donateFormCentering">
 
-        <div className="leaderboard__searchMargins"><input id="leaderboard__addFriendsSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="Search" /><div className="leaderboard__addFriendsPositionSearch"><i className="tim-icons icon-zoom-split" /></div></div>
+        <div className="leaderboard__searchMargins"><input id="faq__mainSearch" value={this.state.searchValue} onChange={(e) => this.updateSearchValue(e)} placeholder="Search" /><div className="faq__positionSearchIcon"><i className="tim-icons icon-zoom-split" /></div></div>
 
-        <div className="leaderboard__addFriendsScrollableContainer">
+        <div className="faq__scrollableContainer">
 
-        {this.state.search.map((userf) => {
+        {this.state.questionSet ? <div>
+       <div className="faq__answerContainer">
+       <Icon icon={arrowBackCircleOutline} onClick={() => this.unsetQuestion()}className="faq__xIcon" />
+      <div className="faq__individualTitle">{this.state.questionSet.title}</div>
+      <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: this.state.questionSet.text }}></div>
+      <div className="faq__indFoundUsefulFull">{this.state.questionSet.foundUseful}/{parseFloat(this.state.questionSet.foundUseful) + parseFloat(this.state.questionSet.foundNotUseful)} Found This Useful</div>
+
+      <div className="faq__wasAnswerUseful">Was This Answer Useful?</div><div onClick={() => this.answerQuestion('useful')} className={`faq__wasUsefulButton ${this.state.answered === 'notUseful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>Yes</div><div onClick={() => this.answerQuestion('notUseful')} className={`faq__wasntUsefulButton ${this.state.answered === 'useful' ? 'faq__usefulButtonsWasntSelected' : ''}`}>No</div>
+      <div className="faq__answerContainerBottomSpacing"></div>
+      </div>
+
+      </div> :
+
+          <div>{this.state.questions.map((question) => {
 
           return(<div>
-        <div className="leaderboard__addFriendsMainRow">
+         <div onClick={() => this.setQuestion(question)} className="faq__individualContainer">
+        <div className="faq__individualTitle">{question.title}</div>
+        <div className="faq__individualDescription" dangerouslySetInnerHTML={{ __html: question.text.slice(0,122) }}></div>
+        <div className="faq__indFoundUseful">{question.foundUseful}/{parseFloat(question.foundUseful) + parseFloat(question.foundNotUseful)} Found This Useful</div>{<div className="faq__thankYouMessage">Thank You! ❤️🎉</div>}
 
-        <a href={`/user/@${userf.username}`}><img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/></a>
-        <a href={`/user/@${userf.username}`} className="leaderboard__nameAndUsernamContainer"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__addFriendsUsername">@{userf.username}</div></a>
-
-        {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
 
         </div>
 
-        <div className="leaderboard__addFriendsIndvSpacing"></div>
+        <div className="faq__betweenSpacing"></div>
 
 
         </div>)
 
-        })}
+      })}</div>}
+
+        </div>
+
+        <div id="faq__beforeAddNew"></div>
+
+        <div id="faq__submitNewOne">
+
+        <div className="faq__largeIcon"><Icon icon={questionCircle} /></div>
+
+        <div className="faq__newSubmissionTitle">Add a New FAQ 🗒️</div>
+
+        <div className="faq__newSubmissionDescription">Yes, it Really is This Easy 😝Just Type Your Question Below! <br/>Want to contact us instead? <Link to="/contact" className="analytics__infoLink">Click here</Link></div>
+
+        <div className="ourData__donateCentering">
+
+        <div className="ourData__donateFormCentering">
+
+        <div className="ourData__indFormContainer">
+        <div className="ourData__donateSubtitle">Question</div>
+        <input className="ourData__donateInput" value={this.state.newQuestion} onChange={(e) => this.updateNewQuestion(e)} maxlength="300" placeholder="Enter Your Question And Click Send! 🎉" />
+        {/* <div className="ourData__donateDisclaimer"></div> */}
+        </div>
+
+        <div className="faq__positionSendButton">
+
+        <div onClick={() => this.addSubmission()} className="faq__sendButton" >Send &nbsp; 🚀</div>
+
+        </div>
+
+        <div className="landing__formBottomMessages">
+
+        {this.state.hasSent ? <div id="landingForm__sentConfirm">It Sent! &nbsp;🎉</div> : undefined}
+
+        {this.state.hasntSent ? <div id="landingForm__notSent">It doesn't appear to have sent. Try reloading! &nbsp;👨‍💻️</div> : undefined}
+
+        </div>
 
         </div>
 
 
-        <div id="faq__submitNewOne">Don't worry about all the details! As long as we understand the issue we'll take the time to formulate the Q&A!</div>
-
-
         </div>
         </div>
 
-
+        </div></div>
 
 
 
@@ -441,6 +526,7 @@ render() {
        </footer>
         {/* <!-- ***** Footer Area Start ***** --> */}
         </div>
+        </div> : undefined}
       </>
     );
   }

@@ -176,4 +176,64 @@ router.post("/return-faq", (req, res) => {
   });
 });
 
+router.post("/update-faq", (req, res) => {
+
+  let questionId, cur_question;
+
+  if (req.body.useful) {
+    useful = req.body.useful;
+  } else if (req.header('useful')) {
+    useful = req.header('useful');
+  }
+
+  if (req.body.cur_question) {
+    cur_question = req.body.cur_question;
+  } else if (req.header('cur_question')) {
+    cur_question = req.header('cur_question');
+  }
+
+  questionId = cur_question.questionId;
+
+  if (useful === 'useful') {
+
+    Form.findOne({ formId: '4JF931' }).then(form => {
+
+    let newQuestionList = form.faqQuestions.filter(frm => !(frm.questionId === questionId));
+
+    cur_question.foundUseful = cur_question.foundUseful + 1;
+
+    newQuestionList.push(cur_question)
+
+    Form.findOneAndUpdate({ formId: '4JF931' }, { $set: {
+      faqQuestions: newQuestionList,
+      }
+    }).then(user => {
+      return res.json({ updated: 'True!' });
+    })
+
+  });
+
+  } else {
+
+    Form.findOne({ formId: '4JF931' }).then(form => {
+
+    let newQuestionList = form.faqQuestions.filter(frm => !(frm.questionId === questionId));
+
+    cur_question.foundNotUseful = cur_question.foundNotUseful + 1;
+
+    newQuestionList.push(cur_question)
+
+    Form.findOneAndUpdate({ formId: '4JF931' }, { $set: {
+      faqQuestions: newQuestionList,
+      }
+    }).then(user => {
+      return res.json({ updated: 'True!' });
+    })
+
+    });
+
+  }
+
+});
+
 module.exports = router;
