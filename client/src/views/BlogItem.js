@@ -127,7 +127,7 @@ componentDidMount() {
 
   if (localStorage.jwtToken) {
 
-  axios.post('http://localhost:3000/blogs/return-blog', { jwt: localStorage.jwtToken, link: location  }, {
+  axios.post('https://carbonly.org/blogs/return-blog', { jwt: localStorage.jwtToken, link: location  }, {
     jwt: localStorage.jwtToken, "link": location
   })
 .then(response => {
@@ -170,7 +170,7 @@ document.addEventListener('scroll', this.trackScrolling);
 
 } else {
 
-  axios.post('http://localhost:3000/blogs/return-blog', { link: location }, {
+  axios.post('https://carbonly.org/blogs/return-blog', { link: location }, {
     "link": location
   })
 .then(response => {
@@ -311,7 +311,7 @@ postAComment() {
     time,
   }
 
-  axios.post('http://localhost:3000/blogs/post-comment', { userPublicId: this.state.user.publicId, link: location, commentData }, {
+  axios.post('https://carbonly.org/blogs/post-comment', { userPublicId: this.state.user.publicId, link: location, commentData }, {
     userPublicId: this.state.user.publicId, "link": location, commentData
   })
   .then(response => {
@@ -327,7 +327,7 @@ postAComment() {
 changeLike() {
   if (localStorage.jwtToken) {
 
-  axios.post('http://localhost:3000/blogs/change-like', { userPublicId: this.state.user.publicId, link: location  }, {
+  axios.post('https://carbonly.org/blogs/change-like', { userPublicId: this.state.user.publicId, link: location  }, {
     userPublicId: this.state.user.publicId, "link": location
   })
 .then(response => {

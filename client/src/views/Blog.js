@@ -114,7 +114,7 @@ class Landing extends React.Component {
 }
 componentWillMount() {
 
-      axios.post('http://localhost:3000/blogs/return-blogs', {  }, {
+      axios.post('https://carbonly.org/blogs/return-blogs', {  }, {
 
       })
     .then(response => {
