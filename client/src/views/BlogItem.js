@@ -716,6 +716,7 @@ render() {
                               <a href="#" className="blogItem__tagButtons">Environment</a>
                           </li>
                       </ul>
+                      <div id="newsletter"></div>
                   </aside>
 
                   <aside className="single_sidebar_widget newsletter_widget" style={{ "background-color": "#fff"}}>
