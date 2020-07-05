@@ -76,20 +76,24 @@ if (process.env.NODE_ENV === 'production') {
   const usersRouter = require('./routes/users');
   const dataRouter = require('./routes/data');
   const formRouter = require('./routes/form');
+  const blogRouter = require('./routes/blog');
 
   app.use('/data', dataRouter);
   app.use('/users', usersRouter);
   app.use('/form', formRouter);
+  app.use('/blogs', blogRouter);
 
 }
 // const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 const dataRouter = require('./routes/data');
 const formRouter = require('./routes/form');
+const blogRouter = require('./routes/blog');
 
 app.use('/users', usersRouter);
 app.use('/data', dataRouter);
 app.use('/form', formRouter);
+app.use('/blogs', blogRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port (server.js here): ${port}`);

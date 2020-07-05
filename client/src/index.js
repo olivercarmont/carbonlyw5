@@ -32,7 +32,6 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import Landing from "./views/Landing.js";
 import ForgotPassword from "./views/ForgotPassword";
 import Login from "./views/Login.js";
 import Signup from "./views/Signup.js";
@@ -43,9 +42,9 @@ import { GoogleLogin } from 'react-google-login';
 
 import { useGoogleLogin } from 'react-use-googlelogin'
 
-// import Signup from "./auth/Signup";
-// import Login from "./auth/Login";
-
+import Landing from "./views/Landing.js";
+import Blog from "./views/Blog.js";
+import BlogItem from "./views/BlogItem.js";
 import OurData from "./views/OurData.js";
 import Features from "./views/Features.js";
 import FAQ from "./views/Faq.js";
@@ -112,6 +111,9 @@ ReactDOM.render(
     <Switch>
 
       <Route exact path="/landing" render={props => <Landing />} />
+      <Route exact path="/blog" render={props => <Blog />} />
+      <Route exact path="/blogs/:id" render={props => <BlogItem />} />
+
       <Route exact path="/forgot-password" render={props => <ForgotPassword />} />
       <Route exact path="/extension-iframe" render={props => <ExtensionIframe />} />
       {/* <Route exact path="/signup" component={Signup} />

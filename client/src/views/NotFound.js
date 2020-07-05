@@ -55,6 +55,8 @@ import userEdit from '@iconify/icons-fa-solid/user-edit';
 import arrowRightCircle from '@iconify/icons-feather/arrow-right-circle';
 import mediumSquareFilled from '@iconify/icons-ant-design/medium-square-filled';
 import questionCircle from '@iconify/icons-fa-solid/question-circle';
+import sharpPersonPinCircle from '@iconify/icons-ic/sharp-person-pin-circle';
+import typewriterIcon from '@iconify/icons-mdi/typewriter';
 
 import { Link } from "react-router-dom";
 
@@ -128,9 +130,10 @@ trackScrolling() {
                                 <div className="collapse navbar-collapse" id="ca-navbar">
                                     <ul className="navbar-nav ml-auto" id="nav">
                                         <li className="nav-item"><Link to="/landing" className="nav-link" id="landing__navLinkHover">Home</Link></li>
+                                        <li className="nav-item"><Link to="/blog" className="nav-link" id="landing__navLinkHover">Blog</Link></li>
                                         <li className="nav-item"><Link to="/data" className="nav-link" id="landing__navLinkHover">Our Data</Link></li>
                                         <li className="nav-item"><Link to="/contact" className="nav-link" id="landing__navLinkHover">Contact</Link></li>
-                                        <li className="nav-item"><Link to="/features" className="nav-link" id="landing__navLinkHover">Features</Link></li>
+
 
                                     </ul>
                                     <div className="sing-up-button d-lg-none">
@@ -231,10 +234,12 @@ trackScrolling() {
 
          <div className="footer__linkSection">
          <div className="footer__linkSectionTitle">Learn</div>
-         <div className="landing__individualPageLinks"><Link to="/landing" className="landing__individualPageLinksText"><Icon icon={homeIcon} /> &nbsp; Home</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/home" className="landing__individualPageLinksText"><Icon icon={homeIcon} /> &nbsp; Home</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/blog" className="landing__individualPageLinksText"><Icon icon={typewriterIcon} /> &nbsp; Blog</Link></div>
+
          <div className="landing__individualPageLinks"><Link to="/data" className="landing__individualPageLinksText"><Icon icon={bxsData} /> &nbsp; Our Data</Link></div>
 
-         <div className="landing__individualPageLinks"><Link to="/sign-up" className="landing__individualPageLinksText"><Icon icon={accountArrowRight} /> &nbsp; Join</Link></div>
+         {/* <div className="landing__individualPageLinks"><Link to="/sign-up" className="landing__individualPageLinksText"><Icon icon={accountArrowRight} /> &nbsp; Join</Link></div> */}
          </div>
 
          <div className="footer__linkSection">
@@ -246,6 +251,7 @@ trackScrolling() {
 
          <div className="footer__linkSection">
          <div className="footer__linkSectionTitle">Company</div>
+                   <div className="landing__individualPageLinks"><a href="https://angel.co/company/carbonly/jobs" className="landing__individualPageLinksText"><Icon icon={sharpPersonPinCircle} style={{"font-size": "1.4em"}} /> &nbsp; Jobs</a></div>
          <div className="landing__individualPageLinks"><Link to="/privacy" className="landing__individualPageLinksText"><Icon icon={gitRepositoryPrivateFill} /> &nbsp; Privacy</Link></div>
          <div className="landing__individualPageLinks"><Link to="/terms" className="landing__individualPageLinksText"><Icon icon={fileDocumentEdit} /> &nbsp; Terms</Link></div>
          </div>
