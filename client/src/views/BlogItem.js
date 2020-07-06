@@ -564,10 +564,10 @@ render() {
                           <a href="#comments" className="comment-count" style={{ "color": "#999"}}><span className="align-middle"><i className="far fa-comment"></i></span>{this.state.comments.length} {this.state.comments.length === 1 ? 'Comment' : 'Comments'}</a>
                       </div>
                       <ul className="social-icons">
-                          <li><a target="_blank" href="https://www.facebook.com/share.php?u=https%3A%2F%2Ftinyurl.com%2Fy92uyyh4" className="blog__topSocialIcon"><Icon icon={facebookIcon} /></a></li>
-                          <li><a target="_blank" href="https://ctt.ac/aIchH" className="blog__topSocialIcon"><Icon icon={twitterIcon} /></a></li>
-                          <li><a target="_blank" href="https://www.pinterest.co.uk/pin/create/button/?url=https://www.carbonly.org/blogs/s1e1-pilot" className="blog__topSocialIcon"><Icon icon={bxlPinterest} /></a></li>
-                          <li><a target="_blank" href="mailto:?subject=Check Out Carbonly's New Blog Post!&amp;body=See it all here: https://www.carbonly.org/blogs/s1e1-pilot" className="blog__topSocialIconEmail"><Icon icon={emailaltIcon} /></a></li>
+                          <li><a target="_blank" href={this.state.blog.facebookLink} className="blog__topSocialIcon"><Icon icon={facebookIcon} /></a></li>
+                          <li><a target="_blank" href={this.state.blog.twitterLink} className="blog__topSocialIcon"><Icon icon={twitterIcon} /></a></li>
+                          <li><a target="_blank" href={this.state.blog.emailLink} className="blog__topSocialIcon"><Icon icon={bxlPinterest} /></a></li>
+                          <li><a target="_blank" href={this.state.blog.pinterestLink} className="blog__topSocialIconEmail"><Icon icon={emailaltIcon} /></a></li>
                       </ul>
                   </div>
 

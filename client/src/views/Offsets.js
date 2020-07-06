@@ -530,8 +530,10 @@ if (select === 'f') {
 // }
 
 let time = new Date();
+let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+
 time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
-time.getHours() + ":" + time.getMinutes();
+time.getHours() + ":" + minutes;
 
     axios.post('https://carbonly.org/form/submit-question', { formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time, answerType }, {
       formId: "JR74HA0", "email": this.state.user.email, "details": newMessage, time, answerType

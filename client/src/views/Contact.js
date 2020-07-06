@@ -93,8 +93,10 @@ addSubmission() {
   }
 
   let time = new Date();
+  let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+
   time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
-  time.getHours() + ":" + time.getMinutes();
+  time.getHours() + ":" + minutes;
 
       axios.post('https://carbonly.org/form/add-submission', { "type": "contact", "data": totMessage, time }, {
         "type": "contact", "data": totMessage, time

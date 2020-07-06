@@ -59,6 +59,18 @@ const BlogSchema = new Schema({
   },
   description: {
     type:String
+  },
+  pinterestLink: {
+    type:String,
+  },
+  emailLink: {
+    type: String
+  },
+  twitterLink: {
+    type: String
+  },
+  facebookLink: {
+    type: String
   }
 });
 
