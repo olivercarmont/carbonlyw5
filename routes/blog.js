@@ -221,6 +221,42 @@ router.post("/change-like", (req, res) => {
 
 });
 
+router.post("/add-page-view", (req, res) => {
+
+  let link;
+
+  if (req.body.link) {
+    link = req.body.link;
+  } else if (req.header('link')) {
+    link = req.header('link');
+  }
+
+  if ((!req.body.link && !req.header('link'))) {
+    return res.status(400).json(`userPublicId: Not Found`);
+  }
+
+  Blog.findOne({ link }).then(blog => {
+
+    let newViews = blog.views;
+
+    newViews++;
+
+      Blog.findOneAndUpdate({ link }, { $set: {
+          views: newViews,
+        }
+      }).then(blog => {
+          return res.json({ views: views });
+      })
+
+  }).catch((e) => {
+
+    return res.json({ blogNotFound: 'Blog Not Found' });
+
+});
+
+});
+
+
 router.post("/post-comment", (req, res) => {
 
   let link, userPublicId, commentData;

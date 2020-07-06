@@ -88,7 +88,6 @@ import logo4 from "../assets/img/carbonlyWhiteLogo4.png";
 import { fadeInRight } from 'react-animations';
 
 import { CountUp } from 'countup.js';
-
 import { Fade } from 'react-awesome-reveal';
 
 // let features = ['budget'];
@@ -142,6 +141,16 @@ this.setState({ comments: response.data.blog.comments });
 this.setState({ allBlogs: response.data.allBlogs });
 this.setState({ user: response.data.userProps });
 this.setState({ allUsers: response.data.allUsersArray });
+
+  axios.post('http://localhost:3000/blogs/add-page-view', { link: location  }, {
+    "link": location
+  })
+.then(response => {
+
+})
+.catch((error) => {
+  console.log('E', error);
+})
 
 let hasLiked = false;
 
@@ -725,7 +734,7 @@ render() {
                                     <span className="blogItem__topStoriesCategory">{blog.blog.category}</span>
                                     <h3 className="blogItem__storiesTitle">{blog.blog.title}</h3>
                                 </a>
-                                  <p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={commentsIcon} />{blog.blog.comments.length}</p><p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={baselineRemoveRedEye} />{blog.blog.views}</p><p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={heartFilled} />{blog.blog.likes.length}</p>
+                                  <p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={commentsIcon} />{blog.blog.comments.length}</p><p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={baselineRemoveRedEye} />{blog.blog.views+1}</p><p className="blogItem__storiesDes"><Icon className="blogItemm__storiesIcon" icon={heartFilled} />{blog.blog.likes.length}</p>
                             </div>
                         </Link>
                         );
