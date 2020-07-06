@@ -56,6 +56,9 @@ const BlogSchema = new Schema({
   },
   authorLink: {
     type: String,
+  },
+  description: {
+    type:String
   }
 });
 

@@ -17,6 +17,7 @@
 */
 import React from "react";
 import axios from 'axios';
+import {Helmet} from "react-helmet";
 
 // reactstrap components
 import {
@@ -63,7 +64,7 @@ import sharpPersonPinCircle from '@iconify/icons-ic/sharp-person-pin-circle';
 import typewriterIcon from '@iconify/icons-mdi/typewriter';
 
 import emailaltIcon from '@iconify/icons-whh/emailalt';
-import whatsappIcon from '@iconify/icons-dashicons/whatsapp';
+import bxlPinterest from '@iconify/icons-bx/bxl-pinterest';
 import commentsIcon from '@iconify/icons-fa-solid/comments';
 import heartFilled from '@iconify/icons-ant-design/heart-filled';
 import baselineRemoveRedEye from '@iconify/icons-ic/baseline-remove-red-eye';
@@ -376,6 +377,30 @@ render() {
 
         <div className="" style={{"background-color":"#f7f7f7"}}>
 
+        <Helmet>
+              <title>Carbonly Blog: {this.state.blog.title}</title>
+              <meta name="description" content={this.state.blog.description} />
+
+              <meta property="og:image" content={this.state.blog.imageLink} />
+              <meta property="og:url" content={`https://www.carbonly.org/${this.state.blog.link}`} />
+              <meta property="og:image:width" content={this.state.blog.description} />
+              <meta property="og:image:height" content={this.state.blog.description} />
+              <meta description="og:description" content={this.state.blog.description} />
+              <meta description="og:title" content={this.state.blog.title} />
+
+              <meta itemprop="name" content={this.state.blog.title} />
+              <meta itemprop="description" content={this.state.blog.description} />
+
+              <meta name="twitter:title" content={this.state.blog.title} />
+              <meta name="twitter:description" content={this.state.blog.description} />
+              <meta name="twitter:image" content={this.state.blog.imageLink} />
+
+              <meta property="og:site_name" content={this.state.blog.title} />
+
+              <meta name="robots" content="index, follow" />
+              <meta charset="UTF-8" />
+          </Helmet>
+
         <section className="header-top" style= {{ "position": "relative", "z-index": "50", "background-color": "#fff", "height": "100%"}}>
          <div className="container">
              <div className="row align-items-center justify-content-between">
@@ -487,10 +512,10 @@ render() {
                           <a href="#comments" className="comment-count" style={{ "color": "#999"}}><span className="align-middle"><i className="far fa-comment"></i></span>{this.state.comments.length} {this.state.comments.length === 1 ? 'Comment' : 'Comments'}</a>
                       </div>
                       <ul className="social-icons">
-                          <li><a target="_blank" href="#" className="blog__topSocialIcon"><Icon icon={facebookIcon} /></a></li>
-                          <li><a target="_blank" href="#" className="blog__topSocialIcon"><Icon icon={twitterIcon} /></a></li>
-                          <li><a target="_blank" href="#" className="blog__topSocialIcon"><Icon icon={whatsappIcon} /></a></li>
-                          <li><a target="_blank" href="#" className="blog__topSocialIconEmail"><Icon icon={emailaltIcon} /></a></li>
+                          <li><a target="_blank" href="https://www.facebook.com/share.php?u=https%3A%2F%2Ftinyurl.com%2Fy92uyyh4" className="blog__topSocialIcon"><Icon icon={facebookIcon} /></a></li>
+                          <li><a target="_blank" href="https://ctt.ac/aIchH" className="blog__topSocialIcon"><Icon icon={twitterIcon} /></a></li>
+                          <li><a target="_blank" href="https://www.pinterest.co.uk/pin/create/button/?url=https://www.carbonly.org/blogs/s1e1-pilot" className="blog__topSocialIcon"><Icon icon={bxlPinterest} /></a></li>
+                          <li><a target="_blank" href="mailto:?subject=Check Out Carbonly's New Blog Post!&amp;body=See it all here: https://www.carbonly.org/blogs/s1e1-pilot" className="blog__topSocialIconEmail"><Icon icon={emailaltIcon} /></a></li>
                       </ul>
                   </div>
 
@@ -502,7 +527,7 @@ render() {
                           <div className="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                               <div className="thumb">
                                   <a href="#" className="blogItem__nextAndPrevImgs">
-                                      <img className="img-fluid" src={require("./eden/img/blog/prev.jpg")} alt="" />
+                                      <img className="img-fluid" src={require("./eden/img/blog/prev.jpg")} alt="Carbonly Blog Previous Post Image" />
                                   </a>
                               </div>
                               <div className="arrow">
@@ -531,7 +556,7 @@ render() {
                               </div>
                               <div className="thumb">
                                   <a href="#" className="blogItem__nextAndPrevImgs">
-                                      <img className="img-fluid" src={require("./eden/img/blog/next.jpg")} alt="" />
+                                      <img className="img-fluid" src={require("./eden/img/blog/next.jpg")} alt="Carbonly Blog Next Post Image" />
                                   </a>
                               </div>
 
