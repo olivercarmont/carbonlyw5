@@ -238,4 +238,53 @@ router.post("/update-faq", (req, res) => {
 
 });
 
+router.post("/add-to-newsletter", (req, res) => {
+
+    let email, hasAdded = false;
+
+  if (req.body.email) {
+    email = req.body.email;
+  } else if (req.header('email')) {
+    email = req.header('email');
+  }
+
+  if (!email) {
+    return res.status(400).json(`Email: Not Found`);
+  }
+
+  Form.findOne({ formId: '8410HQ' }).then(form => {
+
+  let usersAnswered = form.usersAnswered;
+
+  usersAnswered.map((user) => {
+    if (user.email === email) {
+      hasAdded = true;
+    }
+  })
+
+  if (!hasAdded) {
+    let newDate = new Date();
+
+    let newUser = {
+      email,
+      time: `${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes() < 10 ? `0${newDate.getMinutes()}` : newDate.getMinutes()}`
+    }
+
+    usersAnswered.push(newUser)
+
+  Form.findOneAndUpdate({ formId: '8410HQ' }, { $set: {
+    usersAnswered: usersAnswered,
+    }
+  }).then(user => {
+    return res.json({ updated: 'True!' });
+  })
+
+  } else {
+    return res.json({ alreadyAdded: true });
+  }
+
+});
+
+});
+
 module.exports = router;

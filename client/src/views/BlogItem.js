@@ -103,6 +103,7 @@ class Landing extends React.Component {
     this.state = {
       howItWorks: 'account',
       allFeatures: "budget",
+      newsletterEmail: '',
       num1: 0,
       downloadText: '',
       downloadImage: '',
@@ -369,6 +370,57 @@ formatDate(date) {
  let formattedDate = `${acDate.getDate()} ${months[acDate.getMonth()]} ${acDate.getFullYear()}`;
  return formattedDate;
 
+}
+addToNewsletter(e) {
+
+  e.preventDefault();
+
+  if (this.state.newsletterEmail.length > 0) {
+
+  axios.post('http://localhost:3000/form/add-to-newsletter', { email: this.state.newsletterEmail  }, {
+    email: this.state.newsletterEmail
+  })
+.then(response => {
+
+  console.log('RESSS', response)
+
+  this.setState({ newsLetterReponse: response.data });
+
+  this.setState({ hasSubmittedNewsletter: true });
+
+  this.setState({ emailNewsletterChanged: false })
+
+})
+.catch((error) => {
+  console.log('E', error);
+})
+}
+
+}
+changeNewsletterEmail(e) {
+
+  this.setState({ newsletterEmail: e.target.value })
+
+  this.setState({ emailNewsletterChanged: true })
+}
+shouldBeSubscribed() {
+  console.log('HasSubmit', this.state.hasSubmittedNewsletter);
+  console.log('hasChanged', this.state.emailNewsletterChanged);
+  console.log('User', this.state.user);
+
+  if (this.state.emailNewsletterChanged) {
+    return false;
+  }
+
+  if (this.state.hasSubmittedNewsletter && !this.state.emailNewsletterChanged) {
+    return true;
+  } else {
+    if (this.state.user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 render() {
     return (
@@ -750,12 +802,13 @@ render() {
                       <img src={require("../assets/img/blogItem/newsletter.jpg")} className="blogItem__topStoriesImg"/>
                       <h4 className="widget_title"></h4>
 
-                      <form action="#">
+                      <form onSubmit={(e) => this.addToNewsletter(e)}>
                           <div className="form-group">
-                              <input type="email" className="form-control blogItem__newsletterInput" placeholder={this.state.user ? this.state.user.email : 'example@gmail.com'} required />
+                              <input type="email" className="form-control blogItem__newsletterInput" value={this.state.newsletterEmail} onChange={(e) => this.changeNewsletterEmail(e)} placeholder={this.state.user ? this.state.user.email : 'example@gmail.com'} required />
                           </div>
-                          <button className={`button rounded-0 primary-bg text-white w-100`} id={this.state.user ? 'blogItem__newsletterButtonSubscribed' : 'blogItem__newsletterButton'} type="submit">{this.state.user ? 'Subscribed' : 'Subscribe'}</button>
+                          <button className={`button rounded-0 primary-bg text-white w-100`} id={this.shouldBeSubscribed() ? 'blogItem__newsletterButtonSubscribed' : 'blogItem__newsletterButton'} type="submit">{this.shouldBeSubscribed() ? 'Subscribed' : 'Subscribe'}</button>
                       </form>
+                    {this.state.newsLetterReponse ? this.state.newsLetterReponse.updated ? <div className="blogItem__newsletterResponse">Congrats You're in! 🎉 We'll Keep You in The Loop!</div> : this.state.newsLetterReponse.alreadyAdded ? <div className="blogItem__newsletterResponse">It Seems Like You're Already in This Newsletter 🤷</div> : undefined : undefined}
                   </aside>
               </div>
           </div>

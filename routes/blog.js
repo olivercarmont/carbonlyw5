@@ -159,36 +159,6 @@ router.post("/return-blogs", (req, res) => {
 
 });
 
-router.post("/like-blog", (req, res) => {
-
-  let writtenBlogs = [], videoBlogs = [];
-
-  Blog.find().then((blogs) => {
-
-    blogs.map((blog) => {
-
-      if (blog.isVideoBlog == 't') {
-          videoBlogs.push({ blog });
-      } else {
-          writtenBlogs.push({ blog });
-      }
-
-
-    });
-    videoBlogs.sort(function(a,b){
-    return new Date(b.publishDate) - new Date(a.publishDate);
-    });
-
-    writtenBlogs.sort(function(a,b){
-    return new Date(b.publishDate) - new Date(a.publishDate);
-    });
-
-    return res.json({ videoBlogs, writtenBlogs });
-
-  });
-
-});
-
 router.post("/change-like", (req, res) => {
 
   let link, userPublicId, hasLiked = false;
