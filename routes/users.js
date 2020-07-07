@@ -1267,10 +1267,11 @@ router.post("/add-order", (req, res) => {
   if ((req.body.jwt || !!req.header('jwt')) && (req.body.website || req.header('website'))) {
 
   if (req.body.jwt) {
-  token = req.body.jwt;
-} else if (req.header('jwt')) {
-  token = req.header('jwt');
-}
+    token = req.body.jwt;
+  } else if (req.header('jwt')) {
+    token = req.header('jwt');
+  }
+
     let decoded = parseJwt(token);
     let id = decoded.id;
     id = id.toString();
@@ -1344,12 +1345,12 @@ router.post("/add-order", (req, res) => {
       if (minutesDiff < 0.22) {
         if (name === ord.name) {
           isRepeat = true;
-          return res.json({ orders:orders });
+          return res.json({ isRepeat: `${minutesDiff}` });
         }
       } else if (minutesDiff < 3) {
         if (name === ord.name) {
           isRepeat = true;
-          return res.status(400).json({ isRepeat: `Is a Repeat` });
+          return res.status(400).json({ isRepeat: `${minutesDiff}` });
         }
       }
     })
