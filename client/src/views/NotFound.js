@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -114,6 +115,11 @@ trackScrolling() {
     return (
       <>
         <div className="notFound__topDiv">
+
+        <Helmet>
+          <title>Carbonly | Not Found</title>
+          <meta name="description" content="Huh. It Seems This Page Doesn't Exist. Try Another!" />
+       </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

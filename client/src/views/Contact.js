@@ -18,6 +18,7 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -149,11 +150,11 @@ trackScrolling() {
     return (
       <>
         <div className="landing__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
-
+        <Helmet>
+        <title>Carbonly | Contact Us</title>
+        <meta name="description" content="Contact us Here at Carbonly. We'd Love to Hear Your Voice!" />
+      </Helmet>
+      
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">
             <div className="container-fluid">

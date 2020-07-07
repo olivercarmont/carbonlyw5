@@ -17,6 +17,7 @@
 */
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { logoutUser } from "../actions/authActions";
 import PropTypes from "prop-types";
@@ -560,6 +561,10 @@ render() {
     return (
       <>
       <div className="content">
+      <Helmet>
+        <title>Carbonly | Profile</title>
+        <meta name="description" content="View Your Carbonly Social Profile!" />
+      </Helmet>
       {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ? <div>
           <Row>
           <div className="profile__centeringMainCard">

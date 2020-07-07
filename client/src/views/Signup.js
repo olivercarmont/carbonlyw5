@@ -19,6 +19,7 @@
 // import SocialSignin from "./SocialSignin.js";
 
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
@@ -525,6 +526,10 @@ render() {
       {this.state.allUsers ?
         <div className="content">
 
+        <Helmet>
+       <title>Carbonly | Signup</title>
+       <meta name="description" content="Use Our Signup Page to Start Your Journey With Carbonly!" />
+     </Helmet>
 
         <script src="https://apis.google.com/js/platform.js" async defer></script>
       <meta name="google-signin-scope" content="profile email"/>

@@ -17,6 +17,7 @@
 */
 import React from "react";
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -345,10 +346,10 @@ animateNumbers() {
       {this.state.landingData ? <div>
 
         <div className="landing__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
+        <Helmet>
+          <title>Carbonly | An Online Carbon Footprint Tracker</title>
+          <meta name="description" content="Carbonly, a Browser Extension for Tracking And Mitigating Your Online Carbon Footprint, Everywhere You Go!" />
+        </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated posStatic" id="home">

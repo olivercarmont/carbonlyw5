@@ -19,6 +19,7 @@ import React from "react";
 import '../OwnCSS/leaderboard.css';
 import '../OwnCSS/offsets.css';
 import '../OwnCSS/checkbox.css';
+import { Helmet } from "react-helmet";
 
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
@@ -564,6 +565,10 @@ time.getHours() + ":" + minutes;
       <>
         <div className="content">
         {this.state.user && this.state.hasAnswered ? <div>
+        <Helmet>
+        <title>Carbonly | Carbon Offsets</title>
+        <meta name="description" content="Use Our Monthly Subscription Service to Seamlessly Offset Your Footprint!" />
+        </Helmet>
           <Row>
             <Col md="6">
               <Card>

@@ -17,6 +17,7 @@
 */
 import axios from 'axios';
 import React from "react";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -252,12 +253,12 @@ animateValue() {
       <>
       {this.state.landingData ? <div>
         <div className="landing__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
 
-        {/* <!-- ***** Header Area Start ***** --> */}
+        <Helmet>
+        <title>Carbonly | Our Data</title>
+        <meta name="description" content="Learn How We at Carbonly Label Thousands of Products for Their Carbon Emissions!" />
+      </Helmet>
+
         <header className="header_area animated" id="home">
             <div className="container-fluid">
                 <div className="row align-items-center">

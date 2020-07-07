@@ -18,6 +18,7 @@
 import React from "react";
 import axios from 'axios';
 import '../OwnCSS/leaderboard.css';
+import { Helmet } from "react-helmet";
 
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
@@ -714,6 +715,10 @@ returnRanColor() {
     return (
       <>
         <div className="content">
+        <Helmet>
+          <title>Carbonly | Analytics</title>
+          <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
+        </Helmet>
         {this.state.user && this.state.allUsers && this.state.userRank && this.state.search && this.state.friends ? <div>
           <Row>
             <Col md="8">

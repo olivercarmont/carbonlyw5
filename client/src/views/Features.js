@@ -17,6 +17,7 @@
 */
 import axios from 'axios';
 import React from "react";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -156,10 +157,10 @@ trackScrolling() {
     return (
       <>
         <div className="landing__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
+        <Helmet>
+        <title>Carbonly | Feature Request</title>
+        <meta name="description" content="Wanna Request a Feature on Carbonly? What'ya Waiting For!" />
+        </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

@@ -17,6 +17,7 @@
 */
 import React from "react";
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -214,6 +215,11 @@ trackScrolling() {
     return (
       <>
       {this.state.videoBlogs && this.state.writtenBlogs ? <div>
+
+        <Helmet>
+        <title>Carbonly | The Carbonly Blog</title>
+        <meta name="description" content="Stay in The Loop of All Our Events at Carbonly!" />
+        </Helmet>
 
         <div className="" style={{"background-color":"#f7f7f7"}}>
 

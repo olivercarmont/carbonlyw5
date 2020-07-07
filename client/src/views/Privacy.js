@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -114,10 +115,11 @@ trackScrolling() {
     return (
       <>
         <div className="landing__topDiv">
-        {/* <!-- Preloader Start --> */}
-      {/*  <div id="preloader">
-            <div className="colorlib-load"></div>
-        </div> */}
+
+        <Helmet>
+        <title>Carbonly | Privacy</title>
+        <meta name="description" content="Now For The Boring Stuff. But Very Important!" />
+      </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

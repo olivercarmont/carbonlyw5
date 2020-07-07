@@ -21,6 +21,7 @@ import classNames from "classnames";
 import { Line, Bar } from "react-chartjs-2";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import Tour from 'reactour';
 
 import '../OwnCSS/home.css';
 import { ReactSortable } from "react-sortablejs";
@@ -150,15 +151,17 @@ let chart1_2_options = {
     ]
   }
 };
-
-const tourOptions = {
-  defaultStepOptions: {
-    cancelIcon: {
-      enabled: true
-    }
+const steps = [
+  {
+    selector: 'Your Home Dashboard',
+    content: 'This is a summary 📔 of all your tabs on Carbonly',
   },
-  useModalOverlay: true
-};
+  // ...
+]
+
+let props = {
+  accentColor: '#86b89b',
+}
 
 class Home extends React.Component {
   constructor(props) {
@@ -1104,18 +1107,22 @@ roundCarbon(amt) {
     return parseFloat(amt).toFixed(1);
   }
 }
+closeTour() {
+  this.setState({ isTourOpen: false });
+  // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
+}
 render() {
 
     let newDateHome = new Date();
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return (
       <>
-      <Helmet>
-        <title>Carbonly | Home</title>
-        <meta name="description" content="See The Latest Changes to Your Online Carbon Footprint!" />
-      </Helmet>
-
         <div className="content">
+
+        <Helmet>
+          <title>Carbonly | Home</title>
+          <meta name="description" content="See The Latest Changes to Your Online Carbon Footprint!" />
+        </Helmet>
 
         {this.state.user && this.state.allUsers ?
 
@@ -1320,7 +1327,7 @@ render() {
 
               <Link to="/offsets" className="home__pageLabel"><span className="home__pageLabelText">Offsets</span> <span className="home__pageLabelIcon"><Icon icon={seedlingIcon} /></span></Link>
 
-              <div className="home__offsetsMainTitle">Pending Offsets <div className="leaderboard__sideIcon"><Icon icon={leafIcon} /></div> </div>
+              <div className="home__offsetsMainTitle">Recent Orders <div className="leaderboard__sideIcon"><Icon icon={boxOpen} /></div> </div>
 
                 <Form>
                   <Row>
@@ -1470,8 +1477,6 @@ render() {
 
                     </div> */}
 
-
-
                   </Row>
                 </Form>
 
@@ -1481,10 +1486,18 @@ render() {
 
             </Card>
           </Col>
+          </Row>
 
+        {!this.state.user.hasDoneTour? <Tour
+      steps={steps}
+      {...props}
+      onAfterOpen={this.disableBody}
+      onBeforeClose={this.enableBody}
+      badgeContent={(curr, tot) => `${curr}/${tot}`}
+      isOpen={this.state.isTourOpen}
+      onRequestClose={(e) => this.closeTour()} /> : undefined}
 
-
-          </Row></div> : undefined }
+          </div> : undefined }
         </div>
       </>
     );

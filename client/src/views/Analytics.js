@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 import axios from 'axios';
 import { Line, Bar } from "react-chartjs-2";
+import { Helmet } from "react-helmet";
 
 import '../OwnCSS/analytics.css';
 
@@ -1746,6 +1747,10 @@ class Analytics extends React.Component {
     return (
       <>
         <div className="content">
+        <Helmet>
+          <title>Carbonly | Analytics</title>
+          <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
+        </Helmet>
         {this.state.user && this.state.userRank ? <div>
           <Row>
             <Col xs="12">
