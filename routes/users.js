@@ -1337,7 +1337,7 @@ router.post("/add-order", (req, res) => {
     let orders = user.orders.map((or) => { return or });
 
     orders.map((ord) => {
-      let minutesDiff = Date.parse(time) - Date.parse(or.time);
+      let minutesDiff = Date.parse(time) - Date.parse(ord.time);
       minutesDiff = Math.abs(minutesDiff / 60000);
 
       console.log('DIFF', minutesDiff);
