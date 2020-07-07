@@ -15,10 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-// nodejs library that concatenates classes
+import React, { Component, useContext } from 'react'
+import { Helmet } from "react-helmet";
 import classNames from "classnames";
-// react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -150,6 +149,15 @@ let chart1_2_options = {
       }
     ]
   }
+};
+
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true
+    }
+  },
+  useModalOverlay: true
 };
 
 class Home extends React.Component {
@@ -1102,9 +1110,15 @@ render() {
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return (
       <>
+      <Helmet>
+        <title>Carbonly | Home</title>
+        <meta name="description" content="See The Latest Changes to Your Online Carbon Footprint!" />
+      </Helmet>
+
         <div className="content">
 
         {this.state.user && this.state.allUsers ?
+
           <div>
 
           <Row>
@@ -1186,6 +1200,7 @@ render() {
           <Col md="8">
             <Card>
               <CardHeader>
+
               <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
 
               <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
@@ -1277,6 +1292,7 @@ render() {
             <Row>
 
             <Col lg="6">
+              <img className="home__topRightArrow" src={require('../assets/img/landing/clickArrowHome.png')} />
             <Card className="card-chart">
               <CardHeader>
               <Link to="/analytics" className="home__pageLabel"><span className="home__pageLabelText">Analytics</span> <span className="home__pageLabelIcon"><Icon style={{"font-size": "1.27em"}} icon={graphPie} /></span></Link>

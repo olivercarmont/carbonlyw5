@@ -333,7 +333,7 @@ animateNumbers() {
     const countUpThird = new CountUp('landing__numberThree', 1.2);
     countUpThird.start();
 
-    const countUpFourth = new CountUp('landing__numberFour', 21); // this.returnCO2Format()
+    const countUpFourth = new CountUp('landing__numberFour', this.returnCO2Format()); // this.returnCO2Format()
     countUpFourth.start();
 
     numberAnimationOccured = true;

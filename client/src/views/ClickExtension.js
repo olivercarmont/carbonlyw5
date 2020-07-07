@@ -41,6 +41,7 @@ class ClickExtension extends React.Component {
     return (
       <>
         <div className="content">
+        <img className="click__topArrow" src={require('../assets/img/landing/clickArrow.png')} />
           <Row>
           <div className="profile__centeringMainCard">
             <Col md="9">
@@ -62,7 +63,7 @@ class ClickExtension extends React.Component {
 
                 <div className="notFound__positionButtonClick">
 
-                <Link to="/instructions" className="click__doneButton">Done &nbsp; ✔️</Link>
+                <Link to="/instructions" className="click__doneButton">I've Done it! &nbsp; ✔️</Link>
 
                 </div>
 
