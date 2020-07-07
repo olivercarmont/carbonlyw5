@@ -245,7 +245,7 @@ router.post("/add-page-view", (req, res) => {
           views: newViews,
         }
       }).then(blog => {
-          return res.json({ views: views });
+          return res.json({ views: newViews });
       })
 
   }).catch((e) => {
