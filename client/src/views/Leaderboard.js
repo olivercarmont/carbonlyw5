@@ -858,11 +858,15 @@ returnRanColor() {
 
                     <div className="leaderboard__offsetPointDescription">1 Offset Point = 0.1kg CO&#x2082;</div>
                       <div className="leaderboard__profileBottomSpacing"></div>
-                      <LeaderboardModal/>
+                    <div onClick={() => this.setState({ hideArrow: true })}>  <LeaderboardModal/></div>
+
 
                 </CardBody>
               </Card>
+                  {!this.state.hideArrow ? <img className="leaderboard__bottomArrow" src={require('../assets/img/landing/leaderboardArrow.png')} /> : undefined}
             </Col>
+
+
 
           </Row>
 

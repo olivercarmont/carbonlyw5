@@ -154,9 +154,13 @@ let chart1_2_options = {
 const steps = [
   {
     selector: 'Your Home Dashboard',
-    content: 'This is a summary 📔 of all your tabs on Carbonly',
+    content: 'Your Home Dashboard. This is a summary 📔 of all your tabs on Carbonly',
   },
-  // ...
+  {
+    selector: 'Your Home Dashboard',
+    content: 'Your Home Dashboard. This is a summary 📔 of all your tabs on Carbonly',
+  },
+
 ]
 
 let props = {
@@ -169,6 +173,7 @@ class Home extends React.Component {
     this.state = {
       searchValue: '',
       bigChartData: "data1",
+      isTourOpen:false,
       global: true,
       shoppingList: [],
       cur: '$',
@@ -1108,7 +1113,7 @@ roundCarbon(amt) {
   }
 }
 closeTour() {
-  this.setState({ isTourOpen: false });
+  // this.setState({ isTourOpen: false });
   // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
 }
 render() {
@@ -1130,83 +1135,12 @@ render() {
 
           <Row>
 
-            <Col lg="4">
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">{this.state.shoppingList.length} {this.state.shoppingList.length === 1 ? 'Item' : 'Items'}</h5>
-                  <CardTitle tag="h3">
-                    <i className="tim-icons icon-basket-simple text-success" id="analytics__destinationIconColour" /> Shopping List
+          <Col md="6">
 
-
-                  </CardTitle>
-
-                </CardHeader>
-                <CardBody>
-
-                <div id="savedList__mainContainer">
-
-                <ReactSortable
-       list={this.state.shoppingList}
-       setList={newState => this.setShoppingList(newState)}
-       handle={"#drag2"}
-       group={'shared'}
-       animation={200}
-      delayOnTouchStart={true}
-      delay={2}
-     >
-       {this.state.shoppingList.map(item => (
-         <div key={item.id}>
-
-         <div className="home__listCheckboxes">
-
-         <FormGroup check>
-               <Label check>
-                 <Input defaultValue="" type="checkbox" />
-                 <span className="form-check-sign home__listsCheckboxColour">
-                   <span className="check" />
-                 </span>
-               </Label>
-           </FormGroup>
-
-         </div>
-
-            <div className="home__topListsRightEl">
-             <input className="title home__topInputLists" id="home__inputListsHover" placeholder="Super Greens 🥕" onChange={(e) => this.updateTitleShopping(e, item.id)} defaultValue={item.title} />
-             <textarea defaultValue={item.description} placeholder="At least 5 a Day Right?" id="home__textAreaPlaceholderStyling" onChange={(e) => this.updateDescriptionShopping(e, item.id)} className="text-muted home__smallerTextInput"/>
-             </div>
-
-             <div className="home__topListsIconRight">
-
-             <div className="home__topListsDragSide" id="drag2"><i className="tim-icons icon-align-center" /></div>
-
-             <div className="home__topListsXSide" onClick={() => this.deleteItemShoppingList(item.id)}><i className="tim-icons icon-trash-simple" /></div>
-             </div>
-
-             <div className="home__betweenListsSpacing"></div>
-
-             </div>
-       ))}
-     </ReactSortable>
-
-                                <div className="home__betweenListsSpacing"></div>
-
-                                <div className="home__addListButtonPositioning">
-                                <a onClick={() => { this.createNewItemShoppingList() }} className="home__newItemButton">New Item &nbsp; 🛒</a>
-                                </div>
-
-
-                      </div>
-
-                        <span className="home__shoppingListExplanation"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">This is the List on Your Extension</span> 🗒️</span>
-                </CardBody>
-              </Card>
-            </Col>
-
-
-
-          <Col md="8">
             <Card>
               <CardHeader>
+
+              {!this.state.isTourOpen && !this.state.user.hasDoneTour ? <img className="home__topRightArrow" src={require('../assets/img/landing/clickArrowHome.png')} /> : undefined}
 
               <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
 
@@ -1226,9 +1160,9 @@ render() {
                       return (<div className="leaderboard__mainRow">
                       <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
                       <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
-                      <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
+                      <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 14) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
 
-                      <div className="leaderboard__individualLineMargins">
+                    {/*   <div className="leaderboard__individualLineMargins">
                           <Line
                             data={ { labels: [],
                                       datasets: [{
@@ -1239,7 +1173,7 @@ render() {
                                     }] } }
                             options={this.state.lineOptions}
                           />
-                        </div>
+                        </div> */}
 
                       </div>)
 
@@ -1256,7 +1190,7 @@ render() {
                         <a href={`/user/@${friend.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{friend.publicId === this.state.user.publicId ? 'You' : friend.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{friend.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnFriendOffsetWidth(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(friend.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : friend.points))}</div></div></div>
 
 
-                        <div className="leaderboard__individualLineMargins">
+                      {/*  <div className="leaderboard__individualLineMargins">
                             <Line
                               data={ { labels: [],
                                         datasets: [{
@@ -1267,7 +1201,7 @@ render() {
                                       }] } }
                               options={this.state.lineOptions}
                             />
-                          </div>
+                          </div> */}
 
                         </div>
                       )
@@ -1292,34 +1226,35 @@ render() {
             </Card>
           </Col>
 
+          <Col lg="6">
+          <Card className="card-chart">
+            <CardHeader>
+            <Link to="/analytics" className="home__pageLabel"><span className="home__pageLabelText">Analytics</span> <span className="home__pageLabelIcon"><Icon style={{"font-size": "1.27em"}} icon={graphPie} /></span></Link>
+              <h5 className="card-category">Carbon Budget</h5>
+              <CardTitle tag="h3">
+                <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
+                {this.getBudgetPercent()}%
+              </CardTitle>
+            </CardHeader>
+            <CardBody>
+              <div className="chart-area" id="analytics__middleCharts">
+                <Line
+                  data={chartExample3.data}
+                  options={chartExample3.options}
+                />
+              </div>
+            </CardBody>
+            <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Set Personal Carbon Goals!</span> &nbsp;⛳️</span>
+          </Card>
+        </Col>
+
           </Row>
 
           {/*     SECOND ROW HOME    */}
 
             <Row>
 
-            <Col lg="6">
-              <img className="home__topRightArrow" src={require('../assets/img/landing/clickArrowHome.png')} />
-            <Card className="card-chart">
-              <CardHeader>
-              <Link to="/analytics" className="home__pageLabel"><span className="home__pageLabelText">Analytics</span> <span className="home__pageLabelIcon"><Icon style={{"font-size": "1.27em"}} icon={graphPie} /></span></Link>
-                <h5 className="card-category">Carbon Budget</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-bag-16 text-primary" id="analytics__destinationIconColour" />{" "}
-                  {this.getBudgetPercent()}%
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area" id="analytics__middleCharts">
-                  <Line
-                    data={chartExample3.data}
-                    options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-              <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Set Personal Carbon Goals!</span> &nbsp;⛳️</span>
-            </Card>
-          </Col>
+
 
           <Col md="6">
             <Card>
@@ -1486,6 +1421,79 @@ render() {
 
             </Card>
           </Col>
+
+
+          <Col lg="6">
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">{this.state.shoppingList.length} {this.state.shoppingList.length === 1 ? 'Item' : 'Items'}</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-basket-simple text-success" id="analytics__destinationIconColour" /> Shopping List
+
+
+                </CardTitle>
+
+              </CardHeader>
+              <CardBody>
+
+              <div id="savedList__mainContainer">
+
+              <ReactSortable
+     list={this.state.shoppingList}
+     setList={newState => this.setShoppingList(newState)}
+     handle={"#drag2"}
+     group={'shared'}
+     animation={200}
+    delayOnTouchStart={true}
+    delay={2}
+   >
+     {this.state.shoppingList.map(item => (
+       <div key={item.id}>
+
+       <div className="home__listCheckboxes">
+
+       <FormGroup check>
+             <Label check>
+               <Input defaultValue="" type="checkbox" />
+               <span className="form-check-sign home__listsCheckboxColour">
+                 <span className="check" />
+               </span>
+             </Label>
+         </FormGroup>
+
+       </div>
+
+          <div className="home__topListsRightEl">
+           <input className="title home__topInputLists" id="home__inputListsHover" placeholder="Super Greens 🥕" onChange={(e) => this.updateTitleShopping(e, item.id)} defaultValue={item.title} />
+           <textarea defaultValue={item.description} placeholder="At least 5 a Day Right?" id="home__textAreaPlaceholderStyling" onChange={(e) => this.updateDescriptionShopping(e, item.id)} className="text-muted home__smallerTextInput"/>
+           </div>
+
+           <div className="home__topListsIconRight">
+
+           <div className="home__topListsDragSide" id="drag2"><i className="tim-icons icon-align-center" /></div>
+
+           <div className="home__topListsXSide" onClick={() => this.deleteItemShoppingList(item.id)}><i className="tim-icons icon-trash-simple" /></div>
+           </div>
+
+           <div className="home__betweenListsSpacing"></div>
+
+           </div>
+     ))}
+   </ReactSortable>
+
+                              <div className="home__betweenListsSpacing"></div>
+
+                              <div className="home__addListButtonPositioning">
+                              <a onClick={() => { this.createNewItemShoppingList() }} className="home__newItemButton">New Item &nbsp; 🛒</a>
+                              </div>
+
+
+                    </div>
+
+                      <span className="home__shoppingListExplanation"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">This is the List on Your Extension</span> 🗒️</span>
+              </CardBody>
+            </Card>
+          </Col>
           </Row>
 
         {!this.state.user.hasDoneTour? <Tour
@@ -1494,6 +1502,9 @@ render() {
       onAfterOpen={this.disableBody}
       onBeforeClose={this.enableBody}
       badgeContent={(curr, tot) => `${curr}/${tot}`}
+      maskClassName=""
+      className="home__tourClass"
+      rounded={5}
       isOpen={this.state.isTourOpen}
       onRequestClose={(e) => this.closeTour()} /> : undefined}
 

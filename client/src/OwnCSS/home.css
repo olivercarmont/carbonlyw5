@@ -244,6 +244,8 @@ margin-top:3px;
   font-size:0.9em;
   margin-top:0px;
 
+  width:20vw;
+
   background-color:transparent;
 }
 .home__smallerTextInput:focus {
@@ -299,7 +301,7 @@ margin-top:3px;
   height:47px;
 
 
-  width:75%;
+  width:48%;
 
   margin-bottom:15px;
 
@@ -476,7 +478,9 @@ display:inline-block;
   height:95px;
   z-index:100000;
   top:22px;
-  right:-12%;
+  right:-15%;
+
+  background-color:rgba(255,255,255,0.5);
 
   -webkit-animation: action 1s infinite  alternate;
     animation: action 1s infinite  alternate;
@@ -488,4 +492,10 @@ display:inline-block;
 @keyframes action {
     0% { transform: translateY(0); }
     100% { transform: translateY(-10px); }
+}
+.home__tourBackground {
+  background-color:rgba(0, 0, 0, 0.5)
+}
+.home__tourClass {
+
 }

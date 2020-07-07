@@ -1905,8 +1905,10 @@ class Analytics extends React.Component {
                 <span className="analytics__middleCardExplanations"><span className="analytics__positionDescriptionCheck"><Icon icon={checkCircle} /></span><span className="analytics__descriptionText">Coming Soon!</span> &nbsp;🚧</span>
               </Card>
             </Col>
+
           </Row>
           <Row>
+          {/*  <img className="analytics__scrollDownArrow" src={require('../assets/img/landing/downArrow.png')} /> */}
 
             <Col lg="6" md="12">
               <Card className="card-tasks">
