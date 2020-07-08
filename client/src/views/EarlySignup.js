@@ -552,7 +552,7 @@ render() {
 
                 <div className="wrap-input100 validate-input" data-validate="Enter Email">
                   <input className="input100" name="email" value={this.state.email2} placeholder="Email" id="email2" onChange={(e) => this.onChange(e)} />
-                  <span className="focus-input100 fa fa-envelope" data-placeholder="&#xf3fa;"></span>
+                  <span className="focus-input100" data-placeholder="&#xf3fa;"></span>
                 </div>
 
                 <div className="wrap-input100 validate-input" data-validate="Enter password">
