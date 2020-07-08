@@ -450,3 +450,10 @@ background-image: linear-gradient( 109.6deg,  rgba(102,203,149,1) 11.2%, rgba(39
   color:#84af96 !important;
   word-spacing:0.015em;
 }
+
+  @media only screen and (max-width: 992px) {
+    .navbar {
+      display:none !important;
+
+  }
+}

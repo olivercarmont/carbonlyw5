@@ -589,7 +589,7 @@ pre code {
 
 @media (min-width:576px) {
     .container {
-        max-width: 540px
+        max-width: 540px;
     }
 }
 
@@ -4270,14 +4270,14 @@ input[type=submit].btn-block {
     vertical-align: middle;
     content: "";
     background: no-repeat center center;
-    background-size: 100% 100%
+    background-size: 100% 100%;
 }
 
 @media (max-width:575.98px) {
     .navbar-expand-sm>.container,
     .navbar-expand-sm>.container-fluid {
         padding-right: 0;
-        padding-left: 0
+        padding-left: 0;
     }
 }
 

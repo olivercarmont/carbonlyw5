@@ -617,7 +617,7 @@ trackScrolling() {
                  <div className="col-md-6 col-lg-4">
                      <div className="single-category blog__whiteBackground">
                          <div className="thumb">
-                             <img className="img-fluid" src={require("./eden/img/category/5.jpg")} alt="" />
+                             <img className="img-fluid" src='' alt="" />
                          </div>
                          <div className="short_details">
                              <div className="meta-top d-flex">
@@ -637,7 +637,7 @@ trackScrolling() {
                  <div className="col-md-6 col-lg-4">
                      <div className="single-category blog__whiteBackground">
                          <div className="thumb">
-                             <img className="img-fluid" src={require("./eden/img/category/6.jpg")} alt="" />
+                             <img className="img-fluid" src='' alt="" />
                          </div>
                          <div className="short_details">
                              <div className="meta-top d-flex">
@@ -657,7 +657,7 @@ trackScrolling() {
                  <div className="col-md-6 col-lg-4">
                      <div className="single-category blog__whiteBackground">
                          <div className="thumb">
-                             <img className="img-fluid" src={require("./eden/img/category/7.jpg")} alt="" />
+                             <img className="img-fluid" src='' alt="" />
                          </div>
                          <div className="short_details">
                              <div className="meta-top d-flex">
@@ -677,7 +677,7 @@ trackScrolling() {
                  <div className="col-md-6 col-lg-4">
                      <div className="single-category blog__whiteBackground">
                          <div className="thumb">
-                             <img className="img-fluid" src={require("./eden/img/category/8.jpg")} alt="" />
+                             <img className="img-fluid" src='' alt="" />
                          </div>
                          <div className="short_details">
                              <div className="meta-top d-flex">
@@ -697,7 +697,7 @@ trackScrolling() {
                  <div className="col-md-6 col-lg-4">
                      <div className="single-category blog__whiteBackground">
                          <div className="thumb">
-                             <img className="img-fluid" src={require("./eden/img/category/9.jpg")} alt="" />
+                             <img className="img-fluid" src='' alt="" />
                          </div>
                          <div className="short_details">
                              <div className="meta-top d-flex">
