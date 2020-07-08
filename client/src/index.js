@@ -101,9 +101,9 @@ if (localStorage.jwtToken) {
   }
 }
 
-if (window.location.protocol !== 'https:') {
-    window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
-}
+// if (window.location.protocol !== 'https:') {
+//     window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
+// }
 
 ReactDOM.render(
   <Provider store={store}>
