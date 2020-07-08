@@ -76,6 +76,9 @@ const UserSchema = new Schema({
   socialLogin: {
     type: Boolean,
     required: true,
+  }, hasDoneTour: {
+    type:String,
+    default: false,
   }
 
 });

@@ -54,7 +54,7 @@ import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
 import bxCut from '@iconify/icons-bx/bx-cut';
-import shareSquare from '@iconify/icons-fa-solid/share-square';
+import outlineGroupAdd from '@iconify/icons-ic/outline-group-add';
 
 import axios from 'axios';
 
@@ -76,6 +76,128 @@ import {
 import '../OwnCSS/profile.css';
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
+import Tour from 'reactour';
+import Text from "./Text";
+import Glitch from "./Glitch";
+import Tooltip from "./Tooltip";
+
+const steps = [
+  {
+    selector: '',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "1px"}}>Profile 😝</Glitch>
+      <Text color="#e5e5e5">
+        Your Carbonly Profile
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__changeProfile"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Edit Profile 🎛</Glitch>
+      <img src={require(`../assets/img/landing/editProfile.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Use This Feature to Change Your Name & Username
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__changeBudget"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Change Budget ✂️</Glitch>
+      <img src={require(`../assets/img/landing/profileCarbonBudget.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Change Your Budget to a Chosen Average or Set Your Own!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__referFriends"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Refer Friends 🗞️</Glitch>
+      <img src={require(`../assets/img/landing/referCode.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Share This Referral Code With Friends to <span style={{ "color": "#8db8a2"}}>Gain 2500 Offset Points!</span>
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__yourFriends"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Your Friends 👪</Glitch>
+      <img src={require(`../assets/img/landing/profileFriends.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        All Your Closest Friends on Carbonly!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '',
+    content: (e) => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "1px"}}>That's It! 🎉</Glitch>
+      <Text color="#e5e5e5">
+        We're Now Redirecting You Back Home 🛫
+      </Text>
+      <div style={{ "color": "#fff"}}>{setTimeout(function() {
+
+        axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'doneTour', value: 't' }, {
+           jwt: localStorage.jwtToken, prop: 'doneTour', value: 't'
+        })
+      .then(response => {
+
+        window.location.href = 'https://carbonly.org/home';
+
+      })
+      .catch((error) => {
+
+        console.log('Error', error);
+      })
+
+       })}</div>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+]
+
+let props = {
+  accentColor: '#86b89b',
+}
+
 let rootA = 'avatars/';
 
 class Profile extends React.Component {
@@ -87,6 +209,7 @@ constructor(props) {
       currentAvatar: 5,
       carbonBudget: 0,
       averageSelected: 'custom',
+      isTourOpen:true,
       budgetSelected: false,
       addedReferralCode: false,
       friendsMove: 1,
@@ -575,7 +698,7 @@ render() {
                 </CardHeader>
                 <CardBody>
 
-                { this.state.page === 'home' ? <div onClick={() => this.setProfilePage('settings')} className="proilfe__settingssIconPositioning"><i className="tim-icons icon-settings-gear-63" /></div> : <div onClick={() => this.setProfilePage('home')} className="profile__backIconPositioning"><i className="tim-icons icon-minimal-left" /></div>}
+                { this.state.page === 'home' ? <div data-tut="tour__changeProfile"  onClick={() => this.setProfilePage('settings')} className="proilfe__settingssIconPositioning"><i className="tim-icons icon-settings-gear-63" /></div> : <div onClick={() => this.setProfilePage('home')} className="profile__backIconPositioning"><i className="tim-icons icon-minimal-left" /></div>}
 
 
                 {this.state.page === 'home' ? <div>
@@ -592,7 +715,7 @@ render() {
                       src={require(`../assets/img/${this.state.avatars[this.state.currentAvatar]}`)}
                     />
 
-                    <h5 className="title" id="profile__mainName">{this.state.name} <div className="tooltipProfile" onClick={() => this.copyReferral()}><Icon className="profile__referralSharer" icon={shareSquare} />
+                    <h5 className="title" id="profile__mainName">{this.state.name} <div className="tooltipProfile" data-tut="tour__referFriends" onClick={() => this.copyReferral()}><Icon className="profile__referralSharer" icon={outlineGroupAdd} />
                       <span className="tooltiptextProfile"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto", "font-size": "0.87em", "line-height": "1.35"}}>{this.state.addedReferralCode ? 'Copied 🎉 ' : 'Copy Referral Code to Share 👪'}</div></span></div>
 
                       </h5>
@@ -642,7 +765,7 @@ render() {
                   <option value="scandinavian">Scandinavian Avg</option>
                   <option value="unitedStates">United States Avg</option>
                   <option value="carbonlyAvg">Carbonly Avg</option>
-                  </select></span><input value={this.state.carbonBudget} maxlength="8" onChange={(e) => this.changeBudget(e)} className="profile__carbonBudgetInput"/>   </div><div onClick={() => { this.selectBudget()}} className={this.state.budgetSelected ? "profile__addBudgetSelected" : "profile__addBudget"}>{this.state.budgetSelected ? 'Selected' : 'Select'}</div>
+                  </select></span><input data-tut="tour__changeBudget" value={this.state.carbonBudget} maxlength="8" onChange={(e) => this.changeBudget(e)} className="profile__carbonBudgetInput"/>   </div><div onClick={() => { this.selectBudget()}} className={this.state.budgetSelected ? "profile__addBudgetSelected" : "profile__addBudget"}>{this.state.budgetSelected ? 'Selected' : 'Select'}</div>
 
                     <div className="profile__profileBottomSpacing"></div>
 
@@ -718,7 +841,7 @@ render() {
 
           {this.state.page === 'home' ? <div>
 
-          {this.state.friends.length > 0 ? <Row id="profile__friendsCentering">{this.returnFriends()}{this.returnFriendsTwo()}</Row> :
+          {this.state.friends.length > 0 ? <Row data-tut="tour__yourFriends" id="profile__friendsCentering">{this.returnFriends()}{this.returnFriendsTwo()}</Row> :
 
 
           <Row id="profile__friendsCentering"><Col md="8">
@@ -830,6 +953,16 @@ render() {
 
               </div>
               </Row>
+
+              {!this.state.user.hasDoneTour ? <Tour
+              steps={steps}
+              {...props}
+              badgeContent={(curr, tot) => `${curr}/${tot}`}
+              maskClassName=""
+              className="home__tourClass"
+              rounded={5}
+              isOpen={this.state.isTourOpen}
+              onRequestClose={(e) => this.closeTour()} /> : undefined}
 
         </div> : undefined}</div>
       </>

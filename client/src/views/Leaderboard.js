@@ -51,6 +51,129 @@ import {
 } from "reactstrap";
 
 import LeaderboardModal from './LeaderboardModal.js';
+import Tour from 'reactour';
+import Text from "./Text";
+import Glitch from "./Glitch";
+import Tooltip from "./Tooltip";
+
+const steps = [
+  {
+    selector: '',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "1px"}}>Leaderboard 📊</Glitch>
+      <Text color="#e5e5e5">
+      Compete on Carbonly's Global Leaderboard!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__leaderboard"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px", fontSize: '1.52em'}}>Carbonly Leaderboard 🏆</Glitch>
+      <img src={require(`../assets/img/landing/tourLeaderboard.jpg`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+          Carbonly's Global Leaderboard Based Upon Our <span style={{ "color": "#8db8a2"}}>Offset Points</span>
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__friendLeaderboard"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px", fontSize: '1.52em'}}>Friend Leaderboard 👪</Glitch>
+      <img src={require(`../assets/img/landing/friendLeaderboard.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+          Your Cosy Friend Leaderboard!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__profile"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Your Stats 📈</Glitch>
+      <img src={require(`../assets/img/landing/leaderboardProfileStats.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        See Your Rank And <span style={{ "color": "#8db8a2"}}>Offset Points!</span>
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__friends"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Your Friends 👪</Glitch>
+      <img src={require(`../assets/img/landing/friendImage.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        All Your Friends on Carbonly!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__addFriends"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Add Friends 🎉</Glitch>
+      <img src={require(`../assets/img/landing/addFriends.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Use This Card to Add New Friends to Your Circle!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '',
+    content: (e) => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Profile 😝</Glitch>
+      <img src={require(`../assets/img/landing/profileImage.png`)} style={{ marginBottom: "10px"}} />
+       <Text color="#e5e5e5">
+        We're Now Redirecting You to Your Profile 🛫
+      </Text>
+      <div style={{ "color": "#fff"}}>{setTimeout(function() { window.location.href = 'https://carbonly.org/profile' }, 1000)}</div>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+]
+
+let props = {
+  accentColor: '#86b89b',
+}
 
 class Leaderboard extends React.Component {
   constructor(props) {
@@ -58,6 +181,7 @@ class Leaderboard extends React.Component {
     this.state = {
       global: true,
       friendsMove: 1,
+      isTourOpen: true,
       searchValue: '',
       lineOptions: {
         scales: {
@@ -405,7 +529,7 @@ insertAddFriendsContainer() {
 
 
   return (<Col md="4">
-  <Card>
+  <Card data-tut="tour__addFriends">
 
   <CardHeader>
 
@@ -451,7 +575,7 @@ returnFriends() {
   let friend1 = this.state.friendsMove - 1;
 
     return (<Col md="4">
-    <Card>
+    <Card data-tut="tour__friends">
     <CardBody>
 
     <a href={`/user/@${this.state.friends[friend1].username}`} className="leaderboard__bottomXPositioning"><Icon icon={accountArrowRight} /></a>
@@ -711,6 +835,9 @@ returnRanColor() {
   }
 
 }
+closeTour() {
+
+}
   render() {
     return (
       <>
@@ -722,11 +849,11 @@ returnRanColor() {
         {this.state.user && this.state.allUsers && this.state.userRank && this.state.search && this.state.friends ? <div>
           <Row>
             <Col md="8">
-              <Card>
+              <Card data-tut="tour__leaderboard">
                 <CardHeader>
                 <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
 
-                <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
+                <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} data-tut="tour__friendLeaderboard" className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
                   <Form>
                     <Row>
 
@@ -809,7 +936,7 @@ returnRanColor() {
 
 
             <Col md="4">
-              <Card className="card-user">
+              <Card className="card-user" data-tut="tour__profile">
                 <CardBody>
                   <CardText />
                   <div className="author">
@@ -863,7 +990,7 @@ returnRanColor() {
 
                 </CardBody>
               </Card>
-                  {!this.state.hideArrow ? <img className="leaderboard__bottomArrow" src={require('../assets/img/landing/leaderboardArrow.png')} /> : undefined}
+                  {!this.state.hideArrow && !this.state.isTourOpen ? <img className="leaderboard__bottomArrow" src={require('../assets/img/landing/leaderboardArrow.png')} /> : undefined}
             </Col>
 
 
@@ -896,6 +1023,16 @@ returnRanColor() {
           {this.insertAddFriendsContainer()}
 
           </Row>}
+
+          {!this.state.user.hasDoneTour ? <Tour
+          steps={steps}
+          {...props}
+          badgeContent={(curr, tot) => `${curr}/${tot}`}
+          maskClassName=""
+          className="home__tourClass"
+          rounded={5}
+          isOpen={this.state.isTourOpen}
+          onRequestClose={(e) => this.closeTour()} /> : undefined}
 
 
           </div>: undefined}

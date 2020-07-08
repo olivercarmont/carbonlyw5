@@ -142,7 +142,7 @@ this.setState({ allBlogs: response.data.allBlogs });
 this.setState({ user: response.data.userProps });
 this.setState({ allUsers: response.data.allUsersArray });
 
-  axios.post('http://localhost:3000/blogs/add-page-view', { link: location  }, {
+  axios.post('https://carbonly.org/blogs/add-page-view', { link: location  }, {
     "link": location
   })
 .then(response => {
@@ -386,7 +386,7 @@ addToNewsletter(e) {
 
   if (this.state.newsletterEmail.length > 0) {
 
-  axios.post('http://localhost:3000/form/add-to-newsletter', { email: this.state.newsletterEmail  }, {
+  axios.post('https://carbonly.org/form/add-to-newsletter', { email: this.state.newsletterEmail  }, {
     email: this.state.newsletterEmail
   })
 .then(response => {

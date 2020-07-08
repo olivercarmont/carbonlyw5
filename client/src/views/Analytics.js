@@ -21,6 +21,10 @@ import classNames from "classnames";
 import axios from 'axios';
 import { Line, Bar } from "react-chartjs-2";
 import { Helmet } from "react-helmet";
+import Tour from 'reactour';
+import Text from "./Text";
+import Glitch from "./Glitch";
+import Tooltip from "./Tooltip";
 
 import '../OwnCSS/analytics.css';
 
@@ -113,6 +117,143 @@ let chart1_2_options = {
   }
 };
 
+const steps = [
+  {
+    selector: '',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "1px" }}>Analytics 📈</Glitch>
+      <Text color="#e5e5e5">
+      Track Your Footprint and Offsets on Carbonly
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__footprint"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Total Footprint 💨</Glitch>
+      <img src={require(`../assets/img/landing/totalFootprint.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+          Your Total Carbon Footprint Over The Past Week, Month and Year!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__ranking"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "5px", fontSize: '1.62em'}}>Leaderboard Ranking 🥇</Glitch>
+      <img src={require(`../assets/img/landing/rankingPosition.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Your Current Position on Carbonly's Global Leaderboard, Found on Your <span style={{ "color": "#8db8a2"}}>Leaderboard Tab</span>
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__offsets"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Recent Offsets 🌿</Glitch>
+      <img src={require(`../assets/img/landing/offsetsInMonth.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Your Carbon Offsets In The Past Month. Go To Your <span style={{ "color": "#8db8a2"}}>Offsets Tab</span> to Make a New One!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__orders"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Recent Orders 📦</Glitch>
+      <img src={require(`../assets/img/landing/recentOrders.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        All Your Recent Orders And Their Emissions!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__categories"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>By Categories 🍱</Glitch>
+      <img src={require(`../assets/img/landing/byCategory.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Your Emissions by Shopping Categories!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '',
+    content: (e) => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Leaderboard 📊</Glitch>
+      <img src={require(`../assets/img/landing/carbonlyLeaderboard.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        We're Now Redirecting You to Your Leaderboard Tab 🛫
+      </Text>
+      <div style={{ "color": "#fff"}}>{setTimeout(function() { window.location.href = 'https://carbonly.org/leaderboard' }, 1000)}</div>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+]
+
+/*
+{
+  selector: '[data-tut="tour__budget"]',
+  content: () => (
+    <div>
+    <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Carbon Budget ✂️</Glitch>
+    <img src={require(`../assets/img/landing/carbonBudgetAnalytics.png`)} style={{ marginBottom: "10px"}} />
+    <Text color="#e5e5e5">
+      Your Monthly Carbon Budget. Click <span style={{ "color": "#8db8a2"}}>'Change'</span> to Adjust it!
+    </Text>
+    </div>
+  ),
+  style: {
+    backgroundColor: "#fff",
+
+  }
+},
+*/
+
+let props = {
+  accentColor: '#86b89b',
+}
 
 let chartExample1, chartExample2, chartExample3, chartExample4;
 
@@ -121,7 +262,8 @@ class Analytics extends React.Component {
     super(props);
     this.state = {
       bigChartData: "data3",
-        ordersSort: 'recent'
+        ordersSort: 'recent',
+        isTourOpen: true,
     };
   }
   returnWeeklyEmissions() {
@@ -1754,7 +1896,7 @@ class Analytics extends React.Component {
         {this.state.user && this.state.userRank ? <div>
           <Row>
             <Col xs="12">
-              <Card className="card-chart">
+              <Card className="card-chart" data-tut="tour__footprint">
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
@@ -1846,7 +1988,7 @@ class Analytics extends React.Component {
           </Row>
           <Row>
             <Col lg="4">
-              <Card className="card-chart">
+              <Card className="card-chart" data-tut="tour__ranking">
                 <CardHeader>
                   <h5 className="card-category">Ranking</h5>
                   <CardTitle tag="h3">
@@ -1866,7 +2008,7 @@ class Analytics extends React.Component {
               </Card>
             </Col>
             <Col lg="4">
-              <Card className="card-chart">
+              <Card className="card-chart" data-tut="tour__budget">
                 <CardHeader>
                   <h5 className="card-category">Carbon Budget</h5>
                   <Link to="/profile" className="analytics__changeBudget">Change</Link>
@@ -1887,7 +2029,7 @@ class Analytics extends React.Component {
               </Card>
             </Col>
             <Col lg="4">
-              <Card className="card-chart">
+              <Card className="card-chart" data-tut="tour__offsets">
                 <CardHeader>
                   <h5 className="card-category">Offsets</h5>
                   <CardTitle tag="h3">
@@ -1911,7 +2053,7 @@ class Analytics extends React.Component {
           {/*  <img className="analytics__scrollDownArrow" src={require('../assets/img/landing/downArrow.png')} /> */}
 
             <Col lg="6" md="12">
-              <Card className="card-tasks">
+              <Card className="card-tasks" data-tut="tour__orders">
                 <CardHeader>
                   <h6 id="analytics__recentOrdersTitle" className="title d-inline">📦 Recent Orders</h6>
                   <p className="card-category d-inline"></p>
@@ -2005,7 +2147,7 @@ class Analytics extends React.Component {
             </Col>
 
             <Col lg="6" md="12">
-              <Card>
+              <Card data-tut="tour__categories">
                 <CardHeader>
                   <h6 id="analytics__recentOrdersTitleOffset" className="title d-inline">🛫 Emissions by Category</h6>
                 </CardHeader>
@@ -2078,7 +2220,18 @@ class Analytics extends React.Component {
 
               </Card>
             </Col>
-          </Row></div> : undefined }
+          </Row>
+        {!this.state.user.hasDoneTour ? <Tour
+        steps={steps}
+        {...props}
+        badgeContent={(curr, tot) => `${curr}/${tot}`}
+        maskClassName=""
+        className="home__tourClass"
+        rounded={5}
+        isOpen={this.state.isTourOpen}
+        onRequestClose={(e) => this.closeTour()} /> : undefined}
+
+          </div> : undefined }
         </div>
       </>
     );

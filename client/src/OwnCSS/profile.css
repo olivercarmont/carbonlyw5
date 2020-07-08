@@ -763,3 +763,6 @@ margin-bottom:-7px;
 .tooltipProfile:hover .tooltiptextProfile {
   visibility: visible;
 }
+.profile__referralSharer {
+  font-size:1.25em;
+}

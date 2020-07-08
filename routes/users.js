@@ -1252,6 +1252,19 @@ router.post("/update", (req, res) => {
 
      }).catch(err => res.status(400).json(`Error:` + err));
 
+   } else if (prop == 'doneTour') {
+
+     User.findOne({ _id: id }).then(user => {
+
+       User.findOneAndUpdate({ _id: id }, { $set: {
+            hasDoneTour: 't',
+         }
+       }).then(user => {
+         return res.json({ doneTour: true });
+       })
+
+     }).catch(err => res.status(400).json(`Error:` + err));
+
    }
 
 });

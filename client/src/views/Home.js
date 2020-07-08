@@ -22,6 +22,9 @@ import { Line, Bar } from "react-chartjs-2";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Tour from 'reactour';
+import Text from "./Text";
+import Glitch from "./Glitch";
+import Tooltip from "./Tooltip";
 
 import '../OwnCSS/home.css';
 import { ReactSortable } from "react-sortablejs";
@@ -151,16 +154,111 @@ let chart1_2_options = {
     ]
   }
 };
+
+/*
+<Tooltip style={{ "color": "#8db8a2"}} data-tooltip="Check it Out! ⬇️"></Tooltip>
+
+
+*/
+
 const steps = [
   {
-    selector: 'Your Home Dashboard',
-    content: 'Your Home Dashboard. This is a summary 📔 of all your tabs on Carbonly',
+    selector: '',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "1px"}}>Home</Glitch>
+      <Text color="#e5e5e5">
+      A Summary 📔 of All Your Tabs on Carbonly
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
   },
   {
-    selector: 'Your Home Dashboard',
-    content: 'Your Home Dashboard. This is a summary 📔 of all your tabs on Carbonly',
-  },
+    selector: '[data-tut="tour__leaderboard"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Leaderboard 📊</Glitch>
+      <img src={require(`../assets/img/landing/tourLeaderboard.jpg`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+          The <span style={{ "color": "#8db8a2"}}>Carbonly Leaderboard</span>{" "}
+          -Use The Tabs on The Right to Navigate to it- Will Show You The Rank of Your Friends Based on <span style={{ "color": "#8db8a2"}}>Offset Points</span>
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
 
+    }
+  },
+  {
+    selector: '[data-tut="tour__leaderboard"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Offset Points 🌳</Glitch>
+      <img src={require(`../assets/img/landing/offsetPointsImage.jpg`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        <span style={{ "color": "#8db8a2"}}>Offset Points</span> Are a Measure of the Sustainability of Your Online Habits. Get Points From Buying Sustainable <span style={{ "color": "#8db8a2"}}>"Green-Label"</span> Products, Referring Friends And Offsetting Your Orders!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__budget"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Carbon Budget ✂️</Glitch>
+      <img src={require(`../assets/img/landing/carbonBudget.jpg`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        Your Monthly Carbon Budget. Go to Your <span style={{ "color": "#8db8a2"}}>Profile</span> to Change it!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '[data-tut="tour__recentOrders"]',
+    content: () => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Recent Orders 📦</Glitch>
+      <img src={require(`../assets/img/landing/homeRecentOrders.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        All Your Recent Orders And The Total Carbon Cost. Go to Your <span style={{ "color": "#8db8a2"}}>Offset</span> Page to Offset Them!
+      </Text>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
+  {
+    selector: '',
+    content: (e) => (
+      <div>
+      <Glitch data-glitch="styled" style={{ marginBottom: "3px"}}>Analytics 📈</Glitch>
+      <img src={require(`../assets/img/landing/analyticsTour.png`)} style={{ marginBottom: "10px"}} />
+      <Text color="#e5e5e5">
+        We're Now Redirecting You to Your Analytics Page 🛫
+      </Text>
+      <div style={{ "color": "#fff"}}>{setTimeout(function() { window.location.href = 'https://carbonly.org/analytics' }, 1000)}</div>
+      </div>
+    ),
+    style: {
+      backgroundColor: "#fff",
+
+    }
+  },
 ]
 
 let props = {
@@ -173,7 +271,7 @@ class Home extends React.Component {
     this.state = {
       searchValue: '',
       bigChartData: "data1",
-      isTourOpen:false,
+      isTourOpen:true,
       global: true,
       shoppingList: [],
       cur: '$',
@@ -681,7 +779,7 @@ updateDescriptionShopping(e, id) {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
-axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
     prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
   })
 .then(response => {
@@ -715,7 +813,7 @@ updateTitleShopping(e, id) {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
-  axios.post('http://localhost:5000/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
       prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
@@ -1116,6 +1214,9 @@ closeTour() {
   // this.setState({ isTourOpen: false });
   // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
 }
+switchPage() {
+  window.location.href = 'https://carbonly.org/analytics';
+}
 render() {
 
     let newDateHome = new Date();
@@ -1137,7 +1238,7 @@ render() {
 
           <Col md="6">
 
-            <Card>
+            <Card data-tut="tour__leaderboard">
               <CardHeader>
 
               {!this.state.isTourOpen && !this.state.user.hasDoneTour ? <img className="home__topRightArrow" src={require('../assets/img/landing/clickArrowHome.png')} /> : undefined}
@@ -1227,7 +1328,7 @@ render() {
           </Col>
 
           <Col lg="6">
-          <Card className="card-chart">
+          <Card className="card-chart" data-tut="tour__budget">
             <CardHeader>
             <Link to="/analytics" className="home__pageLabel"><span className="home__pageLabelText">Analytics</span> <span className="home__pageLabelIcon"><Icon style={{"font-size": "1.27em"}} icon={graphPie} /></span></Link>
               <h5 className="card-category">Carbon Budget</h5>
@@ -1257,7 +1358,7 @@ render() {
 
 
           <Col md="6">
-            <Card>
+            <Card data-tut="tour__recentOrders">
               <CardHeader>
 
               <Link to="/offsets" className="home__pageLabel"><span className="home__pageLabelText">Offsets</span> <span className="home__pageLabelIcon"><Icon icon={seedlingIcon} /></span></Link>
