@@ -1225,10 +1225,10 @@ render() {
       <>
         <div className="content">
 
-        <Helmet>
+        {/* <Helmet>
           <title>Carbonly | Home</title>
           <meta name="description" content="See The Latest Changes to Your Online Carbon Footprint!" />
-        </Helmet>
+        </Helmet> */}
 
         {this.state.user && this.state.allUsers ?
 
