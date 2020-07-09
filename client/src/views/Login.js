@@ -160,6 +160,7 @@ handleGoogleLoginFailure(err) {
     // console.error(err)
   this.setState({ error: "Google Login Failed : (" });
   console.log('Error', err)
+  window.location.href = 'https://www.carbonly.org/log-in';
 }
 handleGoogleLogin(user) {
   // console.log(user)
@@ -184,7 +185,7 @@ render() {
         <title>Carbonly | Login</title>
         <meta name="description" content="Use This Page to Log in to Your Carbonly Account And Start Tracking!" />
         </Helmet> */}
-        
+
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>
           <div className="container-login100">
