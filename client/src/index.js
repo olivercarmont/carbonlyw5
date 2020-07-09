@@ -99,7 +99,7 @@ if (localStorage.jwtToken) {
     // Redirect to login
     window.location.href = "/log-in";
   }
-}
+} 
 
 if (window.location.protocol !== 'https:') {
     window.location.replace(`https:${window.location.href.substring(window.location.protocol.length)}`);
