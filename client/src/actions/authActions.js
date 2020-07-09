@@ -10,15 +10,15 @@ export const registerUser = (userData, history) => dispatch => {
     .post("/users/register", userData)
     .then(res => {
       // Save to localStorage
-      // Set token to localStorage
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      dispatch(setCurrentUser(decoded));
+      // // Set token to localStorage
+      // const { token } = res.data;
+      // localStorage.setItem("jwtToken", token);
+      // // Set token to Auth header
+      // setAuthToken(token);
+      // // Decode token to get user data
+      // const decoded = jwt_decode(token);
+      // // Set current user
+      // dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
       dispatch({
@@ -33,7 +33,7 @@ export const registerSocialUser = (userData, history) => dispatch => {
     .post("/users/social-register", userData)
     .then(res => {
 
-      console.log('RAN THIS PART')
+      // console.log('RAN THIS PART')
       //
       // axios
       //   .post("/users/social-login", userData)

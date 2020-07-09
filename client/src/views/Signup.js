@@ -348,6 +348,14 @@ submitForm() {
 
   this.props.history.push("/home");
 
+  setTimeout(function() {
+    if (!localStorage.jwtToken) {
+      this.props.loginUser(userData, this.props.history);
+
+      this.props.history.push("/home");
+    }
+  }, 2000)
+
   // setTimeout(function() {
   this.setState({ isChanging: true });
   // }, 1000)
