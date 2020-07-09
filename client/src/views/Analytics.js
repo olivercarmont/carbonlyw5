@@ -1889,10 +1889,11 @@ class Analytics extends React.Component {
     return (
       <>
         <div className="content">
-        <Helmet>
+      {/*  <Helmet>
           <title>Carbonly | Analytics</title>
           <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
-        </Helmet>
+        </Helmet> */}
+        
         {this.state.user && this.state.userRank ? <div>
           <Row>
             <Col xs="12">

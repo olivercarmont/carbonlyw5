@@ -113,10 +113,10 @@ changePage(num) {
 render() {
     return (
       <>
-      <Helmet>
+    {/*   <Helmet>
         <title>Carbonly | Instructions Manual</title>
         <meta name="description" content="While Not Exactly Hands On, This Tutorial Will Help You Get Started on Carbonly!" />
-      </Helmet>
+      </Helmet>  */}
 
         <div className="content">
           <Row>

@@ -346,10 +346,10 @@ animateNumbers() {
       {this.state.landingData ? <div>
 
         <div className="landing__topDiv">
-        <Helmet>
+      {/*  <Helmet>
           <title>Carbonly | An Online Carbon Footprint Tracker</title>
           <meta name="description" content="Carbonly, a Browser Extension for Tracking And Mitigating Your Online Carbon Footprint, Everywhere You Go!" />
-        </Helmet>
+        </Helmet> */}
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated posStatic" id="home">

@@ -842,10 +842,10 @@ closeTour() {
     return (
       <>
         <div className="content">
-        <Helmet>
+      {/*  <Helmet>
           <title>Carbonly | Analytics</title>
           <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
-        </Helmet>
+        </Helmet> */}
         {this.state.user && this.state.allUsers && this.state.userRank && this.state.search && this.state.friends ? <div>
           <Row>
             <Col md="8">

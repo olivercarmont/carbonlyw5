@@ -157,10 +157,11 @@ trackScrolling() {
     return (
       <>
         <div className="landing__topDiv">
-        <Helmet>
+
+      {/*  <Helmet>
         <title>Carbonly | Feature Request</title>
         <meta name="description" content="Wanna Request a Feature on Carbonly? What'ya Waiting For!" />
-        </Helmet>
+        </Helmet> */}
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

@@ -462,10 +462,12 @@ render() {
     return (
       <>
       <div className="content">
-      <Helmet>
+
+      {/*    <Helmet>
         <title>Carbonly | {this.state.puser.username} Profile</title>
         <meta name="description" content="See The Carbonly Profiles of Your Close Friends!" />
-      </Helmet>
+      </Helmet> */}
+
       {/* console.log('stateChecks', `1 ${!!this.state.user} 2 ${!!this.state.friends} 3 ${!!this.state.allUsers} 4 ${!!this.state.puser} 5 ${!!this.state.pfriernds}`) */}
       {this.state.user && this.state.friends && this.state.allUsers && this.state.puser ? <div>
       <Row>

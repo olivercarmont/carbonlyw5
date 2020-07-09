@@ -216,10 +216,10 @@ trackScrolling() {
       <>
       {this.state.videoBlogs && this.state.writtenBlogs ? <div>
 
-        <Helmet>
+      {/*   <Helmet>
         <title>Carbonly | The Carbonly Blog</title>
         <meta name="description" content="Stay in The Loop of All Our Events at Carbonly!" />
-        </Helmet>
+        </Helmet> */}
 
         <div className="" style={{"background-color":"#f7f7f7"}}>
 

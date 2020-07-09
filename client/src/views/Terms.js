@@ -305,10 +305,10 @@ trackScrolling() {
       <>
         <div className="landing__topDiv">
 
-        <Helmet>
-        <title>Carbonly | Terms</title>
-        <meta name="description" content="Now For The Boring Stuff. But Very Important!" />
-      </Helmet>
+        {/*    <Helmet>
+          <title>Carbonly | Terms</title>
+          <meta name="description" content="Now For The Boring Stuff. But Very Important!" />
+        </Helmet>  */}
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

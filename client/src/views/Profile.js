@@ -684,10 +684,12 @@ render() {
     return (
       <>
       <div className="content">
-      <Helmet>
+
+      {/* }<Helmet>
         <title>Carbonly | Profile</title>
         <meta name="description" content="View Your Carbonly Social Profile!" />
-      </Helmet>
+      </Helmet>  */}
+
       {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ? <div>
           <Row>
           <div className="profile__centeringMainCard">

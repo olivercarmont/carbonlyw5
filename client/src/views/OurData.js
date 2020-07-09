@@ -254,10 +254,10 @@ animateValue() {
       {this.state.landingData ? <div>
         <div className="landing__topDiv">
 
-        <Helmet>
+    {/*     <Helmet>
         <title>Carbonly | Our Data</title>
         <meta name="description" content="Learn How We at Carbonly Label Thousands of Products for Their Carbon Emissions!" />
-      </Helmet>
+      </Helmet> */}
 
         <header className="header_area animated" id="home">
             <div className="container-fluid">
