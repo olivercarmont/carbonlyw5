@@ -311,7 +311,7 @@ class Home extends React.Component {
 }
 componentWillMount() {
 
-  axios.post('http://localhost:3000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
