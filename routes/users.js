@@ -1257,7 +1257,7 @@ router.post("/update", (req, res) => {
      User.findOne({ _id: id }).then(user => {
 
        User.findOneAndUpdate({ _id: id }, { $set: {
-            hasDoneTour: 't',
+            hasDoneTour:true,
          }
        }).then(user => {
          return res.json({ doneTour: true });
