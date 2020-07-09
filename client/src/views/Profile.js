@@ -956,7 +956,7 @@ render() {
               </div>
               </Row>
 
-              {/* !this.state.user.hasDoneTour ? <Tour
+              {!this.state.user.hasDoneTour ? <Tour
               steps={steps}
               {...props}
               badgeContent={(curr, tot) => `${curr}/${tot}`}
@@ -964,7 +964,7 @@ render() {
               className="home__tourClass"
               rounded={5}
               isOpen={this.state.isTourOpen}
-              onRequestClose={(e) => this.closeTour()} /> : undefined */}
+              onRequestClose={(e) => this.closeTour()} /> : undefined}
 
         </div> : undefined}</div>
       </>
