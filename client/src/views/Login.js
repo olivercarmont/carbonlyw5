@@ -138,10 +138,10 @@ componentDidMount() {
 
     allUsersArray.map((us) => {
 
-      console.log('users', `${us.email}, ${this.state.emailLogin}`)
+      // console.log('users', `${us.email}, ${this.state.emailLogin}`)
 
       if ((us.email == this.state.emailLogin) && this.state.emailLogin) {
-          console.log('WAS SOCIAL LOGIN', us)
+          // console.log('WAS SOCIAL LOGIN', us)
         if (us.socialLogin) {
           this.setState({ error: "This Account Requires Google Login" });
 
@@ -149,6 +149,7 @@ componentDidMount() {
           this.props.loginUser(userData);
           this.setState({ isChanging: true });
         }
+
       }
 
     });

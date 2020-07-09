@@ -346,13 +346,15 @@ submitForm() {
 
   this.props.loginUser(userData, this.props.history);
 
+  let history = this.props.history;
+
   this.props.history.push("/home");
 
   setTimeout(function() {
     if (!localStorage.jwtToken) {
       try {
-      loginUser(userData, this.props.history);
-      window.location.href = 'https://wwww.carbonly.org/home';
+      loginUser(userData, history);
+      window.location.href = 'https://www.carbonly.org/home';
     } catch(e) {
       console.log('E', e);
     }
