@@ -15,7 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component, useContext } from 'react'
+import React, { Component, useContext } from 'react';
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 import classNames from "classnames";
 import { Line, Bar } from "react-chartjs-2";
@@ -308,10 +311,17 @@ class Home extends React.Component {
 }
 componentWillMount() {
 
-  axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+  axios.post('http://localhost:3000/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
   })
 .then(response => {
+
+  // console.log('RE', response)
+
+    if (response.data.userNotFound) {
+      this.props.logoutUser();
+      window.location.href = 'https://www.carbonly.org/log-in';
+    }
 
     if (response.data.info[0].hasLoggedIn === 'f') {
       window.location.href="/click";
@@ -1616,4 +1626,15 @@ render() {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Home);

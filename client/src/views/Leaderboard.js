@@ -20,6 +20,10 @@ import axios from 'axios';
 import '../OwnCSS/leaderboard.css';
 import { Helmet } from "react-helmet";
 
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
 import { Icon, InlineIcon } from '@iconify/react';
@@ -1042,4 +1046,15 @@ closeTour() {
   }
 }
 
-export default Leaderboard;
+Leaderboard.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Leaderboard);

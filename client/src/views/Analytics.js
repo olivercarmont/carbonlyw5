@@ -26,6 +26,10 @@ import Text from "./Text";
 import Glitch from "./Glitch";
 import Tooltip from "./Tooltip";
 
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import '../OwnCSS/analytics.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
@@ -2239,4 +2243,15 @@ class Analytics extends React.Component {
   }
 }
 
-export default Analytics;
+Analytics.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Analytics);

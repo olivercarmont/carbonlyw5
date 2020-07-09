@@ -726,6 +726,10 @@ router.post("/return-leaderboard", (req, res) => {
 
   User.findOne({ _id: id }).then(user => {
 
+    if (!user) {
+      return res.json({ userNotFound: 'notFound' });
+    }
+
     userInfo = user;
     userFriends = user.friends;
     let i = 1;
@@ -1036,10 +1040,16 @@ router.post("/return-leaderboard", (req, res) => {
     }
   }, 1);
 
-  }).catch(err => res.status(400).json(`Error:` + err));
+}).catch(err => {
+
+    return res.json({ userNotFound: 'notFound' });
+
+  // res.status(400).json(`Error:` + err)
+});
 
 } else {
-      return res.status(400).json({ jwt: `${res.toString()} + ${req.header('jwt')} + ${req.headers['jwt']}` });
+    return res.json({ userNotFound: 'notFound' });
+      // return res.status(400).json({ jwt: `${res.toString()} + ${req.header('jwt')} + ${req.headers['jwt']}` });
   }
 
 });
@@ -1438,6 +1448,39 @@ router.post("/login", (req, res) => {
         return res
           .status(400)
           .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
+
+router.post("/can-login", (req, res) => {
+  // Form validation
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.json({ user: false });
+    }
+
+    if (!password) {
+      return res.json({ user: false });
+    }
+
+    // Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+
+          return res.json({ user: true })
+
+      } else {
+                return res.json({ user: false })
+        // return res
+        //   .status(400)
+        //   .json({ passwordincorrect: "Password incorrect" });
       }
     });
   });

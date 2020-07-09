@@ -124,7 +124,10 @@ componentDidMount() {
     location = location.slice(0, locOfHash);
   }
 
-  console.log('LOC', location);
+  if (location.includes('?')) {
+    let locOfMark = location.indexOf('?');
+    location = location.slice(0, locOfMark);
+  }
 
   if (localStorage.jwtToken) {
 

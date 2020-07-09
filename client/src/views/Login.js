@@ -126,8 +126,12 @@ componentDidMount() {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  onSubmit = e => {
-    e.preventDefault();
+submit() {
+    // e.preventDefault();
+
+    this.setState({ error: "" });
+
+    let foundUser = false;
 
     const userData = {
       email: this.state.emailLogin,
@@ -142,19 +146,46 @@ componentDidMount() {
 
       if ((us.email == this.state.emailLogin) && this.state.emailLogin) {
           // console.log('WAS SOCIAL LOGIN', us)
+
+          foundUser = true;
+
         if (us.socialLogin) {
           this.setState({ error: "This Account Requires Google Login" });
 
         } else {
+
           this.props.loginUser(userData);
           this.setState({ isChanging: true });
+
+          axios.post('http://localhost:3000/users/can-login', { }, {
+
+          })
+        .then(response => {
+          // console.log('SEND RESPONSE')
+
+          console.log('RE', response)
+
+          if (!response.data.user && !this.state.password) {
+            this.setState({ error: "Couldn't Find Password/Email Combination" });
+          }
+
+             // console.log('allU', Array(response.data)[0] );
+        }).catch((error) => {
+          console.log(error);
+        })
+
+
         }
 
+      } else {
       }
 
     });
 
-
+    if (!foundUser) {
+      this.setState({ isChanging: true });
+      this.setState({ error: "Couldn't Find Password/Email Combination" });
+    }
 
   };
 handleGoogleLoginFailure(err) {
@@ -233,11 +264,13 @@ render() {
 
                 <div className="separator"> &nbsp; Or Login With Password  &nbsp;</div>
 
-                {this.state.isChanging ? errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.emailnotfound ? <div className="login__errorButton">{errors.emailnotfound}</div> : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.passwordincorrect ? <div className="login__errorButton">{errors.passwordincorrect}</div> : undefined : undefined}
+                {this.state.isChanging ? errors.email ? <div className="login__errorButton">{errors.email}</div> : errors.emailnotfound ? <div className="login__errorButton">{errors.emailnotfound}</div> : undefined : undefined}
+
+                {/* : errors.password ? <div className="login__errorButton">{errors.password}</div> : errors.passwordincorrect ? <div className="login__errorButton">{errors.passwordincorrect}</div> */}
 
                 {this.state.isChanging ? this.state.error ? <div className="login__errorButton">{this.state.error}</div> : undefined : undefined}
 
-                <form className="login100-form validate-form" noValidate onSubmit={this.onSubmit}>
+                <div className="login100-form validate-form">
 
                 <div className="wrap-input100 validate-input" data-validate="Enter Email">
                   <input className="input100" name="email" placeholder="Email" onChange={this.onChange}
@@ -265,7 +298,7 @@ render() {
                 <div className="login__eliminateSpacingBottomTop"></div>
 
                 <div className="container-login100-form-btn">
-                  <button className="login100-form-btn">
+                  <button className="login100-form-btn" onClick={() => this.submit()}>
                       Login &nbsp;👉
                   </button>
                 </div>
@@ -279,7 +312,7 @@ render() {
                 </div>
                 <div className="login__bottomStopHoverEffect2">Click <div onClick={() => this.setState({ hidden: !this.state.hidden })} className="login__signupLink">Here</div> to {!this.state.hidden ? 'Hide' : 'Show'} This Card!</div>
 
-              </form>
+              </div>
               </div>
             </div>
           </div>
