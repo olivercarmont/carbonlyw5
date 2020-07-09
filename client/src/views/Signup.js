@@ -351,8 +351,8 @@ submitForm() {
   setTimeout(function() {
     if (!localStorage.jwtToken) {
       try {
-      this.props.loginUser(userData, this.props.history);
-      this.props.history.push("/home");
+      loginUser(userData, this.props.history);
+      window.location.href = 'https://wwww.carbonly.org/home';
     } catch(e) {
       console.log('E', e);
     }
