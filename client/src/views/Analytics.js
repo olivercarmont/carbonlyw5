@@ -1893,7 +1893,7 @@ class Analytics extends React.Component {
           <title>Carbonly | Analytics</title>
           <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
         </Helmet> */}
-        
+
         {this.state.user && this.state.userRank ? <div>
           <Row>
             <Col xs="12">
@@ -2222,7 +2222,7 @@ class Analytics extends React.Component {
               </Card>
             </Col>
           </Row>
-        {!this.state.user.hasDoneTour ? <Tour
+        {/* !this.state.user.hasDoneTour ? <Tour
         steps={steps}
         {...props}
         badgeContent={(curr, tot) => `${curr}/${tot}`}
@@ -2230,7 +2230,7 @@ class Analytics extends React.Component {
         className="home__tourClass"
         rounded={5}
         isOpen={this.state.isTourOpen}
-        onRequestClose={(e) => this.closeTour()} /> : undefined}
+        onRequestClose={(e) => this.closeTour()} /> : undefined */}
 
           </div> : undefined }
         </div>

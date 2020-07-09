@@ -1597,7 +1597,7 @@ render() {
           </Col>
           </Row>
 
-        {!this.state.user.hasDoneTour? <Tour
+        {/* !this.state.user.hasDoneTour? <Tour
       steps={steps}
       {...props}
       onAfterOpen={this.disableBody}
@@ -1607,7 +1607,7 @@ render() {
       className="home__tourClass"
       rounded={5}
       isOpen={this.state.isTourOpen}
-      onRequestClose={(e) => this.closeTour()} /> : undefined}
+      onRequestClose={(e) => this.closeTour()} /> : undefined */}
 
           </div> : undefined }
         </div>
