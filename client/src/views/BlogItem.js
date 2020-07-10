@@ -441,7 +441,7 @@ render() {
 
         <div className="" style={{"background-color":"#f7f7f7"}}>
 
-    {/*     <Helmet>
+         <Helmet>
               <title>Carbonly Blog: {this.state.blog.title}</title>
               <meta name="description" content={this.state.blog.description} />
 
@@ -463,7 +463,7 @@ render() {
 
               <meta name="robots" content="index, follow" />
               <meta charset="UTF-8" />
-          </Helmet> */}
+          </Helmet>
 
         <section className="header-top" style= {{ "position": "relative", "z-index": "50", "background-color": "#fff", "height": "100%"}}>
          <div className="container">

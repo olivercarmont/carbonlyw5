@@ -539,10 +539,10 @@ render() {
       {this.state.allUsers ?
         <div className="content">
 
-      {/*  <Helmet>
+        <Helmet>
           <title>Carbonly | Signup</title>
           <meta name="description" content="Use Our Signup Page to Start Your Journey With Carbonly!" />
-       </Helmet> */}
+       </Helmet>
 
         <script src="https://apis.google.com/js/platform.js" async defer></script>
       <meta name="google-signin-scope" content="profile email"/>

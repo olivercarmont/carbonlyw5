@@ -213,10 +213,11 @@ render() {
       <>
       {this.state.allUsers ?
         <div className="content disableScroll">
-      {/*   <Helmet>
-        <title>Carbonly | Login</title>
-        <meta name="description" content="Use This Page to Log in to Your Carbonly Account And Start Tracking!" />
-        </Helmet> */}
+
+        <Helmet>
+          <title>Carbonly | Login</title>
+          <meta name="description" content="Use This Page to Log in to Your Carbonly Account And Start Tracking!" />
+        </Helmet>
 
         <div className="limiter">
           <img className="login__backgroundImage" src={require("../assets/img/mainBackground.jpg") }/>

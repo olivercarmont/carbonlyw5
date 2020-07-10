@@ -116,10 +116,10 @@ trackScrolling() {
       <>
         <div className="notFound__topDiv">
 
-      {/*  <Helmet>
+       <Helmet>
           <title>Carbonly | Not Found</title>
           <meta name="description" content="Huh. It Seems This Page Doesn't Exist. Try Another!" />
-       </Helmet>  */}
+       </Helmet>  
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

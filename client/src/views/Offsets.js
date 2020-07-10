@@ -565,10 +565,12 @@ time.getHours() + ":" + minutes;
       <>
         <div className="content">
         {this.state.user && this.state.hasAnswered ? <div>
-      {/*   <Helmet>
-        <title>Carbonly | Carbon Offsets</title>
-        <meta name="description" content="Use Our Monthly Subscription Service to Seamlessly Offset Your Footprint!" />
-        </Helmet> */}
+
+       <Helmet>
+          <title>Carbonly | Carbon Offsets</title>
+          <meta name="description" content="Use Our Monthly Subscription Service to Seamlessly Offset Your Footprint!" />
+        </Helmet>
+
           <Row>
             <Col md="6">
               <Card>

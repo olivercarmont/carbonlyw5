@@ -18,6 +18,7 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 // reactstrap components
 import {
@@ -268,6 +269,12 @@ render() {
       {/*  <div id="preloader">
             <div className="colorlib-load"></div>
         </div> */}
+
+        <Helmet>
+           <title>Carbonly | FAQ</title>
+           <meta name="description" content="See The Most Frequently Asked Questions on Carbonly!" />
+         </Helmet>
+
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

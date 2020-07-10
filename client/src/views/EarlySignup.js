@@ -436,10 +436,10 @@ render() {
       {this.state.allUsers ?
         <div className="content">
 
-      {/*  <Helmet>
+       <Helmet>
           <title>Carbonly | Early Signup</title>
           <meta name="description" content="An Exclusive Carbonly Signup Link For Acquiring 10,000 Free Offset Points!" />
-        </Helmet>  */}
+        </Helmet> 
 
         <script src="https://apis.google.com/js/platform.js" async defer></script>
       <meta name="google-signin-scope" content="profile email"/>
@@ -462,24 +462,6 @@ render() {
 
                 <div className="login__socialLogin">
 
-                <Modal
-                          isOpen={false}
-                          onAfterOpen={this.afterOpenModal()}
-                          onRequestClose={this.closeModal()}
-                          style={customStyles}
-                          contentLabel="Example Modal"
-                          >
-                          <h2>Hellooooooooooo</h2>
-                    <button onClick={this.closeModal()}>close</button>
-                    <div>I am a modal</div>
-                    <form>
-                      <input />
-                      <button>tab navigation</button>
-                      <button>stays</button>
-                      <button>inside</button>
-                      <button>the modal</button>
-                    </form>
-                  </Modal>
 
               {/*   <div className="g-signin2" data-onsuccess="onSignIn"></div>
                   <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
