@@ -54,7 +54,7 @@ class AdminNavbar extends React.Component {
       color: "navbar-transparent"
     };
   }
-  componentDidMount() {
+  componentWillMount() {
 
       axios.post('https://carbonly.org/users/return-home', { jwt: localStorage.jwtToken }, {
         'jwt': localStorage.jwtToken,

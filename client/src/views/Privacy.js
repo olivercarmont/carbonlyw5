@@ -86,7 +86,7 @@ class Privacy extends React.Component {
     }
     this.trackScrolling = this.trackScrolling.bind(this);
 }
-componentDidMount() {
+componentWillMount() {
   document.addEventListener('scroll', this.trackScrolling);
 }
 componentWillUnmount() {

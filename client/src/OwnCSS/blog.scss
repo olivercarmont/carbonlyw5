@@ -457,3 +457,42 @@ background-image: linear-gradient( 109.6deg,  rgba(102,203,149,1) 11.2%, rgba(39
 
   }
 }
+
+.tooltipBlogItem {
+  position: relative;
+  display: inline-block;
+  z-index: 100000 !important;
+  float:left;
+}
+
+.tooltipBlogItem .tooltiptextBlogItem {
+  visibility: hidden;
+  width: 180px;
+  background-color: #f6f6f6;
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-size:0.925em;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top:32px;
+  right:-20%;
+}
+
+.tooltipBlogItem .tooltiptextBlogItem::after {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 50%;
+
+  margin-top: -10px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
+}
+
+.tooltipBlogItem:hover .tooltiptextBlogItem {
+  visibility: visible;
+}

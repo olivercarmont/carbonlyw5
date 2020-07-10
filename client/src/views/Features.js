@@ -128,7 +128,7 @@ updateMessage(e) {
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
 }
-componentDidMount() {
+componentWillMount() {
   document.addEventListener('scroll', this.trackScrolling);
 }
 componentWillUnmount() {
@@ -161,7 +161,7 @@ trackScrolling() {
        <Helmet>
         <title>Carbonly | Feature Request</title>
         <meta name="description" content="Wanna Request a Feature on Carbonly? What'ya Waiting For!" />
-        </Helmet> 
+        </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">

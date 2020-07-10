@@ -101,7 +101,7 @@ class OurData extends React.Component {
   this.trackScrolling = this.trackScrolling.bind(this);
   this.animateValue = this.animateValue.bind(this);
 }
-componentDidMount() {
+componentWillMount() {
 
   axios.post('https://carbonly.org/users/return-landing', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,

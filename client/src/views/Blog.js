@@ -133,36 +133,6 @@ componentWillMount() {
     })
 
 }
-componentDidMount() {
-  if (this.state.howItWorks) {
-    this.fun1();
-  }
-}
-fun1 = () => {
-  let i = 0;
-  let intervalId = setInterval(() => {
-
-    let sec;
-
-    if (this.state.howItWorks === 'account') {
-      sec = 'buy';
-    } else if (this.state.howItWorks === 'buy') {
-      sec = 'track';
-    } else if (this.state.howItWorks === 'track') {
-      sec = 'account';
-    }
-
-    this.setState({
-      howItWorks: sec
-    });
-
-    if (i > 180) {
-      clearInterval(intervalId);
-    }
-    i++;
-
-  }, 8700);
-};
 returnCO2Format() {
 let emissions = parseFloat(this.state.landingData.emTracked);
 let newEmissions = 0;
@@ -219,7 +189,7 @@ trackScrolling() {
         <Helmet>
         <title>Carbonly | The Carbonly Blog</title>
         <meta name="description" content="Stay in The Loop of All Our Events at Carbonly!" />
-        </Helmet> 
+        </Helmet>
 
         <div className="" style={{"background-color":"#f7f7f7"}}>
 

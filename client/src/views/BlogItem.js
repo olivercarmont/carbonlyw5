@@ -111,7 +111,7 @@ class Landing extends React.Component {
   }
   this.trackScrolling = this.trackScrolling.bind(this);
 }
-componentDidMount() {
+componentWillMount() {
 
   location = window.location.href;
 
@@ -434,6 +434,9 @@ shouldBeSubscribed() {
     }
   }
 }
+redirectLogin() {
+  window.location.href = "https://www.carbonly.org/log-in";
+}
 render() {
     return (
       <>
@@ -571,7 +574,14 @@ render() {
 
               <div className="navigation-top">
                   <div className="d-sm-flex justify-content-between text-center">
-                      <p className="like-info" onClick={() => this.changeLike()} style={{ "color": "#999", "cursor": "pointer"}}><span className="align-middle"><i className={this.state.hasLiked ? 'fas fa-heart' : "far fa-heart"}></i></span> {this.state.likes.length} {this.state.likes.length === 1 ? 'person likes this' : 'people like this'}</p>
+                      {/* }<p className="like-info" onClick={() => this.changeLike()} style={{ "color": "#999", "cursor": "pointer"}}><span className="align-middle"><i className={this.state.hasLiked ? 'fas fa-heart' : "far fa-heart"}></i></span> {this.state.likes.length} {this.state.likes.length === 1 ? 'person likes this' : 'people like this'}</p> */}
+
+
+                      {this.state.user ? <p className="like-info" onClick={() => this.changeLike()} style={{ "color": "#999", "cursor": "pointer"}}><span className="align-middle"><i className={this.state.hasLiked ? 'fas fa-heart' : "far fa-heart"}></i></span> {this.state.likes.length} {this.state.likes.length === 1 ? 'person likes this' : 'people like this'}</p> :
+
+                        <div className="tooltipBlogItem"><p className="like-info" onClick={() => this.redirectLogin()} style={{ "color": "#999", "cursor": "pointer"}}><span className="align-middle"><i className={this.state.hasLiked ? 'fas fa-heart' : "far fa-heart"}></i></span> {this.state.likes.length} {this.state.likes.length === 1 ? 'person likes this' : 'people like this'}</p>
+                        <span className="tooltiptextBlogItem"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto"}}>You Need to Be Logged In to Like This. <Link to="/log-in" style={{ "text-decoration":"underline", "color":"rgba(0, 0, 0, 0.6)" }}>Login?</Link></div></span></div>}
+
                       <div className="col-sm-4 text-center my-2 my-sm-0">
                           <a href="#comments" className="comment-count" style={{ "color": "#999"}}><span className="align-middle"><i className="far fa-comment"></i></span>{this.state.comments.length} {this.state.comments.length === 1 ? 'Comment' : 'Comments'}</a>
                       </div>
@@ -652,6 +662,8 @@ render() {
 
                    if (user) {
 
+                     console.log('USSER', user);
+
                     return (<div className="comment-list"><div className="single-comment justify-content-between d-flex">
                           <div className="user justify-content-between d-flex">
                               <div className="thumb">
@@ -665,7 +677,7 @@ render() {
                                   <div className="d-flex justify-content-between">
                                       <div className="d-flex align-items-center">
                                           <h5>
-                                              <Link target="_blank" to="" style={{ "font-size": "0.93em" }}>{user.name}</Link>
+                                            <Link target="_blank" to={`/user/@${user.username}`} style={{ "font-size": "0.93em", "color":"rgba(0, 0, 0, 0.7)" }}>{user.name}</Link>
                                           </h5>
                                           <p className="date">{this.formatDate(comment.time)}</p>
                                       </div>

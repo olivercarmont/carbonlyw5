@@ -129,7 +129,7 @@ updateNewQuestion(e) {
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
 }
-componentDidMount() {
+componentWillMount() {
   document.addEventListener('scroll', this.trackScrolling);
 }
 componentWillUnmount() {

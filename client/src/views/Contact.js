@@ -121,7 +121,7 @@ updateMessage(e) {
   this.setState({ hasSent: false });
   this.setState({ hasntSent: false });
 }
-componentDidMount() {
+componentWillMount() {
   document.addEventListener('scroll', this.trackScrolling);
 }
 componentWillUnmount() {
@@ -150,7 +150,7 @@ trackScrolling() {
     return (
       <>
         <div className="landing__topDiv">
-        
+
         <Helmet>
         <title>Carbonly | Contact Us</title>
         <meta name="description" content="Contact us Here at Carbonly. We'd Love to Hear Your Voice!" />
