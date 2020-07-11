@@ -26,6 +26,9 @@ import Text from "./Text";
 import Glitch from "./Glitch";
 import Tooltip from "./Tooltip";
 
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/core";
+
 import { logoutUser } from "../actions/authActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -258,6 +261,11 @@ const steps = [
 let props = {
   accentColor: '#86b89b',
 }
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 let chartExample1, chartExample2, chartExample3, chartExample4;
 
@@ -2253,7 +2261,12 @@ class Analytics extends React.Component {
         isOpen={this.state.isTourOpen}
         onRequestClose={this.closeTour} /> : undefined}
 
-          </div> : undefined }
+          </div> : <div className="home__positionLoadingIcon"><BeatLoader
+            css={override}
+            size={30}
+            color={'rgba(157, 209, 183, 0.5)'}
+            loading={true}
+          /></div> }
         </div>
       </>
     );

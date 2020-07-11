@@ -29,6 +29,11 @@ import Text from "./Text";
 import Glitch from "./Glitch";
 import Tooltip from "./Tooltip";
 
+import Loader from 'react-loader-spinner'
+
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/core";
+
 import '../OwnCSS/home.css';
 import { ReactSortable } from "react-sortablejs";
 import NotificationAlert from "react-notification-alert";
@@ -267,6 +272,11 @@ const steps = [
 let props = {
   accentColor: '#86b89b',
 }
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 class Home extends React.Component {
   constructor(props) {
@@ -1256,6 +1266,8 @@ render() {
 
           <div>
 
+                {/* <UncontrolledAlert/> */}
+
           <Row>
 
           <Col md="6">
@@ -1631,7 +1643,28 @@ render() {
       isOpen={this.state.isTourOpen}
       onRequestClose={this.closeTour} /> : undefined}
 
-          </div> : undefined }
+          </div> : <div className="home__positionLoadingIcon"><BeatLoader
+            css={override}
+            size={30}
+            color={'rgba(157, 209, 183, 0.5)'}
+            loading={true}
+          /></div> }
+
+        {/*
+
+          <Loader
+             type="Grid"
+             color="rgba(159, 201, 180, 0.4)"
+             height={125}
+             width={125}
+             timeout={0} //3 secs
+
+
+          />
+
+        */}
+
+
         </div>
       </>
     );

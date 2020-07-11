@@ -19,6 +19,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/core";
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -71,6 +74,11 @@ import '../OwnCSS/profile.css';
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
 let rootA = 'avatars/';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 class Profile extends React.Component {
 constructor(props) {
@@ -564,7 +572,6 @@ render() {
 
           </div>
 
-
           </CardHeader>
 
           <div className="leaderboard__leaderboardBottomCardSpacingNotFound"></div>
@@ -575,7 +582,12 @@ render() {
 
       </div> : undefined}
 
-    </div> : undefined}
+    </div> : this.state.userFound ? <div className="home__positionLoadingIcon"><BeatLoader
+      css={override}
+      size={30}
+      color={'rgba(157, 209, 183, 0.5)'}
+      loading={true}
+    /></div> : undefined}
 
         {!this.state.userFound ? <Row>
           <div className="profile__centeringMainCard">
@@ -607,7 +619,7 @@ render() {
                 </Card>
                 </Col>
                 </div>
-                </Row> : undefined}
+                </Row> : undefined }
 
             </div>
       </>

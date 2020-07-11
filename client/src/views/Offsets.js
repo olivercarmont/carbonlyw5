@@ -23,6 +23,9 @@ import { Helmet } from "react-helmet";
 
 import { Line, Bar, Doughnut} from "react-chartjs-2";
 
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/core";
+
 import { Icon, InlineIcon } from '@iconify/react';
 import externalLinkAlt from '@iconify/icons-fa-solid/external-link-alt';
 import accountMusic from '@iconify/icons-mdi/account-music';
@@ -75,6 +78,11 @@ let skyscannerImg = require("../assets/img/companyLogos/skyscanner.png");
 let tescoImg = require("../assets/img/companyLogos/tesco.png");
 let tripAdvisorImg = require("../assets/img/companyLogos/tripAdvisor.png");
 let uberEatsImg = require("../assets/img/companyLogos/ubereats.png");
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 class Offsets extends React.Component {
   constructor(props) {
@@ -804,7 +812,12 @@ time.getHours() + ":" + minutes;
 
 
 
-          </div>: undefined}
+          </div>: <div className="home__positionLoadingIcon"><BeatLoader
+            css={override}
+            size={30}
+            color={'rgba(157, 209, 183, 0.5)'}
+            loading={true}
+          /></div> }
         </div>
       </>
     );

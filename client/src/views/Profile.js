@@ -23,6 +23,9 @@ import { logoutUser } from "../actions/authActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/core";
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -199,6 +202,11 @@ let props = {
 }
 
 let rootA = 'avatars/';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 class Profile extends React.Component {
 constructor(props) {
@@ -981,7 +989,12 @@ render() {
               isOpen={this.state.isTourOpen}
               onRequestClose={this.closeTour} /> : undefined}
 
-        </div> : undefined}</div>
+        </div> : <div className="home__positionLoadingIcon"><BeatLoader
+          css={override}
+          size={30}
+          color={'rgba(157, 209, 183, 0.5)'}
+          loading={true}
+        /></div> }</div>
       </>
     );
   }
