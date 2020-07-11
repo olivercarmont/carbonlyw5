@@ -190,7 +190,7 @@ iframe {
   height: 120%;
   top: 0;
   left: 0;
-  background-color: rgba(215,255,215,0.78);
+  background-color: rgba(149, 194, 168,0.78);
 }
 
 .wrap-login100 {
@@ -206,7 +206,9 @@ iframe {
   background: linear-gradient(top, #7579ff, #b224ef); */
 
   background-color: #08e1ae;
-  background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
+   background-image: linear-gradient(315deg, #77bf95 0%, #a1d1b7 82%);
+
+
 
 }
 .wrap-login100__hidden {

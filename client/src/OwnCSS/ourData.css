@@ -109,33 +109,53 @@ color:#a6a6a6;
 .ourData__goToButton {
   /* background-color:#002D70; */
   background-color:transparent;
-  border:2px solid #a9dbc0;
+  /* border:2px solid #a9dbc0; */
   color:#fff;
-  background-color: #a9dbc0;
+  /* background-color: #a9dbc0; */
   /* font-family: 'Red Hat Display', sans-serif; */
   /* font-weight:bold; */
+
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  box-shadow:1px 1px 5px 1px #eee;
+  border-radius:12px 25px 30px 30px;
+
   letter-spacing:0.02em;
   font-size:1.03em;
-  border-radius:25px;
   /* margin-right:5px;
   margin-top:23px; */
   margin-top:8px;
   cursor:pointer;
   transition:0.4s;
-  height:45px;
-  width:200px;
+  height:48px;
+  width:150px;
   text-align:center;
   display:flex;
   flex-direction: column;
-  padding-top:10px;
+  justify-content:center;
+  /* padding-top:10px; */
   padding-left:0px;
 
   letter-spacing:-0.02em;
-  font-weight:500;
+  font-weight:600;
+
+  transition-delay:2s !important;
 }
 .ourData__goToButton:hover {
-  background-color: #dddddd;
-  border-color:#ddd;
+  /* background-color: #dddddd; */
+  /* border-color:#ddd; */
+
+  background: #dddddd;
+  background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+  background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+  background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+  background: -o-linear-gradient(right, #dddddd, #dddddd);
+  background: linear-gradient(to left, #dddddd, #dddddd);
+
   transition:0.4s;
   text-decoration:none;
   color:#fff;

@@ -172,8 +172,10 @@ margin-bottom:8px;
   padding-top:11px;
   /* padding-left:0px; */
 
+  box-shadow:1px 1px 5px 1px #eee;
+
   letter-spacing:-0.02em;
-  font-weight:500;
+  font-weight:700;
 }
 .offsets__goToButton:hover {
   background-color: #dddddd;

@@ -41,6 +41,8 @@ import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-
 import seedlingIcon from '@iconify/icons-fa-solid/seedling';
 import personCircle from '@iconify/icons-ion/person-circle';
 import checkCircle from '@iconify/icons-la/check-circle';
+import roundLeaderboard from '@iconify/icons-ic/round-leaderboard';
+
 
 // reactstrap components
 import {
@@ -560,7 +562,7 @@ insertAddFriendsContainer() {
   <a href={`/user/@${userf.username}`}><img src={require(`../assets/img/${userf.avatar}`)} className="leaderboard__addFriendsImg"/></a>
   <a href={`/user/@${userf.username}`} className="leaderboard__nameAndUsernamContainer"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__addFriendsName">{userf.name.length > 14 ? userf.name.slice(0, 14) + '..' : userf.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__addFriendsUsername">@{userf.username}</div></a>
 
-  {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp; 🙅</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp; 🏂</div>}</div> : undefined}
+  {userf.publicId !== this.state.user.publicId ? <div className="leaderboard__progressbarMainAdd">{this.isUserFriend(userf.publicId) ? <div className="leaderboard__submitButtonRemove" onClick={() => this.removeUser(userf.publicId)}>Remove &nbsp;</div> : <div className="leaderboard__submitButton" onClick={() => this.addUser(userf.publicId)}>Add &nbsp;</div>}</div> : undefined}
 
   </div>
 
@@ -876,9 +878,9 @@ closeTour() {
         {this.state.user && this.state.allUsers && this.state.userRank && this.state.search && this.state.friends ? <div>
           <Row>
             <Col md="8">
-              <Card data-tut="tour__leaderboard">
+              <Card data-tut="tour__leaderboard"> {/* <i className="tim-icons icon-chart-bar-32" /> */}
                 <CardHeader>
-                <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
+                <div className="leaderboard__mainTitle">Leaderboard<div className="leaderboard__sideIcon"><Icon icon={roundLeaderboard} /></div> </div>
 
                 <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} data-tut="tour__friendLeaderboard" className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
                   <Form>
@@ -891,7 +893,7 @@ closeTour() {
                       {this.returnAllUsersLeaderboard().map((user) => {
 
                         return (<div className="leaderboard__mainRow">
-                        <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
+                        <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : user.rank === 2 ? 'leaderboard__mainNumberTwo' : user.rank === 3 ? 'leaderboard__mainNumberThree' : 'leaderboard__mainNumber'}>{user.rank}</div>
                         <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
                         <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 15) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
 

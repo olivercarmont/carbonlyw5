@@ -741,7 +741,7 @@ render() {
                     />
 
                     <h5 className="title" id="profile__mainName">{this.state.name} <div className="tooltipProfile" data-tut="tour__referFriends" onClick={() => this.copyReferral()}><Icon className="profile__referralSharer" icon={outlineGroupAdd} />
-                      <span className="tooltiptextProfile"><div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto", "font-size": "0.87em", "line-height": "1.35"}}>{this.state.addedReferralCode ? 'Copied 🎉 ' : 'Copy Referral Code to Share 👪'}</div></span></div>
+                      <span className="tooltiptextProfile">{this.state.addedReferralCode ? <div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto", "font-size": "0.87em", "line-height": "1.35", "padding-top":"6px", "padding-bottom":"6px"}}>Copied &nbsp; 🎉</div> : <div style={{"width": "90%", "margin-left":"auto", "margin-right": "auto", "font-size": "0.87em", "line-height": "1.35", "padding-top":"4px", "padding-bottom":"4px"}}>Copy Referral Code to Share &nbsp;👪</div>}</span></div>
 
                       </h5>
 

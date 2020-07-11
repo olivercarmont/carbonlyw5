@@ -44,6 +44,10 @@ margin-right:18px;
   font-weight:bold;
   margin-right:5px;
 
+  text-shadow: 1px 1px #f7f7f7;
+
+  color:#8db8a2;
+
   /* background-color:blue; */
   /* color:rgba(255, 255, 255, 0.6); */
 }
@@ -53,6 +57,31 @@ margin-right:18px;
   position:relative;
   left:2px;
   margin-right:11px;
+  color:#fcb953 !important;
+  text-shadow: 1px 1px #f7f7f7;
+
+  /* color:rgba(255, 255, 255, 0.6); */
+}
+.leaderboard__mainNumberTwo {
+  font-size:2.3em;
+  font-weight:bold;
+  position:relative;
+  left:2px;
+  margin-right:11px;
+  color:#c2c8cc !important;
+  text-shadow: 1px 1px #f7f7f7;
+
+  /* color:rgba(255, 255, 255, 0.6); */
+}
+.leaderboard__mainNumberThree {
+  font-size:2.3em;
+  font-weight:bold;
+  position:relative;
+  left:2px;
+  margin-right:11px;
+  color:#e0945e !important;
+  text-shadow: 1px 1px #f7f7f7;
+
   /* color:rgba(255, 255, 255, 0.6); */
 }
 .leaderboard__mainContentMargins {
@@ -126,6 +155,9 @@ display:inline-block;
   #8fbda2 20px
 );
   width: 80%;
+
+  box-shadow:1px 1px 5px 1px #eee;
+
   /* Adjust with JavaScript */
   height:30px;
   border-radius: 4px;
@@ -248,10 +280,16 @@ margin-bottom:26px;
   #8fbda2 20px
 );
   width: 80%;
+
+  box-shadow:1px 1px 5px 1px #eee;
   /* Adjust with JavaScript */
   height:34px;
   border-radius: 4px;
   margin-left:4px;
+  font-weight:600;
+  /* letter-spacing:-0.015em; */
+
+  box-shadow:1px 1px 5px 1px #eee;
 }
 .leaderboard__individualLineMargins {
   height:30px;
@@ -369,6 +407,8 @@ background-color:red;
   #8fbda2 10px,
   #8fbda2 20px
 );
+  box-shadow:1px 1px 5px 1px #eee;
+
   width:54px;
 
   /* Adjust with JavaScript */
@@ -491,6 +531,8 @@ margin-top:-9px;
 );
   width:62%;
 
+  box-shadow:1px 1px 5px 1px #eee;
+
   height:32px;
   border-radius: 4px;
   margin-left:4px;
@@ -531,72 +573,110 @@ margin-top:-9px;
 .leaderboard__submitButton {
 /* background-color:#002D70; */
 background-color:transparent;
-border:2px solid #a9dbc0;
+/* border:2px solid #a9dbc0; */
 color:#fff;
-background-color: #a9dbc0;
+/* background-color: #a9dbc0; */
+
+background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+box-shadow:1px 1px 5px 1px #eee;
+border-radius:12px 25px 30px 30px;
+
 /* font-family: 'Red Hat Display', sans-serif; */
 /* font-weight:bold; */
 letter-spacing:0.02em;
 font-size:0.91em;
-border-radius:25px;
+
 /* margin-right:5px;
 margin-top:23px; */
 margin-top:6px;
 cursor:pointer;
 transition:0.4s;
 height:35px;
-width:75px;
-text-align:center;
-display:flex;
-flex-direction: column;
-padding-top:6px;
-padding-left:3px;
-
-letter-spacing:-0.02em;
-font-weight:500;
-}
-.leaderboard__submitButton:hover {
-
-background-color: #dddddd;
- border-color:#ddd;
-
-/* background-color:#fff;
-border-color:#a9dbc0;
-color:#a9dbc0; */
-transition:0.4s;
-}
-.leaderboard__submitButtonRemove {
-/* background-color:#002D70; */
-background-color:transparent;
-border:2px solid #ddd;
-color:#fff;
-background-color: #ddd;
-/* font-family: 'Red Hat Display', sans-serif; */
-/* font-weight:bold; */
-letter-spacing:0.02em;
-font-size:0.91em;
-border-radius:25px;
-/* margin-right:5px;
-margin-top:23px; */
-margin-top:6px;
-cursor:pointer;
-transition:0.4s;
-height:35px;
-/* width:75px; */
+width:62px;
 text-align:center;
 display:flex;
 flex-direction: column;
 padding-top:7px;
-padding-left:13px;
-padding-right:13px;
+padding-left:3px;
 
 letter-spacing:-0.02em;
-font-weight:500;
+font-weight:700;
+
+transition:1s;
+transition-delay:2s;
+}
+.leaderboard__submitButton:hover {
+
+/* background-color: #dddddd; */
+ /* border-color:#ddd; */
+
+ background: #dddddd;
+ background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+ background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+ background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+ background: -o-linear-gradient(right, #dddddd, #dddddd);
+ background: linear-gradient(to left, #dddddd, #dddddd);
+
+transition:1s;
+}
+.leaderboard__submitButtonRemove {
+/* background-color:#002D70; */
+background-color:transparent;
+/* border:2px solid #ddd; */
+color:#fff;
+
+background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+box-shadow:1px 1px 5px 1px #eee;
+border-radius:12px 25px 30px 30px;
+
+/* background-color: #ddd; */
+/* font-family: 'Red Hat Display', sans-serif; */
+/* font-weight:bold; */
+letter-spacing:0.02em;
+font-size:0.91em;
+
+/* margin-right:5px;
+margin-top:23px; */
+margin-top:6px;
+cursor:pointer;
+transition:0.4s;
+height:38px;
+/* width:75px; */
+text-align:center;
+display:flex;
+flex-direction: column;
+padding-top:9px;
+padding-left:18px;
+padding-right:14px;
+
+letter-spacing:-0.02em;
+font-weight:700;
+
+transition:1s;
+transition-delay:2s;
 }
 .leaderboard__submitButtonRemove:hover {
 
-background-color: #a9dbc0;
-border-color:#a9dbc0;
+/* background-color: #a9dbc0; */
+/* border-color:#a9dbc0; */
+
+background: #dddddd;
+background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+background: -o-linear-gradient(right, #dddddd, #dddddd);
+background: linear-gradient(to left, #dddddd, #dddddd);
+
 transition:0.4s;
 }
 #leaderboard__rankNumber {
@@ -728,6 +808,8 @@ transition:0.4s;
 );
   width:62%;
 
+  box-shadow:1px 1px 5px 1px #eee;
+
   opacity:0.4;
 
   height:32px;
@@ -765,6 +847,9 @@ transition:0.4s;
   #8fbda2 20px
 );
   width: 80%;
+
+  box-shadow:1px 1px 5px 1px #eee;
+
   /* Adjust with JavaScript */
   height:30px;
   border-radius: 4px;

@@ -719,7 +719,7 @@ time.getHours() + ":" + minutes;
 
                       </div>}
 
-                      <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Offset &nbsp;🎉</a></div>
+                      <div id="offsets__mainTextSideOrders"><a className="offsets__goToButton">Offset&nbsp;</a></div>
 
                       <div className="offsets__subscriptionDiv">
 

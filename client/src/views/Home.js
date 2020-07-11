@@ -449,6 +449,8 @@ componentWillMount() {
 
   this.setState({ friends: response.data.info[1] });
 
+  this.setState({ shoppingList: response.data.info[0].shoppingList });
+
   this.setState({ user: response.data.info[0] });
 
   let shuffleUsers = response.data.info[4].map((el) => {
@@ -738,7 +740,7 @@ createNewItemShoppingList() {
     })
   .then(response => {
 
-    // console.log('UPDATED');
+    console.log('RE', response);
 
   })
   .catch((error) => {
@@ -761,12 +763,16 @@ deleteItemShoppingList(id) {
   /* update the server here */
   this.setState({ shoppingList: newArray });
 
+  // this.setState({ saving: 't' });
+
   axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'shoppingList', value: newArray, }, {
       prop: 'shoppingList', value: newArray, 'jwt': localStorage.jwtToken,
     })
   .then(response => {
 
     // console.log('UPDATED');
+
+    // this.setState({ saving: 'saved' });
 
   })
   .catch((error) => {
@@ -796,6 +802,8 @@ updateDescriptionShopping(e, id) {
 
   });
 
+  // this.setState({ saving: 't' });
+
   // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ shoppingList: newArray });
@@ -805,7 +813,7 @@ axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, pr
   })
 .then(response => {
 
-  // console.log('UPDATED');
+  this.setState({ saving: 'saved' });
 
 })
 .catch((error) => {
@@ -830,6 +838,8 @@ updateTitleShopping(e, id) {
 
   });
 
+  this.setState({ saving: 't' });
+
   // console.log('newArray', newArray);
   /* update the server here */
   this.setState({ shoppingList: newArray });
@@ -839,7 +849,7 @@ updateTitleShopping(e, id) {
     })
   .then(response => {
 
-    // console.log('UPDATED');
+    this.setState({ saving: 'saved' });
 
   })
   .catch((error) => {
@@ -1277,7 +1287,7 @@ render() {
 
               {!this.state.isTourOpen && !this.state.user.hasDoneTour ? <img className="home__topRightArrow" src={require('../assets/img/landing/clickArrowHome.png')} /> : undefined}
 
-              <div className="leaderboard__mainTitle">Leaderboard <div className="leaderboard__sideIcon"><i className="tim-icons icon-chart-bar-32" /></div> </div>
+              <div className="leaderboard__mainTitle">Leaderboard<div className="leaderboard__sideIcon"><Icon icon={roundLeaderboard} /></div> </div>
 
               <div className="leaderboard__topSelections"><div onClick={() => this.changeGlobal(true)} className={this.state.global ? 'leaderboard__topSelectFirst leaderboard__topSelected' : 'leaderboard__topSelectFirst leaderboard__topSelect'}>Global</div><div onClick={() => this.changeGlobal(false)} className={!this.state.global ? 'leaderboard__topSelected' : 'leaderboard__topSelect'}>Friends</div></div>
 
@@ -1293,7 +1303,7 @@ render() {
                     {this.returnAllUsersLeaderboard().map((user) => {
 
                       return (<div className="leaderboard__mainRow">
-                      <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : 'leaderboard__mainNumber'}>{user.rank}</div>
+                      <div className={user.rank === 1 ? 'leaderboard__mainNumberOne' : user.rank === 2 ? 'leaderboard__mainNumberTwo' : user.rank === 3 ? 'leaderboard__mainNumberThree' : 'leaderboard__mainNumber'}>{user.rank}</div>
                       <a href={`/user/@${user.username}`}><img src={require(`../assets/img/${user.avatar}`)} className="leaderboard__mainImage"/></a>
                       <a href={`/user/@${user.username}`} className="leaderboard__rowFirstSection"><div id="leaderboard__mainLeaderboardTextColour" className="leaderboard__mainName">{user.name}</div><div id="leaderabord__mainLeaderboardUsernameColour" className="leaderboard__mainDate">@{user.username}</div></a>  <div className="leaderboard__progressbar"><div id="leaderBoard__progressBarContainerFriendsLeaderboard" style={{ width: (this.returnOffsetWidth(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points) * 14) + 'vw'}}><div className="leaderboard__mainCO2Emissions"><Icon icon={seedlingIcon} className="leaderboard__pointsIcon" />{this.returnNumberWithCommas(this.returnLeaderboardOffsets(user.publicId === this.state.user.publicId ? this.returnUserOffsetsLeaderboard() : user.points))}</div></div></div>
 
@@ -1619,7 +1629,8 @@ render() {
                               <div className="home__betweenListsSpacing"></div>
 
                               <div className="home__addListButtonPositioning">
-                              <a onClick={() => { this.createNewItemShoppingList() }} className="home__newItemButton">New Item &nbsp; 🛒</a>
+                             {this.state.saved === 't' ? <div>Saving...</div> : this.state.saved === 'saved' ? <div>Saved</div> : undefined}
+                              <div onClick={() => { this.createNewItemShoppingList() }} className="home__newItemButton"><div>New Item &nbsp;</div></div>
                               </div>
 
 

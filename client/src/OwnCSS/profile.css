@@ -317,7 +317,8 @@ float:left;
   /* margin-top:-20px; */
   margin-right:100px;
   margin-left:-44px;
-  color:#a9dbc0;
+  color:#8db8a2;
+    opacity:0.8;
   font-size:1.32em;
   cursor:pointer;
   transition:0.5s;
@@ -330,7 +331,9 @@ float:left;
   position:relative;
 
   /* margin-top:5px; */
-  color:#a9dbc0;
+  /* color:#a9dbc0; */
+  color:#8db8a2;
+  opacity:0.8;
   font-size:1.32em;
   cursor:pointer;
   transition:0.5s;
@@ -358,13 +361,22 @@ float:left;
 .profile__logOutButton {
   /* background-color:#002D70; */
   background-color:transparent;
-  border:2px solid #a9dbc0;
+  /* border:2px solid #a9dbc0; */
   color:#fff !important;
-  background-color: #a9dbc0;
+
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  box-shadow:1px 1px 5px 1px #eee;
+  border-radius:12px 25px 30px 30px;
+
+  /* background-color: #a9dbc0; */
   /* font-family: 'Red Hat Display', sans-serif; */
   /* font-weight:bold; */
   font-size:0.95em;
-  border-radius:25px;
 
   /* margin-right:5px;
   margin-top:23px; */
@@ -374,20 +386,20 @@ float:left;
   /* height:43px; */
   margin-right:10px;
 
-  height:42px;
+  height:46px;
 
-  width:32%;
+  width:160px;
   line-height:1.7;
 
   margin-bottom:15px;
 
-
   text-align:center;
   display:inline-flex;
   flex-direction: column;
+  justify-content:center;
+  align-items:center;
 
-
-  padding-top:8px;
+  /* padding-top:8px; */
 
   padding-left:3px;
 
@@ -402,8 +414,16 @@ float:left;
             user-select: none;
 }
 .profile__logOutButton:hover {
-  background-color: #dddddd;
-  border-color:#ddd;
+  /* background-color: #dddddd;
+  border-color:#ddd; */
+
+  background: #dddddd;
+  background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+  background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+  background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+  background: -o-linear-gradient(right, #dddddd, #dddddd);
+  background: linear-gradient(to left, #dddddd, #dddddd);
+
   transition:0.4s;
   text-decoration:none;
   color:#fff;
@@ -634,8 +654,12 @@ font-size:1.03em;
 }
 .profile__carbonBudgetInput {
   border:none;
-  border-radius:30px;
-  height:44px;
+  /* border-radius:30px; */
+
+  border-radius:12px 25px 30px 30px;
+  box-shadow:1px 1px 5px 1px #eee;
+
+  height:48px;
   width:45%;
   text-align:right;
   font-size:1em;
@@ -661,11 +685,11 @@ font-size:1.03em;
 
   /* border:2px solid #93bfa9; */
   border-radius:5px;
-  padding-top:10px;
+  padding-top:12px;
   padding-bottom:10px;
   border:none;
   background-color:transparent;
-  margin-left:9px;
+  margin-left:19px;
   margin-right:20px;
 
 }
@@ -678,11 +702,20 @@ font-size:1.03em;
   clear:both;
   display:block;
   color:#fff;
-  background-color:#93bfa9 !important;
+  /* background-color:#93bfa9 !important; */
   cursor:pointer;
   position:relative;
   top:30px;
   margin:auto;
+
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  border-radius:12px 25px 30px 30px;
+  box-shadow:1px 1px 5px 1px #eee;
 }
 .profile__addBudgetSelected {
   border-radius:4px;
@@ -693,11 +726,20 @@ font-size:1.03em;
   clear:both;
   display:block;
   color:#fff;
-  background-color:#ccc !important;
+  /* background-color:#ccc !important; */
   cursor:pointer;
   position:relative;
   top:30px;
   margin:auto;
+
+  background: -webkit-linear-gradient(to left, #ddd, #ddd);
+  background: -webkit-linear-gradient(right, #ddd, #ddd);
+  background: -webkit-gradient(linear, right top, left top, from(#ddd), to(#ddd));
+  background: -o-linear-gradient(right, #ddd, #ddd);
+  background: linear-gradient(to left, #ddd, #ddd);
+
+  border-radius:12px 25px 30px 30px;
+  box-shadow:1px 1px 5px 1px #eee;
 }
 .profile__carbonBudegetCentering {
   margin:auto;
@@ -734,13 +776,25 @@ margin-bottom:-7px;
 }
 .tooltipProfile .tooltiptextProfile {
   visibility: hidden;
-  width: 180px;
-  background-color: #fff;
-  color: rgba(152, 199, 176, 1);
-  border: 1px solid rgba(152, 199, 176, 0.6);
+  width: 185px;
+
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  vertical-align:center;
+  /* background-color: #fff; */
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  color: #fff;
+  /* border: 1px solid rgba(152, 199, 176, 0.6); */
   text-align: center;
   font-size:0.925em;
   border-radius: 6px;
+
   padding: 5px 0;
   position: absolute;
   z-index: 1;
@@ -757,7 +811,7 @@ margin-bottom:-7px;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent rgba(152, 199, 176, 0.6) transparent transparent;
+  border-color: transparent #b5dec9 transparent transparent;
 }
 
 .tooltipProfile:hover .tooltiptextProfile {

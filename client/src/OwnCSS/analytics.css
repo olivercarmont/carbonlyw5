@@ -218,15 +218,30 @@ border-bottom:2px solid #75c79a !important;
 .tooltipAnalytics .tooltiptextAnalytics {
   visibility: hidden;
   width: 180px;
-  background-color: #fff;
-  color: rgba(152, 199, 176, 1);
-  border: 1px solid rgba(152, 199, 176, 0.6);
+  /* background-color: #fff; */
+  /* color: rgba(152, 199, 176, 1); */
+
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  height:52px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  border: none;
   text-align: center;
   font-size:0.925em;
   border-radius: 6px;
   padding: 5px 0;
   position: absolute;
   z-index: 1;
+  color:#fff;
+  font-weight:600;
   top: -3px;
 
   right: 210%;
@@ -241,7 +256,7 @@ border-bottom:2px solid #75c79a !important;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent rgba(152, 199, 176, 0.6);
+  border-color: transparent transparent transparent #95c2a8;
 }
 
 .tooltipAnalytics:hover .tooltiptextAnalytics {
@@ -311,12 +326,20 @@ display:inline-block;
 }
 .analytics__changeBudget {
   border:1px solid rgba(134, 184, 144, 0.6);
-  width:70px;
-  border-radius:5px;
+  width:80px;
+  /* border-radius:5px; */
+
+  background: -webkit-linear-gradient(to left, #fff, #fff);
+  background: -webkit-linear-gradient(right, #fff, #fff);
+  background: -webkit-gradient(linear, right top, left top, from(#fff), to(#fff));
+  background: -o-linear-gradient(right, #fff, #fff);
+  background: linear-gradient(to left, #fff, #fff);
+
+  border-radius:12px 25px 30px 30px;
   font-size:0.85em;
   text-align:center;
-  padding-top:4px;
-  padding-bottom:4px;
+  padding-top:6px;
+  padding-bottom:6px;
   color:#86b890;
   position:absolute;
   top:18px;
@@ -325,7 +348,15 @@ display:inline-block;
   transition:0.4s;
 }
 .analytics__changeBudget:hover {
-  background-color: rgba(134, 184, 144, 0.7);
+   /* background-color: rgba(134, 184, 144, 0.8); */
+
+   background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+   background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+   background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+   background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+   background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+  border: 1px solid rgba(134, 184, 144, 0) !important;
   color:#fff;
 }
 .analytics__scrollDownArrow{

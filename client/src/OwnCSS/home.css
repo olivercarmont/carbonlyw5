@@ -285,20 +285,30 @@ margin-top:3px;
 .home__newItemButton {
   /* background-color:#002D70; */
   background-color:transparent;
-  border:2px solid #a9dbc0;
+  /* border:2px solid #a9dbc0; */
   color:#fff !important;
-  background-color: #a9dbc0;
+  /* background-color: #a9dbc0; */
+
+  /* background-color:#8fbda2; */
+
+  /* background: #8fbda2; */
+  background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+  background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+  background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+  background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+  background: linear-gradient(to left, #95c2a8, #b5dec9);
+
   /* font-family: 'Red Hat Display', sans-serif; */
   /* font-weight:bold; */
   letter-spacing:0.02em;
   font-size:0.98em;
-  border-radius:25px;
+  border-radius:12px 25px 30px 30px;
   /* margin-right:5px;
   margin-top:23px; */
   margin-top:-8px;
   cursor:pointer;
   transition:0.4s;
-  height:47px;
+  height:48px;
 
 
   width:48%;
@@ -309,11 +319,16 @@ margin-top:3px;
   text-align:center;
   display:inline-flex;
   flex-direction: column;
-  padding-top:13px;
+  padding-top:14px;
   padding-left:3px;
 
   letter-spacing:-0.02em;
-  font-weight:500;
+  font-weight:700;
+
+  box-shadow:1px 1px 5px 1px #eee;
+
+  transition:1.9s !important;
+  transition-delay:2s !important;
 
   user-select: none;
        -moz-user-select: none;
@@ -322,9 +337,14 @@ margin-top:3px;
        -o-user-select: none;
 }
 .home__newItemButton:hover {
-  background-color: #dddddd;
-  border-color:#ddd;
-  transition:0.4s;
+  background: #dddddd;
+  background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+  background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+  background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+  background: -o-linear-gradient(right, #dddddd, #dddddd);
+  background: linear-gradient(to left, #dddddd, #dddddd);
+  /* border-color:#ddd; */
+  transition:1.9s;
   text-decoration:none;
   color:#fff;
 }
@@ -507,7 +527,7 @@ display:inline-block;
 
   margin-left:auto;
   margin-right:auto;
-  
+
 
   /* width:100vw;
   height:100vh; */

@@ -49,12 +49,15 @@ class FixedPlugin extends Component {
   }
   render() {
     return (
-      <div className="fixed-plugin">
+      <div>
+      {/* <div className="fixed-plugin">
         <div className={this.state.classes}>
           <div onClick={this.handleClick}>
             <i className="fa fa-cog fa-2x" />
           </div>
             <ul className="dropdown-menu show">
+
+            */}
               {/*
             <li className="adjustments-line">
               <div className="badge-colors text-center">
@@ -93,6 +96,7 @@ class FixedPlugin extends Component {
                 />{" "}
               </div>
             </li>*/}
+            {/*
             <li className="header-title">Select Mode</li>
             <li className="adjustments-line text-center color-change">
               <span className="color-label">LIGHT MODE</span>{" "}
@@ -113,6 +117,7 @@ class FixedPlugin extends Component {
           </ul>
 
         </div>
+      </div> */}
       </div>
     );
   }

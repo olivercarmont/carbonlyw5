@@ -119,7 +119,7 @@ trackScrolling() {
        <Helmet>
           <title>Carbonly | Not Found</title>
           <meta name="description" content="Huh. It Seems This Page Doesn't Exist. Try Another!" />
-       </Helmet>  
+       </Helmet>
 
         {/* <!-- ***** Header Area Start ***** --> */}
         <header className="header_area animated" id="home">
@@ -250,7 +250,7 @@ trackScrolling() {
 
          <div className="footer__linkSection">
          <div className="footer__linkSectionTitle">About</div>
-         <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Features</Link></div>
+         <div className="landing__individualPageLinks"><Link to="/features" className="landing__individualPageLinksText"><Icon icon={gamepadIcon} /> &nbsp; Feature Req</Link></div>
          <div className="landing__individualPageLinks"><Link to="/faq" className="landing__individualPageLinksText"><Icon icon={questionCircle} /> &nbsp; FAQ</Link></div>
          <div className="landing__individualPageLinks"><Link to="/contact" className="landing__individualPageLinksText"><Icon icon={paperPlane} /> &nbsp; Contact</Link></div>
          </div>
