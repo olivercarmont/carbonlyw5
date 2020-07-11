@@ -240,8 +240,8 @@ constructor(props) {
           }
         }
       },
-
     };
+    this.closeTour = this.closeTour.bind(this);
 }
 avatarLeft() {
   if (this.state.currentAvatar > 0) {
@@ -680,6 +680,21 @@ copyReferral() {
 
   this.setState({ addedReferralCode: true })
 }
+closeTour() {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'doneTour', value: 't' }, {
+     jwt: localStorage.jwtToken, prop: 'doneTour', value: 't'
+  })
+.then(response => {
+
+  this.setState({ isTourOpen: false });
+
+})
+.catch((error) => {
+
+  console.log('Error', error);
+})
+  // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
+}
 render() {
     return (
       <>
@@ -688,7 +703,7 @@ render() {
       <Helmet>
         <title>Carbonly | Profile</title>
         <meta name="description" content="View Your Carbonly Social Profile!" />
-      </Helmet> 
+      </Helmet>
 
       {this.state.user && this.state.userRank && this.state.friends && this.state.allUsers ? <div>
           <Row>
@@ -964,7 +979,7 @@ render() {
               className="home__tourClass"
               rounded={5}
               isOpen={this.state.isTourOpen}
-              onRequestClose={(e) => this.closeTour()} /> : undefined}
+              onRequestClose={this.closeTour} /> : undefined}
 
         </div> : undefined}</div>
       </>

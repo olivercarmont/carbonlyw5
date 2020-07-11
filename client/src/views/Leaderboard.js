@@ -214,6 +214,7 @@ class Leaderboard extends React.Component {
         }
       }
     };
+    this.closeTour = this.closeTour.bind(this);
   }
 
   componentWillMount() {
@@ -840,7 +841,19 @@ returnRanColor() {
 
 }
 closeTour() {
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'doneTour', value: 't' }, {
+     jwt: localStorage.jwtToken, prop: 'doneTour', value: 't'
+  })
+.then(response => {
 
+  this.setState({ isTourOpen: false });
+
+})
+.catch((error) => {
+
+  console.log('Error', error);
+})
+  // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
 }
   render() {
     return (

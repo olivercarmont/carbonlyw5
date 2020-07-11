@@ -308,6 +308,7 @@ class Home extends React.Component {
         }
       },
   };
+  this.closeTour = this.closeTour.bind(this);
 }
 componentWillMount() {
 
@@ -1221,7 +1222,18 @@ roundCarbon(amt) {
   }
 }
 closeTour() {
-  // this.setState({ isTourOpen: false });
+  axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'doneTour', value: 't' }, {
+     jwt: localStorage.jwtToken, prop: 'doneTour', value: 't'
+  })
+.then(response => {
+
+  this.setState({ isTourOpen: false });
+
+})
+.catch((error) => {
+
+  console.log('Error', error);
+})
   // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
 }
 switchPage() {
@@ -1617,7 +1629,7 @@ render() {
       className="home__tourClass"
       rounded={5}
       isOpen={this.state.isTourOpen}
-      onRequestClose={(e) => this.closeTour()} /> : undefined}
+      onRequestClose={this.closeTour} /> : undefined}
 
           </div> : undefined }
         </div>

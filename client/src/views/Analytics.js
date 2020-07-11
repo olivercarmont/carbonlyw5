@@ -269,6 +269,7 @@ class Analytics extends React.Component {
         ordersSort: 'recent',
         isTourOpen: true,
     };
+    this.closeTour = this.closeTour.bind(this);
   }
   returnWeeklyEmissions() {
 
@@ -1889,6 +1890,21 @@ class Analytics extends React.Component {
       })
     }
   }
+  closeTour() {
+    axios.post('https://carbonly.org/users/update', { jwt: localStorage.jwtToken, prop: 'doneTour', value: 't' }, {
+       jwt: localStorage.jwtToken, prop: 'doneTour', value: 't'
+    })
+  .then(response => {
+
+    this.setState({ isTourOpen: false });
+
+  })
+  .catch((error) => {
+
+    console.log('Error', error);
+  })
+    // AND CHANGE USER PROPERTY OF HASDONETOUR TO BE TRUE
+  }
   render() {
     return (
       <>
@@ -1897,7 +1913,7 @@ class Analytics extends React.Component {
         <Helmet>
           <title>Carbonly | Analytics</title>
           <meta name="description" content="Track Your Carbon Footprint Overtime And See Your Overall Progress!" />
-        </Helmet> 
+        </Helmet>
 
         {this.state.user && this.state.userRank ? <div>
           <Row>
@@ -2235,7 +2251,7 @@ class Analytics extends React.Component {
         className="home__tourClass"
         rounded={5}
         isOpen={this.state.isTourOpen}
-        onRequestClose={(e) => this.closeTour()} /> : undefined}
+        onRequestClose={this.closeTour} /> : undefined}
 
           </div> : undefined }
         </div>

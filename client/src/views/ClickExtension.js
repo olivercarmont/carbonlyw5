@@ -16,8 +16,10 @@
 
 */
 import React from "react";
-
+import axios from 'axios';
 import { Link } from "react-router-dom";
+
+
 
 // reactstrap components
 import {
@@ -36,8 +38,63 @@ import smCursorClick from '@iconify/icons-heroicons/sm-cursor-click';
 
 import '../OwnCSS/settings.css';
 
+// const nodemailer = require("nodemailer");
+
 class ClickExtension extends React.Component {
-  render() {
+  componentWillMount() {
+
+    axios.post('https://carbonly.org/users/return-leaderboard', { jwt: localStorage.jwtToken }, {
+      'jwt': localStorage.jwtToken,
+    })
+  .then(response => {
+
+
+    this.setState({ user: response.data.info[0] });
+
+    let localUser = response.data.info[0];
+
+    if (localUser.hasLoggedIn === 't' || localUser.hasLoggedIn === 'true') {
+      window.location.href = 'https://www.carbonly.org/home';
+    } else {
+      // async function main() {
+      //
+      //   let testAccount = await nodemailer.createTestAccount();
+      //
+      //   // create reusable transporter object using the default SMTP transport
+      //   let transporter = nodemailer.createTransport({
+      //     host: "smtp.ethereal.email",
+      //     port: 587,
+      //     secure: false, // true for 465, false for other ports
+      //     auth: {
+      //       user: testAccount.user, // generated ethereal user
+      //       pass: testAccount.pass, // generated ethereal password
+      //     },
+      //   });
+      //
+      //   // send mail with defined transport object
+      //   let info = await transporter.sendMail({
+      //     from: '"Oliver at Carbonly 🌿" <olcarmontzaragoza@gmail.com>', // sender address
+      //     to: `${localUser.email}`, // list of receivers
+      //     subject: "Welcome to Carbonly! 🌿", // Subject line
+      //     text: "This is the text", // plain text body
+      //     html: "This is the  html", // html body
+      //   });
+      //
+      //   console.log("Message sent: %s", info.messageId);
+      //
+      //   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      //
+      // }
+      //
+      // main().catch(console.error);
+    }
+
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  }
+render() {
     return (
       <>
         <div className="content">
