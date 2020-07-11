@@ -478,6 +478,26 @@ setBgChartData = name => {
     bigChartData: name,
   });
 };
+createFeedbackNotification(place) {
+    var color = Math.floor(Math.random() * 5 + 1);
+
+    var options = {};
+    options = {
+      place: place,
+      message: (
+        <div>
+          <div>
+            Welcome to <b>Black Dashboard React</b> - a beautiful freebie for
+            every web developer.
+          </div>
+        </div>
+      ),
+      type: "success",
+      icon: "tim-icons icon-bell-55",
+      autoDismiss: 7
+    };
+    this.refs.notificationAlert.notificationAlert(options);
+};
 changeGlobal(bool) {
   this.setState({ global: bool });
   // console.log('changed');
@@ -1259,6 +1279,13 @@ closeTour() {
 switchPage() {
   window.location.href = 'https://carbonly.org/analytics';
 }
+callFeebackNotification() {
+  try {
+  this.createFeedbackNotification();
+ } catch(e) {
+   console.log('E', e);
+ }
+}
 render() {
 
     let newDateHome = new Date();
@@ -1276,7 +1303,11 @@ render() {
 
           <div>
 
+          <NotificationAlert ref="notificationAlert" />
+
                 {/* <UncontrolledAlert/> */}
+
+            {/* this.callFeebackNotification() */}
 
           <Row>
 
