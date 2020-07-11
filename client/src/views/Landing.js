@@ -123,7 +123,7 @@ class Landing extends React.Component {
 
 
 
-Mount() {
+componentWillMount() {
 
   axios.post('https://carbonly.org/users/return-landing', { jwt: localStorage.jwtToken }, {
     'jwt': localStorage.jwtToken,
@@ -131,6 +131,8 @@ Mount() {
 .then(response => {
 
     // console.log('DATA', response.data)
+
+    console.log('DATA', response.data)
 
      this.setState({ landingData: response.data });
 
