@@ -243,7 +243,6 @@ class Leaderboard extends React.Component {
        this.setState({ user: response.data.info[0] });
        this.setState({ allUsers: response.data.info[4] });
 
-
        let shuffleUsers = response.data.info[4].map((el) => {
          return el;
        })

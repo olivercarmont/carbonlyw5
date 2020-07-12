@@ -748,7 +748,7 @@ router.post("/return-leaderboard", (req, res) => {
           points += parseFloat(or.points);
         });
 
-        points += parseFloat(user.bonusPoints);
+        points += parseFloat(us.bonusPoints);
 
         usOffArray.push({ publicId: us.publicId, name: us.name, username: us.username, avatar: us.avatar, friends: us.friends, points: points });
 

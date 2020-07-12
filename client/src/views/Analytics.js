@@ -88,7 +88,20 @@ let chart1_2_options = {
     displayColors: false,
     callbacks: {
     label: function(tooltipItem, data) {
-          return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+
+          let co2Data = data['datasets'][0]['data'][tooltipItem['index']];
+
+          if (co2Data > 1000000) {
+            co2Data = co2Data / 1000000;
+            return parseInt(co2Data) + 'kt CO2';
+          } else if (co2Data > 1000) {
+            co2Data = co2Data / 1000;
+            return parseInt(co2Data) + 't CO2';
+          } else {
+            return parseInt(co2Data) + 'kg CO2';
+          }
+
+
         }
       },
 
@@ -619,7 +632,19 @@ class Analytics extends React.Component {
           displayColors: false,
           callbacks: {
           label: function(tooltipItem, data) {
-                return `${data['datasets'][0]['data'][tooltipItem['index']]} points`;
+
+                let points = data['datasets'][0]['data'][tooltipItem['index']];
+
+                if (points > 1000000) {
+                  points = points / 1000000;
+                  return `${parseInt(points)}m Points`
+                } else if (points > 1000) {
+                  points = points / 1000;
+                  return `${parseInt(points)}k Points`
+                } else {
+                  return `${parseInt(points)} Points`
+                }
+
               }
             },
 
@@ -732,7 +757,18 @@ class Analytics extends React.Component {
           callbacks: {
           label: function(tooltipItem, data) {
             // console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
-                return tooltipItem.yLabel.toFixed(1) + 'kg CO2';
+
+                let co2Data = tooltipItem.yLabel;
+
+                if (co2Data > 1000000) {
+                  co2Data = co2Data / 1000000;
+                  return parseInt(co2Data) + 'kt CO2';
+                } else if (co2Data > 1000) {
+                  co2Data = co2Data / 1000;
+                  return parseInt(co2Data) + 't CO2';
+                } else {
+                  return parseInt(co2Data) + 'kg CO2';
+                }
               }
             },
         },
@@ -821,7 +857,19 @@ class Analytics extends React.Component {
           displayColors: false,
           callbacks: {
           label: function(tooltipItem, data) {
-                return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+
+            let co2Data = data['datasets'][0]['data'][tooltipItem['index']];
+
+            if (co2Data > 1000000) {
+              co2Data = co2Data / 1000000;
+              return parseInt(co2Data) + 'kt CO2';
+            } else if (co2Data > 1000) {
+              co2Data = co2Data / 1000;
+              return parseInt(co2Data) + 't CO2';
+            } else {
+              return parseInt(co2Data) + 'kg CO2';
+            }
+
               }
             },
         },
@@ -1291,13 +1339,16 @@ class Analytics extends React.Component {
 
     let date = new Date();
     let cur_month = date.getMonth() + 1;
+
+    let budget = this.state.user.budget;
+
     if (cur_month === 2) {
 
-    return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget];
+    return [ budget, budget, budget, budget, budget, budget, budget];
 
     } else {
 
-    return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget ];
+    return [ budget, budget, budget, budget, budget, budget, budget, budget ];
 
     }
 

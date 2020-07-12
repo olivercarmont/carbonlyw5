@@ -120,27 +120,31 @@ var routes = [
     layout: "/",
     disabled: true,
     emoji: '🛠️',
+
   },
+
+
 
 /*
 
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "tim-icons icon-atom",
-    component: Icons,
-    layout: "/",
-    disabled: false,
-  },
 
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "tim-icons icon-bell-55",
-    component: Notifications,
-    layout: "/",
-    disabled: false,
-  },
+{
+  path: "/icons",
+  name: "Icons",
+  icon: "tim-icons icon-atom",
+  component: Icons,
+  layout: "/",
+  disabled: false,
+},
+{
+  path: "/notifications",
+  name: "Notifications",
+  icon: "tim-icons icon-bell-55",
+  component: Notifications,
+  layout: "/",
+  disabled: false,
+},
+
   {
     path: "/tables",
     name: "Table List",

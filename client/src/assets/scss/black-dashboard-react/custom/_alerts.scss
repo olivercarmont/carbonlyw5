@@ -7,7 +7,17 @@
     }
 
     &.alert-success{
-      background-color: darken($success, 10%);
+      // background-color: darken($success, 10%);
+
+      /* NOTIFICATION BACKGROUND */
+      background: -webkit-linear-gradient(to left, darken(#95c2a8, 7%), darken(#b5dec9, 7%));
+      background: -webkit-linear-gradient(right, darken(#95c2a8, 7%), darken(#b5dec9, 7%));
+      background: -webkit-gradient(linear, right top, left top, from(darken(#b5dec9, 7%)), to(darken(#64947d, 7%)));
+      background: -o-linear-gradient(right, darken(#95c2a8, 7%), darken(#b5dec9, 7%));
+      background: linear-gradient(to left, darken(#95c2a8, 7%), darken(#b5dec9, 7%));
+
+      border-radius:12px 12px 12px 12px;
+      box-shadow:1px 1px 5px 1px #eee;
     }
 
     i.fa,

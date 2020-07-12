@@ -29,7 +29,7 @@ import Text from "./Text";
 import Glitch from "./Glitch";
 import Tooltip from "./Tooltip";
 
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
 
 import BeatLoader from "react-spinners/BeatLoader";
 import { css } from "@emotion/core";
@@ -46,6 +46,9 @@ import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import sadTear from '@iconify/icons-fa-regular/sad-tear';
 import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 
+import treeOutline from '@iconify/icons-mdi/tree-outline';
+import treeIcon from '@iconify/icons-mdi/tree';
+
 import outlineKeyboardArrowLeft from '@iconify/icons-ic/outline-keyboard-arrow-left';
 import outlineKeyboardArrowRight from '@iconify/icons-ic/outline-keyboard-arrow-right';
 import seedlingIcon from '@iconify/icons-fa-solid/seedling';
@@ -61,6 +64,8 @@ import moneyBillWave from '@iconify/icons-fa-solid/money-bill-wave';
 import gumtreeIcon from '@iconify/icons-simple-icons/gumtree';
 import roundLeaderboard from '@iconify/icons-ic/round-leaderboard';
 import graphPie from '@iconify/icons-foundation/graph-pie';
+import paperPlane from '@iconify/icons-fa/paper-plane';
+
 
 // reactstrap components
 import {
@@ -127,7 +132,7 @@ let chart1_2_options = {
     displayColors: false,
     callbacks: {
     label: function(tooltipItem, data) {
-          return data['datasets'][0]['data'][tooltipItem['index']] + 'kg CO2';
+          return Math.round(parseInt(data['datasets'][0]['data'][tooltipItem['index']])) + 'kg CO2';
         }
       },
 
@@ -284,6 +289,7 @@ class Home extends React.Component {
     this.state = {
       searchValue: '',
       bigChartData: "data1",
+      hasShownFeedback: false,
       isTourOpen:true,
       global: true,
       shoppingList: [],
@@ -414,7 +420,18 @@ componentWillMount() {
         callbacks: {
         label: function(tooltipItem, data) {
           // console.log('DATA', data['datasets'][0]['data'][tooltipItem['index']] );
-              return tooltipItem.yLabel.toFixed(1) + 'kg CO2';
+
+          let emissions = tooltipItem.yLabel;
+
+          if (emissions > 1000000) {
+            emissions = emissions / 1000000;
+            return parseInt(emissions) + 'kt CO2';
+          } else if (emissions > 1000) {
+            emissions = emissions / 1000;
+            return parseInt(emissions) + 't CO2';
+          } else {
+            return parseInt(emissions) + 'kg CO2';
+          }
             }
           },
       },
@@ -478,7 +495,7 @@ setBgChartData = name => {
     bigChartData: name,
   });
 };
-createFeedbackNotification(place) {
+createFeedbackNotification = place => {
     var color = Math.floor(Math.random() * 5 + 1);
 
     var options = {};
@@ -487,16 +504,35 @@ createFeedbackNotification(place) {
       message: (
         <div>
           <div>
-            Welcome to <b>Black Dashboard React</b> - a beautiful freebie for
-            every web developer.
+            <span style={{ textAlign: "center"}}><span style={{"font-weight":"600", "font-size":"1.1em"}}>Howdy 👋</span><div style={{ height:"1px", "clear":"both"}}></div><span style={{ "margin-top": "10px !important"}}>Wanna' Tell us How We're Doing?</span></span>
+                      <div style={{ height:"6px", "clear":"both"}}></div>
+
+              <div className="feedback__positionStars">
+              {this.state.stars > 0 ? <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"> <Icon icon={treeIcon} onClick={() => this.setState({ stars: 1 })} /></span> : <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"><Icon icon={treeOutline} onClick={() => this.setState({ stars: 1 })} /></span>}  <span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
+              </div>
+
+
+            <div className="ourData__indFormContainer">
+            <div className="home__feedbackSubtitle">Comments</div>
+            <textarea className="home__feedbackTextArea" value={this.state.feedbackMessage} maxlength="1500" onChange={(e) => this.setState({ feedbackMessage: e.target.value})} placeholder="Anything Helps 😝" />
+            </div>
+
+
+
+
+
+
+            <div className="home__feedbackSendIcon"><Icon icon={paperPlane} /></div>
+
           </div>
         </div>
       ),
       type: "success",
-      icon: "tim-icons icon-bell-55",
-      autoDismiss: 7
+      icon: "tim-icons icon-palette",
+
     };
     this.refs.notificationAlert.notificationAlert(options);
+
 };
 changeGlobal(bool) {
   this.setState({ global: bool });
@@ -527,13 +563,15 @@ returnBudgetGraph() {
 
   let date = new Date();
   let cur_month = date.getMonth() + 1;
+  let budget = Math.round(this.state.user.budget);
+
   if (cur_month === 2) {
 
-  return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget];
+  return [ budget, budget, budget, budget, budget, budget, budget];
 
   } else {
 
-  return [ this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget, this.state.user.budget ];
+  return [ budget, budget, budget, budget, budget, budget, budget, budget ];
 
   }
 
@@ -1280,11 +1318,18 @@ switchPage() {
   window.location.href = 'https://carbonly.org/analytics';
 }
 callFeebackNotification() {
+  /*
   try {
-  this.createFeedbackNotification();
+
+  if (!this.state.hasShownFeedback) {
+    this.createFeedbackNotification('bc');
+    this.setState({ hasShownFeedback: true });
+  }
+
  } catch(e) {
    console.log('E', e);
  }
+ */
 }
 render() {
 
@@ -1302,13 +1347,6 @@ render() {
         {this.state.user && this.state.allUsers ?
 
           <div>
-
-          <NotificationAlert ref="notificationAlert" />
-
-                {/* <UncontrolledAlert/> */}
-
-            {/* this.callFeebackNotification() */}
-
           <Row>
 
           <Col md="6">
@@ -1672,6 +1710,19 @@ render() {
             </Card>
           </Col>
           </Row>
+
+          <NotificationAlert ref="notificationAlert" />
+
+          <Button
+            block
+            color="primary"
+            style={{"display":"none"}}
+          >
+            Bottom Right
+          </Button>
+
+          { this.callFeebackNotification() }
+
 
       {!this.state.user.hasDoneTour? <Tour
       steps={steps}
