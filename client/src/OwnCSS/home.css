@@ -584,8 +584,9 @@ color:#a6a6a6;
   color:#fff;
   transition:0.6s;
 }
-span1:hover span2 {
-  color:#fff;
+span#home__feedbackRatingIcon2:hover #home__feedbackRatingIcon2 {
+  color:#fff !important;
+  background-color:red !important;
   transition:0.6s;
 }
 #home__feedbackRatingIcon3 {
@@ -626,7 +627,7 @@ span1:hover span2 {
   color:#fff;
   transition:0.6s;
 }
-#home__feedbackRatingIcon5:hover > Icon#home__feedbackRatingIcon4 {
+#home__feedbackRatingIcon5:hover #home__feedbackRatingIcon4 {
   color:#fff;
   transition:0.6s;
 }

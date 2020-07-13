@@ -769,9 +769,9 @@ animateNumbers() {
 
                 </div>
 
-                <div className="landing__ourTeamSpacing"></div>
+            {/*     <div className="landing__ourTeamSpacing"></div>
 
-                <div id="ourTeam2">
+               <div id="ourTeam2">
 
                 <div className="landing__ourTeamPersonContainer">
 
@@ -795,7 +795,7 @@ animateNumbers() {
 
 
 
-                    </div>
+                    </div>*/}
 
         </section>
 

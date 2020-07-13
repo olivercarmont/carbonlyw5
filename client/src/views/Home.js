@@ -508,7 +508,7 @@ createFeedbackNotification = place => {
                       <div style={{ height:"6px", "clear":"both"}}></div>
 
               <div className="feedback__positionStars">
-              {this.state.stars > 0 ? <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"> <Icon icon={treeIcon} onClick={() => this.setState({ stars: 1 })} /></span> : <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"><Icon icon={treeOutline} onClick={() => this.setState({ stars: 1 })} /></span>}  <span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
+              {this.state.stars > 0 ? <span className="home__feedbackHover1" id="home__feedbackRatingIcon1"> <Icon icon={treeIcon} onClick={() => this.setState({ stars: 1 })} /></span> : <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"><Icon icon={treeOutline} onClick={() => this.setState({ stars: 1 })} /></span>}  <span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
               </div>
 
 
@@ -1318,7 +1318,7 @@ switchPage() {
   window.location.href = 'https://carbonly.org/analytics';
 }
 callFeebackNotification() {
-  /*
+/*
   try {
 
   if (!this.state.hasShownFeedback) {
