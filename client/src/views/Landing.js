@@ -492,7 +492,7 @@ animateNumbers() {
 
         <div className="landing__topVideoMargins">
 
-        <iframe alt="Carbonly Online Carbon Tracking Intro Video" style={{ "border-radius": "5px", "width":"133.3333vh", "height": "75vh"}} id="landing__mainVideo" className={`landing__mainVideo ${this.state.videoClass}`} src="https://www.youtube.com/embed/d7BWAbuK9rk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe alt="Carbonly Online Carbon Tracking Intro Video" style={{ "border-radius": "5px", "width":"73vw", "height": "41.06vw"}} id="landing__mainVideo" className={`landing__mainVideo ${this.state.videoClass}`} src="https://www.youtube.com/embed/d7BWAbuK9rk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
       {/*  <div className="video-area" style={{ "background-image": `url(${require("../assets/img/landing/frontImage.png")})`}}>
               <div className="video-play-btn">
