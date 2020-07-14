@@ -9,16 +9,31 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/users/register", userData)
     .then(res => {
-      // Save to localStorage
-      // // // Set token to localStorage
-      // const { token } = res.data;
-      // localStorage.setItem("jwtToken", token);
-      // // Set token to Auth header
-      // setAuthToken(token);
-      // // Decode token to get user data
-      // const decoded = jwt_decode(token);
-      // // Set current user
-      // dispatch(setCurrentUser(decoded));
+
+      axios
+        .post("/users/login", userData)
+        .then(res => {
+
+          // console.log('DID IT WORK?')
+          // Save to localStorage
+          // Set token to localStorage
+          const { token } = res.data;
+          localStorage.setItem("jwtToken", token);
+          // Set token to Auth header
+          setAuthToken(token);
+          // Decode token to get user data
+          const decoded = jwt_decode(token);
+          // Set current user
+          dispatch(setCurrentUser(decoded));
+        })
+        .catch(err =>
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          })
+        );
+
+
     })
     .catch(err =>
       dispatch({
@@ -97,7 +112,7 @@ export const loginUser = userData => dispatch => {
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
-    .catch(err => 
+    .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

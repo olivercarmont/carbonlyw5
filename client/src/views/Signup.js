@@ -342,6 +342,8 @@ submitForm() {
     password: this.state.password
   }
 
+  console.log('USER', userData);
+
   this.props.registerUser(newUser, this.props.history);
 
   this.props.loginUser(userData, this.props.history);
@@ -351,7 +353,7 @@ submitForm() {
   this.props.history.push("/home");
 
   setTimeout(function() {
-    if (!localStorage.jwtToken) {
+    if (localStorage.jwtToken) {
       try {
       loginUser(userData, history);
       window.location.href = 'https://www.carbonly.org/home';
