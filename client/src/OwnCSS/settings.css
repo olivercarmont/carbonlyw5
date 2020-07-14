@@ -51,27 +51,35 @@ margin-bottom:77px;
 }
 .click__doneButton {
 /* background-color:#002D70; */
-background-color:transparent;
-border:2px solid #a9dbc0;
+/* background-color:transparent; */
+/* border:2px solid #a9dbc0; */
 color:#fff;
-background-color: #a9dbc0;
+/* background-color: #a9dbc0; */
 /* font-family: 'Red Hat Display', sans-serif; */
 /* font-weight:bold; */
+
+background: -webkit-linear-gradient(to left, #95c2a8, #b5dec9);
+background: -webkit-linear-gradient(right, #95c2a8, #b5dec9);
+background: -webkit-gradient(linear, right top, left top, from(#b5dec9), to(#64947d));
+background: -o-linear-gradient(right, #95c2a8, #b5dec9);
+background: linear-gradient(to left, #95c2a8, #b5dec9);
+
+border-radius:12px 25px 30px 30px;
+box-shadow:1px 1px 5px 1px #eee;
+
 letter-spacing:0.02em;
 font-size:1.04em;
-border-radius:25px;
 /* margin-right:5px;
 margin-top:23px; */
 margin-top:6px;
 cursor:pointer;
-transition:0.4s;
+transition:1s;
 
-padding-left:25px;
-padding-right:25px;
+padding-left:26px;
+padding-right:24px;
 
 padding-top:11px;
 padding-bottom:11px;
-
 
 text-align:center;
 display:flex;
@@ -82,13 +90,21 @@ font-weight:500;
 
 position:relative;
 z-index:20;
+transition-delay:1s;
 }
 .click__doneButton:hover {
 
-background-color: #dddddd;
+/* background-color: #dddddd;
 border-color:#ddd;
+*/
 color:#fff;
-transition:0.4s;
+background: #dddddd;
+background: -webkit-linear-gradient(to left, #dddddd, #dddddd);
+background: -webkit-linear-gradient(right, #dddddd, #dddddd);
+background: -webkit-gradient(linear, right top, left top, from(#dddddd), to(#dddddd));
+background: -o-linear-gradient(right, #dddddd, #dddddd);
+background: linear-gradient(to left, #dddddd, #dddddd);
+transition:1s;
 }
 .instructions__centerContent {
 /* width:60%; */

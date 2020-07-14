@@ -481,6 +481,19 @@ handleGoogleLogin(user, err){
 
     this.props.history.push("/home");
 
+    setTimeout(function() {
+      if (localStorage.jwtToken) {
+        try {
+        socialLoginUser(userData, history);
+        window.location.href = 'https://www.carbonly.org/home';
+      } catch(e) {
+        console.log('E', e);
+      }
+      }
+    }, 2000)
+
+    let history = this.props.history;
+
 
     //   return;
     // };
