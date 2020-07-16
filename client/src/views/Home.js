@@ -528,6 +528,7 @@ setBgChartData = name => {
 sendFeedback(message) {
 
   let totMessage = {
+    email: this.state.user.email,
     message,
   }
 
