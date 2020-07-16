@@ -297,6 +297,8 @@ class Home extends React.Component {
       search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Products'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
       compatibleMarketplaces: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Flights'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
       period: 'yearly',
+      stars: 0,
+      notificationDisplay: 'block',
       lineOptions: {
         scales: {
           yAxes: [{
@@ -470,6 +472,28 @@ componentWillMount() {
 
   this.setState({ user: response.data.info[0] });
 
+  axios.post('https://carbonly.org/form/has-submitted-form', { formId: "WO732A2", email: response.data.info[0].email }, {
+    formId: "WO732A2", email: response.data.info[0].email
+    })
+  .then(response => {
+
+      // console.log('RESPPPPPP', response.data.hasAnswered)
+
+       this.setState({ hasAnsweredFeedback: response.data.hasAnswered });
+
+       if (response) {
+        this.setState({ hasReceivedFeedbackAnswer: true });
+       }
+
+       // if (hasAnswered === )
+       //
+       // hasAnswered
+
+  })
+  .catch((error) => {
+
+  });
+
   let shuffleUsers = response.data.info[4].map((el) => {
     return el;
   })
@@ -495,6 +519,32 @@ setBgChartData = name => {
     bigChartData: name,
   });
 };
+sendFeedback(message) {
+
+  let totMessage = {
+    message,
+  }
+
+  let time = new Date();
+  let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+
+  time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
+  time.getHours() + ":" + minutes;
+
+      axios.post('https://carbonly.org/form/add-submission', { "type": "user-feedback", "data": totMessage, time }, {
+        "type": "user-feedback", "data": totMessage, time
+      })
+    .then(response => {
+
+      if (response) {
+        // alert(response)
+        this.setState({ notificationDisplay: 'none'})
+
+      }
+
+    });
+
+}
 createFeedbackNotification = place => {
     var color = Math.floor(Math.random() * 5 + 1);
 
@@ -507,9 +557,17 @@ createFeedbackNotification = place => {
             <span style={{ textAlign: "center"}}><span style={{"font-weight":"600", "font-size":"1.1em"}}>Howdy 👋</span><div style={{ height:"1px", "clear":"both"}}></div><span style={{ "margin-top": "10px !important"}}>Wanna' Tell us How We're Doing?</span></span>
                       <div style={{ height:"6px", "clear":"both"}}></div>
 
+              {/* this.state.stars === 0 ?
               <div className="feedback__positionStars">
-              {this.state.stars > 0 ? <span className="home__feedbackHover1" id="home__feedbackRatingIcon1"> <Icon icon={treeIcon} onClick={() => this.setState({ stars: 1 })} /></span> : <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"><Icon icon={treeOutline} onClick={() => this.setState({ stars: 1 })} /></span>}  <span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
-              </div>
+              <span className="home__feedbackHover1" id="home__feedbackRatingIcon1"> <Icon icon={treeOutline} onClick={() => this.clickedStars(1)} /></span> <span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
+              </div> : undefined}
+
+              {this.state.stars === 1 ?
+              <div className="feedback__positionStars">ONE TWO THREE
+              <span className="home__feedbackHover2" id="home__feedbackRatingIcon1"><Icon icon={treeIcon} onClick={() => this.setState({ stars: 1 })} /></span><span2 id="home__feedbackRatingIcon2" className="home__feedbackHover2"><Icon icon={treeOutline} /></span2>  <span id="home__feedbackRatingIcon3"><Icon icon={treeOutline} /></span>  <Icon icon={treeOutline} id="home__feedbackRatingIcon4" />  <Icon icon={treeOutline} id="home__feedbackRatingIcon5" />
+              </div> : undefined */}
+
+                <div className="">{this.state.feedbackThanks}</div>
 
 
             <div className="ourData__indFormContainer">
@@ -517,12 +575,9 @@ createFeedbackNotification = place => {
             <textarea className="home__feedbackTextArea" value={this.state.feedbackMessage} maxlength="1500" onChange={(e) => this.setState({ feedbackMessage: e.target.value})} placeholder="Anything Helps 😝" />
             </div>
 
+            <div className="home__feedbackSendIcon" onClick={() => this.sendFeedback(this.state.feedbackMessage)}><Icon icon={paperPlane} /></div>
 
 
-
-
-
-            <div className="home__feedbackSendIcon"><Icon icon={paperPlane} /></div>
 
           </div>
         </div>
@@ -1318,7 +1373,41 @@ switchPage() {
   window.location.href = 'https://carbonly.org/analytics';
 }
 callFeebackNotification() {
-/*
+
+  console.log('ST', this.state.hasAnsweredFeedback)
+
+  let newTime = new Date();
+
+  let minutesDiff = Date.parse(newTime) - Date.parse(this.state.user.dateJoined);
+  minutesDiff = Math.abs(minutesDiff / 60000);
+
+  if ((!this.state.hasAnsweredFeedback || this.state.hasAnsweredFeedback === 'f') && minutesDiff > 1440) {
+
+    let newMessage = "n/a", answerType = 'hasSeen';
+
+    let time = new Date();
+    let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+
+    time = time.getDate()  + "/" + (time.getMonth()+1) + "/" + time.getFullYear() + " " +
+    time.getHours() + ":" + minutes;
+
+        axios.post('https://carbonly.org/form/submit-question', { formId: "WO732A2", "email": this.state.user.email, "details": newMessage, time, answerType }, {
+          formId: "WO732A2", "email": this.state.user.email, "details": newMessage, time, answerType })
+         .then(response => {
+
+             // console.log('RESPPPPPP', response.data.hasAnswered)
+
+              // this.setState({ hasAnsweredFeedback: response.data.hasAnswered });
+
+              // if (hasAnswered === )
+              //
+              // hasAnswered
+
+         })
+         .catch((error) => {
+
+         });
+
   try {
 
   if (!this.state.hasShownFeedback) {
@@ -1329,7 +1418,9 @@ callFeebackNotification() {
  } catch(e) {
    console.log('E', e);
  }
- */
+
+}
+
 }
 render() {
 
@@ -1344,7 +1435,7 @@ render() {
           <meta name="description" content="See The Latest Changes to Your Online Carbon Footprint!" />
         </Helmet>
 
-        {this.state.user && this.state.allUsers ?
+        {this.state.user && this.state.allUsers && this.state.hasReceivedFeedbackAnswer ?
 
           <div>
           <Row>
@@ -1711,7 +1802,10 @@ render() {
           </Col>
           </Row>
 
-          <NotificationAlert ref="notificationAlert" />
+          <span className="" style={{ "display": this.state.notificationDisplay }}>
+
+          <NotificationAlert ref="notificationAlert"  />
+          </span>
 
           <Button
             block

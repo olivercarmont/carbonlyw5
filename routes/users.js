@@ -541,6 +541,8 @@ router.post("/register", (req, res) => {
 
     }
 
+    let cur_time = new Date();
+
     if (parseFloat(req.body.points) > 0) {
     const newUser = new User({
        name: req.body.name,
@@ -552,6 +554,7 @@ router.post("/register", (req, res) => {
        hasloggedIn: 'f',
        bonusPoints: parseFloat(req.body.points),
        socialLogin: false,
+       dateJoined: cur_time,
      });
 
      // Hash password before saving in database
@@ -576,6 +579,7 @@ router.post("/register", (req, res) => {
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
        socialLogin: false,
+       dateJoined: cur_time,
      });
 
      // Hash password before saving in database
@@ -665,6 +669,8 @@ router.post("/social-register", (req, res) => {
 
     }
 
+    let cur_time = new Date();
+
     if (parseFloat(req.body.points) > 0) {
     const newUser = new User({
        name: req.body.name,
@@ -676,6 +682,7 @@ router.post("/social-register", (req, res) => {
        hasloggedIn: 'f',
        bonusPoints: parseFloat(req.body.points),
        socialLogin: true,
+       dateJoined: cur_time,
      });
 
     } else {
@@ -688,6 +695,7 @@ router.post("/social-register", (req, res) => {
        referralCode:req.body.referralCode,
        hasloggedIn: 'f',
        socialLogin: true,
+       dateJoined: cur_time,
      });
 
          newUser

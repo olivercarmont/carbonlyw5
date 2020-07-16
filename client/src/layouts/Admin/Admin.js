@@ -64,7 +64,7 @@ class Admin extends React.Component {
         store.dispatch(logoutUser());
 
         // Redirect to login
-        window.location.href = "/home";
+        window.location.href = "/log-in";
       }
     }
 
