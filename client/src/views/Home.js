@@ -1817,6 +1817,11 @@ render() {
 
           { this.callFeebackNotification() }
 
+        {/*   <div id="home__taskList">
+          Your Tasks
+
+          </div> */}
+
 
       {!this.state.user.hasDoneTour? <Tour
       steps={steps}
