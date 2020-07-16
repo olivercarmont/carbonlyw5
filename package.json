@@ -133,6 +133,7 @@
     "@iconify/icons-simple-icons": "^1.0.29",
     "@iconify/icons-subway": "^1.0.3",
     "@iconify/icons-uil": "^1.0.11",
+    "@iconify/icons-zmdi": "^1.0.3",
     "@iconify/react": "^1.1.3",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",

@@ -158,7 +158,11 @@ margin-bottom:8px;
   /* font-weight:bold; */
   letter-spacing:0.02em;
   font-size:1.09em;
-  border-radius:25px;
+  /* border-radius:25px; */
+
+  border-radius:21px 37px 45px 45px;
+  box-shadow:1px 1px 5px 1px #eee;
+
   /* margin-right:5px;
   margin-top:23px; */
   margin-top:8px;
@@ -247,8 +251,11 @@ margin-right:15px;
   -moz-box-shadow: -1px 3px 8px 1px #f1f1f1;
   box-shadow: -1px 2px 8px 1px #f1f1f1; */
 
+  border-radius:21px 37px 45px 45px;
+  box-shadow:1px 1px 5px 1px #eee;
+
   width:95%;
-  border-radius:10px;
+  /* border-radius:10px; */
   height:141px;
 
   position:relative;
@@ -364,4 +371,8 @@ margin-right:15px;
 
   /* color:#385243; */
   /* background-color:red; */
+}
+.home__taskListIndDes {
+  color:#aaa;
+  margin-top:10px;
 }

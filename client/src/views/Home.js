@@ -46,6 +46,11 @@ import accountArrowRight from '@iconify/icons-mdi/account-arrow-right';
 import sadTear from '@iconify/icons-fa-regular/sad-tear';
 import handPointRight from '@iconify/icons-fa-regular/hand-point-right';
 
+import roundOpenInFull from '@iconify/icons-ic/round-open-in-full';
+import closeCircleO from '@iconify/icons-zmdi/close-circle-o';
+import awardIcon from '@iconify/icons-fa-solid/award';
+
+
 import treeOutline from '@iconify/icons-mdi/tree-outline';
 import treeIcon from '@iconify/icons-mdi/tree';
 
@@ -292,6 +297,7 @@ class Home extends React.Component {
       hasShownFeedback: false,
       isTourOpen:true,
       global: true,
+      taskList: false,
       shoppingList: [],
       cur: '$',
       search: [{ name: 'Amazon US', image: amazonImg, link: "https://www.amazon.com", description: 'All Products'}, { name: 'Amazon UK', image: amazonImg, link: "https://www.amazon.co.uk", description: 'All Products'}, { name: 'Booking.com', image: bookingImg, link: "https://flights.booking.com/", description: 'All Flights'}, { name: 'Expedia', image: expediaImg, link: "https://www.expedia.com/", description: 'All Flights'}, { name: 'S-Group Foodie', image: foodieImg, link: "https://www.foodie.fi/", description: 'All Products'}, { name: 'Google Flights', image: googleFlightsImg, link: "https://www.google.com/flights", description: 'All Flights'}, { name: 'Kauppahalli24', image: kauppahalliImg, link: "https://www.kauppahalli24.fi/", description: 'All Products'}, { name: 'Kayak', image: kayakImg, link: "https://www.kayak.com/", description: 'All Flights'}, { name: 'KLM', image: klmImg, link: "https://www.klm.com", description: 'All Flights'}, { name: 'K Ruoka', image: kRuokaImg, link: "https://www.k-ruoka.fi/", description: 'All Products'}, { name: 'Momondo', image: momondoImg, link: "https://www.momondo.com/", description: 'All Flights'}, { name: 'Skyscanner', image: skyscannerImg, link: "https://www.skyscanner.com", description: 'All Flights'}, { name: 'Tesco', image: tescoImg, link: "https://www.tesco.com", description: 'All Products'}, { name: 'Trip Advisor', image: tripAdvisorImg, link: "https://www.tripadvisor.com/CheapFlightsHome", description: 'All Flights'}, { name: 'Uber Eats', image: uberEatsImg, link: "https://www.ubereats.com", description: 'All Products'}],
@@ -1422,6 +1428,33 @@ callFeebackNotification() {
 }
 
 }
+returnTaskCompletion() {
+  let has1 = false, has2 = false, has3 = false;
+  let completion = 0;
+
+  if (this.state.user.orders.length > 0) {
+    has1 = true;
+    completion += 33;
+  }
+
+  if (this.state.user.offsets.length > 0) {
+    has2 = true;
+    completion += 33;
+  }
+
+  if (this.state.user.bonusPoints >= 2500) {
+    has3 = true;
+    completion += 33;
+  }
+
+  if (completion > 64) {
+    completion = 100;
+  }
+
+  console.log('SEE', [has1, has2, has3, completion])
+
+  return [has1, has2, has3, completion]
+}
 render() {
 
     let newDateHome = new Date();
@@ -1817,10 +1850,69 @@ render() {
 
           { this.callFeebackNotification() }
 
-        {/*   <div id="home__taskList">
-          Your Tasks
+          {!this.state.taskList ? <div id="home__taskListHidden" onClick={() => this.setState({ taskList: true })}>
+            <div className={`home__taskListTitleHidden ${this.returnTaskCompletion()[3] > 60 ? 'home__green' : ''}`}>Your Tasks &nbsp;🛠️</div>
+            <div className="home__taskListHiddenNumberDone">({this.returnTaskCompletion()[3] > 60 ? '3' : this.returnTaskCompletion()[3] > 30 ? '1' : '0'}/3)</div>
+            <div className="home__taskListOpenIcon"><Icon icon={roundOpenInFull} /></div>
 
-          </div> */}
+          </div> : undefined}
+
+          {this.state.taskList ? <div id="home__taskList">
+
+            <div className="home__taskListHeader">
+            <div className="home__taskListTitle">Your Tasks &nbsp;🛠️</div>
+            <div className="home__taskListCloseIcon" onClick={() => this.setState({ taskList: false })}><Icon icon={closeCircleO} /></div>
+            </div>
+
+            <div className="home__taskListMargins">
+
+            <div className="home__taskListIndividualItem">
+            <div className={`home__taskListNumber ${this.returnTaskCompletion()[0] ? 'home__green' : ''}`}>1</div>
+            <div className="home__taskListImageContainer">
+            <img src={require("../assets/img/home/order.png")} className="home__taskListImage"/>
+            </div>
+            <div className="home__taskListTextContainer">
+            <div className={`home__taskListIndTitle1 ${this.returnTaskCompletion()[0] ? 'home__green' : ''}`}>Track an Order! <span className={this.returnTaskCompletion()[0] ? "home__taskListOutOfThreeStrike" : "home__taskListOutOfThree"}>{this.returnTaskCompletion()[0] ? '(1/1)' : '(0/1)'}</span></div>
+            <div className='home__taskListIndDes'>Go To The Carbonly Extension or Watch <Link to="/instructions">This</Link> Tutorial</div>
+            </div>
+            </div>
+
+            <hr className="home__taskListHr"/>
+
+            <div className="home__taskListIndividualItem">
+            <div className={`home__taskListNumber ${this.returnTaskCompletion()[1] ? 'home__green' : ''}`}>2</div>
+            <div className="home__taskListImageContainer">
+            <img src={require("../assets/img/home/offset.png")} className="home__taskListImage"/>
+            </div>
+            <div className="home__taskListTextContainer">
+            <Link to="/offsets" className={`home__taskListIndTitle ${this.returnTaskCompletion()[1] ? 'home__green' : ''}`}>Offset! <span className={this.returnTaskCompletion()[1] ? "home__taskListOutOfThreeStrike" : "home__taskListOutOfThree"}>{this.returnTaskCompletion()[0] && this.returnTaskCompletion()[1] ? '(2/2)' : this.returnTaskCompletion()[0] || this.returnTaskCompletion()[1] ? '(1/2)' : '(0/2)'}</span></Link>
+            <div className={this.returnTaskCompletion()[1] ? 'home__taskListIndDes' : 'home__taskListIndDes'}>Go To Your <Link to="/offsets">Offset Page</Link> Once You've Ordered!</div>
+            </div>
+            </div>
+
+            <hr className="home__taskListHr"/>
+
+            <div className="home__taskListIndividualItem">
+            <div className={`home__taskListNumber ${this.returnTaskCompletion()[2] ? 'home__green' : ''}`}>3</div>
+            <div className="home__taskListImageContainer">
+            <img src={require("../assets/img/home/refer.png")} className="home__taskListImage"/>
+            </div>
+            <div className="home__taskListTextContainer">
+            <Link to="/profile" className={`home__taskListIndTitle ${this.returnTaskCompletion()[2] ? 'home__green' : ''}`}>Refer a Friend! <span className={this.returnTaskCompletion()[2] ? "home__taskListOutOfThreeStrike" : "home__taskListOutOfThree"}>{this.returnTaskCompletion()[3] > 64 ? '(3/3)' : this.returnTaskCompletion()[3] > 34 ? '(2/3)' : this.returnTaskCompletion()[3] > 0 ? '(1/3)' : '(0/3)'}</span></Link>
+            <div className={this.returnTaskCompletion()[2] ? 'home__taskListIndDes' : 'home__taskListIndDes'}>Copy Your Referral Code From Your <Link to="/profile">Profile</Link>!</div>
+            </div>
+            </div>
+
+            </div>
+
+            <div className="home__taskListReward">Reward 	&nbsp;<Icon icon={awardIcon} /></div>
+            <div className={this.returnTaskCompletion()[3] > 60 ? 'home__taskListPointsGained' : 'home__taskListPoints'}>2500+ Offset Points</div>
+
+            <div className={`home__taskListBottomHeader ${this.returnTaskCompletion()[3] > 64 ? 'home__taskListBottomHeaderSelected' : undefined}`}>
+            <div className="home__taskListPerComplete">{this.returnTaskCompletion()[3]}% Complete ({this.returnTaskCompletion()[3] > 64 ? '3' : this.returnTaskCompletion()[3] > 34 ? '1' : '0'}/3)</div>
+            </div>
+
+          </div> : undefined}
 
 
       {!this.state.user.hasDoneTour? <Tour
