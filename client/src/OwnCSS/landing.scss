@@ -915,15 +915,32 @@ transform: translateX(20%);
   display:flex;
   align-items:center;
   flex-direction:column;
+  margin-top:-11px;
+}
+.landing__awardProvider1 {
+  width:69%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  margin-top:-50px;
+}
+.landing__awardProvider2 {
+  width:43%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  margin-top:0px;
 }
 .landing__awardProviderDescription {
   color:#aaa;
   width:80%;
   text-align:center;
   margin:auto;
-  margin-top:-4px;
-  margin-bottom:20px;
-  font-size:0.94em;
+  margin-top:-8px;
+  margin-bottom:18px;
+  font-size:0.96em;
 }
 
 .landing__awardDescription {

@@ -814,6 +814,17 @@ animateNumbers() {
         <div className="landing__indAward">
 
         <div className="landing__awardsImageHeight">
+        <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/pioneerImage.png')} className="landing__awardProvider1" /></a>
+        </div>
+        <div className="landing__awardProviderDescription">Online Startup Accelerator 🚤</div>
+
+        <div className="landing__awardDescription">Pioneer Tournament Winner <br/> $200,000 Cloud Credits</div>
+
+        </div>
+
+        <div className="landing__indAward">
+
+        <div className="landing__awardsImageHeight">
         <a href="https://www.fortum.com/" target="_blank"><img src={require('../assets/img/landing/awardImages/fortumLogo.png')} className="landing__awardProvider" /></a>
         </div>
         <div className="landing__awardProviderDescription">Largest Renewable Energy Supplier Finland ☀️</div>
@@ -825,7 +836,7 @@ animateNumbers() {
         <div className="landing__indAward">
 
         <div className="landing__awardsImageHeight">
-        <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider" /></a>
+        <a href="https://www.hackjunction.com/" target="_blank"><img  src={require('../assets/img/landing/awardImages/junctionLogo.png')} className="landing__awardProvider2" /></a>
         </div>
 
         <div className="landing__awardProviderDescription">Largest Hackathon Organiser Finland ✖️</div>
